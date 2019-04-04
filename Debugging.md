@@ -6,4 +6,4 @@
 
  Besides that, Rhetos has a detailed logging of all actions he performs, that is set up by default for logging errors only(because of the performances). The detail level of the logger is adjusted in the Web.config file.
 
- To be able to step through the code from the generated [server object model](https://github.com/Rhetos/Rhetos/wiki/Using-the-Domain-Object-Model)(ServerDom.cs/dll/pdb) in Visual      Studio on the ISS, in Tools-Options it is required that you turn off the option "Just My Code"(that option disables debugging of optimized dll's from the external procesess).
+ To be able to step through the code from the generated [server object model](https://github.com/Rhetos/Rhetos/wiki/Using-the-Domain-Object-Model)(ServerDom.cs/dll/pdb) in Visual Studio on the ISS, in Tools-Options it is required that you turn off the option "Just My Code"(that option disables debugging of optimized dll's from the external procesess).
