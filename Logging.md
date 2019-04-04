@@ -38,12 +38,12 @@ For example, a **custom log entry** can be added by
 with the following parameters: "ShortString Action, ShortString TableName, Guid ItemId, LongString Description"
 (only the Action parameter is required).
 
-When **reading data** from the Common.Log, *always* use the view **Common.LogReader**, instead of reading from Common.Log directly.
+When **reading the log data**, *always* use the view **Common.LogReader**, instead of reading from Common.Log directly.
 
 * LogReader ensures that reading log will not block any write operations (WITH NOLOCK). This is important if the database does not use read committed snapshot, to allow other users to work while analyzing the log.
 * LogReader can include archived logs from other tables or databases.
 
-The Common.Log table contains following columns:
+*Common.LogReader* returns the following columns:
 
 | Column name | Description |
 | --- | --- |
