@@ -3,6 +3,7 @@
 In order for Rhetos to work on HTTPS you need to update security elements in web.config file.
 
 Insert following code:
+
 ```XML
 <security mode="Transport">
   <transport clientCredentialType="None" />
@@ -10,16 +11,19 @@ Insert following code:
 ```
 
 Into:
+
 ```XML
 <basicHttpBinding><binding> </binding></basicHttpBinding>
 ```
 
 And into:
+
 ```XML
 <webHttpBinding><binding> </binding></webHttpBinding>
 ```
 
 Example:
+
 ```XML
 <services>
   <service name="Rhetos.RhetosService">

@@ -49,6 +49,7 @@ Fundamentals:
 * [User authentication and authorization](User-authentication-and-authorization)
 * [Data migration](Data-migration)
 * [Logging](Logging)
+* [Debugging](Debugging)
 * [TemplaterReport](TemplaterReport)
 * [Rhetos coding standard](Rhetos-coding-standard)
 
