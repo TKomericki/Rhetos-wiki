@@ -48,6 +48,7 @@ Fundamentals:
 * [Rhetos RESTful web API plugin](https://github.com/Rhetos/RestGenerator/blob/master/Readme.md)
 * [User authentication and authorization](User-authentication-and-authorization)
 * [Data migration](Data-migration)
+* [Logging](Logging)
 * [TemplaterReport](TemplaterReport)
 * [Rhetos coding standard](Rhetos-coding-standard)
 

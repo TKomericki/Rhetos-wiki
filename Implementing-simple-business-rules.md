@@ -6,7 +6,7 @@ Contents:
 1. [Property value constraints](#property-value-constraints)
 2. [Deny data modifications](#deny-data-modifications)
 3. [Automatically generated data](#automatically-generated-data)
-4. [Logging](#logging)
+4. [Logging data changes and auditing](#logging-data-changes-and-auditing)
 5. [Other features](#other-features)
 6. [See also](#see-also)
 
@@ -85,7 +85,7 @@ Code examples for **DefaultValue** are available in DSL script [DefaultValueTest
 
 Code examples for **AutoCode**, **CreationTime** and **ModificationTimeOf** are available in DSL script [SimpleBusinessLogic.rhe](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/CommonConceptsTest/DslScripts/SimpleBusinessLogic.rhe) script.
 
-## Logging
+## Logging data changes and auditing
 
 * `Logging` - Creates a database trigger that monitors all inserts, updates and deletes, and writes them to `Common.Log` table.
 * `Log` - Extends the trigger to track modified or deleted values for a given property.
@@ -120,10 +120,7 @@ Module Demo
 }
 ```
 
-Note: When reading data from the Common.Log, make sure to use the view **Common.LogReader**, instead of reading from Common.Log directly.
-
-* LogReader ensures that reading log will not block any write operations (WITH NOLOCK). This is important if the database does not use read committed snapshot, to allow other users to work while analyzing the log.
-* LogReader can include archived logs from other tables or databases.
+See [Logging data changes and auditing](Logging#logging-data-changes-and-auditing) for more information.
 
 ## Other features
 
@@ -133,7 +130,7 @@ Note: When reading data from the Common.Log, make sure to use the view **Common.
   * Code example is available in DSL script [SimpleBusinessLogic.rhe](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/CommonConceptsTest/DslScripts/SimpleBusinessLogic.rhe).
 
 * `PessimisticLocking` - Enables automatic verification of explicit client locks when saving a record. A user can change a records only when there is no ExclusiveLock from another user on this record. When editing detail records, only master needs to be locked.
-  * A client application can manage the locks with actions Common.SetLock i Common.ReleaseLock, with parameters ResourceType (full entity name) and ResourceID (GUID).
+  * A client application can manage the locks with actions Common.SetLock and Common.ReleaseLock, with parameters ResourceType (full entity name) and ResourceID (GUID).
   * Code example is available in DSL script [PessimisticLocking.rhe](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/CommonConceptsTest/DslScripts/PessimisticLocking.rhe).
 
 ## See also
