@@ -1,42 +1,25 @@
 # Setting up Rhetos for HTTPS
 
-In order for Rhetos to work on HTTPS you need to update security elements in web.config file.
+In order for Rhetos to work on HTTPS you need to update the binding security elements in Rhetos server's *web.config* file:
 
-Insert following code:
+1. Insert the following snippet into the existing `binding` elements (or update if it already exists):
 
-```XML
-<security mode="Transport">
-  <transport clientCredentialType="None" />
-</security>
-```
+    ```XML
+    <security mode="Transport">
+      <transport clientCredentialType="None" />
+    </security>
+    ```
 
-Into:
+   Insert into `<basicHttpBinding><binding> ... </binding></basicHttpBinding>`
 
-```XML
-<basicHttpBinding><binding> </binding></basicHttpBinding>
-```
+   and into`<webHttpBinding><binding> ... </binding></webHttpBinding>`
 
-And into:
+2. If the web application uses Windows authentication,
+   modify clientCredentialType to `clientCredentialType="Windows"`.
 
-```XML
-<webHttpBinding><binding> </binding></webHttpBinding>
-```
-
-Example:
+Example result:
 
 ```XML
-<services>
-  <service name="Rhetos.RhetosService">
-    <clear />
-    <endpoint address="" binding="basicHttpBinding" bindingConfiguration="rhetosBasicHttpBinding" name="basic" contract="Rhetos.IServerApplication" listenUriMode="Explicit">
-      <identity>
-        <dns value="localhost" />
-        <certificateReference storeName="My" storeLocation="LocalMachine" x509FindType="FindBySubjectDistinguishedName" />
-      </identity>
-    </endpoint>
-    <endpoint address="mex" binding="mexHttpsBinding" contract="Rhetos.IServerApplication" />
-  </service>
-</services>
 <bindings>
   <basicHttpBinding>
     <binding name="rhetosBasicHttpBinding" maxReceivedMessageSize="104857600">
