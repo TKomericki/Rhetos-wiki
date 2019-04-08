@@ -76,13 +76,16 @@ The **syntax highlighting** plugins are available for the following text editors
 
 **Notepad++:**
 
-1. Download the [RhetosNppSyntaxHighlight.xml](https://raw.githubusercontent.com/Rhetos/RhetosNPP/master/RhetosNppSyntaxHighlight.xml) file from <https://github.com/Rhetos/RhetosNPP>.
+1. Download the [RhetosNppSyntaxHighlight.xml](https://raw.githubusercontent.com/Rhetos/RhetosNPP/master/RhetosNppSyntaxHighlight.xml)
+   file from <https://github.com/Rhetos/RhetosNPP>.
 2. Open "Notepad++" => Menu "Language" => "Define your language" => Click "Import..." => Select the downloaded XML file.
 3. For direct *deployment* of DSL scripts from Notepad++ (only for the development environment):
    1. Install the *NppExec* plugin (Plugins -> Plugin Manages ->...).
    2. F6 -> enter the path to "DeployPackages.exe" inside the Rhetos server, for example
-      "C:\Projects\MyRhetosServer\bin\DeployPackages.exe", click "Save...", enter script name "DeployPackages". Henceforward, that action can be executed directly with CTRL-F6.
-   3. For automatic analysis of deployment results: SHIFT-F6 -> "Highlight" -> enter the following table. Henceforward, a double-click on the underlined line in the log is going to directly open the file and position on the error.
+      "C:\Projects\MyRhetosServer\bin\DeployPackages.exe", click "Save...", enter script name "DeployPackages".
+      Henceforward, that action can be executed directly with CTRL-F6.
+   3. For automatic analysis of deployment results: SHIFT-F6 -> "Highlight" -> enter the following table.
+      Henceforward, a double-click on the underlined line in the log is going to directly open the file and position on the error.
 
     |    |     |     |     |     |     |     |     |
     |--- | --- | --- | --- | --- | --- | --- | --- |
@@ -96,7 +99,9 @@ The **syntax highlighting** plugins are available for the following text editors
     | ☑ |*SUCCESSFULLY COMPLETED* | 00 | FF | 00 | ☐ | ☑ | ☐ |
     | ☑ | at * in %A%:line %L% | 00 | 00 | 00 | ☐ | ☐ | ☑ |
 
-4. For additional comfort while working you can download the plug-in QuickText [here](https://sourceforge.net/projects/quicktext/?source=dlp). The plug-in enables you to define and use shortcuts that will be replaced with complete expressions. For example replace "ss" with "ShortString" and so on.
+4. Optionally, you can download the plug-in QuickText [here](https://sourceforge.net/projects/quicktext/?source=dlp).
+   The plug-in enables you to define and use shortcuts that will be replaced with complete expressions.
+   For example replace "ss" with "ShortString" and so on.
 
 **SublimeText3:**
 
