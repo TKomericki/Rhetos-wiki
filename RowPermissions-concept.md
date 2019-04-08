@@ -34,7 +34,7 @@ Example requirements:
 
 Solution:
 
-```c
+```C
 Module DemoRowPermissions1
 {
     Entity Division
@@ -98,7 +98,7 @@ Example requirements:
 
 Solution:
 
-```c
+```C
 Module DemoRowPermissions2
 {
     Entity Region
@@ -188,7 +188,7 @@ Example requirements:
 
 Add this script to the previous example's solution.
 
-```c
+```C
 Module DemoRowPermissions2
 {
     AutoInheritRowPermissions;
@@ -239,7 +239,7 @@ By using `AutoInheritRowPermissions`, the row permissions from `Document` entity
 
 Instead of using `AutoInheritRowPermissions` (see the previous solution), row permissions inheritance may be explicitly set for selected entities.
 
-```c
+```C
 Module DemoRowPermissions2
 {
     // NOT USING AutoInheritRowPermissions;
@@ -293,7 +293,7 @@ Consider the following example:
 `DocumentInfo` is an extension of the `Document` entity,
 and inherits the row permissions from the `Document`.
 
-```c
+```C
 SqlQueryable DocumentInfo
     "SELECT
         ID,
@@ -307,7 +307,7 @@ SqlQueryable DocumentInfo
     Reference Division2 DemoRowPermissions2.Division
     {
         SamePropertyValue 'Base.Division';
-        
+
         // Old syntax, before Rhetos v2.11:
         // SamePropertyValue 'Base' DemoRowPermissions2.Document.Division;
     }

@@ -23,6 +23,7 @@ All you need to do is define its properties and their types.
 For example, consider the following task:
 
 > Develop an application backend with the following entities:
+>
 > * Person (has Name)
 > * Book (has Code, Title, NumberOfPages)
 

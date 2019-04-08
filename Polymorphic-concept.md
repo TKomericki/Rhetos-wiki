@@ -7,13 +7,13 @@ Similar features:
 
 Contents:
 
-- [Basic usage](#basic-usage)
-- [Referencing or extending a polymorphic entity](#referencing-or-extending-a-polymorphic-entity)
-- [Multiple interface implementations](#multiple-interface-implementations)
-- [Property implementation with subquery](#property-implementation-with-subquery)
-- [Limit the implementation with filter (where)](#limit-the-implementation-with-filter-where)
-- [Subtype implementation using SQL query](#subtype-implementation-using-sql-query)
-- [Writing efficient queries from client application](#writing-efficient-queries-from-client-application)
+1. [Basic usage](#basic-usage)
+2. [Referencing or extending a polymorphic entity](#referencing-or-extending-a-polymorphic-entity)
+3. [Multiple interface implementations](#multiple-interface-implementations)
+4. [Property implementation with subquery](#property-implementation-with-subquery)
+5. [Limit the implementation with filter (where)](#limit-the-implementation-with-filter-where)
+6. [Subtype implementation using SQL query](#subtype-implementation-using-sql-query)
+7. [Writing efficient queries from client application](#writing-efficient-queries-from-client-application)
 
 ## Basic usage
 
@@ -24,7 +24,7 @@ For example, `MoneyTransaction` data structure can have multiple forms: `BorrowM
 
 Example:
 
-```
+```C
 Module Demo
 {
     Polymorphic MoneyTransaction
@@ -68,11 +68,13 @@ Note that:
 A polymorphic data structure may be referenced or extended by other entities (Browse is also an extension).
 Rhetos will check the **reference constraint** on data modifications.
 
-    Entity TransactionComment
-    {
-        Reference MoneyTransaction;
-        LongString Comment;
-    }
+```C
+Entity TransactionComment
+{
+    Reference MoneyTransaction;
+    LongString Comment;
+}
+```
 
 Internally, the reference is implemented as a foreign key in database: from the `TransactionComment` table to the automatically generated `MoneyTransaction_Key` table.
 The `MoneyTransaction_Key` table contains union of IDs from all MoneyTransaction subtypes: `BorrowMoney` and `LendMoney`.
@@ -85,20 +87,22 @@ It can even implement the same interface multiple times, using additional string
 
 For example, the `TransferMoney` entity record may represent two money transactions: subtracting from one account and adding to the other account.
 
-    Entity TransferMoney
+```C
+Entity TransferMoney
+{
+    DateTime EventDate;
+    ShortString TransferFrom;
+    ShortString TransferTo;
+    Money Amount;
+
+    Is Demo.MoneyTransaction; // Implicitly using the 'Amount' value.
+
+    Is Demo.MoneyTransaction 'Subtract'
     {
-        DateTime EventDate;
-        ShortString TransferFrom;
-        ShortString TransferTo;
-        Money Amount;
-
-        Is Demo.MoneyTransaction; // Implicitly using the 'Amount' value.
-
-        Is Demo.MoneyTransaction 'Subtract'
-        {
-            Implements Demo.MoneyTransaction.Amount '-Amount';
-        }
+        Implements Demo.MoneyTransaction.Amount '-Amount';
     }
+}
+```
 
 See the generated SQL view `Demo.MoneyTransaction` to check that a `TransferMoney` record is included twice in the view.
 
@@ -108,20 +112,22 @@ An SQL subquery may be used for polymorphic property implementation.
 
 For example, one `LendMoney` instance can have multiple additions (`LendMoneyAddendum`) that will be summed as a single `TotalAddendum` implementation of `MoneyTransaction`:
 
-    Entity LendMoneyAddendum
-    {
-        Reference LendMoney;
-        Money AdditionalAmount;
-    }
+```C
+Entity LendMoneyAddendum
+{
+    Reference LendMoney;
+    Money AdditionalAmount;
+}
 
-    Entity LendMoney // Adding new features to the existing entity.
+Entity LendMoney // Adding new features to the existing entity.
+{
+    Is Demo.MoneyTransaction 'TotalAddendum'
     {
-        Is Demo.MoneyTransaction 'TotalAddendum'
-        {
-            Implements Demo.MoneyTransaction.Amount '(SELECT -SUM(AdditionalAmount) FROM Demo.LendMoneyAddendum)';
-            SqlDependsOn Demo.LendMoneyAddendum;
-        }
+        Implements Demo.MoneyTransaction.Amount '(SELECT -SUM(AdditionalAmount) FROM Demo.LendMoneyAddendum)';
+        SqlDependsOn Demo.LendMoneyAddendum;
     }
+}
+```
 
 See the generated SQL view `Demo.LendMoney_As_MoneyTransaction_TotalAddendum` to check the impact of the subquery.
 
@@ -136,18 +142,20 @@ The `Where` concept can be used to limit the items when will be included in the 
 This example is an alternative implementation of the `BorrowMoney` subtype (see the original implementation above).
 In the following example, only items from `BorrowMoney2` that are not `Forgotten` will be included in the `MoneyTransaction`.
 
-    Entity BorrowMoney2
-    {
-        DateTime EventDate;
-        ShortString FromWhom;
-        Money Amount;
-        Bool Forgotten;
+```C
+Entity BorrowMoney2
+{
+    DateTime EventDate;
+    ShortString FromWhom;
+    Money Amount;
+    Bool Forgotten;
 
-        Is Demo.MoneyTransaction
-        {
-            Where 'Forgotten = 0'; // SQL snippet, the "Forgotten" column is a "bit".
-        }
+    Is Demo.MoneyTransaction
+    {
+        Where 'Forgotten = 0'; // SQL snippet, the "Forgotten" column is a "bit".
     }
+}
+```
 
 See the generated SQL view `Demo.BorrowMoney2_As_MoneyTransaction` to check the impact of the `Where` concept.
 
@@ -157,21 +165,23 @@ Instead of using property implementations (`Implements` keyword), a specific SQL
 
 This example is an alternative implementation of the `LendMoney` subtype (see the original implementation above).
 
-    Entity LendMoney2
-    {
-        ShortString ToWhom;
-        // When using SqlImplementation, the properties are not automatically inherited from the polymorphic.
-        DateTime EventDate;
-        Money Amount;
+```C
+Entity LendMoney2
+{
+    ShortString ToWhom;
+    // When using SqlImplementation, the properties are not automatically inherited from the polymorphic.
+    DateTime EventDate;
+    Money Amount;
 
-        Is Demo.MoneyTransaction
+    Is Demo.MoneyTransaction
+    {
+        SqlImplementation "SELECT lm.ID, lm.EventDate, Amount = -lm.Amount FROM Demo.LendMoney2 lm"
         {
-            SqlImplementation "SELECT lm.ID, lm.EventDate, Amount = -lm.Amount FROM Demo.LendMoney2 lm"
-            {
-                AutoDetectSqlDependencies;
-            }
+            AutoDetectSqlDependencies;
         }
     }
+}
+```
 
 `SqlImplementation` may cover more complex scenarios than per-property implementations (`Implements`),
 but it lacks readability and extensibility such as adding a custom property to the subtype from another package.
