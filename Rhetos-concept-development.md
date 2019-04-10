@@ -9,6 +9,7 @@ Table of contents:
 3. [How to write a macro concept](#how-to-write-a-macro-concept)
 4. [How to write a basic concept](#how-to-write-a-basic-concept)
 5. [How to deploy created concept](#how-to-deploy-created-concept)
+6. [See also](#see-also)
 
 ## What is Rhetos DSL concept
 
@@ -18,29 +19,33 @@ From a platform developer's perspective Rhetos DSL concept is a structured way t
 
 For example, let's say that we need to ensure all the phone numbers in our application must be stated in a structured way. We can do that by adding a regex validation to all the properties which contains a phone number. Something like this:
 
-    Module Bookstore
+```C
+Module Bookstore
+{
+    Entity Employee
     {
-        Entity Employee
-        {
-            ShortString PrimaryPhoneNumber { RegexMatch "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" "Invalid phone number format."; }
-            ShortString SecondaryPhoneNumber { RegexMatch "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" "Invalid phone number format."; }
-            ShortString FaxNumber { RegexMatch "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" "Invalid phone number format."; }
-            ShortString MobileNumber { RegexMatch "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" "Invalid phone number format."; }
-        }
+        ShortString PrimaryPhoneNumber { RegexMatch "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" "Invalid phone number format."; }
+        ShortString SecondaryPhoneNumber { RegexMatch "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" "Invalid phone number format."; }
+        ShortString FaxNumber { RegexMatch "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" "Invalid phone number format."; }
+        ShortString MobileNumber { RegexMatch "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" "Invalid phone number format."; }
     }
+}
+```
 
 The DSL way of implementing the same feature is to write a new concept and use that concept, instead of repetitive copying the same code. After writing such a concept (let's say we call it PhoneNumber), we can then use it our DSL script like this:
 
-    Module Bookstore
+```C
+Module Bookstore
+{
+    Entity Employee
     {
-        Entity Employee
-        {
-            PhoneNumber PrimaryPhoneNumber;
-            PhoneNumber SecondaryPhoneNumber;
-            PhoneNumber FaxNumber;
-            PhoneNumber MobileNumber;
-        }
+        PhoneNumber PrimaryPhoneNumber;
+        PhoneNumber SecondaryPhoneNumber;
+        PhoneNumber FaxNumber;
+        PhoneNumber MobileNumber;
     }
+}
+```
 
 Implementing functionality this way is not only more elegant and human readable, but also easier to test and change in the future, since the implementation is centralized.
 
@@ -110,8 +115,12 @@ With those two classes you have just created your first macro concept.
 
 Defining the IConceptInfo implementation for the basic concept is the same as for the macro concept. Now we have to define a code generator in which we will implement wanted functionality. This is done by implementing IConceptCodeGenerator interface (defined in Rhetos.Compiler.Interfaces assembly).
 
-Let's say we have to implement functionality that Entity with Deactivatable concept defined needs to be deactivated instead of deleted when Delete function is called on it. See the article [Implementing simple business rules](Implementing-simple-business-rules.md) for more info on the 
-Deactivatable concept.
+Let's say we have to implement additional functionality for an Entity with a Deactivatable statement:
+When Delete function is called, the given record **needs to be deactivated** instead of deleted.
+
+Note that the existing Deactivatable concept simply adds a `bool Active` property, without any automation.
+See the article [Implementing simple business rules](Implementing-simple-business-rules.md)
+for more info on the Deactivatable concept.
 
 First, we will implement ConceptInfo for this new concept:
 
@@ -191,3 +200,9 @@ Entity Book
 ## How to deploy created concept
 
 To deploy a newly created Rhetos DSL concept you need to [create a Rhetos package](https://github.com/Rhetos/Rhetos/wiki/Creating-Rhetos-package) and add your binaries to it, or add them to an existing Rhetos package.
+
+## See also
+
+* Read [Developing new DSL concepts](Rhetos-coding-standard#developing-new-dsl-concepts)
+  in the Rhetos coding standard, for **naming convention** and **design principles**
+  when developing new concepts.
