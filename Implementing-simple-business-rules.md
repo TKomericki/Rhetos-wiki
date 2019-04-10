@@ -69,7 +69,7 @@ Similar features and alternatives:
 
 ## Automatically generated data
 
-* `DefaultValue` - Generate the default property value when inserting a new record.
+* `DefaultValue` - Generate the default property value when inserting a new record (since Rhetos v2.10).
 * `AutoCode` - A property marked with AutoCode will automatically increase by one for each new record. When inserting a new record, the initially entered value is interpreted as a format for generating the code. It supports the following formatting:
   * Multiple digits with with leading zeros: for example, if "+++" is entered, a three-digit number will be created (001, 002, 003, ...)
   * Prefix: for example, if "BOOK+" is entered, the generated codes will be BOOK1, BOOK2, BOOK3, ....
