@@ -92,11 +92,11 @@ This allows Rhetos to execute the scripts in different situations:
 Note that after generating the data-migration script by executing `Rhetos.HelpDataMigration`,
 you might need to **manually adjust** the *DataMigrationUse* and *DataMigrationApplyMultiple* parts of this script:
 
-* You might need to add new lines to you script with *DataMigrationUse*,
+* You might need to add new lines to the script with *DataMigrationUse*,
   if some columns do not currently exist in your database (not yet deployed),
   but you need to use them the script.
   Make sure to specify the correct [column type](Data-structure-properties).
-* You may remove *DataMigrationUse* for columns that you are not using in this script. Keep the ID column.
+* You may remove *DataMigrationUse* for columns that are not needed in this script. Keep the ID column.
 * You may remove columns from *DataMigrationApplyMultiple* if not modifying the data in those columns. Keep the ID column.
 
 ## Examples
