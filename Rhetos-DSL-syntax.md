@@ -1,6 +1,8 @@
 ## Declarative programming
 
-The Rhetos DSL is a declarative programming language: The DSL scripts are interpreted as a set of declared features (statements), not a list of imperative commands.
+The Rhetos DSL is a declarative programming language:
+The DSL scripts are interpreted as a set of declared features (statements),
+not a list of imperative commands.
 
 This means that the following changes are **irrelevant** to the generated application and can be ignored:
 
@@ -51,16 +53,17 @@ Example:
 
 ### References
 
-* A reference to another statement is a list of the statement's identifiers (the feature's name), separated by a dot. In the example above, `Demo.Region` after `BelongsTo` is a reference to the second entity.
+* A reference to another statement is a list of the statement's identifiers (the feature's name), separated by a dot.
+  In the example above, `Demo.Region` after `BelongsTo` is a reference to the second entity.
 
 ## Comments
 
 Single-line comments begin with a double slash (`//`).
 
-## Flat vs. embedded statements
+## Flat vs. nested statements
 
 Rhetos reads the DSL scripts as a set of somewhat independent statements (with references between them).
-Embedding a block of statements within another statement is just an optional syntactic sugar.
+Writing a block of statements nested within another statement is just an optional syntactic sugar.
 
 The following script is semantically identical to the example above:
 
@@ -75,7 +78,8 @@ The following script is semantically identical to the example above:
 <b>Entity</b> Demo.Region;
 </pre>
 
-Embedding one statement into another is a helper for setting **the first argument** of the statement to reference the parent statement. Notice changes in the `ShortString` placement and syntax in the following three equivalent examples:
+Placing one statement into another is a helper for setting **the first argument** of the statement to reference the parent statement.
+Notice changes in the `ShortString` placement and syntax in the following three equivalent examples:
 
 <pre>
 <b>Module</b> Demo { <b>Entity</b> School { <b>ShortString</b> Name; } }

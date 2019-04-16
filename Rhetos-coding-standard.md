@@ -1,14 +1,14 @@
 Table of contents:
 
 1. [Business application development](#business-application-development)
-    * [Naming convention](#naming-convention)
-    * [Formatting](#formatting)
-    * [Organizing DSL scripts](#organizing-dsl-scripts)
-    * [Error messages](#error-messages)
-    * [Anti-patterns](#anti-patterns)
+   1. [Naming convention](#naming-convention)
+   2. [Formatting](#formatting)
+   3. [Organizing DSL scripts](#organizing-dsl-scripts)
+   4. [Error messages](#error-messages)
+   5. [Anti-patterns](#anti-patterns)
 2. [Developing new DSL concepts](#developing-new-dsl-concepts)
-    * [Concept naming convention](#concept-naming-convention)
-    * [Principles and guidelines](#principles-and-guidelines)
+   1. [Concept naming convention](#concept-naming-convention)
+   2. [Principles and guidelines](#principles-and-guidelines)
 
 ## Business application development
 
@@ -28,7 +28,7 @@ Table of contents:
 ### Formatting
 
 * Use [Allman indentation style](https://en.wikipedia.org/wiki/Indent_style#Allman_style).
-* Simple embedded concepts can be written in a single line, for example `ShortString Name { Required; Unique; }`, instead of writing the curly brackets separately in each line.
+* Simple nested concepts can be written in a single line, for example `ShortString Name { Required; Unique; }`, instead of writing the curly brackets separately in each line.
 * Use 4 spaces for indentation instead of tabs.
 * Use one empty line to separate logical groups of code.
   Avoid more than one empty line.
@@ -76,30 +76,30 @@ Other:
 ### Anti-patterns
 
 * Avoid using lazy-loading when reading referenced data.
-    * Slow code example:
-      All columns are read from the movie table, event those that are not needed.
-      An additional query is executed for each lazy evaluation of a reference to the movie's director.
+  * Slow code example:
+    All columns are read from the movie table, event those that are not needed.
+    An additional query is executed for each lazy evaluation of a reference to the movie's director.
 
-        ```C#
-        var movies = repository.Demo.Movies.Query().ToList();
+      ```C#
+      var movies = repository.Demo.Movies.Query().ToList();
 
-        foreach (var movie in movies)
-            if (!movie.Name.Contains(movie.Director.Name))
-                throw UserException("Movie name must contain the director's name.");
-        ```
+      foreach (var movie in movies)
+          if (!movie.Name.Contains(movie.Director.Name))
+              throw UserException("Movie name must contain the director's name.");
+      ```
 
-    * Better code:
-      Only movie names and director names are read from the database.
-      Only one SQL query is executed.
+  * Better code:
+    Only movie names and director names are read from the database.
+    Only one SQL query is executed.
 
-        ```C#
-        var movies = repository.Demo.Movies.Query()
-            .Select(movie => new { movie.Name, DirectorName = movie.Director.Name }).ToList();
+      ```C#
+      var movies = repository.Demo.Movies.Query()
+          .Select(movie => new { movie.Name, DirectorName = movie.Director.Name }).ToList();
 
-        foreach (var movie in movies)
-            if (!movie.Name.Contains(movie.DirectorName))
-               throw UserException("Movie name must contain the director's name.");
-        ```
+      foreach (var movie in movies)
+          if (!movie.Name.Contains(movie.DirectorName))
+             throw UserException("Movie name must contain the director's name.");
+      ```
 
 * Try to use a single entity for each business event, so that most user's business process operations can be mapped to a single INSERT operation to the entity that represents the corresponding business process event.
 * Avoid using `Action` concept to save master and detail entity in a same transaction.
@@ -122,7 +122,7 @@ Other:
 * If a concept inherits or replaces another one, its name should end with the other concept's name.
   Example: `ShortStringProperty` inherits `Property`.
   Note that the concept's keyword may be simplified from the internal full name (`ShortString`, for example).
-* If a concept extends behavior of another concept so that it can be embedded in the another one,
+* If a concept extends behavior of another concept so that it can be nested in the another one,
   the concept's name should start with the other concept's name.
   Example: `PropertyRequired`, not `RequiredProperty`.
   Note that the concept's keyword may be simplified from the internal full name (`Required`, for example).
@@ -132,20 +132,20 @@ Other:
 * The design goal is to allow adding new functionality without a quadratic (or exponential) increase of the software's complexity.
   This is achieved by minimizing the dependencies between the features as much as possible.
 * "Feature-outside design".
-    * A single concept should not include all functionality that is applicable to the concept.
-      It should implement only the basic functionality, and use other concepts to extend the basic functionality.
-      More precisely, we should avoid scenarios when a single concept supports multiple options that can be turned on or off.
-      There should be multiple concepts for each feature, and each concept's functionality should not be configurable.
-      The configurability should be achieved by combining the concepts in different ways.
-    * For example, the Entity concept creates a database table and a C# class with the ID property.
-      That concept's implementation does not include any other functionality that an entity could have.
-      Different property types or business logic are all implemented in the separate concepts that extend the base entity's behavior.
-    * Implementation of the concepts should include the base behavior and the extension points (tags in the generated source) for other concepts to use.
+  * A single concept should not include all functionality that is applicable to the concept.
+    It should implement only the basic functionality, and use other concepts to extend the basic functionality.
+    More precisely, we should avoid scenarios when a single concept supports multiple options that can be turned on or off.
+    There should be multiple concepts for each feature, and each concept's functionality should not be configurable.
+    The configurability should be achieved by combining the concepts in different ways.
+  * For example, the Entity concept creates a database table and a C# class with the ID property.
+    That concept's implementation does not include any other functionality that an entity could have.
+    Different property types or business logic are all implemented in the separate concepts that extend the base entity's behavior.
+  * Implementation of the concepts should include the base behavior and the extension points (tags in the generated source) for other concepts to use.
 * Implementation of each concept should effect only the concepts that this concept is referencing.
   This should suppress the quadratic increase in complexity caused by possible dependencies between features.
   The exception are macros that can be used to create other concepts dependent on any feature in the application's model.
   Implementation of those generated concepts must still follow the rule of using only the concepts that those reference.
-    * When developing DatabaseGenerator plugins, breaking this rule may cause inability to deploy the application because of strict dependencies between database objects.
-      For other plugin types it can hinder the extensibility.
+  * When developing DatabaseGenerator plugins, breaking this rule may cause inability to deploy the application because of strict dependencies between database objects.
+    For other plugin types it can hinder the extensibility.
 * New concept may extend the behavior of referenced concepts, but it should never override or modify their existing behavior.
   Sometimes this rule requires more effort to implement certain features, but it will allow easier long-term maintenance of the software.
