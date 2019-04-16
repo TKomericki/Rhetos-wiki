@@ -81,7 +81,7 @@ EXEC Rhetos.DataMigrationApplyMultiple 'Common', 'Principal', 'ID, Name';
     * If the original table does not exist yet (will be created in the next version), the procedure will not
       try to copy the data. The data will be copied automatically by Rhetos when the original table is created.
 
-These rules allow the script to be executed independently of the current database structure,
+These rules allow the script to be executed **independently of the current database structure**,
 so that a script can be executed either before or after a specific version is deployed.
 This allows Rhetos to execute the scripts in different situations:
 
@@ -92,8 +92,8 @@ This allows Rhetos to execute the scripts in different situations:
 Note that after generating the data-migration script by executing `Rhetos.HelpDataMigration`,
 you might need to **manually adjust** the *DataMigrationUse* and *DataMigrationApplyMultiple* parts of this script:
 
-* You might need to add new lines with *DataMigrationUse*,
-  if some columns do not currently exist in you database,
+* You might need to add new lines to you script with *DataMigrationUse*,
+  if some columns do not currently exist in your database (not yet deployed),
   but you need to use them the script.
   Make sure to specify the correct [column type](Data-structure-properties).
 * You may remove *DataMigrationUse* for columns that you are not using in this script. Keep the ID column.
