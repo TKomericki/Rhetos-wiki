@@ -10,6 +10,7 @@ Contents:
 2. [Write a simple DSL scripts](#write-a-simple-dsl-scripts)
 3. [Build your application](#build-your-application)
 4. [Test and review](#test-and-review)
+5. [Read next](#read-next)
 
 ## Setup
 
@@ -58,7 +59,8 @@ Module Bookstore
 This is the source code of the Bookstore application.
 
 Rhetos DSL is a declarative language, and the source code should be viewed as a **set of features (statements)**.
-Each statement is starting with a *keyword* (Module, Entity, ShortString, AutoCode, ...) and some *parameters* after the keyword. Statements can be embedded in other statements.
+Each statement is starting with a *keyword* (Module, Entity, ShortString, AutoCode, ...) and some *parameters* after the keyword.
+Statements can be nested in other statements.
 
 **Module** keyword represents a business module, and a namespace in C# code. **Entity** represents a business object (C# class) and a table in database that contains the object's data. The Book entity here contains some properties and some business features. These features are explained in later tutorial articles.
 
@@ -117,3 +119,10 @@ Note that **after making changes** in the DSL script (Book.rhe), you will need t
 5. Correct the request body by replacing "The curiousity" with "The curiosity", and send the request again.
     * The expected response is "200 OK" with the generated ID in the response body.
 6. View the new book in the database or in browser. Check that the inserted book has the automatically generated three-digit Code with prefix "B" (by **AutoCode** concept for pattern "B+++").
+
+## Read next
+
+Add new features to you application with following tutorial articles:
+
+1. How to create a data model: [Data model and relationships](Data-model-and-relationships)
+2. Add simple features to your application: [Implementing simple business rules](Implementing-simple-business-rules)
