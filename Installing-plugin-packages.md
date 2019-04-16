@@ -3,7 +3,7 @@ Rhetos can install a plugin package directly from the online NuGet gallery, or f
 Many Rhetos packages are available at the [NuGet.org](https://www.nuget.org/) public online gallery.
 See [Recommended plugins](https://github.com/Rhetos/Rhetos/wiki/Home#recommended-plugins).
 
-## Installing an additional plugin package to the Rhetos server
+## Installing an additional plugin package to the Rhetos server application
 
 1. To install the additional package to a Rhetos server, add it to the Rhetos server's **RhetosPackages.config** file.
     * For example, to install a package named "Rhetos.AfterDeploy", version 2.0.0, add the `package` line to the *RhetosPackages.config* file. Remove the version attribute to install the latest version.
@@ -24,3 +24,5 @@ See [Recommended plugins](https://github.com/Rhetos/Rhetos/wiki/Home#recommended
         ```
 
 3. Read the package's **Readme.md** file, to see if there are additional step that need to be done in order to install or configuring the plugin correctly.
+
+4. Run `bin\DeployPackages.exe` to rebuild the Rhetos server application with the new package.
