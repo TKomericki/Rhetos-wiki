@@ -72,6 +72,8 @@ Support:
 * [LegacyRestGenerator](https://github.com/Rhetos/LegacyRestGenerator), an old version of REST API, available for backward compatibility.
 * [MvcModelGenerator](https://github.com/Rhetos/MvcModelGenerator) generates ASP.NET MVC model for all entities and other queryable data structures, for use in other web applications when accessing the Rhetos server.
 
+See also [Installing plugin packages](Installing-plugin-packages).
+
 ## Framework development
 
 * [How to Contribute](How-to-Contribute)

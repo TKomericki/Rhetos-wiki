@@ -8,6 +8,7 @@ Table of contents:
 2. [How to create Rhetos package](#how-to-create-rhetos-package)
 3. [Folder structure of your Rhetos package source](#folder-structure-of-your-rhetos-package-source)
 4. [Example](#example)
+5. [See also](#see-also)
 
 ## What is Rhetos package
 
@@ -86,3 +87,7 @@ MyRhetosPackage
 For a complete Rhetos applications see the [Bookstore](https://github.com/Rhetos/Bookstore) example.
 Its `src` folder has the source structure as described above,
 with the nuspec file and the corresponding subfolders.
+
+## See also
+
+* [Installing plugin packages](Installing-plugin-packages)
