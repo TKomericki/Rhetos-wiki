@@ -52,7 +52,7 @@ Entity Employee
 ## Deny data modifications
 
 The following business rules are similar to data validations, but actually act more like action permissions.
-Instead of of checking if a certain data value *is valid or not*, they just block certain operations depending on the context.
+Instead of checking if a certain data value *is valid or not*, they just block certain operations depending on the context.
 Examples of the following concepts are available in a unit testing DSL script
 [Validations.rhe](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/CommonConceptsTest/DslScripts/Validations.rhe).
 

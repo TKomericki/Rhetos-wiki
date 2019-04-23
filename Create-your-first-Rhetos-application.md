@@ -62,7 +62,8 @@ Rhetos DSL is a declarative language, and the source code should be viewed as a 
 Each statement is starting with a *keyword* (Module, Entity, ShortString, AutoCode, ...) and some *parameters* after the keyword.
 Statements can be nested in other statements.
 
-**Module** keyword represents a business module, and a namespace in C# code. **Entity** represents a business object (C# class) and a table in database that contains the object's data. The Book entity here contains some properties and some business features. These features are explained in later tutorial articles.
+* **Module** keyword represents a business module, and a namespace in C# code.
+* **Entity** represents a business object (C# class) and a table in database that contains the object's data. The Book entity here contains some properties and some business features. These features are explained in later tutorial articles, see [Read next](#read-next) below.
 
 See [Rhetos DSL syntax](Rhetos-DSL-syntax) article for better understanding of the DSL scripts.
 

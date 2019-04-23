@@ -3,7 +3,7 @@
 This article covers the basic DSL concepts that encapsulate loading or querying the data.
 
 There are different types of data structures (objects with properties) in Rhetos.
-Entity is one of then, it is mapped to a database table.
+Entity is one of them, it is mapped to a database table.
 Browse and SqlQueryable are common examples of read-only data structures.
 SqlQueryable is mapped to a database view.
 Browse is internally represented as a single LINQ query.
@@ -182,17 +182,22 @@ Browse BookGrid Bookstore.Book
 }
 ```
 
-`SqlQueryable BookInfo` is an extension of the Book (see `Extends` concept above), therefore it is easily accessible in the LINQ query from the Book by using the navigation property `Extension_BookInfo`.
+`SqlQueryable BookInfo` is an extension of the Book (see `Extends` concept above),
+therefore it is easily accessible in the LINQ query from the Book
+by using the navigation property `Extension_BookInfo`.
 
 ## Computed concept
 
 The Computed concept allows developer to create a data source that is implemented with a C# code.
-It is usually used for data processing when an SQL query is not an efficient solution, and the algorithm it often implemented in an external dll.
+It is usually used for data processing when an SQL query is not an efficient solution,
+and the algorithm is often implemented in an external dll.
 
 Task:
 
 > An application should provide the expected ratings for all books, based on some basic information on the books.
-> The rating algorithm is the following: If the title contains text "super", add 100 point. If it contains "great", add 50 point. It the book is foreign, add 20%.
+> The rating algorithm is the following:
+> If the title contains text "super", add 100 point.
+> If it contains "great", add 50 point. It the book is foreign, add 20%.
 
 Solution:
 
