@@ -1,13 +1,13 @@
 This article shows how to create a new application that uses Rhetos framework.
 
 In this tutorial, we will create a demo application called "Bookstore",
-and later add a some additional features to the application in the other tutorial articles.
+and later add some additional features to the application in the other tutorial articles.
 It is a simplified example of a business application that manages different processes in a bookstore.
 
 Contents:
 
 1. [Setup](#setup)
-2. [Write a simple DSL scripts](#write-a-simple-dsl-scripts)
+2. [Write a simple DSL script](#write-a-simple-dsl-script)
 3. [Build your application](#build-your-application)
 4. [Test and review](#test-and-review)
 5. [Read next](#read-next)
@@ -33,7 +33,7 @@ The resulting folder structure should look like this:
       git commit -m "Initial project structure"
       ```
 
-## Write a simple DSL scripts
+## Write a simple DSL script
 
 In `src\DslScripts` folder insert the file `Book.rhe`. Extension ".rhe" is used for scripts written in the Rhetos DSL programming language.
 
@@ -70,11 +70,11 @@ See [Rhetos DSL syntax](Rhetos-DSL-syntax) article for better understanding of t
 ## Build your application
 
 The Bookstore application backend is a web application set in the `dist\BookstoreRhetosServer` folder.
-The Rhetos server application that you have downloaded in that folder,
+The Rhetos server application, that you have downloaded in that folder,
 contains only framework infrastructure, without business features.
 
 All business features are included in the application as packages.
-Edit `dist\BookstoreRhetosServer\RhetosPackages.config` file to contains the following list of packages:
+Edit `dist\BookstoreRhetosServer\RhetosPackages.config` file that contains the following list of packages:
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -86,18 +86,18 @@ Edit `dist\BookstoreRhetosServer\RhetosPackages.config` file to contains the fol
 ```
 
 * **CommonConcepts** is the standard library for Rhetos. It contains keywords such as *Module* and *Entity*, and code generators for those keywords that will generate C# code (feature implementation) and the database.
-* **RestGenerator** is a plugin that will generate a REST web API for the Bookstore application.
+* **RestGenerator** is a plugin that will generate a REST Web API for the Bookstore application.
 * **Bookstore** is a package that contains source code for our applications. Currently this is just one DSL script.
 
 These packages will be downloaded into the BookstoreRhetosServer from different sources:
 
 * CommonConcepts and RestGenerator will be downloaded automatically (as NuGet packages) from the public online gallery <https://nuget.org>.
   See `dist\BookstoreRhetosServer\RhetosPackageSources.config` file to check that it contains nuget.org in the default download locations list.
-* The third package, "Bookstore", is not published as a NuGet package. To make the development easier, Rhetos can read a package directly from the source folder without need to "pack" it to a .nupkg file. Rhetos will detect the DslScripts subfolder by convention.
+* The third package, "Bookstore", is not published as a NuGet package. To make the development easier, Rhetos can read a package directly from the source folder without the need of "packing" it into a .nupkg file. Rhetos will detect the DslScripts subfolder by convention.
 
 Open command prompt and run `dist\BookstoreRhetosServer\bin\DeployPackages.exe`. This utility will rebuild the BookstoreRhetosServer web application, based on the included plugins. See [What is Rhetos](What-is-Rhetos) article for a high-level overview of this process.
 
-* Check the begging of the output to see that all three packages are included.
+* Check the beginning of the output to see that all three packages are included.
 * If completed successfully (last line of output is "[Trace] DeployPackages: Done."), it has generated the web application.
 
 Note that **after making changes** in the DSL script (Book.rhe), you will need to run `DeployPackages.exe` again to update the web application.
@@ -107,7 +107,7 @@ Note that **after making changes** in the DSL script (Book.rhe), you will need t
 1. Open <http://localhost/BookstoreRhetosServer/> to see that the application is working.
     * The "Installed packages" list should contain the "Bookstore" package and others.
     * Check that the "User identity" displays your account name (Windows Authentication should be working).
-2. Open the database and check that it contains "Bookstore.Book" table. Enter some data directly into the table.
+2. Open the database and check that it contains the "Bookstore.Book" table. Enter some data directly into the table.
 3. Open <http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/>  (don't skip the "/" at the end of the address) to see the entered records in JSON format.
 4. Install a browser plugin for REST commands (such as "Restlet Client" or "RESTer"), that will allow you to **insert a new book** through the application. This will enable us to test the implemented business logic (such as AutoCode and InvalidData).
     * Using the plugin send the following web request:
