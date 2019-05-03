@@ -116,7 +116,7 @@ Note that **after making changes** in the DSL script (Book.rhe), you will need t
       * Header: Name `Content-Type`, Value `application/json; charset=utf-8`
       * Body: `{ "Code": "B+++", "NumberOfPages": 123, "Title": "The curiousity" }`
     * The expected response from the server is "400 Bad Request", with the UserMessage "It is not allowed to enter misspelled word "curiousity".". This is a standard Rhetos response for validation that is defined with **InvalidData** concept (see the DSL script above).
-    * Troubleshooting: If you are using Postman, note that it sometimes has trouble with Windows Authentication.
+    * You can also use Postman to test the REST Web API, see the [instructions](Using-Postman-with-Rhetos). Note that it sometimes has trouble with Windows Authentication.
 5. Correct the request body by replacing "The curiousity" with "The curiosity", and send the request again.
     * The expected response is "200 OK" with the generated ID in the response body.
 6. View the new book in the database or in browser. Check that the inserted book has the automatically generated three-digit Code with prefix "B" (by **AutoCode** concept for pattern "B+++").
