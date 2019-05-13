@@ -1,6 +1,9 @@
-When a developer makes changes in the business application that affect the tables and columns in the database (renaming an entity, for example), there is often a need to migrate the data from the old data structure to the new one.
+When a developer makes changes in the business application that affect the tables and columns
+in the database (renaming an entity, for example), there is often a need to migrate the data
+from the old data structure to the new one.
 
-This article describes how to develop and deploy data migration scripts that are used to migrate the data when upgrading your Rhetos application.
+This article describes how to develop and deploy data migration scripts that are used
+to migrate the data when upgrading your Rhetos application.
 
 Table of contents:
 
@@ -17,6 +20,7 @@ Table of contents:
    2. [Automatic use of the migration tables when dropping and creating columns](#automatic-use-of-the-migration-tables-when-dropping-and-creating-columns)
    3. [Database structure independence](#database-structure-independence)
    4. [Cleanup](#cleanup)
+   5. [Database constraint blocking the data migration](#database-constraint-blocking-the-data-migration)
 
 ## Developing data-migration scripts
 
@@ -24,12 +28,14 @@ Table of contents:
 
 Data-migration scripts are regular SQL scripts, with the code following specific rules as describes in this article.
 The scripts are placed in a DataMigration subfolder in the Rhetos package.
-When deploying the Rhetos package, the scripts will be executed in the alphabetical order (by folder name, than file name), skipping the scripts that were already executed in previous deployments.
+When deploying the Rhetos package, the scripts will be executed in the alphabetical order
+(by folder name, than file name), skipping the scripts that were already executed in previous deployments.
 
 The recommended naming conception:
 
 * The data-migration scripts inside DataMigration folder should be grouped in subfolders by the package release version.
-* Each script in the subfolder should have numbered prefix (starting with "1 "), to ensure the correct order when executing the scripts.
+* Each script in the subfolder should have numbered prefix (starting with "1 "),
+  to ensure the correct order when executing the scripts.
 
 For example:
 
@@ -42,7 +48,8 @@ For example:
 A data-migration script must be written in a specific format, see the example below.
 It is recommended to use the stored procedure `Rhetos.HelpDataMigration` to **generate the data-migration script**.
 
-In the following example, the data-migration script modifies the data in the column `Name` of the table `Common.Principal`, removing the excess spaces in the principal's name:
+In the following example, the data-migration script modifies the data in the column `Name`
+of the table `Common.Principal`, removing the excess spaces in the principal's name:
 
 ```SQL
 /*DATAMIGRATION 2B676531-76AB-43F3-AE07-868434DEAB7F*/ -- Change the script's code only if it needs to be executed again.
@@ -208,7 +215,8 @@ The `DeployPackages.exe` utility will automatically execute the data-migration s
   to be executed multiple times without negative consequences.
 * If a Rhetos package depends on another package (dependencies are defined in .nuspec),
   migration scripts from the other package will be executed first.
-* DateMigration scripts within a package are executed ordered by folder name, then by file name. [Natural sort](https://en.wikipedia.org/wiki/Natural_sort_order) is used to order the scripts.
+* DateMigration scripts within a package are executed ordered by folder name,
+  then by file name. [Natural sort](https://en.wikipedia.org/wiki/Natural_sort_order) is used to order the scripts.
 * The previously executed scripts are logged in `Rhetos.DataMigrationScript` table.
 * Rhetos will check the tag from the script's header to verify if the script is already executed.
   This allows developers to later reorganize and rename the old data-migration scripts without executing them again.
@@ -229,9 +237,12 @@ The `DeployPackages.exe` utility will automatically execute the data-migration s
 The data migration scripts are independent of the current database structure,
 so the developers don't need to couple the database structure versioning with the data migration scripts.
 
-In the following examples, the same data-migration script is executed in different database versions (before or after upgrading the database), resulting with the identical data at the end. The steps that follow the main data flow are marked bold.
+In the following examples, the same data-migration script is executed in different database versions
+(before or after upgrading the database), resulting with the identical data at the end.
+The steps that follow the main data flow are marked bold.
 
-The examples show the effect of a data-migration script that copies the data from entity A to B, when the entity in module "M" is renamed from "A" to "B".
+The examples show the effect of a data-migration script that copies the data from entity A to B,
+when the entity in module "M" is renamed from "A" to "B".
 
 Option A) Deployment before the data migration:
 
@@ -263,3 +274,73 @@ Option B) Data migration before the deployment:
 * You can optionally delete the backup data by running `CleanupOldData.exe`;
   it will delete everything in database schemas that start with an underscore ("_").
   This is not recommended if the last deployment failed, because it could result with a data loss.
+
+### Database constraint blocking the data migration
+
+This example describes a special case when an **existing database constraint**
+(a unique index, for example) prevents the execution of a standard data-migration script.
+In this case, a possible workaround is to *cleanly* remove the constraint before
+modifying the data.
+
+Example scenario:
+
+1. Entity `Status` has a unique constraint on the `Name` property. This version of the application
+   has already been deployed, and the database contains a UNIQUE INDEX on column Name.
+
+    ```c
+    Entity Status
+    {
+        ShortString Code { Unique; Required; }
+        ShortString Name { Unique; Required; }
+    }
+    ```
+
+2. We want to *remove* the Unique constrint on `Name`, and write a data-migration script that inserts
+   two records with the same name:
+
+        Code = '001', Name = 'Status A'
+        Code = '002', Name = 'Status A'
+
+3. When we run DeployPackages.exe, the data-migration scripts are executed *before* upgrading the database structure
+   (i.e. before this unique index is dropped). This is why the data-migration script
+   will result with the database error: `Cannot insert duplicate key row ...` when the new data
+   is copied to the `Status` table (this error will occur at the line with DataMigrationApplyMultiple).
+
+A possible workaround is to drop the unique index directly in the data-migration script,
+before applying the data modifications to your table (before DataMigrationApplyMultiple).
+To do it safely, you will need to **update Rhetos metadata** in table `AppliedConcept`,
+to avoid any issues with future deployments.
+
+Here is example of the modified data-migration script.
+The only difference from a standard script is the added block of code that
+handles `AppliedConcept` and `IX_Status_Name`.
+
+```sql
+/*DATAMIGRATION BC9C8DC3-CA64-47FF-8360-C0DEB41A9717*/ -- Change the script's code only if it needs to be executed again.
+
+-- The following lines are generated by: EXEC Rhetos.HelpDataMigration 'Demo', 'Status';
+EXEC Rhetos.DataMigrationUse 'Demo', 'Status', 'ID', 'uniqueidentifier';
+EXEC Rhetos.DataMigrationUse 'Demo', 'Status', 'Code', 'nvarchar(256)';
+EXEC Rhetos.DataMigrationUse 'Demo', 'Status', 'Name', 'nvarchar(256)';
+GO
+
+IF NOT EXISTS (SELECT * FROM _Demo.Status)
+BEGIN
+    INSERT INTO _Demo.Status (ID, Code, Name) SELECT NEWID(), '001', 'Status A';
+    INSERT INTO _Demo.Status (ID, Code, Name) SELECT NEWID(), '002', 'Status A';
+END
+
+-- The following part is required before DataMigrationApplyMultiple to avoid the unique constraint error:
+-- "Cannot insert duplicate key row in object 'Demo.Status' with unique index 'IX_Status_Name'. The duplicate key value is (Status A)."
+IF EXISTS (SELECT * FROM Rhetos.AppliedConcept WHERE CreateQuery LIKE 'CREATE%INDEX% IX_Status_Name %')
+BEGIN
+    DROP INDEX IX_Status_Name ON Demo.Status;
+    DELETE FROM Rhetos.AppliedConcept WHERE CreateQuery LIKE 'CREATE%INDEX% IX_Status_Name %';
+END
+
+EXEC Rhetos.DataMigrationApplyMultiple 'Demo', 'Status', 'ID, Code, Name';
+```
+
+Modifying the database objects in data-migration scripts can be risky
+if you are not fully aware of the context, so it should only be used in rare cases
+when there is no better workaround available.
