@@ -1,26 +1,93 @@
 # Debugging
 
-Like every other framework, Rhetos brings a new level of abstraction in the work of developers,
-and therefore it also brings additional complications during debugging.
+Rhetos DSL brings a new level of abstraction in the work of developers,
+which can result with additional complexity to debugging.
+Fortunately, Rhetos generates a common C# web service (source, dll and pdb),
+based on the DSL scripts. When we need to debug the generated application,
+we can simply start Visual Studio and debug the Rhetos application like
+any other application that has been written in C#.
 
-A good thing is that the Rhetos server doesn't interpret DSL scripts "on the run",
-but on the basis of DSL scripts it generates a common C# web service
-(source, dll and pdb) and an SQL database.
-When we need to debug the generated server application,
-we can start Visual Studio and simply debug the Rhetos application like any other application that has been written in C#.
-Additionally, we sometimes use LINQPad to [access the server object model](https://github.com/Rhetos/Rhetos/wiki/Using-the-Domain-Object-Model),
-this is practical for smaller actions without installing and using Visual Studio.
+Besides that, Rhetos has a detailed [system logging](Logging#system-log)
+of all actions it performs.
+It is set up to log *errors only* by default, to avoid any performance penalty.
+You can adjust the detail level of the logger in the Web.config file.
 
-Besides that, Rhetos has a detailed [logging](Logging#system-log) of all actions it performs,
-that is set up by default for logging errors only (because of the performances).
-The detail level of the logger is adjusted in the Web.config file.
-
-To be able to step through the code of the generated server application
-(ServerDom cs/dll/pdb) in Visual Studio on the ISS,
-you will need to make sure that the Visual Studio has loaded the debugging symbols.
+To be able to use breakpoints and step through the code of the generated application
+in Visual Studio, you will need to make sure that the Visual Studio has loaded
+the debugging symbols.
 Use one of the two options:
 
 * A) Build the ServerDom dlls in *Debug* mode, with `DeployPackages.exe /Debug` switch.
+  Visual Studio loads the debug symbols automatically for debug-mode dlls.
 * B) Alternatively, to debug the application in *Release* mode,
-  in Visual Studio - Tools - Options turn off the option "Just My Code"
-  (that option disables debugging of optimized dll's from the external processes).
+  in Visual Studio => Tools => Options turn off the option "Just My Code".
+  That option disables debugging of optimized dll's from the external processes.
+  This is not a preferred solution because when debugging a release-mode dll you will have
+  less information available in the Visual Studio (less variables, some breakpoint not working, etc.)
+
+## Example
+
+For example, let's debug the code in filter "`ComposableFilterBy LongBooks3`",
+from the [ExampleFilters.rhe](https://github.com/Rhetos/Bookstore/blob/master/src/DslScripts/AdditionalExamples/ExampleFilters.rhe) script,
+in the [Bookstore](https://github.com/Rhetos/Bookstore) demo application.
+
+Steps:
+
+1. Build the Rhetos application with the `/Debug` switch,
+   or configure Visual Studio to debug the dlls that built in the release mode (see above).
+   * You can see in Bookstore's [build script](https://github.com/Rhetos/Bookstore/blob/master/Build.ps1)
+     that the `/Debug` switch is already set.
+2. Open Visual Studio with *Run as Administrator* (don't open a project or a solution).
+   * Running VS as administrator is required when debugging IIS web applications.
+3. In Visual Studio, open file `dist\BookstoreRhetosServer\bin\Generated\ServerDom.Repositories.cs`,
+   it contains the feature implementation that we need to debug.
+   * You can debug any other generated source file, but most of the business features usually
+     end up in the repository classes.
+4. In the source file search for the line that contains code from the LongBooks3 filter:
+   `filtered = filtered.Where(item => item.Extension_ForeignBook.ID != null);`
+    * This is the Filter method that implements the LongBooks3 filter.
+5. Put the breakpoint (F9) at the line "return filtered;".
+6. In browser, execute web request that will start up the application process and call the filter:
+   * `http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks3","Value":{"MinimumPages":300}}]`
+7. Attach Visual Studio to the web applications process: Debug => Attach to process... => Select "w3wp.exe" => Attach.
+   * It there are multiple processes named "w3wp.exe", use the one that has User Name same as your
+     web application's Application Pool account (usually your domain account).
+8. After attaching, the break point should be displayed with a full red circle.
+   * It the circle is empty, it means that the breakpoint is not working.
+     Check the warning in the tooltip.
+     Verify that you have run DeployPackages with the `/Debug` switch (step 1).
+9. In browser, execute the web request again.
+10. Visual Studio should automatically pause the process on the breakpoint.
+    * Move the mouse pointer over the `parameter` variable. You should see the command parameters:
+      ForeignBooksOnly=null, MinimumPages=300.
+    * Add a Watch entry: `filtered.ToString()`. It should display the SQL query generated by Entity Framework.
+
+## Tips and Tricks
+
+1. You can use LINQPad, instead of the browser, to execute the feature that you need to debug.
+   Just attach Visual Studio to LINQPad process instead of w3wp.exe.
+   * This is especially helpful if you need multiple steps to prepare the test data,
+     or if you want to try different code snippets to test the issue.
+     See [Using the Domain Object Model](https://github.com/Rhetos/Rhetos/wiki/Using-the-Domain-Object-Model)
+     for using LINQPad with Rhetos.
+   * For example, to debug a data validation in `InvalidData`, you can directly call
+     `repository...Save` method from the LINQPad script.
+2. From Visual Studio that is installed on your computer, you can debug the application that has been deployed
+   on a different computer. See <https://docs.microsoft.com/en-us/visualstudio/debugger/remote-debugging>.
+3. If you want to debug an exception, but you are not sure where to put a breakpoint,
+   you can configure Visual Studio to stop automatically on any exception:
+   Debug => Windows => Exception Settings => Check the checkbox at "Common Language Runtime Exception".
+   By default this checkbox is in the "indeterminate" state (shaded).
+4. Use SQL Profiler to see what queries are executed on the database.
+   This is helpful if you want to see the *parameter values* for the queries.
+5. Temporarily enable more detailed [system logging]((Logging#system-log)) to see what is going on
+   inside the Rhetos server application. For the following examples, *uncomment* the existing entries in the `Web.config` file:
+   * Client requests with shortened description:
+     Uncomment `"ProcessingEngine Request" ... writeTo="TraceLog"`,
+     the log entries will be written to Logs\RhetosServerTrace.log.
+   * Full data on requests and responses:
+     Uncomment `"ProcessingEngine Commands"` and `"ProcessingEngine CommandsResult"`,
+     the log entries will be written to Logs\RhetosServerCommandsTrace.xml.
+   * Full detailed logging:
+     Uncomment `name="*" minLevel="Trace"`,
+     the log entries will be written to Logs\RhetosServerTrace.log.
