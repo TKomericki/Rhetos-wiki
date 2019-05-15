@@ -28,7 +28,8 @@ Tutorials:
   * [Filters and other read methods](Filters-and-other-read-methods)
   * Implement new server commands: [Action concept](Action-concept)
   * Extend Rhetos DSL with you own keywords: [Rhetos concept development](Rhetos-concept-development)
-  * Low-level database development: [Database objects](Database-objects)
+  * [Low-level database development](Database-objects)
+  * [Low-level object model concepts](Low-level-object-model-concepts)
 * Business processes:
   * [Persisting the computed data](Persisting-the-computed-data)
   * Implementing entity inheritance and common interfaces: [Polymorphic concept](Polymorphic-concept)
