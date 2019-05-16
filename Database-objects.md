@@ -78,7 +78,9 @@ Module Demo
 
 If you need to execute the stored procedure, and provide the resulting dataset in your Rhetos application,
 you can use `Computed` data structure to provide the data in the application as a standard data source
-(available in object model and REST Web API), with a `FilterBy` with the C# code that executes the procedure.
+(available in object model and REST Web API).
+The Computed object should implement a `FilterBy` method with C# code that executes the stored procedure
+with a given parameters.
 
 For example:
 
