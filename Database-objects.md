@@ -54,24 +54,63 @@ or create a new schema for such objects.
 
 **SqlProcedure** *&lt;Module&gt;.&lt;Name&gt; &lt;ProcedureArguments&gt; &lt;ProcedureSource&gt;*
 
-```C
-SqlProcedure GenerateNextAutoCode <GenerateNextAutoCode param.sql> <GenerateNextAutoCode body.sql>;
+Example:
+
+```c
+Module Demo
+{
+    Entity Person { ShortString Name; }
+
+    SqlProcedure ComputePersonInfo
+        "@NamePattern NVARCHAR(256), @LimitResultCount INT"
+        "
+            SELECT TOP (@LimitResultCount)
+                p.ID, Name, NameLength = LEN(p.Name), PersonID = p.ID
+            FROM
+                Demo.Person p
+            WHERE
+                p.Name LIKE '%' + @NamePattern + '%'
+            ORDER BY
+                p.Name
+        ";
+}
 ```
 
-File "GenerateNextAutoCode param.sql"
+If you need to execute the stored procedure, and provide the resulting dataset in your Rhetos application,
+you can use `Computed` data structure to provide the data in the application as a standard data source
+(available in object model and REST Web API), with a `FilterBy` with the C# code that executes the procedure.
 
-```SQL
-@TableOrView NVARCHAR(256),
-@ColumnName NVARCHAR(256),
-...
-```
+For example:
 
-File "GenerateNextAutoCode body.sql"
+```c
+Module Demo
+{
+    Parameter PersonFilter
+    {
+        ShortString NamePattern;
+        Integer LimitResultCount;
+    }
 
-```SQL
-BEGIN
-    ...
-END
+    Computed PersonInfo 'repository => { throw new Rhetos.UserException("Use filter \"Demo.PersonFilter\" to read the data."); }'
+    {
+        ShortString Name;
+        Integer NameLength;
+        Guid PersonID;
+
+        FilterBy PersonFilter
+            '(repository, parameter) =>
+            {
+                // Always separate parameters to prevent SQL injection.
+                string sql = "EXEC Demo.ComputePersonInfo @p0, @p1";
+                var sqlParams = new object[] { parameter.NamePattern, parameter.LimitResultCount };
+
+                var result = _executionContext.EntityFrameworkContext.Database
+                    .SqlQuery<Demo.PersonInfo>(sql, sqlParams)
+                    .ToArray();
+                return result;
+            }';
+    }
+}
 ```
 
 ## SqlTrigger
