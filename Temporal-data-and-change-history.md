@@ -78,15 +78,12 @@ based on the given value of `ActiveSince` property:
    2. update an existing history record, if the ActiveSince matches some existing record,
    3. or update the latest version in Contract table, if the ActiveSince matches the latest record.
 
-In practice this means that if you load the latest record change some properties,
-but leave the **ActiveSince unchanged**, and save it back, this will not result with
-a new entry in the contract's history.
+> In practice this means that if you load the latest record, change some properties,
+but leave the **ActiveSince unchanged**, and save it back, this will **not result with
+a new entry** in the contract's history.
 It will just update the latest entry, because the saved record has the same
 ActiveSince value, which means it is not active "since now", instead it is
 interpreted as a modification of the historical data.
-
-For better control over the temporal data, a client application could directly
-insert, update or delete records in `Contract_Changes`, if needed.
 
 The following code shows an example of data modifications on the `Contract` entity.
 This example uses [object model](Using-the-Domain-Object-Model) directly,
