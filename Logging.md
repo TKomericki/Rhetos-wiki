@@ -1,8 +1,16 @@
 # Logging
 
-Rhetos contains two different technologies used for logging:
+Rhetos contains two different technologies for logging:
 a **system log** to monitor the state of the application,
 and a **data log** for audit trail.
+
+* If you need an external log that can be easily shipped to other systems
+  (files, *Azure Application Insights* and similar), then use the **system log**.
+  It is already used for internal system monitoring and diagnostics.
+* If you need the log entries to be (loosely) connected to the business objects in the application,
+  or the ability to read the log inside the application,
+  than the best choice is probably the **data log**.
+  It is often used in Rhetos applications for auditing features.
 
 Contents:
 
@@ -12,15 +20,33 @@ Contents:
 
 ## System log
 
-The generated web application has system logging integrated in many internal components,
+The generated Rhetos application has system logging integrated in many internal components,
 in order to provide **global error reporting**, **performance diagnostics**,
 or a **detailed trace log** for debugging.
 
 The system log uses [NLog](https://nlog-project.org/), a popular 3rd party library,
 and it can be configured to different level of detail for different system components.
 It supports many targets such as files or Azure Application Insights.
+See the NLog documentation for available options: <https://nlog-project.org/config/?tab=targets>
 
-See the [Debugging](Debugging) article for more related information.
+In your Rhetos application, you can define custom event types for your log
+(`context.LogProvider.GetLogger("my event type")`)
+and set the configuration in `Web.config` to define rules on when and where to send those events.
+Review the `nlog` section in your Rhetos server's *Web.config* file for some examples.
+
+If you need to analyze a difficult issue in the application,
+but the system log does not contain useful information,
+try the following options:
+
+* Increate the level of detail for the system log to maximum:
+  In `Web.config` temporarily uncomment the line with
+  `<logger name="*" minLevel="Trace" writeTo="TraceLog" />`
+  (this will reduce the application's performance),
+  reproduce the issue in you application,
+  then review the generated log file `Logs\RhetosServerTrace.log`.
+* Try debugging the application in Visual Studio
+  (even remote debugging is possible).
+  See the [Debugging](Debugging) article for more details.
 
 ## Logging data changes and auditing
 
@@ -60,8 +86,14 @@ When **reading the log data**, *always* use the view **Common.LogReader**, inste
 If the **impersonation** is used (see plugins
 [WindowsAuthImpersonation](https://github.com/Rhetos/WindowsAuthImpersonation)
 and [AspNetFormsAuthImpersonation](https://github.com/Rhetos/AspNetFormsAuthImpersonation))
-ContextInfo will contain both the original and the impersonated user name in format "{original user} as {impersonated user}".
+ContextInfo will contain both the original and the impersonated
+user name in format "{original user} as {impersonated user}".
 
 ## Similar features
 
-Alternatively, for entities whose value may change over time (eg. Employee may change its address), you can enable [History entity](Temporal-data-and-change-history) functionality which will record historical data in {EntityName}_History table. This functionality enables you to access entity values on a given date.
+Alternatively, for entities whose value may change over time
+(for example, an employee may change the address),
+you can enable [History entity](Temporal-data-and-change-history)
+functionality which will record historical data in a separate table.
+This functionality enables you to access entity values on a given date,
+or even allow users to modify the temporal data (retroactive changes).
