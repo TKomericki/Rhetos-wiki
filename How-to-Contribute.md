@@ -27,7 +27,7 @@ How to write documentation:
   * Skip the first-level heading in the article, because the GitHub wiki adds it automatically.
 * Rhetos **DSL code snippets (.rhe)** should be written as a
   [fenced code block](https://help.github.com/articles/creating-and-highlighting-code-blocks/),
-  marked with "C" language identifier.
+  marked with "c" language identifier.
   This will get us at least a minimal syntax highlighting that shows comments and strings.
 
 Please see the specific guidelines for [Writing tutorial articles](Writing-tutorial-articles).
