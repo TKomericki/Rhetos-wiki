@@ -36,8 +36,8 @@ Contents:
 
 ## SaveMethod
 
-The **SaveMethod** concept allows developers to extend entity's Save method,
-by injecting a custom C# code that will be executed when saving the records
+The SaveMethod concept allows developers to extend entity's Save method,
+by **injecting a custom C# code** that will be executed when saving the records
 (inserting, updating and deleting).
 
 There are different extension points at **different positions** in the Save method,
@@ -46,11 +46,11 @@ The following table shows order in which the code snippets are executed.
 
 | Position in Save method | Intended purpose of the inserted C# code |
 | --- | --- |
-| 1. ArgumentValidation | To verify if the parameters could break the rest of the Save method's business logic. See *OnSaveValidate* below for standard data validations. |
-| 2. Initialization | To initialize or change the data sent from the client, before saving it to the database. Note: use [DefaultValue](Implementing-simple-business-rules#automatically-generated-data) concept instead, to setup default property value. |
-| 3. OldDataLoaded | To initialize or change the data sent from the client, before saving it to the database, if previous data state needs to be analyzed. See *LoadOldItems* concept below. |
-| 4. OnSaveUpdate | To modify data in other dependent entities that need to be updated (recomputed) after the current Save operation. Use [ComputedFrom](Persisting-the-computed-data) with KeepSynchronized instead. |
-| 5. OnSaveValidate | To implement a custom data validation. Use *InvalidData* instead, for standard data validations, or [RowPermissions](RowPermissions-concept) for user permissions, if possible. |
+| 1. ArgumentValidation | To verify if the parameters could break the rest of the Save method's business logic. Use *OnSaveValidate* instead for standard data validations. |
+| 2. Initialization | To initialize or change the data, before saving it to the database. If possible, use [DefaultValue](Implementing-simple-business-rules#automatically-generated-data) instead. |
+| 3. OldDataLoaded | To initialize or change the data, before saving it to the database, if previous data state needs to be considered. See related *LoadOldItems* concept. |
+| 4. OnSaveUpdate | To modify data in other dependent entities that need to be updated (recomputed) after the current Save operation. If possible, use [ComputedFrom](Persisting-the-computed-data) instead. |
+| 5. OnSaveValidate | To implement a custom data validation. If possible, use *InvalidData* instead, for standard data validations, or [RowPermissions](RowPermissions-concept) for user permissions. |
 | 6. AfterSave | The inserted code will be execute after validations. |
 
 Note that the data is **saved to the database** between OldDataLoaded and OnSaveUpdate,
@@ -112,8 +112,9 @@ what local variables and other features are available to be used in your code sn
 
 ### ArgumentValidation
 
-Use this concept to deny the Save operation if the parameters could break
-the rest of the Save method's business logic. Available since Rhetos v2.12.
+Use this concept to deny the Save operation if the provided data could break
+the rest of the Save method's business logic.
+Available since Rhetos v2.12.
 
 The usage is similar to Initialization and OnSaveValidate concepts (see their examples below).
 
@@ -123,11 +124,11 @@ The usage is similar to Initialization and OnSaveValidate concepts (see their ex
 * For **standard data validations** use InvalidData concept instead, or see
   OnSaveValidate low-level concept below.
   The ArgumentValidation should only be used if there are some non-standard issues
-  that might arise it the validation is executed later it the Save method.
+  that might arise if the validation is executed later in the Save method.
 
 ### Initialization
 
-Use it to initialize or change the data sent from the client,
+Use Initialization to **initialize or change the data**,
 before saving it to the database and before applying other business rules.
 
 Example task:
@@ -160,7 +161,7 @@ The initialization code snippet usually uses `insertedNew`, `updatedNew` and `de
 parameters to analyze and modify the data that will be saved.
 
 Note that this example is a just a demo for SaveMethod.
-The **DefaultValue** concept would be much better approach for this feature,
+The **DefaultValue** concept would be much better approach for this example,
 to avoid using low-level concepts.
 
 ### LoadOldItems (shared old values)
@@ -173,8 +174,7 @@ or to deny modification of some records.
 * If **multiple** business rules require old data to be loaded,
   it will be merged and loaded in a **single database request**.
 * Each property must be explicitly selected with *Take* keyword.
-* Old values can include referenced properties (the reference path can have multiple steps).
-* Only data that is requires in the later business rules should be loaded.
+* Old values can include referenced objects (the reference path can have multiple steps).
 
 The following example loads the review score and the referenced book's title.
 This data will be used later in implementation of other business rules:
@@ -215,18 +215,18 @@ The items in this lists are sorted to match items in `updatedNew` and `deletedId
 
 ### OldDataLoaded
 
-(available since Rhetos v2.12)
-
-Use OldDataLoaded to initialize or change the data
+Use OldDataLoaded to **initialize or change the data**
 before saving it to the database and before applying other business rules,
-if the previous data state needs to be analyzed.
+if the **previous data** state needs to be considered.
+Available since Rhetos v2.12.
 
 See *LoadOldItems* helper (above) for loading the old data values to be reused in multiple business rules.
 
 Example task:
 
-> Use the low-level concept "OldDataLoaded" to append information to the review text,
-> each time a reviewer changes the existing review score: "(changed from {old score} to {new score})"
+> Each time a reviewer changes the existing review score,
+> append this information to the review text:
+> "(changed from {old score} to {new score})"
 
 Solution:
 
@@ -261,16 +261,13 @@ The OldDataLoaded code snippet usually uses `insertedNew`, `updatedNew` and `del
 parameters, along with updatedOld and deletedOld (from LoadOldItems),
 to analyze and modify the data that will be saved.
 
-For example, skipping the locked items are not going to be updated or deleted,
-or implementing a cascade delete mechanism.
-
 ### OnSaveUpdate
 
-Use OnSaveUpdate to modify data in other dependent entities that need to be updated (recomputed)
-after the current Save operation.
+Use OnSaveUpdate to **modify the data in other dependent entities**
+that need to be updated (recomputed) after the current Save operation.
 
-The OnSaveUpdate code snippet is executed *after* the given records are already saved to the database,
-but *before* the database transaction is committed.
+The OnSaveUpdate code snippet is executed *after* the given records are
+already saved to the database, but *before* the database transaction is committed.
 
 In most cases, the [ComputedFrom](Persisting-the-computed-data) with KeepSynchronized concepts
 should be used instead of this low-level code, since this is a standard pattern of updating the computed data.
@@ -322,24 +319,25 @@ to avoid using low-level concepts.
 
 ### OnSaveValidate
 
-Use OnSaveValidate to verify if the Save operation should be completed or rejected.
+Use OnSaveValidate to **verify the saved data**,
+and decide if the Save operation should be completed or rejected.
 
 The OnSaveValidate code snippet is executed *after* the given records are already saved to the database,
-*after* any dependent data is updated (recomputed), but *before* the database transaction is committed.
-This means that the code snippet can use database objects such as views or stored procedures to read
+*after* dependent data is updated (recomputed), but *before* the database transaction is committed.
+This means that the code snippet can use database objects such as views and stored procedures to read
 and analyze the data, and other dependent computed data in the system, to decide
 whether the new state is valid or not.
 
 If the saved data is not valid, the code snippet should **throw an exception**,
 which will result with automatic rollback of the database transaction.
-Throw a `Rhetos.UserException` with a message to the end user, that can later be translated/localized.
+Throw a `Rhetos.UserException` with a message to the end user, that can later be localized (translated).
 
 Note:
 Avoid using this low-level concept unless you are implementing a rare non-standard feature.
 Use **InvalidData** concept instead, for standard data validations,
 [Lock](Implementing-simple-business-rules#deny-data-modifications) and similar concepts to
 keep the existing data from changing,
-or [RowPermissions](RowPermissions-concept) for user access permissions.
+or [RowPermissions](RowPermissions-concept) for user access rights.
 
 Example task:
 
@@ -380,23 +378,23 @@ Entity Review
 ```
 
 Note that this example is a just a demo for SaveMethod.
-The [LockProperty concept](Implementing-simple-business-rules#deny-data-modifications)
+The [LockProperty](Implementing-simple-business-rules#deny-data-modifications) concept
 would be much better approach for this feature.
 
 ### AfterSave
 
-(available since Rhetos v2.4)
-
 AfterSave is intended for features that could cause problems (performance issues, e.g.)
 **if executed before data validations**.
+Available since Rhetos v2.4.
 
 The AfterSave code snippet is executed *after* the given records are already saved to the database,
-*after* any dependent data is updated (recomputed),
+*after* dependent data is updated (recomputed),
 *after* the validations passes,
 but *before* the database transaction is committed.
 
 Since AfterSave is called after all the validations and related computations of this entity are executed,
 there is a higher chance that the request will be successful and committed to the database.
+
 Note that AfterSave is called **at the end of the Save method of the given entity**,
 but not at the end of the web request (i.e. database transaction).
 
@@ -405,6 +403,12 @@ but not at the end of the web request (i.e. database transaction).
 * Another example, if the Save method is called from an Action, it is still possible
   for the transaction to be discarded by the code executed in action after saving this entity.
 
+For the reasons described above, AfterSave should not be used to send confirmation emails,
+or similar external actions that cannot be undone if the current request is canceled
+and the database transaction is rolled back.
+That kind of features should always be implemented with a task queue and a separate process for
+background processing of the committed tasks.
+
 ## Add features to repository class
 
 ### RepositoryUses
@@ -412,16 +416,16 @@ but not at the end of the web request (i.e. database transaction).
 RepositoryUses adds **a member property** of a given type to the repository class,
 and initializes it automatically from the **dependency injection** container.
 
-To allows you to use different system components with dependency injection
-in your C# code when implementing Actions, filters, validations, SaveMethod code snippets,
+This allows you to use different system components with dependency injection
+in your C# code when implementing actions, filters, validations, SaveMethod code snippets,
 and other features.
 
-Some of the most important core system components are already available from `Common.ExecutionContext`
+Some of the common system components are already available in `Common.ExecutionContext`
 (UserInfo, AuthorizationManager, LogProvider, EntityFrameworkContext, ...).
-RepositoryUses is often used to access custom classes,
+RepositoryUses is often used to access custom classes that are
 registered as plugins with dependency injection.
 
-Example:
+Example task:
 
 > Write a filter that returns long reviews.
 > The minimum length limit should be configurable in the application's configuration file.
@@ -451,16 +455,16 @@ It uses a default implementation of `IConfiguration` interface:
 a Rhetos component that reads configuration from the "Web.config" file.
 
 * RepositoryUses requires [AssemblyQualifiedName](https://docs.microsoft.com/en-us/dotnet/api/system.type.assemblyqualifiedname)
-  of the property type, but it can sometimes be shortened by omitting
+  of the property type, but it can sometimes be **shortened by omitting**
   Version, Culture and PublicKeyToken.
   In this example, `Rhetos.Utilities.IConfiguration` is the full class
-  or interface name (with the namespace), `Rhetos.Utilities` is the
-  assembly name (this is usually the file name Rhetos.Utilities.dll”
+  name or interface name (with the namespace), `Rhetos.Utilities` is the
+  assembly name (this is usually the file name "Rhetos.Utilities.dll”
   without the ".dll" extension).
 * Troubleshooting:
-  You can test if a correct string is provided, by checking the
+  You can test if a correct string is provided, by checking the result of
   [Type.GetType](https://docs.microsoft.com/en-us/dotnet/api/system.type.gettype?view=netframework-4.8#System_Type_GetType_System_String_)
-  result in a test application or a LINQPad script.
+  in a test application or a LINQPad script.
   It should return the expected type instead of *null*.
   For example:
     ```cs
@@ -469,15 +473,14 @@ a Rhetos component that reads configuration from the "Web.config" file.
 
 ### RepositoryMember
 
-(available since Rhetos v2.11)
-
 RepositoryUses is a low-level concept that allows you to add **an arbitrary code**
 to the repository class body.
 This can simplify code reuse between multiple filters, actions and other features.
+Available since Rhetos v2.11.
 
 In the following example, RepositoryMember adds a new helper method
 `BetterReviews(int minScore)` to the repository.
-The method is called from the FilterBy to read all reviews with score 4 or higher.
+The method is called from `FilterBy BestReviews` to read all reviews with score 4 or higher.
 
 ```c
 Entity Review
