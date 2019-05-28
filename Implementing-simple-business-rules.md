@@ -15,16 +15,20 @@ Contents:
 Property value constraints are simple business rules that can be declared beside the property in the .rhe script.
 The following concepts are available in CommonConcepts package:
 
+* `Required` - a property value must be entered when saving a records.
+  There are two subvariant of this concept:
+  * `SystemRequired` - The user does not need to enter the property value, but it's value should be entered (perhaps automatically by some other business rules).
+  * `UserRequired` - User (or client applications) needs to provide the property value.
+  * Note: Required properties are created with nullable types in C# and database.
+    The validation in implemented in Save method.
+* `Unique` - Two records cannot have same value of this property.
+  * `UniqueMultiple` - A unique constraint over multiple properties:
+    Two records cannot have same combination of values.
 * `MinValue` - Limit the smallest allowed value of the property.
 * `MaxValue` - Limit the largest allowed value of the property.
 * `MinLength` - Limit the smallest allowed length of the string.
 * `MaxLength` - Limit the largest allowed length of the string.
 * `RegExMatch` - Use a regular expression to validate the property value.
-* `Required` - a property value must be entered when saving a records.
-  * There are two subvariant of this concept:
-    * `SystemRequired` - The user does not need to enter the property value, but it's value should be entered (perhaps automatically by some other business rules).
-    * `UserRequired` - User (or client applications) needs to provide the property value.
-  * Note: Required properties are still created with nullable types in C# and database. Then validation in implemented in Save method.
 
 For more complex data validations a specific filter can be developed. Such validations are built in two steps:
 
