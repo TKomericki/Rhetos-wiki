@@ -18,19 +18,26 @@ If you are looking for inspiration on topics to write on, check out the **planne
 under [Learning resources](https://github.com/Rhetos/Rhetos/issues/118), or any open issues with the [documentation](https://github.com/Rhetos/Rhetos/labels/documentation) tag.
 
 Our documentation is stored on GitHub [wiki](https://github.com/Rhetos/Rhetos/wiki) pages.
-Contributions are done by [creating a fork]((https://help.github.com/articles/fork-a-repo/)) from the **[Rhetos-wiki](https://github.com/Rhetos/Rhetos-wiki) repository**, and submitting the pull requests there.
+Contributions are done by [creating a fork](https://help.github.com/articles/fork-a-repo/)
+from the repository at <https://github.com/Rhetos/Rhetos-wiki>,
+and submitting the pull requests there.
+
+* [Clone](https://help.github.com/en/articles/cloning-a-repository) your online copy (fork) of the Rhetos-wiki repository on your disk, edit the documentation files in a text editor, commit and push the changes, then create the pull request when done.
 
 How to write documentation:
 
 * The wiki pages are written in [markdown format](https://guides.github.com/features/mastering-markdown/).
-  * Use an offline text editor with **spell checker** and **markdown lint tool** to make sure there are no issues with the test formatting. For example, use *VS Code* with plugins: "Spell Right", "markdownlint" and "Markdown All in One" to write the documents.
+  * Use an offline text editor with **spell checker** and **markdown lint tool**
+    to make sure there are no issues with the text formatting.
+  * We recommend using **VS Code** with installed plugins:
+   "Spell Right", "markdownlint" and "Markdown All in One".
   * Skip the first-level heading in the article, because the GitHub wiki adds it automatically.
 * Rhetos **DSL code snippets (.rhe)** should be written as a
   [fenced code block](https://help.github.com/articles/creating-and-highlighting-code-blocks/),
   marked with "c" language identifier.
-  This will get us at least a minimal syntax highlighting that shows comments and strings.
+  This will provide at least a minimal syntax highlighting that shows comments and strings.
 
-Please see the specific guidelines for [Writing tutorial articles](Writing-tutorial-articles).
+Please see the additional guidelines for [Writing tutorial articles](Writing-tutorial-articles).
 
 ## Framework and plugins development
 

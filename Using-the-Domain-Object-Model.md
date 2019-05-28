@@ -11,7 +11,7 @@ such as filters, validations, computations and server actions.
 Prerequisites:
 
 * To follow the examples in this tutorial article, you need a working Rhetos application.
-  You can use any existing application or create a new one from [Create your first Rhetos application](Create-your-first-Rhetos-application.md).
+  You can use any existing application or create a new one from [Create your first Rhetos application](Create-your-first-Rhetos-application).
 * Some examples use the entities from the [Bookstore](https://github.com/Rhetos/Bookstore) demo application.
   You can review the bookstore data model in its [DSL scripts](https://github.com/Rhetos/Bookstore/tree/master/src/DslScripts).
   For example, see the `Entity Book` in the *Book.rhe* file.
@@ -478,7 +478,7 @@ but the additional navigation properties will be ignored.
 
 ### Sketch a code snippet when developing a new Action
 
-[Action](Action-concept.md) concept in Rhetos represents a custom server-side command that returns no data.
+[Action](Action-concept) concept in Rhetos represents a custom server-side command that returns no data.
 
 For example, in LINQPad or the playground app,
 write a code for the Bookstore demo application that **inserts five books**.
@@ -491,7 +491,7 @@ for (int i = 0; i < 5; i++)
 }
 ```
 
-Write an [Action](Action-concept.md) concept in DSL scripts that inserts five books,
+Write an [Action](Action-concept) concept in DSL scripts that inserts five books,
 copy the code snippet above into the concept implementation.
 
 ```C
@@ -511,7 +511,7 @@ Module Bookstore
 
 ### Execute action
 
-This example uses the [Action](Action-concept.md) created in the previous example.
+This example uses the [Action](Action-concept) created in the previous example.
 Don't forget to run `DeployPackages.exe` after implementing Action in the DSL script.
 
 In LINQPad or in the playground console app, execute the Insert5Books action.
@@ -565,7 +565,7 @@ repository.Bookstore.InsertManyBooks.Execute(actionParameter);
 ### Execute recompute (ComputedFrom)
 
 "Recompute" refers to the process of updating the persisted computed data,
-see [Persisting the computed data](Persisting-the-computed-data.md).
+see [Persisting the computed data](Persisting-the-computed-data).
 
 This example requires **CommonConceptsTest** plugin to be deployed on Rhetos server.
 It is available in Rhetos source subfolder `CommonConcepts\CommonConceptsTest`.

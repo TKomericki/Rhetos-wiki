@@ -111,4 +111,4 @@ The **syntax highlighting** plugins are available for the following text editors
 
 ## Read next
 
-* [Development environment setup](https://github.com/Rhetos/Rhetos/wiki/Development-environment-setup)
+* [Development environment setup](Development-environment-setup)

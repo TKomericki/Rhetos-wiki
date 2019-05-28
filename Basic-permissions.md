@@ -140,4 +140,4 @@ Note: The DataMigration scripts are often the first solution that comes to mind,
 
 ## See also
 
-* See other options for user authorization in the article [User authentication and authorization](https://github.com/Rhetos/Rhetos/wiki/User-authentication-and-authorization).
+* See other options for user authorization in the article [User authentication and authorization](User-authentication-and-authorization).

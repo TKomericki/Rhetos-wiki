@@ -37,7 +37,7 @@ The resulting folder structure should look like this:
 
 In `src\DslScripts` folder insert the file `Book.rhe`. Extension ".rhe" is used for scripts written in the Rhetos DSL programming language.
 
-We recommend using Visual Studio Code with Rhetos plugin to edit the ".rhe" files (see [VS Code setup](https://github.com/Rhetos/Rhetos/wiki/Prerequisites#configure-your-text-editor-for-dsl-scripts-rhe)). Edit `Book.rhe` and type in the following text:
+We recommend using Visual Studio Code with Rhetos plugin to edit the ".rhe" files (see [VS Code setup](Prerequisites#configure-your-text-editor-for-dsl-scripts-rhe)). Edit `Book.rhe` and type in the following text:
 
 ```C
 Module Bookstore

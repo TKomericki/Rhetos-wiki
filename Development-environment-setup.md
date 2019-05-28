@@ -12,7 +12,7 @@ Table of contents:
 
 ## Prerequisites
 
-Before following the instructions in this article, **make sure that all the [Prerequisites](https://github.com/Rhetos/Rhetos/wiki/Prerequisites) are installed**.
+Before following the instructions in this article, **make sure that all the [Prerequisites](Prerequisites) are installed**.
 
 If you are following a Rhetos tutorial, we recommend that you start from the tutorial article [Create your first Rhetos application](Create-your-first-Rhetos-application), then come back here.
 

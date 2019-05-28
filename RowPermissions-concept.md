@@ -3,7 +3,7 @@ Row permissions are intended for implementing business requirements that can be 
 > Some employees are allowed to access (read or write) some subset of the entity's records.
 
 * Note that row permissions are **not intended** for limiting access to specific **actions**, or **filtering** out some records in one part of the application while allowing the user to access the same records in another part of the application.
-* For the simpler model of user permissions, see [Basic-permissions](https://github.com/Rhetos/Rhetos/wiki/Basic-permissions).
+* For a simpler model of user permissions, see [Basic-permissions](Basic-permissions).
 
 Row permissions are based on filters that are applied when reading and writing entity's records:
 
@@ -356,4 +356,4 @@ Row permissions are automatically checked for client's read and write requests. 
 
 ## See also
 
-* [User authentication and authorization](https://github.com/Rhetos/Rhetos/wiki/User-authentication-and-authorization)
+* [User authentication and authorization](User-authentication-and-authorization)

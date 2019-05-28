@@ -56,7 +56,7 @@ When enabled, logging automatically records all changes made on the entity.
 It also records the changed data and information about the user.
 Logging is implemented through SQL triggers which makes it possible to record changes made outside the Rhetos server application.
 
-* More about using the **Logging** concept can be found under [Implementing simple business rules](https://github.com/Rhetos/Rhetos/wiki/Implementing-simple-business-rules#Logging).
+* More about using the **Logging** concept can be found under [Implementing simple business rules](Implementing-simple-business-rules#Logging).
 
 The data log can be extended with more actions, other than recording the data changes.
 For example, a **custom log entry** can be added by

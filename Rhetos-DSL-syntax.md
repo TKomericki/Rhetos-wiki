@@ -91,4 +91,4 @@ Notice changes in the `ShortString` placement and syntax in the following three 
 
 ## See also
 
-* [Rhetos coding standard](https://github.com/Rhetos/Rhetos/wiki/Rhetos-coding-standard)
+* [Rhetos coding standard](Rhetos-coding-standard)

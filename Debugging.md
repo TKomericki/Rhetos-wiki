@@ -68,7 +68,7 @@ Steps:
    Just attach Visual Studio to LINQPad process instead of w3wp.exe.
    * This is especially helpful if you need multiple steps to prepare the test data,
      or if you want to try different code snippets to test the issue.
-     See [Using the Domain Object Model](https://github.com/Rhetos/Rhetos/wiki/Using-the-Domain-Object-Model)
+     See [Using the Domain Object Model](Using-the-Domain-Object-Model)
      for using LINQPad with Rhetos.
    * For example, to debug a data validation in `InvalidData`, you can directly call
      `repository...Save` method from the LINQPad script.

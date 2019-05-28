@@ -225,7 +225,7 @@ getdate()
 **SqlObject** *&lt;Module&gt;.&lt;Name&gt; &lt;CreateSQL&gt; &lt;RemoveSQL&gt;* -
   Use this to create other database objects that are not supported by the other concepts, for example: full-text search index.
 
-See the full documentation at [SqlObject concept](https://github.com/Rhetos/Rhetos/wiki/SqlObject-concept).
+See the full documentation at [SqlObject concept](SqlObject-concept).
 
 ```C
 Module Demo
@@ -285,4 +285,4 @@ Other concepts for defining dependencies are rarely used, when **AutoDetectSqlDe
 
 ## See also
 
-* [SqlObject concept](https://github.com/Rhetos/Rhetos/wiki/SqlObject-concept)
+* [SqlObject concept](SqlObject-concept)
