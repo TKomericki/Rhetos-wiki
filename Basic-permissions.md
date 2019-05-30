@@ -1,14 +1,14 @@
 Contents:
 
-- [Users and roles](#users-and-roles)
-  - [Common administration activities](#common-administration-activities)
-  - [Claims](#claims)
-  - [Permissions](#permissions)
-- [Development](#development)
-  - [Suppressing permissions in a development environment](#suppressing-permissions-in-a-development-environment)
-  - [Automatic user management](#automatic-user-management)
-  - [Inserting the permissions on deployment](#inserting-the-permissions-on-deployment)
-- [See also](#see-also)
+1. [Users and roles](#users-and-roles)
+   1. [Common administration activities](#common-administration-activities)
+   2. [Claims](#claims)
+   3. [Permissions](#permissions)
+2. [Development](#development)
+   1. [Suppressing permissions in a development environment](#suppressing-permissions-in-a-development-environment)
+   2. [Automatic user management](#automatic-user-management)
+   3. [Inserting the permissions on deployment](#inserting-the-permissions-on-deployment)
+3. [See also](#see-also)
 
 ## Users and roles
 

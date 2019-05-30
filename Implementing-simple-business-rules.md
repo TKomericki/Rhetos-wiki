@@ -15,7 +15,7 @@ Contents:
 Property value constraints are simple business rules that can be declared beside the property in the .rhe script.
 The following concepts are available in CommonConcepts package:
 
-* `Required` - a property value must be entered when saving a records.
+* `Required` - The property value must be entered when saving a record.
   There are two subvariant of this concept:
   * `SystemRequired` - The user does not need to enter the property value, but it's value should be entered (perhaps automatically by some other business rules).
   * `UserRequired` - User (or client applications) needs to provide the property value.
@@ -28,7 +28,7 @@ The following concepts are available in CommonConcepts package:
 * `MaxValue` - Limit the largest allowed value of the property.
 * `MinLength` - Limit the smallest allowed length of the string.
 * `MaxLength` - Limit the largest allowed length of the string.
-* `RegExMatch` - Use a regular expression to validate the property value.
+* `RegExMatch` - Use a regular expression to validate the string property value.
 
 For more complex data validations a specific filter can be developed. Such validations are built in two steps:
 
@@ -64,7 +64,9 @@ Examples of the following concepts are available in a unit testing DSL script
 * `LockProperty` - Deny update of a property, for records in a certain state.
 * `LockExcept` - Deny update (except for properties from the provided list) and delete of the entity records, for records in a certain state.
 * `DenyUserEdit` on an entity - Client application is not allowed to directly insert, update or delete the entity records (no condition).
-* `DenyUserEdit` on a property - Client application is not allowed to directly insert or update the property. On insert and update it is only allowed to send a *null* value (it will be interpreted as "no change" on update), or a previous value.
+* `DenyUserEdit` on a property - Client application is not allowed to directly insert or update the property.
+  * When inserting and updating records, the client is only allowed to send the previous value, or a *null* value (it will be interpreted as "no change" on update).
+  * Best practices: Instead of using this concept, consider separating the properties computed by the system from properties entered by a user into different entities.
 
 Similar features and alternatives:
 
@@ -74,14 +76,14 @@ Similar features and alternatives:
 ## Automatically generated data
 
 * `DefaultValue` - Generate the default property value when inserting a new record (since Rhetos v2.10).
-* `AutoCode` - A property marked with AutoCode will automatically increase by one for each new record. When inserting a new record, the initially entered value is interpreted as a format for generating the code. It supports the following formatting:
-  * Multiple digits with with leading zeros: for example, if "+++" is entered, a three-digit number will be created (001, 002, 003, ...)
+* `AutoCode` - Automatically generate numeric codes for each new record. When inserting a new record, the initially entered value is interpreted as a format for generating the code. It supports the following formatting:
+  * Multiple digits with leading zeros: for example, if "+++" is entered, a three-digit number will be created (001, 002, 003, ...)
   * Prefix: for example, if "BOOK+" is entered, the generated codes will be BOOK1, BOOK2, BOOK3, ....
   * Combination of the above.
-  * If the entered value is not a valid format (it does not end with a "+"), then it is save as is provided. This allows saving new codes directly when a user/client need to specify the code.
-  * `AutoCode`, `DenyUserEdit` and `DefaultValue` are often used on the same property to indicate that the property code are automatically generated, user cannot enter it's own code or code format, and the DefaultValue provide the number format (if it not simple 1, 2, 3, ...).
+  * By default, users can enter the code manually instead of generating it automatically, by entering the value that is not a valid pattern format (does not end with a "+").
+  * `AutoCode`, `DenyUserEdit` and `DefaultValue` are often used on the same property when the codes are automatically generated, the user must not enter it's own code or code format, and the DefaultValue provides the number format (if it's not simple 1, 2, 3, ...).
   * `AutoCode` supports Integer and ShortString property types.
-* `AutoCodeForEach` - Same as `AutoCode`, but the numbers are starting from 1 within each group of records. The group is defined by some another property value.
+* `AutoCodeForEach` - Same as `AutoCode`, but the numbers are starting from 1 within each group of records. The group is defined by the second property value.
 * `CreationTime` - Automatically enters time when the records was created.
 * `ModificationTimeOf` - Automatically enters time when some given property was last updated.
 

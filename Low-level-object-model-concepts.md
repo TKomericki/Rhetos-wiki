@@ -454,13 +454,16 @@ to be used in the ComposableFilterBy.
 It uses a default implementation of `IConfiguration` interface:
 a Rhetos component that reads configuration from the "Web.config" file.
 
-* RepositoryUses requires [AssemblyQualifiedName](https://docs.microsoft.com/en-us/dotnet/api/system.type.assemblyqualifiedname)
-  of the property type, but it can sometimes be **shortened by omitting**
-  Version, Culture and PublicKeyToken.
-  In this example, `Rhetos.Utilities.IConfiguration` is the full class
-  name or interface name (with the namespace), `Rhetos.Utilities` is the
+RepositoryUses requires
+[AssemblyQualifiedName](https://docs.microsoft.com/en-us/dotnet/api/system.type.assemblyqualifiedname)
+of the property type, but it can be **shortened** by omitting Version, Culture and PublicKeyToken.
+
+* In the example above, `Rhetos.Utilities.IConfiguration` is the class
+  name or interface name (with the namespace), and `Rhetos.Utilities` is the
   assembly name (this is usually the file name "Rhetos.Utilities.dll”
   without the ".dll" extension).
+* Use full AssemblyQualifiedName for .NET framework types to avoid assembly loader issues,
+  and shortened for custom types implemented in dlls that are placed in your Rhetos application folder.
 * Troubleshooting:
   You can test if a correct string is provided, by checking the result of
   [Type.GetType](https://docs.microsoft.com/en-us/dotnet/api/system.type.gettype?view=netframework-4.8#System_Type_GetType_System_String_)

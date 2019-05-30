@@ -57,18 +57,28 @@ Browse BookGrid Bookstore.Book
 }
 ```
 
-The **Browse** concept will create a readable data structure named `BookGrid`, with the given properties.
+The **Browse** concept will create a readable data structure named `BookGrid`,
+that returns the selected properties from the `Book`.
 
 The **Take** concept selects the properties, starting from the base entity (`Bookstore.Book`).
 
 * `Code` and `Title` are taken directly from the Book.
-* Author's name is taken from the referenced entity by a path `Author.Name`.
+
+Instead of a simple property, it is possible to **specify a path** across the references,
+separated by a dot.
+In addition to the Reference properties, the path can contain other generated navigation properties:
+`Base` (navigation from extension to base), `Extension_<extension name>` (navigation from base to an
+extension) and `ID` (as Guid property).
+
+* Author's name is taken from the referenced entity by the path `Author.Name`.
   This property will be automatically named by simple concatenation: "AuthorName".
 * Translator's name is declared with a similar path.
   The property's name is manually set to `TranslatorName`.
   Note that an extended entity ForeignBook (see the [Extends](Data-model-and-relationships) concept)
   creates the navigation property `Extension_ForeignBook`, from the base entity "Book" to the extension.
-* Browse will also include the ID property from the base entity (`Book`).
+
+The Browse data structure is registered as an extension of it's base entity.
+It also includes the ID property from the base entity (`Book`).
 
 Technical notes:
 

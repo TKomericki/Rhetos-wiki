@@ -1,6 +1,6 @@
 # Low-level database development
 
-These concepts are used as a workaround for features that cannot be implemented with the available high-level concepts in Rhetos.
+These concepts are used as a workaround for features that cannot be implemented with the available high-level concepts.
 
 > A good rule of thumb is to *avoid* these low-level concepts if you are implementing a standard business pattern.
 > Seeing low-level concepts in DSL scripts is a sign that we are not looking at a standard feature, but **a very specific uncommon feature**.
