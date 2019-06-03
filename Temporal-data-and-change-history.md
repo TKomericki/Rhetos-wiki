@@ -13,7 +13,7 @@ Contents:
 
 To add the *temporal data management* features to an existing entity, simply add the **History** keyword.
 
-You can choose which properties have history management enabled, add the **History** to each property,
+You can choose which properties have history management enabled by adding the **History** keyword to each property,
 or use **AllProperties** macro that automatically includes all properties.
 
 Example:
@@ -35,11 +35,11 @@ Module Demo
 ```
 
 The `History` concept works in a backward-compatible way.
-This means that any other feature that used the `Demo.Contract`,
-before it became a temporal entity, can still work identically in the same way as before.
+This means that any other feature that have used the `Demo.Contract` previously as a simple entity,
+can still work in the same way after converting it into a history entity:
 
-* The basic table for the entity `Demo.Contract` remains, with the existing features unchanged.
-* The rows in table `Demo.Contract` represent the **currently active version** for each contract.
+* The basic database table for the entity `Demo.Contract` remains, with the existing features unchanged.
+* The rows in the table `Demo.Contract` represent the **currently active version** for each contract.
 
 The `History` concept adds the following new features:
 
