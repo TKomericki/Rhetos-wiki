@@ -16,33 +16,48 @@ Contents:
 
 1. [System log](#system-log)
 2. [Logging data changes and auditing](#logging-data-changes-and-auditing)
-3. [Similar features](#similar-features)
+3. [Other similar features](#other-similar-features)
 
 ## System log
 
-The generated Rhetos application has system logging integrated in many internal components,
-in order to provide **global error reporting**, **performance diagnostics**,
-or a **detailed trace log** for debugging.
+The generated Rhetos application has system logging integrated in many internal components.
+It provides **global error reporting**, **performance diagnostics**,
+and a **detailed trace log** for debugging.
 
 The system log uses [NLog](https://nlog-project.org/), a popular 3rd party library,
 and it can be configured to different level of detail for different system components.
 It supports many targets such as files or Azure Application Insights.
 See the NLog documentation for available options: <https://nlog-project.org/config/?tab=targets>
 
-In your Rhetos application, you can define custom event types for your log
-(`context.LogProvider.GetLogger("my event type")`)
-and set the configuration in `Web.config` to define rules on when and where to send those events.
-Review the `nlog` section in your Rhetos server's *Web.config* file for some examples.
+In your Rhetos application you can:
+
+1. Define custom event types for your log: `var logger = context.LogProvider.GetLogger("my event type")`,
+   and [write](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Logging.Interfaces/ILogger.cs)
+   log entries: `logger.Write(...)`.
+2. Configure logging in `Web.config` to create rules on when and where to send those events.
+   Review the `nlog` section in your Rhetos server's *Web.config* file for some examples.
+
+Here are explained some examples from the default configuration of the `<nlog>` section
+in Rhetos server's `Web.config` file.
+Uncomment any existing rule or add new rules as needed.
+
+| Web.config `<nlog>` rule | Description |
+| --- | --- |
+| `<logger name="*" minLevel="Info" writeTo="MainLog" />` | Write errors and warnings to RhetosServer.log. Enabled by default. |
+| `<logger name="ProcessingEngine CommandsWithServerError" minLevel="Trace" writeTo="TraceCommandsXml" />` | On internal server error write a full server request description to RhetosServerCommandsTrace.xml. Enabled by default. |
+| `<logger name="ProcessingEngine CommandsWithClientError" minLevel="Trace" writeTo="TraceCommandsXml" />` | On client error (incorrect data or invalid request) write a full server request description to RhetosServerCommandsTrace.xml. Disabled by default. |
+| `<logger name="*" minLevel="Trace" writeTo="TraceLog" />` | Write all events to RhetosServerTrace.log. Use this option only for a short time, because it generates a lot of data and can hinder the server performance. |
+| `<logger name="ProcessingEngine Request" minLevel="Trace" writeTo="TraceLog" />` | Write a short description of each server request to RhetosServerTrace.log |
 
 If you need to analyze a difficult issue in the application,
-but the system log does not contain useful information,
+but the system log does not contain a useful information,
 try the following options:
 
 * Increate the level of detail for the system log to maximum:
-  In `Web.config` temporarily uncomment the line with
+  In `Web.config` *temporarily* uncomment the line with
   `<logger name="*" minLevel="Trace" writeTo="TraceLog" />`
   (this will reduce the application's performance),
-  reproduce the issue in you application,
+  reproduce the issue in your application,
   then review the generated log file `Logs\RhetosServerTrace.log`.
 * Try debugging the application in Visual Studio
   (even remote debugging is possible).
@@ -54,9 +69,11 @@ Logging can be enabled on any entity to generated an **audit trail**.
 For the audit trail Rhetos server uses *Common.Log* table.
 When enabled, logging automatically records all changes made on the entity.
 It also records the changed data and information about the user.
-Logging is implemented through SQL triggers which makes it possible to record changes made outside the Rhetos server application.
+Logging is implemented through SQL triggers which makes it possible to record changes
+made outside the Rhetos server application.
 
-* More about using the **Logging** concept can be found under [Implementing simple business rules](Implementing-simple-business-rules#Logging).
+* More about using the **Logging** concept can be found under
+  [Implementing simple business rules](Implementing-simple-business-rules#Logging).
 
 The data log can be extended with more actions, other than recording the data changes.
 For example, a **custom log entry** can be added by
@@ -64,9 +81,12 @@ For example, a **custom log entry** can be added by
 with the following parameters: "ShortString Action, ShortString TableName, Guid ItemId, LongString Description"
 (only the Action parameter is required).
 
-When **reading the log data**, *always* use the view **Common.LogReader**, instead of reading from Common.Log directly.
+When **reading the log data**, *always* use the view **Common.LogReader**,
+instead of reading from Common.Log directly.
 
-* LogReader ensures that reading log will not block any write operations (WITH NOLOCK). This is important if the database does not use read committed snapshot, to allow other users to work while analyzing the log.
+* LogReader ensures that reading log will not block any write operations (WITH NOLOCK).
+  This is important if the database does not use read committed snapshot,
+  to allow other users to work while analyzing the log.
 * LogReader can include archived logs from other tables or databases.
 
 *Common.LogReader* returns the following columns:
@@ -89,7 +109,7 @@ and [AspNetFormsAuthImpersonation](https://github.com/Rhetos/AspNetFormsAuthImpe
 ContextInfo will contain both the original and the impersonated
 user name in format "{original user} as {impersonated user}".
 
-## Similar features
+## Other similar features
 
 Alternatively, for entities whose value may change over time
 (for example, an employee may change the address),
