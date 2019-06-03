@@ -49,7 +49,7 @@ The `History` concept adds the following new features:
 | Entity **Contract_Changes** | A new database table is created `Demo.Contract_Changes`, that contains **previous versions** for the items. It has all properties from `Demo.Contract`, and additionally a column `EntityID` that references `Demo.Contract`. `ID` in the `Demo.Contract_Changes` is just an internal ID of a history record, and `EntityID` contains the ID value from `Demo.Contract`. |
 | SqlQueryable **Contract_History** | View `Demo.Contract_History` is created that contains **all versions** of the Contract items. It is a union of `Contract` and `Contract_Changes`. |
 | DateTime **ActiveUntil** | View `Demo.Contract_History` additionally has a computed property `ActiveUntil` that returns `ActiveSince` value from the next version of the record. |
-| **Contract_AtTime** | An inline table-valued function `Demo.Contract_AtTime` is created, with a `DATETIME` parameter, that returns versions of all records that where active at the given time. It is not exposed in the object model or REST service. |
+| SqlFunction **Contract_AtTime** | An inline table-valued function `Demo.Contract_AtTime` is created, with a `DATETIME` parameter, that returns versions of all records that where active at the given time. It is not exposed in the object model or REST service. |
 
 **Deactivatable** concept is not required on a history entity,
 and these two concepts are not directly related, but are often used together.
