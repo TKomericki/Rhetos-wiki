@@ -18,8 +18,8 @@ in two distinct categories:
 1. Data that is directly entered by user.
 2. Data that is computed by the system.
 
-It would be cleaner to separate this data into distinct data structures,
-even though Rhetos supports working with mixed data structures when needed.
+It would be cleaner to separate this data into distinct entities,
+even though Rhetos supports working with mixed data when needed.
 For example it is possible to have an entity with some properties entered by user
 and some properties automatically computed.
 
@@ -30,7 +30,7 @@ In such systems the bugs are difficult to fix and the data corrupted by a bug is
 
 The computed data usually comes in two forms:
 
-1. **Computed on-the-fly**, on each request. For example, implemented as a database view.
+1. **Computed on-the-fly**, on each read request. For example, implemented as a database view.
 2. **Persisted**. For example, precomputed and cached in a database table, and automatically synchronized.
 
 A decision between these two options can be changes easily, and should be mostly

@@ -10,7 +10,7 @@ Table of contents:
 1. [What is Rhetos DSL concept](#what-is-rhetos-dsl-concept)
 2. [How it works](#how-it-works)
 3. [How to write a macro concept](#how-to-write-a-macro-concept)
-4. [How to write a basic concept](#how-to-write-a-basic-concept)
+4. [How to write a concept with code generator](#how-to-write-a-concept-with-code-generator)
 5. [How to deploy created concept](#how-to-deploy-created-concept)
 6. [See also](#see-also)
 
@@ -72,8 +72,8 @@ a specific part of code to a specific place in already generated code.
 One concept depends on the other, and that's how your code is structured from your DSL scripts.
 Bearing that in mind, we have the following types of DSL concepts:
 
-* basic concept - concept that defines a DSL keyword and have a code generator which implements functionality
-* macro concept - concept which does not generate but compose (generate) a couple of other concepts to implement some functionality
+* concept with code generator - concept that defines a DSL keyword and has a code generator which implements functionality
+* macro concept - a simple concept which does not generate code directly, instead it generates a couple of other concepts to implement some functionality
 * mixed concept - combination of two types mentioned above
 
 Choosing of what type of concept to implement depends on functionality that we want to achieve.
@@ -141,9 +141,9 @@ namespace MyFirstConcept
 
 With those two classes you have just created your first macro concept.
 
-## How to write a basic concept
+## How to write a concept with code generator
 
-Defining the IConceptInfo implementation for the basic concept is the same as for the macro concept.
+Defining the IConceptInfo implementation for the concept is the same as for the macro concept.
 Now we have to define a code generator in which we will implement wanted functionality.
 This is done by implementing IConceptCodeGenerator interface (defined in Rhetos.Compiler.Interfaces assembly).
 
