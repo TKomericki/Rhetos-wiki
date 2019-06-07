@@ -14,7 +14,7 @@ Contents:
 2. [Multiple interface implementations](#multiple-interface-implementations)
 3. [Property implementation with subquery](#property-implementation-with-subquery)
 4. [Limit the implementation with filter (where)](#limit-the-implementation-with-filter-where)
-5. [Referencing or extending a polymorphic entity](#referencing-or-extending-a-polymorphic-entity)
+5. [Referencing or extending a polymorphic data structure](#referencing-or-extending-a-polymorphic-data-structure)
 6. [Subtype implementation using SQL query](#subtype-implementation-using-sql-query)
 7. [Efficient queries from client application](#efficient-queries-from-client-application)
 
@@ -164,11 +164,13 @@ Entity BorrowMoney2
 See the generated SQL view `Demo.BorrowMoney2_As_MoneyTransaction` to check the impact
 of the `Where` concept.
 
-## Referencing or extending a polymorphic entity
+## Referencing or extending a polymorphic data structure
 
 A polymorphic data structure may be referenced or extended by other entities
-(Browse is also an extension).
-Rhetos will check the **reference constraint** on data modifications.
+(note that Browse is also an extension).
+
+For example, we can add a common detail entity `TransactionComment` for any transaction,
+including BorrowMoney, LendMoney and others:
 
 ```c
 Entity TransactionComment
@@ -178,12 +180,14 @@ Entity TransactionComment
 }
 ```
 
+Rhetos will check the **reference constraint** on data modifications in the detail entity.
+
 Internally, the reference is implemented as a foreign key in database:
 from the `TransactionComment` table to the automatically generated
 `MoneyTransaction_Materialized` table.
 The `MoneyTransaction_Materialized` table contains union of IDs from all
 MoneyTransaction subtypes: `BorrowMoney` and `LendMoney`.
-The redundant IDs are automatically updated when inserting or deleting the subtype entities' records.
+This cached IDs are automatically updated when inserting or deleting any subtype entities' records.
 
 Additional considerations on the polymorphic materialization:
 
@@ -194,7 +198,7 @@ Additional considerations on the polymorphic materialization:
   but you still want to create the materialized table,
   you can manually create it by adding the `Materialized;` keyword in the polymorphic.
 * The materialized table contains only ID column by default,
-  by you could manually adding an additional polymorphic property to the entity
+  by you can manually add additional polymorphic properties to this entity
   and map it to the source with ComputedFrom concept on each property.
 * When materializing a polymorphic, there is a *restriction* to its implementations:
   **Each implementation** of the polymorphic should have a **stable ID value**.
