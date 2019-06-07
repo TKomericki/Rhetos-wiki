@@ -47,7 +47,7 @@ Module Bookstore
 The DSL way of implementing the same feature is to write a new concept and use that concept,
 instead of repetitive copying the same code.
 After writing such a concept (let's say we call it PhoneNumber),
-we can then use it our DSL script like this:
+we can then use it in our DSL script like this:
 
 ```c
 Module Bookstore
