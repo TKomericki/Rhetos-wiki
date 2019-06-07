@@ -76,9 +76,29 @@ Entity TransactionComment
 }
 ```
 
-Internally, the reference is implemented as a foreign key in database: from the `TransactionComment` table to the automatically generated `MoneyTransaction_Key` table.
-The `MoneyTransaction_Key` table contains union of IDs from all MoneyTransaction subtypes: `BorrowMoney` and `LendMoney`.
+Internally, the reference is implemented as a foreign key in database: from the `TransactionComment` table to the automatically generated `MoneyTransaction_Materialized` table.
+The `MoneyTransaction_Materialized` table contains union of IDs from all MoneyTransaction subtypes: `BorrowMoney` and `LendMoney`.
 The redundant IDs are automatically updated when inserting or deleting the subtype entities' records.
+
+Additional considerations on the polymorphic materialization:
+
+* The "materialized" table is an automatically generated Entity.
+  Internally, its data is automatically maintained by generated concepts ComputedFrom and KeepSynchronized
+  (see [Persisting the computed data](Persisting-the-computed-data)).
+* If where are no references or extensions to the polymorphic,
+  but you still want to create the materialized table,
+  you can manually create it by adding the `Materialized;` keyword in the polymorphic.
+* The materialized table contains only ID column by default,
+  by you could manually adding an additional polymorphic property to the entity
+  and map it to the source with ComputedFrom concept on each property.
+* When materializing a polymorphic, there is a *restriction* to its implementations:
+  **Each implementation** of the polymorphic should have a **stable ID value**.
+  This is required to allow automatic update of cached data in the materialized table.
+  For example, it the implementation is entity, its ID values are stable because they are
+  generated when saving the records,
+  but if the implementation is SqlQueryable, you should **avoid** code like `ID = NEWID()`.
+  The view that implements the materialized polymorphic should return the same (and unique)
+  ID values on each read if the source data has not changed.
 
 ## Multiple interface implementations
 
