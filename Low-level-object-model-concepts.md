@@ -21,18 +21,18 @@ This is important to avoid hindering the development progress in case of any mis
 
 Contents:
 
-1. [SaveMethod](#savemethod)
-   1. [Understanding the generated Save method](#understanding-the-generated-save-method)
-   2. [ArgumentValidation](#argumentvalidation)
-   3. [Initialization](#initialization)
-   4. [LoadOldItems (shared old values)](#loadolditems-shared-old-values)
-   5. [OldDataLoaded](#olddataloaded)
-   6. [OnSaveUpdate](#onsaveupdate)
-   7. [OnSaveValidate](#onsavevalidate)
-   8. [AfterSave](#aftersave)
-2. [Add features to repository class](#add-features-to-repository-class)
-   1. [RepositoryUses](#repositoryuses)
-   2. [RepositoryMember](#repositorymember)
+1. [SaveMethod](#SaveMethod)
+   1. [Understanding the generated Save method](#Understanding-the-generated-Save-method)
+   2. [ArgumentValidation](#ArgumentValidation)
+   3. [Initialization](#Initialization)
+   4. [LoadOldItems (shared old values)](#LoadOldItems-shared-old-values)
+   5. [OldDataLoaded](#OldDataLoaded)
+   6. [OnSaveUpdate](#OnSaveUpdate)
+   7. [OnSaveValidate](#OnSaveValidate)
+   8. [AfterSave](#AfterSave)
+2. [Add features to repository class](#Add-features-to-repository-class)
+   1. [RepositoryUses](#RepositoryUses)
+   2. [RepositoryMember](#RepositoryMember)
 
 ## SaveMethod
 
@@ -46,12 +46,12 @@ The following table shows order in which the code snippets are executed.
 
 | Position in Save method | Intended purpose of the inserted C# code |
 | --- | --- |
-| 1. ArgumentValidation | To verify if the parameters could break the rest of the Save method's business logic. Use *OnSaveValidate* instead for standard data validations. |
-| 2. Initialization | To initialize or change the data, before saving it to the database. If possible, use [DefaultValue](Implementing-simple-business-rules#automatically-generated-data) instead. |
-| 3. OldDataLoaded | To initialize or change the data, before saving it to the database, if previous data state needs to be considered. See related *LoadOldItems* concept. |
-| 4. OnSaveUpdate | To modify data in other dependent entities that need to be updated (recomputed) after the current Save operation. If possible, use [ComputedFrom](Persisting-the-computed-data) instead. |
-| 5. OnSaveValidate | To implement a custom data validation. If possible, use *InvalidData* instead, for standard data validations, or [RowPermissions](RowPermissions-concept) for user permissions. |
-| 6. AfterSave | The inserted code will be execute after validations. |
+| 1. [ArgumentValidation](#ArgumentValidation) | To verify if the parameters could break the rest of the Save method's business logic. Use *OnSaveValidate* instead for standard data validations. |
+| 2. [Initialization](#Initialization) | To initialize or change the data, before saving it to the database. If possible, use [DefaultValue](Implementing-simple-business-rules#automatically-generated-data) instead. |
+| 3. [OldDataLoaded](#OldDataLoaded) | To initialize or change the data, before saving it to the database, if previous data state needs to be considered. See related *LoadOldItems* concept. |
+| 4. [OnSaveUpdate](#OnSaveUpdate) | To modify data in other dependent entities that need to be updated (recomputed) after the current Save operation. If possible, use [ComputedFrom](Persisting-the-computed-data) instead. |
+| 5. [OnSaveValidate](#OnSaveValidate) | To implement a custom data validation. If possible, use *InvalidData* instead, for standard data validations, or [RowPermissions](RowPermissions-concept) for user permissions. |
+| 6. [AfterSave](#AfterSave) | The inserted code will be execute after validations. |
 
 Note that the data is **saved to the database** between OldDataLoaded and OnSaveUpdate,
 but the database transaction will be committed later
@@ -59,7 +59,7 @@ but the database transaction will be committed later
 This means that the code in OnSaveUpdate, OnSaveValidate and AfterSave can
 use other features implemented in database, such as views.
 
-In addition, SaveMethod can contain **LoadOldItems** concept,
+In addition, SaveMethod can contain [**LoadOldItems**](#LoadOldItems-shared-old-values) concept,
 a simple helper for reading an old version of the data that can
 be reused in different business rules.
 It will load the old data between Initialization and OldDataLoaded.
@@ -334,7 +334,7 @@ Throw a `Rhetos.UserException` with a message to the end user, that can later be
 
 Note:
 Avoid using this low-level concept unless you are implementing a rare non-standard feature.
-Use **InvalidData** concept instead, for standard data validations,
+Use **InvalidData** concept instead, for standard [data validations](Data-validations),
 [Lock](Implementing-simple-business-rules#deny-data-modifications) and similar concepts to
 keep the existing data from changing,
 or [RowPermissions](RowPermissions-concept) for user access rights.

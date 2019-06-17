@@ -17,21 +17,22 @@ Prerequisites:
 
 Contents:
 
-1. [Filters](#filters)
-   1. [ItemFilter concept](#itemfilter-concept)
-   2. [Testing a filter](#testing-a-filter)
-   3. [ItemFilter with related data and subquery](#itemfilter-with-related-data-and-subquery)
-   4. [ComposableFilterBy concept](#composablefilterby-concept)
-   5. [ComposableFilterBy with parameters](#composablefilterby-with-parameters)
-   6. [Predefined filters](#predefined-filters)
-2. [Other read methods](#other-read-methods)
-   1. [FilterBy concept](#filterby-concept)
-   2. [Query concept](#query-concept)
-3. [Development guidelines and advanced topics](#development-guidelines-and-advanced-topics)
-   1. [When not to write filters](#when-not-to-write-filters)
-   2. [Additional data from other repositories and the context](#additional-data-from-other-repositories-and-the-context)
-   3. [Filter name is the parameter type](#filter-name-is-the-parameter-type)
-   4. [Combining filters and other read methods](#combining-filters-and-other-read-methods)
+1. [Filters](#Filters)
+   1. [ItemFilter concept](#ItemFilter-concept)
+   2. [Testing a filter](#Testing-a-filter)
+   3. [ItemFilter with related data and subquery](#ItemFilter-with-related-data-and-subquery)
+   4. [ComposableFilterBy concept](#ComposableFilterBy-concept)
+   5. [ComposableFilterBy with parameters](#ComposableFilterBy-with-parameters)
+   6. [Predefined filters](#Predefined-filters)
+2. [Other read methods](#Other-read-methods)
+   1. [FilterBy concept](#FilterBy-concept)
+   2. [Query concept](#Query-concept)
+3. [Development guidelines and advanced topics](#Development-guidelines-and-advanced-topics)
+   1. [When not to write filters](#When-not-to-write-filters)
+   2. [Additional data from other repositories and the context](#Additional-data-from-other-repositories-and-the-context)
+   3. [Filter name is the parameter type](#Filter-name-is-the-parameter-type)
+   4. [Combining filters and other read methods](#Combining-filters-and-other-read-methods)
+4. [Read next](#Read-next)
 
 ## Filters
 
@@ -80,7 +81,7 @@ The **ItemFilter** has two parameters: filter name and lambda expression.
 * In C# lambda expressions, the argument name (`book` or `item`) can be any C# identifier.
   For convention, we usually use `item`.
 
-The `CommonMisspelling` filter is additionally used for a data validation
+The `CommonMisspelling` filter is additionally used for a [data validation](Data-validations)
 that will deny the *save* operation if the user enters an invalid book name.
 **Both filters** can be used by a client application (or in the object model)
 to query a subset of the books.
@@ -676,3 +677,7 @@ The "**Example URL**" is using the entities from the [Bookstore](https://github.
 | FilterBy(param1), GenericPropertyFilter(param2) | Load(param1) => Filter(param2)<br>**WARNING**: *This is inefficient because the Load method already loaded more data from database then required.* | [rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.ComplexSearch"},{"Property":"Code","Operation":"Contains","Value":"2"}]](http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.ComplexSearch"},{"Property":"Code","Operation":"Contains","Value":"2"}]) |
 
 In the examples above, the result will be the same it you replace *ItemFilter* with a *ComposableFilterBy*.
+
+## Read next
+
+* [Data validations](Data-validations)

@@ -26,6 +26,7 @@ Tutorials:
 * Develop new features:
   * [Using the Domain Object Model](Using-the-Domain-Object-Model)
   * [Filters and other read methods](Filters-and-other-read-methods)
+  * [Data validations](Data-validations)
   * Implement new server commands: [Action concept](Action-concept)
   * Extend Rhetos DSL with you own keywords: [Rhetos concept development](Rhetos-concept-development)
   * [Low-level database development](Database-objects)

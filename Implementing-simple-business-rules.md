@@ -3,12 +3,12 @@ Then can often be used by simply declaring them on an entity or a property.
 
 Contents:
 
-1. [Property value constraints](#property-value-constraints)
-2. [Deny data modifications](#deny-data-modifications)
-3. [Automatically generated data](#automatically-generated-data)
-4. [Logging data changes and auditing](#logging-data-changes-and-auditing)
-5. [Other features](#other-features)
-6. [See also](#see-also)
+1. [Property value constraints](#Property-value-constraints)
+2. [Deny data modifications](#Deny-data-modifications)
+3. [Automatically generated data](#Automatically-generated-data)
+4. [Logging data changes and auditing](#Logging-data-changes-and-auditing)
+5. [Other features](#Other-features)
+6. [See also](#See-also)
 
 ## Property value constraints
 
@@ -30,18 +30,23 @@ The following concepts are available in CommonConcepts package:
 * `MaxLength` - Limit the largest allowed length of the string.
 * `RegExMatch` - Use a regular expression to validate the string property value.
 
-For more complex data validations a specific filter can be developed. Such validations are built in two steps:
+For more complex data validations a specific filter can be developed,
+see [Data validations](Data-validations) article for more info.
+Such validations are built in two steps:
 
-1. Create a filter on the entity. In the example below, the filter FinishBeforeStart returns every Employee with invalid data (WorkFinished is before WorkStarted).
-2. Create a validation for that filter with the message for the used. The validation will return the error message to the user it he or she tries to enter the invalid data.
+1. Create a filter on the entity.
+   In the example below, the filter FinishBeforeStart returns every Employee with invalid data
+   (WorkFinished is before WorkStarted).
+2. Create a validation rule for that filter, with the message for the user.
+   The validation will return the error message it the user tries to enter the invalid data.
 
-```C
+```c
 Entity Employee
 {
     Integer IdentificationNumber;
     ShortString LastName { Required; }
     ShortString FirstName { Required; }
-    ShortString Jmbg { RegExMatch "\d{13}" "Must contain 13 digits."; }
+    ShortString Code { RegExMatch "\d{7,10}" "Code must have 7 to 10 digits."; }
     DateTime WorkStarted { Required; }
     DateTime WorkFinished;
     Integer TestPeriod { MinValue 1; MaxValue 12; }
@@ -70,8 +75,16 @@ Examples of the following concepts are available in a unit testing DSL script
 
 Similar features and alternatives:
 
-1. If some data operation should be denied based on *which user* that is performing it, you should probably use [Row permissions](RowPermissions-concept) instead of the concepts listed above.
-2. If you need a similar operation, but not listed above (for example to deny deleting records in a certain state), it would best to create you own concept based on the implementation of similar one. A more pragmatic option is to directly insert a C# code snippet into the entity's Save method (by using low-level concepts SaveMethod with Initialization or OnSaveValidate), and check it the Save operation should be blocked. Some code samples are available in [DataStructure.rhe](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/CommonConceptsTest/DslScripts/DataStructure.rhe) script, with a realistic example at `OnSaveValidate DenyChangeOfLockedName`.
+1. If some data operation should be allowed or denied based on *which user* is performing it,
+   you should use [Row permissions](RowPermissions-concept) or [Basic permissions](Basic-permissions)
+   instead of the concepts listed above.
+2. If you need to implement a very specific business rule for which there is no
+   standard concept available
+   (for example to deny deleting certain records while allowing updates),
+   it would be best to create [your own concept](Rhetos-concept-development)
+   based on the implementation of a similar one.
+   A more pragmatic option is to directly insert an arbitrary C# code into the entity's
+   Save method with [Low-level object model concepts](Low-level-object-model-concepts).
 
 ## Automatically generated data
 

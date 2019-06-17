@@ -5,6 +5,9 @@ The CommonConcepts Rhetos package already implements a number of DSL concepts wh
 However, if you need some specific business rule or mechanism that is repetitive
 the best way to implement it is to write your own Rhetos DSL concept.
 
+The new concept can be implemented as a part of your application,
+or as a stand-alone Rhetos plugin that can be shared between multiple projects.
+
 Table of contents:
 
 1. [What is Rhetos DSL concept](#what-is-rhetos-dsl-concept)

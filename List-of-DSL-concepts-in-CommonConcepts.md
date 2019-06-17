@@ -1,14 +1,14 @@
 Contents:
 
-1. [Data model and relationships](#data-model-and-relationships)
-2. [Simple business rules](#simple-business-rules)
-3. [Computed data and read-only data structures](#computed-data-and-read-only-data-structures)
-4. [Filters](#filters)
-5. [Reports](#reports)
-6. [Complex concepts](#complex-concepts)
-7. [Server actions](#server-actions)
-8. [Claims and permissions](#claims-and-permissions)
-9. [Database objects](#database-objects)
+1. [Data model and relationships](#Data-model-and-relationships)
+2. [Simple business rules](#Simple-business-rules)
+3. [Computed data and read-only data structures](#Computed-data-and-read-only-data-structures)
+4. [Filters](#Filters)
+5. [Reports](#Reports)
+6. [Complex concepts](#Complex-concepts)
+7. [Server actions](#Server-actions)
+8. [Claims and permissions](#Claims-and-permissions)
+9. [Database objects](#Database-objects)
 
 ## Data model and relationships
 
@@ -85,7 +85,7 @@ Property value constraints:
 
 Deny data modifications:
 
-* **InvalidData** `<DataStructure>.<filter name> <message>` - Standard data validation. When saving data, if any record matches the given filter, the operation will be canceled with and the error message returned to the user.
+* [**InvalidData**](Data-validations) `<DataStructure>.<filter name> <message>` - Standard data validation. When saving data, if any record matches the given filter, the operation will be canceled with and the error message returned to the user.
 * **Lock** `<DataStructure>.<filter name> <message> <property>` - Deny update and delete of the entity records, for records in a certain state (provided by a filter).
 * **DenyUserEdit** `<Entity>` - Client application is not allowed to directly insert, update or delete the entity records (no condition).
 * **DenyUserEdit** `<Property>` - Client application is not allowed to directly insert or update the property.
