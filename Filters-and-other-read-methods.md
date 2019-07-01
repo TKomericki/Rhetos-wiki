@@ -29,8 +29,8 @@ Contents:
    2. [Query concept](#Query-concept)
 3. [Development guidelines and advanced topics](#Development-guidelines-and-advanced-topics)
    1. [When not to write filters](#When-not-to-write-filters)
-   2. [Additional data from other repositories and the context](#Additional-data-from-other-repositories-and-the-context)
-   3. [Filter name is the parameter type](#Filter-name-is-the-parameter-type)
+   2. [Using additional data or system components in filters](#Using-additional-data-or-system-components-in-filters)
+   3. [Filter name is filter parameter type](#Filter-name-is-filter-parameter-type)
    4. [Combining filters and other read methods](#Combining-filters-and-other-read-methods)
 4. [Read next](#Read-next)
 
@@ -555,7 +555,7 @@ information in the filter is a code smell.
 
 * To limit the data based on the user's permissions, use [RowPermissions concept](RowPermissions-concept).
 
-### Additional data from other repositories and the context
+### Using additional data or system components in filters
 
 For all filters and read methods, their code snippets can use the members of the repository class.
 
@@ -572,7 +572,7 @@ To easily use other system components (with dependency injection),
 new repository members can be added to any data structure's repository class
 with the [RepositoryUses concept](Low-level-object-model-concepts).
 
-### Filter name is the parameter type
+### Filter name is filter parameter type
 
 All filters and other read methods have a *name* that is same as
 the *class* in the object model that provides the filter parameters.
