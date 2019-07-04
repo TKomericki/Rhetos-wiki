@@ -345,7 +345,7 @@ SELECT
 FROM
     [Bookstore].[Book] AS [Extent1]
 WHERE
-    ([Extent1].[Title] LIKE N'A' + '%')
+    ([Extent1].[Title] LIKE N'The' + '%')
     AND ([Extent1].[Title] LIKE N'%curiousity%')
     AND ([Extent1].[ID] IN (
             cast('9b1dd9c7-6e78-4ea0-a24c-9e812a8c15d5' as uniqueidentifier),
