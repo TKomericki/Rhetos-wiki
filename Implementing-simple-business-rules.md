@@ -50,7 +50,9 @@ Entity Employee
     DateTime WorkStarted { Required; }
     DateTime WorkFinished;
     Integer TestPeriod { MinValue 1; MaxValue 12; }
-    ShortString Iban { Required; MinLength 21; MaxLength 21; }
+    ShortString Iban { Required; Unique; MinLength 21; MaxLength 21; }
+
+    UniqueMultiple 'LastName FirstName';
 
     ItemFilter FinishBeforeStart 'employee => employee.WorkFinished != null
         && employee.WorkFinished.Value < employee.WorkStarted.Value';
