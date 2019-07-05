@@ -224,7 +224,7 @@ See the full article: [Action concept](Action-concept).
   The action is available in Web API.
 * **UseExecutionContext**  `<Action>` - Adds an additional input parameter "ExecutionContext" to the lambda expression.
   This concept is obsolete, repository member `_executionContext` should be used instead.
-* **BeforeAction**  `<Action>.<name> <code snippet>` - It allows you to add a code snippet that will be executed before the Action lambda expression gets called.
+* **BeforeAction**  `<Action>.<name> <code snippet>` - It allows you to add a code snippet that will be executed before the Action.
 
 ## Claims and permissions
 

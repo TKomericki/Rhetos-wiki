@@ -2,14 +2,14 @@ The `Action` concept is intended for implementing server commands. The code with
 
 Contents:
 
-- [Create an action](#Create-an-action)
-- [Execute an action](#Execute-an-action)
-- [Using external code when developing actions](#Using-external-code-when-developing-actions)
-  - [How to use an external class in an Action code snippet](#How-to-use-an-external-class-in-an-Action-code-snippet)
-  - [How to use an external class in an Action with dependency injection](#How-to-use-an-external-class-in-an-Action-with-dependency-injection)
-  - [How to avoid circular dependencies between the external class and the generated object model (ServerDom)](#How-to-avoid-circular-dependencies-between-the-external-class-and-the-generated-object-model-ServerDom)
-- [Example for the ExtAction concept](#Example-for-the-ExtAction-concept)
-- [BeforeAction concept example](#BeforeAction-concept-example)
+1. [Create an action](#Create-an-action)
+2. [Execute an action](#Execute-an-action)
+3. [Using external code when developing actions](#Using-external-code-when-developing-actions)
+   1. [How to use an external class in an Action code snippet](#How-to-use-an-external-class-in-an-Action-code-snippet)
+   2. [How to use an external class in an Action with dependency injection](#How-to-use-an-external-class-in-an-Action-with-dependency-injection)
+   3. [How to avoid circular dependencies between the external class and the generated object model (ServerDom)](#How-to-avoid-circular-dependencies-between-the-external-class-and-the-generated-object-model-ServerDom)
+4. [Example for the ExtAction concept](#Example-for-the-ExtAction-concept)
+5. [BeforeAction concept](#BeforeAction-concept)
 
 ## Create an action
 
@@ -143,10 +143,10 @@ public static void CreatePrincipal(CreatePrincipal parameter, DomRepository repo
 }
 ```
 
-## BeforeAction concept example
+## BeforeAction concept
 
 If you are using an action that is already implemented in another package and you want to extend that action you can use the concept BeforeAction.
-The code snippet of the BeforeAction concept will be executed before the call to the Action lambda expression.
+The code snippet of the BeforeAction concept will be executed before the Action is executed.
 
 ```C
 BeforeAction Demo.CreatePrincipal.AppendUnderscoreToUsername '
