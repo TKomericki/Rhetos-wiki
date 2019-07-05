@@ -2,13 +2,13 @@ This article describes how to setup the development environment for developing a
 
 Table of contents:
 
-1. [Prerequisites](#prerequisites)
-2. [Create a working folder](#create-a-working-folder)
-3. [Get Rhetos server binaries](#get-rhetos-server-binaries)
-4. [Database setup](#database-setup)
-5. [Packages configuration](#packages-configuration)
-6. [IIS setup](#iis-setup)
-7. [IIS Express setup](#iis-express-setup)
+1. [Prerequisites](#Prerequisites)
+2. [Create a working folder](#Create-a-working-folder)
+3. [Get Rhetos server binaries](#Get-Rhetos-server-binaries)
+4. [Database setup](#Database-setup)
+5. [Packages configuration](#Packages-configuration)
+6. [IIS setup](#IIS-setup)
+7. [IIS Express setup](#IIS-Express-setup)
 
 ## Prerequisites
 
@@ -47,9 +47,13 @@ Alternatively, you could build the Rhetos server binaries from the latest versio
 
 ## Database setup
 
-1. Create an empty database (SQL Server 2008 or newer, Developer Edition is recommended) named `Rhetos` or `<MyApplicationName>Rhetos`.
-2. In the folder `RhetosServer\bin` create a copy of the template file "Template.ConnectionStrings.config", and rename the copy to "ConnectionStrings.config".
-3. Edit the existing configuration line in the **ConnectionStrings.config** file to reference the created database. For example, if your database is named "Rhetos" on the local SQL Server with default instance name, simply replace "theServer" to "localhost" and "theDatabase" to "Rhetos".
+1. Create an empty database (SQL Server 2008 or newer, Developer Edition is recommended).
+2. In the folder `RhetosServer\bin` create a copy of the template file
+   "Template.ConnectionStrings.config", and rename the copy to "ConnectionStrings.config".
+3. Edit the existing configuration line in the **ConnectionStrings.config** file
+   to reference the created database:
+   Replace "theDatabase" with your database name, and "theServer" with SQL Server instance
+   name (check your [Server name](https://stackoverflow.com/a/45789478/2086516) in SSMS).
 
 ## Packages configuration
 
