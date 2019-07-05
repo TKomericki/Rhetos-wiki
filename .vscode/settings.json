@@ -11,5 +11,9 @@
         "md",
         "markdown"
     ],
-    "editor.rulers": [80, 100]
+    "editor.rulers": [
+        80,
+        100
+    ],
+    "markdown.extension.toc.orderedList": true
 }
