@@ -45,7 +45,7 @@ to filter the existing data with a simple lambda expression.
 Consider the following example:
 
 > 1. Write a filter that returns all books with the common misspelled word "curiousity".
->    Deny users the enter the incorrect book titles into the application.
+>    Deny users entering incorrect book titles into the application.
 > 2. Write another filter that returns books with 500 pages or longer.
 >    The web application will display a list of long books to the users.
 
@@ -114,7 +114,7 @@ If you are testing the filter with REST web API, run SQL Server Profiler, to che
 
 ### ItemFilter with related data and subquery
 
-ItemFilters are also useful when you need to query data from the
+ItemFilters are also useful when you need to query data from
 **related entities**. For example:
 
 > Write a filter that will return books that are foreign
@@ -159,8 +159,8 @@ Module Bookstore
 }
 ```
 
-* The expression `item.Author.Name` uses `Reference Author` from the book to read the `Name` from the `Entity Person`.
-* The expression `item.Extension_ForeignBook.ID` references the extended `Entity ForeignBook`.
+* Expression `item.Author.Name` uses `Reference Author` from the book to read the `Name` from the `Entity Person`.
+* Expression `item.Extension_ForeignBook.ID` references the extended `Entity ForeignBook`.
   See [Entities and relationships](Data-model-and-relationships) for more info on these features.
 * Data from the detail entity `Comment` is aggregated with a **subquery**.
   Note that the `Subquery` property is used here, instead of the `Query()` method.
@@ -208,7 +208,7 @@ The **ComposableFilterBy** allows implementing more complex filters:
   provided by the **query parameter**.
   In practice this usually means that the function will end with `return query.Where(...);`.
 * While ItemFilter is restricted to a single lambda expression supported
-  by the Entity Framework LINQ, the ComposableFilterBy on contrast can contain
+  by the Entity Framework LINQ, the ComposableFilterBy, in contrast, can contain
   an **arbitrarily complex** C# code before returning the LINQ query. For example,
   reading additional data, executing external processes and other.
 * ComposableFilterBy can have parameters.
@@ -219,7 +219,7 @@ The **ComposableFilterBy** allows implementing more complex filters:
 
 ItemFilter vs. ComposableFilterBy:
 
-* The ItemFilter concept is just a helper, internally implemented as a macro concept that **generates** the ComposableFilterBy.
+* ItemFilter concept is just a helper, internally implemented as a macro concept that **generates** the ComposableFilterBy.
   In the example above, `ItemFilter LongBooks` will internally generate `ComposableFilterBy LongBooks`
   and `Parameter LongBooks`, almost identical to the `LongBooks2` example.
 * Most business rules that use filters (such as **InvalidData** and **Lock**)
@@ -262,7 +262,7 @@ Module Bookstore
 }
 ```
 
-The **Parameter** concept creates a simple class in the object model.
+**Parameter** concept creates a simple class in the object model.
 The `parameter` argument in the ComposableFilterBy is an instance of that class.
 
 The filter parameter can be included in the [REST web API](https://github.com/Rhetos/RestGenerator/blob/master/Readme.md) request,
@@ -325,11 +325,11 @@ so they don't need to be specifically implemented in the filters.
 
 These read methods work in a similar way as filters: they have the same parameters,
 and they return the result in the same format.
-The only difference it that they **don't have an input data to be processed (filtered)**,
+The only difference is that they **don't have an input data to be processed (filtered)**,
 instead they need to provide the data on their own.
 
 These methods do not need to return a subset from the existing data from the database
-(event though they are often implemented that way).
+(even though they are often implemented in that way).
 For example, they can generate new data or read it from an external system.
 
 ### FilterBy concept
@@ -409,14 +409,14 @@ Combining multiple filters and paging:
   See [Combining filters and other read methods](#combining-filters-and-other-read-methods) below for more info.
 * If paging is required, it should be implemented manually in the FilterBy function with
   the *skip* and *limit* values provided in the function parameter.
-* Alternatively, consider using the Query concept (described below) instead of the FilterBy,
-  if it is possible to refactoring this function to return a LINQ query that can be efficiently
+* Alternatively, consider using the Query concept (described below), instead of FilterBy,
+  if it is possible to refactor this function to return a LINQ query which can be efficiently
   filtered with additional filters or paging without loading excessive data from the database.
 
 Similar features:
 
-* It there are **no parameters** needed, consider using the [Computed concept](Read-only-data-structures#computed-concept)
-  as a data source, instead of the FilterBy.
+* If there are **no parameters** needed, consider using the [Computed concept](Read-only-data-structures#computed-concept)
+  as a data source, instead of FilterBy.
   Also, you can add FilterBy to an existing Computed data source,
   to provide an additional option to read the data with a parameter.
 
@@ -468,7 +468,7 @@ Module Bookstore
         Take NumberOfComments 'Extension_BookInfo.NumberOfComments';
 
         // This query is an alternative data source for BookGrid.
-        // Instead of reading data from the `Bookstore.Book`, it provide the new data from WantedBooks.
+        // Instead of reading data from the `Bookstore.Book`, it provides the new data from WantedBooks.
         Query 'Bookstore.WantedBooks' 'parameter =>
             {
                 var wishList = _domRepository.Bookstore.WishList.Query();
@@ -501,8 +501,8 @@ The Query concept defines an alternative queryable data source for this object.
 It is similar to ComposableFilterBy, but it **does not receive a dataset to be filtered**,
 instead it just creates a new query.
 
-* Since it returns a query, the element type must be the queryable class
-  (`Common.Queryable.Bookstore_BookGrid`), instead of the simple class
+* Since it returns a query, the element type must be a queryable class
+  (`Common.Queryable.Bookstore_BookGrid`), instead of a simple class
   (`Bookstore.BookGrid`). For more info on this topic, see
   [Understanding the generated object model](Using-the-Domain-Object-Model#understanding-the-generated-object-model).
 
@@ -548,10 +548,10 @@ If you need to use some simple filters in your application to select the data ba
   * `ItemFilter LongBooks` is just a simplified example for the educational purpose.
   * `ItemFilter CommonMisspelling` is actually required in the DSL scripts because a validation uses it.
 
-Another anti-patter is using ItemFilter or ComposableFilterBy to limit the dataset if
+Another anti-pattern is using ItemFilter or ComposableFilterBy to limit the dataset if
 the user **does not have permissions** to see all the data.
-In general, using the `_executionContext` the check on the username or using any other context-sensitive
-information in the filter is a code smell.
+In general, using the `_executionContext` (username or using any other context-sensitive information)
+in the filter is a code smell.
 
 * To limit the data based on the user's permissions, use [RowPermissions concept](RowPermissions-concept).
 
@@ -582,8 +582,8 @@ chapter above.
 Internally, the filter's name does not have a specific purpose in the system.
 The filter is defined **purely by its parameter type**, and all filters
 on a same data structure are implemented with the "overloading" pattern.
-Event for filters that do not require parameters (ItemFilter),
-the empty class will be created to allow filter selection by parameter type.
+Even for filters that do not require parameters (ItemFilter),
+an empty class will be created to allow filter selection by parameter type.
 
 The extreme consequence of this principle is that any existing type
 can be used as a parameter for the filter. If you are using an existing type,
@@ -591,8 +591,8 @@ then there is **no need to create a new parameter** class with a `Parameter` con
 
 For example, add the following filters to the Book entity:
 
-> 1. Given an array of titles, return all the books that match those titles.
-> 2. Given an author description, return all the books that match the author,
+> 1. Given an array of titles, return all books that match those titles.
+> 2. Given an author description, return all books that match the author,
 >    either by author's ID, or by its name.
 
 Solution:
@@ -649,7 +649,7 @@ Other read methods can only generate new data from scratch.
 
 * In your web request or in the C# code, you can easily combine multiple filters
 such as **ItemFilter**, **ComposableFilterBy** or a generic property filter.
-* On contrast, the **FilterBy** should only be used as a single filter parameter in the request.
+* In contrast, the **FilterBy** should only be used as a single filter parameter in the request.
 * The **Query** filter parameter can be only be used at the beginning of the filter list.
 
 Usage:
@@ -657,14 +657,14 @@ Usage:
 * To apply multiple filters in C# code, see "Filters" and "Applying-multiple-filters" chapters
   in [Using the Domain Object Model](Using-the-Domain-Object-Model#Filters) article.
 * See "Filter" in [RestGenerator specification](https://github.com/Rhetos/RestGenerator/blob/master/Readme.md#filters)
-  on how to apply filters in REST request.
+  on how to apply filters in a REST request.
 
 The following table shows examples of reading data from the REST service with some filter parameters.
 The "**Processing workflow**" describes how the data is processed internally with Rhetos repository.
 The "**Example URL**" is using the entities from the [Bookstore](https://github.com/Rhetos/Bookstore) demo application.
 
 | GET request filter parameters example | Data processing workflow | Example URL |
-| --- | --- | -- |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | No filter parameter | Load() | [rest/Bookstore/Book/](http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/) |
 | ItemFilter(param1) | Query() => Filter(param1) | [rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"}]](http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"}]) |
 | ItemFilter(param1), ItemFilter(param2) | Query() => Filter(param1) => Filter(param2) | [rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"},{"Filter":"Bookstore.CommonMisspelling"}]](http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"},{"Filter":"Bookstore.CommonMisspelling"}]) |
@@ -674,9 +674,9 @@ The "**Example URL**" is using the entities from the [Bookstore](https://github.
 | Query(param1), ItemFilter(param2) | Query(param1) => Filter(param2) |
 | ItemFilter(param1), Query(param2) | Query() => Filter(param1) => Query(param2)<br>**ERROR**: *Query(param2) cannot take previous data as an input.* |
 | GenericPropertyFilter(param1) | Query() => Filter(param1) | [rest/Bookstore/Book/?filters=[{"Property":"Code","Operation":"Contains","Value":"2"}]](http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/?filters=[{"Property":"Code","Operation":"Contains","Value":"2"}]) |
-| FilterBy(param1), GenericPropertyFilter(param2) | Load(param1) => Filter(param2)<br>**WARNING**: *This is inefficient because the Load method already loaded more data from database then required.* | [rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.ComplexSearch"},{"Property":"Code","Operation":"Contains","Value":"2"}]](http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.ComplexSearch"},{"Property":"Code","Operation":"Contains","Value":"2"}]) |
+| FilterBy(param1), GenericPropertyFilter(param2) | Load(param1) => Filter(param2)<br>**WARNING**: *This is inefficient because the Load method already loaded more data from database than required.* | [rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.ComplexSearch"},{"Property":"Code","Operation":"Contains","Value":"2"}]](http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.ComplexSearch"},{"Property":"Code","Operation":"Contains","Value":"2"}]) |
 
-In the examples above, the result will be the same it you replace *ItemFilter* with a *ComposableFilterBy*.
+In the examples above, the result will be the same if you replace *ItemFilter* with a *ComposableFilterBy*.
 
 ## Read next
 

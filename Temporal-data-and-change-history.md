@@ -1,13 +1,13 @@
 Use the `History` concept to manage temporal data in an entity.
-The the concept is used on an entity, the last version of each record is written in the main table,
+The concept is used on an entity, the last version of each record is written in the main table,
 while older versions are archived in the `_Changes` table.
 The *ActiveSince* property is automatically added to the entity,
-each version of the record is effective from that time.
+and each version of the record is effective from that time.
 
 Contents:
 
-1. [Add temporal data management to an existing entity](#add-temporal-data-management-to-an-existing-entity)
-2. [Modify the data of an entity with history](#modify-the-data-of-an-entity-with-history)
+1. [Add temporal data management to an existing entity](#Add-temporal-data-management-to-an-existing-entity)
+2. [Modify the data of an entity with history](#Modify-the-data-of-an-entity-with-history)
 
 ## Add temporal data management to an existing entity
 
@@ -34,7 +34,7 @@ Module Demo
 }
 ```
 
-The `History` concept works in a backward-compatible way.
+The `History` concept works in a backward compatible way.
 This means that any other feature that have used the `Demo.Contract` previously as a simple entity,
 can still work in the same way after converting it into a history entity:
 
@@ -46,10 +46,10 @@ The `History` concept adds the following new features:
 | | |
 | --- | ---|
 | DateTime **ActiveSince** | A new property is added to the entity; it records "since when" is the current value effective. |
-| Entity **Contract_Changes** | A new database table is created `Demo.Contract_Changes`, that contains **previous versions** for the items. It has all properties from `Demo.Contract`, and additionally a column `EntityID` that references `Demo.Contract`. `ID` in the `Demo.Contract_Changes` is just an internal ID of a history record, and `EntityID` contains the ID value from `Demo.Contract`. |
-| SqlQueryable **Contract_History** | View `Demo.Contract_History` is created that contains **all versions** of the Contract items. It is a union of `Contract` and `Contract_Changes`. |
-| DateTime **ActiveUntil** | View `Demo.Contract_History` additionally has a computed property `ActiveUntil` that returns `ActiveSince` value from the next version of the record. |
-| SqlFunction **Contract_AtTime** | An inline table-valued function `Demo.Contract_AtTime` is created, with a `DATETIME` parameter, that returns versions of all records that where active at the given time. It is not exposed in the object model or REST service. |
+| Entity **Contract_Changes** | A new database table `Demo.Contract_Changes` is created, that contains **previous versions** for the items. It has all the properties from `Demo.Contract`, and additionally a column `EntityID` that references `Demo.Contract`. `ID` in the `Demo.Contract_Changes` is just an internal ID of a history record, and `EntityID` contains the ID value from `Demo.Contract`. |
+| SqlQueryable **Contract_History** | A created `Demo.Contract_History` contains **all versions** of the Contract items. It is a union of `Contract` and `Contract_Changes`. |
+| DateTime **ActiveUntil** | View `Demo.Contract_History` has a computed property `ActiveUntil` that returns `ActiveSince` value from the next version of the record. |
+| SqlFunction **Contract_AtTime** | An inline table-valued function `Demo.Contract_AtTime` is created, with a `DATETIME` parameter that returns the version of all records that where active at the given time. It is not exposed in the object model or REST service. |
 
 **Deactivatable** concept is not required on a history entity,
 and these two concepts are not directly related, but are often used together.

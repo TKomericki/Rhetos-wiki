@@ -25,7 +25,7 @@ For example, `MoneyTransaction` data structure can have multiple forms:
 
 * In this example, `MoneyTransaction` can be seen as an *interface* that is *implemented*
   by the concrete subtypes `BorrowMoney` and `LendMoney`.
-* `MoneyTransaction` is readable data structure, it returns **union of records**
+* `MoneyTransaction` is readable data structure, it returns a **union of records**
   from  `BorrowMoney` and `LendMoney`.
 
 Example:
@@ -58,7 +58,7 @@ Module Demo
         Is Demo.MoneyTransaction
         {
             Implements Demo.MoneyTransaction.Amount '-Amount';
-            // The Amount in the MoneyTransaction related to the LendMoney record will have negative value.
+            // The Amount in the MoneyTransaction related to the LendMoney record will have a negative value.
         }
     }
 }
@@ -77,7 +77,7 @@ Note that:
 
 An entity may implement multiple interfaces.
 It can even implement the same interface multiple times,
-using additional string parameter *ImplementationName* to distinguish the implementations.
+using an additional string parameter *ImplementationName* to distinguish the implementations.
 
 For example, the `TransferMoney` entity record may represent two money transactions:
 subtracting from one account and adding to the other account.
@@ -135,7 +135,7 @@ contains this SQL query.
 
 ## Limit the implementation with filter (where)
 
-The `Where` concept can be used to limit the items when will be included in the polymorphic implementation.
+The `Where` concept can be used to limit the items which will be included in the polymorphic implementation.
 The filter is defined by an SQL expression for the SQL query *WHERE part*.
 
 * If multiple `Where` concepts are provided in the same `Is` block, the `AND` operation
@@ -182,7 +182,7 @@ Entity TransactionComment
 
 Rhetos will check the **reference constraint** on data modifications in the detail entity.
 
-Internally, the reference is implemented as a foreign key in database:
+Internally, the reference is implemented as a foreign key in the database:
 from the `TransactionComment` table to the automatically generated
 `MoneyTransaction_Materialized` table.
 The `MoneyTransaction_Materialized` table contains union of IDs from all
@@ -243,7 +243,7 @@ from another package.
 ## Efficient queries from client application
 
 When reading a polymorphic entity, filtering by subtype can be evaluated efficiently
-in SQL Server if the filter is based on a subtype reference property.
+in the SQL Server if the filter is based on a subtype reference property.
 For example, when reading records from `MoneyTransaction` of subtype `LendMoney`
 through REST API, the following filter should be used:
 
@@ -256,7 +256,7 @@ The request above will be translated to an SQL query similar to
 SQL Server will optimize the query's execution plan so that only
 `Demo.LendMoney` table will be scanned.
 
-A similar optimization is done in database when filtering by subtype:
+A similar optimization is done in the database when filtering by subtype:
 `SELECT * FROM Demo.MoneyTransaction WHERE Subtype = 'Demo.LendMoney'`.
 Unfortunately, if such filter is defined in LINQ query, it will generate
 a different WHERE part: `WHERE Subtype = @p0`,
