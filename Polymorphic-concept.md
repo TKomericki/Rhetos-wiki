@@ -2,8 +2,8 @@ Polymorphic concept is intended for implementing the application design pattern 
 
 Similar features:
 
-- Polymorphic concept is similar to object-oriented concept of class inheritance, but class inheritance is not used here.
-- Polymorphic concept can sometimes be used as an alternative to the Extends concept.
+* Polymorphic concept is similar to object-oriented concept of class inheritance, but class inheritance is not used here.
+* Polymorphic concept can sometimes be used as an alternative to the Extends concept.
 
 Contents:
 
@@ -19,8 +19,8 @@ Contents:
 
 For example, `MoneyTransaction` data structure can have multiple forms: `BorrowMoney` and `LendMoney` (see the example below).
 
-- In this example, `MoneyTransaction` can be seen as an _interface_ that is _implemented_ by the concrete subtypes `BorrowMoney` and `LendMoney`.
-- `MoneyTransaction` is readable data structure, it returns a **union of records** from `BorrowMoney` and `LendMoney`.
+* In this example, `MoneyTransaction` can be seen as an *interface* that is *implemented* by the concrete subtypes `BorrowMoney` and `LendMoney`.
+* `MoneyTransaction` is readable data structure, it returns a **union of records** from `BorrowMoney` and `LendMoney`.
 
 Example:
 
@@ -60,8 +60,8 @@ Module Demo
 
 Note that:
 
-- The `MoneyTransaction.Amount` property is automatically mapped to the `BorrowMoney.Amount` property with the same name;
-- In the `LendMoney` entity, the `MoneyTransaction.Amount` property is implemented by a specific SQL expression `-Amount`. See the generated SQL view `Demo.LendMoney_As_MoneyTransaction` to check the impact of that expression.
+* The `MoneyTransaction.Amount` property is automatically mapped to the `BorrowMoney.Amount` property with the same name;
+* In the `LendMoney` entity, the `MoneyTransaction.Amount` property is implemented by a specific SQL expression `-Amount`. See the generated SQL view `Demo.LendMoney_As_MoneyTransaction` to check the impact of that expression.
 
 ## Referencing or extending a polymorphic entity
 
@@ -83,7 +83,7 @@ The redundant IDs are automatically updated when inserting or deleting the subty
 ## Multiple interface implementations
 
 An entity may implement multiple interfaces.
-It can even implement the same interface multiple times, using an additional string parameter _ImplementationName_ to distinguish the implementations.
+It can even implement the same interface multiple times, using an additional string parameter *ImplementationName* to distinguish the implementations.
 
 For example, the `TransferMoney` entity record may represent two money transactions: subtracting from one account and adding to the other account.
 
@@ -131,13 +131,13 @@ Entity LendMoney // Adding new features to the existing entity.
 
 See the generated SQL view `Demo.LendMoney_As_MoneyTransaction_TotalAddendum` to check the impact of the subquery.
 
-`SqlDependsOn` is a dependency information that is used when creating database objects: `Demo.LendMoneyAddendum` table must be created _before_ the subtype's SQL view that contains this SQL query.
+`SqlDependsOn` is a dependency information that is used when creating database objects: `Demo.LendMoneyAddendum` table must be created *before* the subtype's SQL view that contains this SQL query.
 
 ## Limit the implementation with filter (where)
 
-The `Where` concept can be used to limit the items which will be included in the polymorphic implementation. The filter is defined by an SQL expression for the SQL query _WHERE part_.
+The `Where` concept can be used to limit the items which will be included in the polymorphic implementation. The filter is defined by an SQL expression for the SQL query *WHERE part*.
 
-- If multiple `Where` concepts are provided in the same `Is` block, the `AND` operation will be applied between them.
+* If multiple `Where` concepts are provided in the same `Is` block, the `AND` operation will be applied between them.
 
 This example is an alternative implementation of the `BorrowMoney` subtype (see the original implementation above).
 In the following example, only items from `BorrowMoney2` that are not `Forgotten` will be included in the `MoneyTransaction`.
