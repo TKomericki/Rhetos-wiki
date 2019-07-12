@@ -1,14 +1,15 @@
 Rhetos provides a powerful mechanism for persisting the computed data. It allows low-risk changes in design of the application regarding what data will be computed "on request" (for example in a database view or a C# method), and what data will be precomputed, cached in a database table, and automatically updated (synchronized) if needed.
 
-1. [Understanding the computed data](#understanding-the-computed-data)
-2. [ComputedFrom concept](#computedfrom-concept)
-   1. [Example 1](#example-1)
-   2. [Example 2](#example-2)
-3. [Automatic recompute on deployment](#automatic-recompute-on-deployment)
-   1. [Forcing recompute on deployment](#forcing-recompute-on-deployment)
-   2. [Suppressing recompute on deployment](#suppressing-recompute-on-deployment)
-4. [Legacy features](#legacy-features)
-5. [See also](#see-also)
+1. [Understanding the computed data](#Understanding-the-computed-data)
+2. [ComputedFrom concept](#ComputedFrom-concept)
+   1. [Example 1](#Example-1)
+   2. [Example 2](#Example-2)
+3. [Automatically updating cached data](#Automatically-updating-cached-data)
+4. [Automatic recompute on deployment](#Automatic-recompute-on-deployment)
+   1. [Forcing recompute on deployment](#Forcing-recompute-on-deployment)
+   2. [Suppressing recompute on deployment](#Suppressing-recompute-on-deployment)
+5. [Legacy features](#Legacy-features)
+6. [See also](#See-also)
 
 ## Understanding the computed data
 
@@ -44,14 +45,15 @@ The following chapters describe how to persist the computed data and keep contro
 
 ## ComputedFrom concept
 
-> Note: This chapter needs improvement to clarify the mentioned concepts' features and usage,
+> Note: This chapter needs improvement to clarify the mentioned concepts and examples,
 > and conform to instructions in [Writing tutorial articles](Writing-tutorial-articles)
 
 Persisting the computed data is done by developing the data source that computes the data
-(usually an `SqlQueryable`), and saving the result into the database table.
+(usually an SqlQueryable), and saving the result into the database table (Entity).
 
-Rhetos contains concepts that help automate the implementation:
-`KeepSynchronized`, `KeyProperties`, `ChangesOnLinkedItems`, `ChangesOnChangedItems`, `ChangesOnBaseItem` and `ChangesOnReferenced`.
+Rhetos contains concepts that help automate the implementation.
+**ComputedFrom** concept defines that some data on an entity is computed form
+the given data source.
 
 The following examples are taken from [Bookstore](https://github.com/Rhetos/Bookstore)
 demo application, available on GitHub.
@@ -152,6 +154,29 @@ Module Bookstore
     }
 }
 ```
+
+## Automatically updating cached data
+
+**KeepSynchronized** concept enables automatic updates of the cache table when the source data is changed.
+This feature requires **ChangesOnChangedItems** (or any related concept) defined on the source
+to specify when to update the cached data, and which records need updating.
+
+* **ChangesOnBaseItem** `<ComputationSource>` - If the computation is an extension of a base entity: When a base record is saved, the related cache record should be recomputed.
+* **ChangesOnLinkedItems** `<ComputationSource> <ReferenceProperty>` - If the computation is an aggregation of a detail entity: When a detail record is saved, the related parent's cache record should be recomputed.
+  * For example, if you are computing additional data about a document and that data depends on a detail entity (for example, the number of items, or the total amount) then the parameter "ReferenceProperty" should be the full name of the reference property from the detail entity.
+* **ChangesOnReferenced** `<ComputationSource> <path to referenced entity>` - If the computation depends on a referenced entity: When a referenced entity record is saved, all cache records that reference it should be recomputed. Instead of a simple property, it is possible to specify a path across multiple references, separated by a dot, including the `Base` and `Extension_...` navigation properties.
+* **ChangesOnChangedItems** `<ComputationSource> <entity> <filter name> <filter snippet>` - Programmable concept for defining dependency for computed items.
+  * The "filter snippet" is a lambda expression that for an array modified dependent items returns filter parameter "what cached items need to be recomputed": `DependentEntity[] changedItems => filter parameter`.
+  * The filter has to be applicable to both source and cache data structure. FilterAll, System.Guid[] and FilterCriteria are commonly used filters, supported by all entities.
+  * Examples:
+    * If *any* change of the dependent entity should result with recomputing *all* cache records, it can be declared this way: `ChangesOnChangedItems Test.Item 'FilterAll' changedItems => new FilterAll()';`
+    * ChangesOnBaseItem generates:
+      `ChangesOnChangedItems Test.Item 'Guid[]' 'changedItems => changedItems.Select(item => item.ID).ToArray()';`
+    * ChangesOnLinkedItems generates:
+      `ChangesOnChangedItems Test.Item 'Guid[]' 'changedItems => changedItems.Where(item => item.ParentID != null).Select(item => item.ParentID.Value).Distinct().ToArray()';`
+    * ChangesOnReferenced generates something similar to:
+      `ChangesOnChangedItems Test.Item 'FilterCriteria' 'changedItems => new FilterCriteria("path to referenced entity", "In", changedItems.Select(item => item.ID))';`
+* **KeyProperties** - A list of properties that are used as a key when comparing the data from source to the cache. By default, the data is matched by ID.
 
 ## Automatic recompute on deployment
 
