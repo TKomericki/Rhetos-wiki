@@ -4,7 +4,7 @@ These concepts are used as a workaround for features that cannot be implemented 
 
 > A good rule of thumb is to *avoid* these low-level concepts if you are implementing a standard business pattern.
 > Seeing low-level concepts in DSL scripts is a sign that we are not looking at a standard feature, but **a very specific uncommon feature**.
-> For example, if the purpose if the feature is "data validation", please use the InvalidData concept instead.
+> For example, if the purpose of the feature is "data validation", please use the InvalidData concept instead.
 >
 > Breaking down the requirements to a set of **standard business features** is a good way to make your software more maintainable.
 > Also consider developing a new concept if you need to implement a standard business pattern, but there is no existing concept available.

@@ -6,7 +6,7 @@ instead of **imperatively** (by writing lines of C# code),
 there will always be situations when a business feature cannot simply be mapped
 to an existing concept that already implements the standard business pattern.
 
-One of the basic principles in Rhetos framework it to allow developers
+One of the basic principles in Rhetos framework is to allow developers
 to work in a *classic way*, coding the features **directly in C#** or SQL,
 by using the low-level concepts described in this article
 (and in [Database objects](Database-objects) for SQL).
@@ -14,25 +14,25 @@ This is important to avoid hindering the development progress in case of any mis
 
 > A good rule of thumb is to **avoid** these low-level concepts if you are implementing a standard business pattern.
 > Seeing low-level concepts in DSL scripts is a sign that we are not looking at a standard feature, but **a very specific uncommon feature**.
-> For example, if the purpose if the feature is "data validation", please use the InvalidData concept instead.
+> For example, if the purpose of the feature is "data validation", please use the InvalidData concept instead.
 >
 > Breaking down the requirements to a set of **standard business features** is a good way to make your software more maintainable.
 > Also consider developing a new concept if you need to implement a standard business pattern, but there is no existing concept available.
 
 Contents:
 
-1. [SaveMethod](#SaveMethod)
-   1. [Understanding the generated Save method](#Understanding-the-generated-Save-method)
-   2. [ArgumentValidation](#ArgumentValidation)
-   3. [Initialization](#Initialization)
-   4. [LoadOldItems (shared old values)](#LoadOldItems-shared-old-values)
-   5. [OldDataLoaded](#OldDataLoaded)
-   6. [OnSaveUpdate](#OnSaveUpdate)
-   7. [OnSaveValidate](#OnSaveValidate)
-   8. [AfterSave](#AfterSave)
-2. [Add features to repository class](#Add-features-to-repository-class)
-   1. [RepositoryUses](#RepositoryUses)
-   2. [RepositoryMember](#RepositoryMember)
+1. [SaveMethod](#savemethod)
+   1. [Understanding the generated Save method](#understanding-the-generated-save-method)
+   2. [ArgumentValidation](#argumentvalidation)
+   3. [Initialization](#initialization)
+   4. [LoadOldItems (shared old values)](#loadolditems-shared-old-values)
+   5. [OldDataLoaded](#olddataloaded)
+   6. [OnSaveUpdate](#onsaveupdate)
+   7. [OnSaveValidate](#onsavevalidate)
+   8. [AfterSave](#aftersave)
+2. [Add features to repository class](#add-features-to-repository-class)
+   1. [RepositoryUses](#repositoryuses)
+   2. [RepositoryMember](#repositorymember)
 
 ## SaveMethod
 
@@ -46,20 +46,20 @@ The following table shows order in which the code snippets are executed.
 
 | Position in Save method | Intended purpose of the inserted C# code |
 | --- | --- |
-| 1. [ArgumentValidation](#ArgumentValidation) | To verify if the parameters could break the rest of the Save method's business logic. Use *OnSaveValidate* instead for standard data validations. |
-| 2. [Initialization](#Initialization) | To initialize or change the data, before saving it to the database. If possible, use [DefaultValue](Implementing-simple-business-rules#automatically-generated-data) instead. |
-| 3. [OldDataLoaded](#OldDataLoaded) | To initialize or change the data, before saving it to the database, if previous data state needs to be considered. See related *LoadOldItems* concept. |
-| 4. [OnSaveUpdate](#OnSaveUpdate) | To modify data in other dependent entities that need to be updated (recomputed) after the current Save operation. If possible, use [ComputedFrom](Persisting-the-computed-data) instead. |
-| 5. [OnSaveValidate](#OnSaveValidate) | To implement a custom data validation. If possible, use *InvalidData* instead, for standard data validations, or [RowPermissions](RowPermissions-concept) for user permissions. |
-| 6. [AfterSave](#AfterSave) | The inserted code will be execute after validations. |
+| 1. [ArgumentValidation](#argumentvalidation) | To verify if the parameters could break the rest of the Save method's business logic. Use *OnSaveValidate* instead for standard data validations. |
+| 2. [Initialization](#initialization) | To initialize or change the data, before saving it to the database. If possible, use [DefaultValue](Implementing-simple-business-rules#automatically-generated-data) instead. |
+| 3. [OldDataLoaded](#olddataloaded) | To initialize or change the data, before saving it to the database, if previous data state needs to be considered. See related *LoadOldItems* concept. |
+| 4. [OnSaveUpdate](#onsaveupdate) | To modify data in other dependent entities that needs to be updated (recomputed) after the current Save operation. If possible, use [ComputedFrom](Persisting-the-computed-data) instead. |
+| 5. [OnSaveValidate](#onsavevalidate) | To implement a custom data validation. If possible, use *InvalidData* instead, for standard data validations, or [RowPermissions](RowPermissions-concept) for user permissions. |
+| 6. [AfterSave](#aftersave) | The inserted code will be executed after validations. |
 
 Note that the data is **saved to the database** between OldDataLoaded and OnSaveUpdate,
 but the database transaction will be committed later
 (at the very end of the web request) if all validations have passed.
 This means that the code in OnSaveUpdate, OnSaveValidate and AfterSave can
-use other features implemented in database, such as views.
+use other features implemented in the database, such as views.
 
-In addition, SaveMethod can contain [**LoadOldItems**](#LoadOldItems-shared-old-values) concept,
+In addition, SaveMethod can contain [**LoadOldItems**](#loadolditems-shared-old-values) concept,
 a simple helper for reading an old version of the data that can
 be reused in different business rules.
 It will load the old data between Initialization and OldDataLoaded.
@@ -98,7 +98,7 @@ what local variables and other features are available to be used in your code sn
 1. In the Bookstore demo application open the generated file `dist\BookstoreRhetosServer\bin\Generated\ServerDom.Repositories.cs`.
 2. Find the `Save` method in `class Review_Repository`:
    * Note that it receives lists (IEnumerable) of items that will be inserted,
-     updated and deleted, as the parameters: `insertedNew`, `updatedNew` and `deletedIds`.
+     updated and deleted, as parameters: `insertedNew`, `updatedNew` and `deletedIds`.
    * You can use those variables in the code snippets to **read or change
      what will be saved**.
    * The last property `checkUserPermissions` distinguishes if the save
@@ -160,8 +160,8 @@ Entity Review
 The initialization code snippet usually uses `insertedNew`, `updatedNew` and `deletedIds`
 parameters to analyze and modify the data that will be saved.
 
-Note that this example is a just a demo for SaveMethod.
-The **DefaultValue** concept would be much better approach for this example,
+Note that this example is only a demo for the SaveMethod.
+The **DefaultValue** concept would be a much better approach for this example,
 to avoid using low-level concepts.
 
 ### LoadOldItems (shared old values)
@@ -264,7 +264,7 @@ to analyze and modify the data that will be saved.
 ### OnSaveUpdate
 
 Use OnSaveUpdate to **modify the data in other dependent entities**
-that need to be updated (recomputed) after the current Save operation.
+that needs to be updated (recomputed) after the current Save operation.
 
 The OnSaveUpdate code snippet is executed *after* the given records are
 already saved to the database, but *before* the database transaction is committed.
@@ -313,8 +313,8 @@ Entity Review
 }
 ```
 
-Note that this example is a just a demo for SaveMethod.
-The **ComputedFrom** and **KeepSynchronized** concepts would be much better approach for this feature,
+Note that this example is only a demo for the SaveMethod.
+The **ComputedFrom** and **KeepSynchronized** concepts would be a much better approach for this feature,
 to avoid using low-level concepts.
 
 ### OnSaveValidate
@@ -329,7 +329,7 @@ and analyze the data, and other dependent computed data in the system, to decide
 whether the new state is valid or not.
 
 If the saved data is not valid, the code snippet should **throw an exception**,
-which will result with automatic rollback of the database transaction.
+which will result in automatic rollback of the database transaction.
 Throw a `Rhetos.UserException` with a message to the end user, that can later be localized (translated).
 
 Note:
@@ -377,9 +377,9 @@ Entity Review
 }
 ```
 
-Note that this example is a just a demo for SaveMethod.
+Note that this example is only a demo for the SaveMethod.
 The [LockProperty](Implementing-simple-business-rules#deny-data-modifications) concept
-would be much better approach for this feature.
+would be a much better approach for this feature.
 
 ### AfterSave
 
@@ -401,12 +401,12 @@ but not at the end of the web request (i.e. database transaction).
 * For example, if saving one record (A) causes an automatic update of another record (B),
   then the AfterSave code of record B will be executed *before* the validations and AfterSave code of record A.
 * Another example, if the Save method is called from an Action, it is still possible
-  for the transaction to be discarded by the code executed in action after saving this entity.
+  for the transaction to be discarded by the code executed in the action after saving this entity.
 
 For the reasons described above, AfterSave should not be used to send confirmation emails,
 or similar external actions that cannot be undone if the current request is canceled
 and the database transaction is rolled back.
-That kind of features should always be implemented with a task queue and a separate process for
+These kinds of features should always be implemented with a task queue and a separate process for
 background processing of the committed tasks.
 
 ## Add features to repository class
@@ -451,7 +451,7 @@ Entity Review
 
 In the example above, the RepositoryUses concept adds the `_configuration` member property,
 to be used in the ComposableFilterBy.
-It uses a default implementation of `IConfiguration` interface:
+It uses a default implementation of the `IConfiguration` interface:
 a Rhetos component that reads configuration from the "Web.config" file.
 
 RepositoryUses requires
