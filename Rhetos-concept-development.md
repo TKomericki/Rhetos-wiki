@@ -243,7 +243,7 @@ Entity Book
 ## How to deploy created concept
 
 To deploy a newly created Rhetos DSL concept you need to
-[create a Rhetos package](Creating-Rhetos-package) and add your binaries to it,
+[create a Rhetos package](Creating-a-Rhetos-package) and add your binaries to it,
 or add them to an existing Rhetos package.
 
 ## See also

@@ -10,7 +10,8 @@ Contents:
 2. [Write a simple DSL script](#write-a-simple-dsl-script)
 3. [Build your application](#build-your-application)
 4. [Test and review](#test-and-review)
-5. [Read next](#read-next)
+5. [A more complex build process example](#a-more-complex-build-process-example)
+6. [Read next](#read-next)
 
 ## Setup
 
@@ -120,6 +121,29 @@ Note that **after making changes** in the DSL script (Book.rhe), you will need t
 5. Correct the request body by replacing "The curiousity" with "The curiosity", and send the request again.
     * The expected response is "200 OK" with the generated ID in the response body.
 6. View the new book in the database or in browser. Check that the inserted book has the automatically generated three-digit Code with prefix "B" (by **AutoCode** concept for pattern "B+++").
+
+## A more complex build process example
+
+[Bookstore](https://github.com/Rhetos/Bookstore) demo application is an example of a Rhetos application
+with multiple build components and a more complex build process.
+
+You can use it as a *prototype* for a new Rhetos application.
+Aside from the project structure, please note the following key components that
+most Rhetos applications should contain:
+
+1. The build script `Build.ps1`, that does everything needed to produce the application binaries from the source:
+   1. It checks for installed prerequisites (MSBuild, NuGet, database connection string, ...).
+   2. Automatically downloads the Rhetos server binaries.
+      This help us to avoid committing any binaries into the source repository.
+      The download is optimized to occur only on the first build or when changing the version
+      of the Rhetos server (defined in `Build.ps1`).
+   3. Runs MSBuild to build all application components (new custom DSL concepts,
+      and an external algorithm implemented in a separate dll).
+   4. Runs DeployPackages to generate a working application in `dist\BookstoreRhetosServer` subfolder.
+2. The NuGet specification file `src\Bookstore.nuspec`.
+   It specifies the list of application components that will be deployed to the Rhetos server.
+   More info at [Creating a Rhetos package](Creating-a-Rhetos-package)
+3. The test script `Test.ps1`. It builds and runs the automated unit tests and the integration tests.
 
 ## Read next
 

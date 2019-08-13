@@ -47,7 +47,7 @@ Fundamentals:
 * [Development environment setup](Development-Environment-Setup)
 * [Rhetos DSL syntax](Rhetos-DSL-syntax)
 * [List of DSL concepts in CommonConcepts package](List-of-DSL-concepts-in-CommonConcepts)
-* [Creating Rhetos package](Creating-Rhetos-package)
+* [Creating a Rhetos package](Creating-a-Rhetos-package)
 * [Rhetos RESTful web API plugin](https://github.com/Rhetos/RestGenerator/blob/master/Readme.md), [Set up HTTPS](Setting-up-Rhetos-for-HTTPS)
 * [User authentication and authorization](User-authentication-and-authorization)
 * [Data migration](Data-migration)

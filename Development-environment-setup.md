@@ -2,13 +2,14 @@ This article describes how to setup the development environment for developing a
 
 Table of contents:
 
-1. [Prerequisites](#Prerequisites)
-2. [Create a working folder](#Create-a-working-folder)
-3. [Get Rhetos server binaries](#Get-Rhetos-server-binaries)
-4. [Database setup](#Database-setup)
-5. [Packages configuration](#Packages-configuration)
-6. [IIS setup](#IIS-setup)
-7. [IIS Express setup](#IIS-Express-setup)
+1. [Prerequisites](#prerequisites)
+2. [Create a working folder](#create-a-working-folder)
+3. [Get Rhetos server binaries](#get-rhetos-server-binaries)
+4. [Database setup](#database-setup)
+5. [Packages configuration](#packages-configuration)
+6. [IIS setup](#iis-setup)
+7. [IIS Express setup](#iis-express-setup)
+8. [Read next](#read-next)
 
 ## Prerequisites
 
@@ -156,3 +157,7 @@ in cmd while positioned in "Source\Rhetos":
     CALL "C:\Program Files (x86)\IIS Express\IISExpress.exe" /config:IISExpress.config
 
 If using Rhetos v1.1 or older, use the 32-bit "Program Files" folder.
+
+## Read next
+
+* [Create your first Rhetos application](Create-your-first-Rhetos-application)

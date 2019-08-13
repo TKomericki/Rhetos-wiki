@@ -13,19 +13,19 @@ Prerequisites:
 
 Contents:
 
-1. [Property value constraints](#Property-value-constraints)
-2. [InvalidData concept](#InvalidData-concept)
-3. [Understanding data validations in Rhetos](#Understanding-data-validations-in-Rhetos)
-   1. [The principles behind InvalidData](#The-principles-behind-InvalidData)
-   2. [What is and what is not a data validation](#What-is-and-what-is-not-a-data-validation)
-4. [Additional validation examples](#Additional-validation-examples)
-   1. [Validation with subquery](#Validation-with-subquery)
-   2. [Validation with multiple statements](#Validation-with-multiple-statements)
-5. [Error response and metadata](#Error-response-and-metadata)
-   1. [MarkProperty and ErrorMetadata concepts](#MarkProperty-and-ErrorMetadata-concepts)
-   2. [MessageParametersItem concept](#MessageParametersItem-concept)
-   3. [MessageParametersConstant concept](#MessageParametersConstant-concept)
-   4. [MessageFunction concept](#MessageFunction-concept)
+1. [Property value constraints](#property-value-constraints)
+2. [InvalidData concept](#invaliddata-concept)
+3. [Understanding data validations in Rhetos](#understanding-data-validations-in-rhetos)
+   1. [The principles behind InvalidData](#the-principles-behind-invaliddata)
+   2. [What is and what is not a data validation](#what-is-and-what-is-not-a-data-validation)
+4. [Additional validation examples](#additional-validation-examples)
+   1. [Validation with subquery](#validation-with-subquery)
+   2. [Validation with multiple statements](#validation-with-multiple-statements)
+5. [Error response and metadata](#error-response-and-metadata)
+   1. [MarkProperty and ErrorMetadata concepts](#markproperty-and-errormetadata-concepts)
+   2. [MessageParametersItem concept](#messageparametersitem-concept)
+   3. [MessageParametersConstant concept](#messageparametersconstant-concept)
+   4. [MessageFunction concept](#messagefunction-concept)
 
 ## Property value constraints
 
@@ -103,7 +103,7 @@ See the examples in the following chapters for using subqueries and more complex
 * The `item` refers to a records of the Disposal entity, but this code is not executed for each instance separately.
   Instead it is part of the EF LINQ query, converted to SQL query, and can be executed on multiple records in a single query.
 * Only queryable filters can be source for InvalidData: ItemFilter and ComposableFilterBy.
-  See more in [Filters and other read methods](Filters-and-other-read-methods.md).
+  See more in [Filters and other read methods](Filters-and-other-read-methods).
 
 The **InvalidData concept** will generate additional code in the Save method of the Disposal entity:
 
@@ -181,10 +181,8 @@ data validations** in this strict sense:
 
 This chapter contains examples of more complex validation filters.
 
-Any ItemFilter and ComposableFilterBy can be used for definition of invalid items
-with InvalidData.
-See [Filters and other read methods](Filters-and-other-read-methods.md)
-for more info.
+Any ItemFilter and ComposableFilterBy can be used for definition of invalid items with InvalidData.
+See [Filters and other read methods](Filters-and-other-read-methods) for more info.
 
 Hint: If a validation gets too complicated,
 you can always implement the complex part in a separate computed object
