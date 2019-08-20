@@ -1,15 +1,15 @@
 Rhetos provides a powerful mechanism for persisting the computed data. It allows low-risk changes in design of the application regarding what data will be computed "on request" (for example in a database view or a C# method), and what data will be precomputed, cached in a database table, and automatically updated (synchronized) if needed.
 
-1. [Understanding the computed data](#Understanding-the-computed-data)
-2. [ComputedFrom concept](#ComputedFrom-concept)
-   1. [Example 1](#Example-1)
-   2. [Example 2](#Example-2)
-3. [Automatically updating cached data](#Automatically-updating-cached-data)
-4. [Automatic recompute on deployment](#Automatic-recompute-on-deployment)
-   1. [Forcing recompute on deployment](#Forcing-recompute-on-deployment)
-   2. [Suppressing recompute on deployment](#Suppressing-recompute-on-deployment)
-5. [Legacy features](#Legacy-features)
-6. [See also](#See-also)
+1. [Understanding the computed data](#understanding-the-computed-data)
+2. [ComputedFrom concept](#computedfrom-concept)
+   1. [Example 1](#example-1)
+   2. [Example 2](#example-2)
+3. [Automatically updating cached data](#automatically-updating-cached-data)
+4. [Automatic recompute on deployment](#automatic-recompute-on-deployment)
+   1. [Forcing recompute on deployment](#forcing-recompute-on-deployment)
+   2. [Suppressing recompute on deployment](#suppressing-recompute-on-deployment)
+5. [Legacy features](#legacy-features)
+6. [See also](#see-also)
 
 ## Understanding the computed data
 
@@ -177,6 +177,8 @@ to specify when to update the cached data, and which records need updating.
     * ChangesOnReferenced generates something similar to:
       `ChangesOnChangedItems Test.Item 'FilterCriteria' 'changedItems => new FilterCriteria("path to referenced entity", "In", changedItems.Select(item => item.ID))';`
 * **KeyProperties** - A list of properties that are used as a key when comparing the data from source to the cache. By default, the data is matched by ID.
+
+Some usage examples are available in unit testing script [Computations.rhe](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/CommonConceptsTest/DslScripts/Computations.rhe).
 
 ## Automatic recompute on deployment
 
