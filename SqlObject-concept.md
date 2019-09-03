@@ -1,13 +1,50 @@
-Allows developers to create a custom database object as a part of the generated application.
-**SqlObject** is intended to be used as a workaround when existing DSL concepts for [database objects](Database-objects) (**Unique**, **SqlIndex**, **SqlView**, **SqlTrigger**, etc) are not sufficient.
+SqlObject allows developers to create a custom database object as a part of the generated application.
 
-Implemented in Rhetos package: *CommonConcepts*.
+Contents:
 
-## Features
+1. [Create a custom object in the database](#create-a-custom-object-in-the-database)
+2. [Dependencies and creation order of database objects](#dependencies-and-creation-order-of-database-objects)
+3. [Creating database objects without transaction](#creating-database-objects-without-transaction)
+4. [Splitting an SQL script to multiple batches](#splitting-an-sql-script-to-multiple-batches)
+5. [Troubleshooting: Fixing an incorrect removal script](#troubleshooting-fixing-an-incorrect-removal-script)
+6. [See also](#see-also)
 
-* Set custom SQL script to create and remove the object in the database.
-* Define creation order of dependent database objects.
-* Create database objects without transaction (full-text search index, e.g.).
+## Create a custom object in the database
+
+**SqlObject** is intended to be used when the existing
+[DSL concepts for database objects](Database-objects) are not sufficient
+(**SqlProcedure**, **SqlView**, **SqlTrigger**, **Unique**, **SqlIndex**, etc.).
+
+For example, if you need to create a specific unique index that will *only* check for unique names
+that start with letter 'A', you can write a custom database object in the DSL script.
+
+```C
+Module Demo
+{
+    Entity SomeEntity { ShortString Name; }
+
+    SqlObject SomeSpecialUniqueIndex
+        "CREATE UNIQUE INDEX IX_SomeSpecialUniqueIndex ON Demo.SomeEntity (Name) WHERE Name >= 'A' AND Name < 'B'"
+        "DROP INDEX IX_SomeSpecialUniqueIndex ON Demo.SomeEntity"
+    {
+        SqlDependsOn Demo.SomeEntity.Name;
+    }
+}
+```
+
+SqlObject contains an arbitrary feature name (`SomeSpecialUniqueIndex`), a creation script, and a removal script:
+
+* The **creation script** will be executed on deployment to create the object in the database.
+* The **removal script** will persisted in the database for later use.
+  * It will be executed on deployment to remove this object when it no longer exists
+    in the new version of the application.
+  * The removal script is also executed if the object needs to be regenerated
+    (if the creation script is modified, or any dependent object). In that case, the old removal
+    script is executed to remove the old version of the object, then the new creation script
+    to create it again.
+  * See below more info on removal scripts below.
+* `SqlDependsOn` is required here to specify that the `SomeEntity.Name` column must be created in database
+  *before* this object is created (see more info on dependencies below).
 
 ## Dependencies and creation order of database objects
 
@@ -91,6 +128,43 @@ Module Demo
         ";
 }
 ```
+
+## Troubleshooting: Fixing an incorrect removal script
+
+If there is an error in SqlObject removal script (for example, if deployment fails with a database error),
+it is not possible to simply fix it in the DSL script.
+
+* When removing an old version of SqlObject from the database, Rhetos will use the *old version*
+  of the SQL script, because the new removal script might be specific to the new version of the object.
+
+For example, the following removal script will result with `Incorrect syntax` error on deployment,
+when the existing object is modified or removed, because of the incorrect `DDDDROP` command.
+
+```c
+SqlObject SomeSpecialUniqueIndex
+    "CREATE UNIQUE INDEX IX_SomeSpecialUniqueIndex ON Demo.SomeEntity (Name) WHERE Name >= 'A' AND Name < 'B'"
+    "DDDDROP INDEX IX_SomeSpecialUniqueIndex ON Demo.SomeEntity";
+```
+
+After fixing the `DROP INDEX` command in DSL script, Rhetos will still use the old version
+of the removal script (with `DDDDROP`).
+The old version of the script is persisted in table Rhetos.AppliedConcept, column RemoveQuery.
+If the corrupted SQL object is deployed only to your own database, you can manually fix this script in this table.
+It the SQL object have already been deployed to other developers' databases or other environments,
+you should write a simple data-migration scripts to fix this on every environment.
+
+A possible solution:
+
+```sql
+/*DATAMIGRATION ... generate a new GUID here ...*/
+
+UPDATE Rhetos.AppliedConcept
+SET RemoveQuery = 'DROP INDEX IX_SomeSpecialUniqueIndex ON Demo.SomeEntity'
+WHERE CreateQuery LIKE 'CREATE UNIQUE INDEX IX_SomeSpecialUniqueIndex%';
+```
+
+Note that this data-migration script doesn't need to call DataMigrationUse/Apply,
+because the `Rhetos` schema contains hardcoded system tables that will exist before the script is executed.
 
 ## See also
 
