@@ -151,9 +151,9 @@ of the removal script (with `DDDDROP`).
 The old version of the script is persisted in table Rhetos.AppliedConcept, column RemoveQuery.
 If the corrupted SQL object is deployed only to your own database, you can manually fix this script in this table.
 It the SQL object have already been deployed to other developers' databases or other environments,
-you should write a simple data-migration scripts to fix this on every environment.
+you should write a simple data-migration script to fix this on every environment.
 
-A possible solution:
+This data-migration script fixes the bug from the example above:
 
 ```sql
 /*DATAMIGRATION ... generate a new GUID here ...*/
@@ -163,8 +163,10 @@ SET RemoveQuery = 'DROP INDEX IX_SomeSpecialUniqueIndex ON Demo.SomeEntity'
 WHERE CreateQuery LIKE 'CREATE UNIQUE INDEX IX_SomeSpecialUniqueIndex%';
 ```
 
-Note that this data-migration script doesn't need to call DataMigrationUse/Apply,
-because the `Rhetos` schema contains hardcoded system tables that will exist before the script is executed.
+Note that this data-migration script does not need to call DataMigrationUse and DataMigrationApplyMultiple,
+and the UPDATE query works directly on `Rhetos.AppliedConcept` instead of `_Rhetos.AppliedConcept`.
+This is specific when working with object in `Rhetos` schema, because these are the system tables
+that will always exist before the data-migration scripts are executed.
 
 ## See also
 
