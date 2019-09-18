@@ -46,7 +46,7 @@ The Hardoced concept allows you to use the predefined entries inside the object 
 Sample code:
 
 ```C
-repository.BookStore.Book.Query().Where(x => x.GenreID == BookStore.Genre.Crime);
+repository.Bookstore.Book.Query().Where(x => x.GenreID == Bookstore.Genre.Crime);
 ```
 
 Every Entry creates a static property on the generated POCO class that returns the ID of the defined entry.
@@ -63,7 +63,7 @@ SELECT
 FROM
     BookStore.Book book
 WHERE
-    book.GenreID == BookStore.Genre_Fantasy()
+    book.GenreID = BookStore.Genre_Fantasy()
 ```
 
 Every Entry concept creates a scalar function that returns the ID of the defined entry.
