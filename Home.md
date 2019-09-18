@@ -23,6 +23,7 @@ Tutorials:
 * Add simple features to your application:
   * [Implementing simple business rules](Implementing-simple-business-rules)
   * [Read-only data structures](Read-only-data-structures)
+  * [Simple read-only entities and code tables](simple-read-only-entities-and-codetables)
 * Develop new features:
   * [Using the Domain Object Model](Using-the-Domain-Object-Model)
   * [Filters and other read methods](Filters-and-other-read-methods)
