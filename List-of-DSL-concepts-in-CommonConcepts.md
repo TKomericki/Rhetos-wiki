@@ -49,8 +49,8 @@ Contents:
 
 Hardcoded:
 
-* **Hardcoded** `<Module>.<name>` - Data structure used to represent a code table.
-* **Entry** `<Hardcoded>.<entry name>` - Creates a row in the databse for every entry.
+* **Hardcoded** `<Module>.<name>` - Data structure that represents a simple read-only entity or a code table.
+* **Entry** `<Hardcoded>.<entry name>` - Creates a row in the database for every entry.
 * **Value** `<Entry>.<property name> <value>` - Adds the value to the column.
 
 LegacyEntity:

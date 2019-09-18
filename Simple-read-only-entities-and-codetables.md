@@ -8,9 +8,10 @@ Table of contents:
 
 ## Hardcoded concept
 
-When you want a predefined set of entries for a read-only entity, what you have to do first is to define an Entity and
+When you want a predefined set of entries for a read-only entity, a manual approach would be to define an Entity and
 then write some migration scripts to insert those predefined data into the database.
-To simplify this process you can use the Hardcoded concept.
+
+To simplify this process you can use the **Hardcoded** concept:
 
 Sample code:
 
@@ -34,30 +35,33 @@ Hardcoded Genre
 }
 ```
 
-The Hardcoded concept extends the Entity concept and takes care of updating the data in the database.
-The Entry concept creates a row in the databse for every entry.
-The Value concept adds the value to the column.
-It uses the CONVERT function to insert the string literal that rapresents the value of the property into the column.
+The **Hardcoded** concept extends the Entity concept and takes care of updating the data in the database.
+
+The **Entry** concept creates a row in the database for every entry.
+
+The **Value** concept adds the value to the column.
+It uses the CONVERT function to insert the string literal that represents the value of the property into the column.
 
 ## Usage in the object model
 
-The Hardoced concept allows you to use the predefined entries inside the object model.
+The Hardcoded concept allows you to use the predefined entries inside the object model.
 
 Sample code:
 
-```C
+```CS
 repository.Bookstore.Book.Query().Where(x => x.GenreID == Bookstore.Genre.Crime);
 ```
 
 Every Entry creates a static property on the generated POCO class that returns the ID of the defined entry.
+See `Bookstore.Genre.Crime` in the example above.
 
 ## Usage in the database
 
-It is also possible to use the hardcoded entity inside SQL without directly writing the uuid of the row so that it can be type checked.
+It is also possible to use the hardcoded entity inside SQL without directly writing the GUID of the row so that it can be type checked.
 
 Sample code:
 
-```C
+```SQL
 SELECT
     *
 FROM
@@ -67,3 +71,4 @@ WHERE
 ```
 
 Every Entry concept creates a scalar function that returns the ID of the defined entry.
+See `BookStore.Genre_Fantasy()` in the example above.
