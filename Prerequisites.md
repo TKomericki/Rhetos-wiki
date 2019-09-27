@@ -2,10 +2,10 @@ This article describes how to install and verify the prerequisites for developin
 
 Contents:
 
-1. [Install prerequisites](#Install-prerequisites)
-2. [Verify the prerequisites](#Verify-the-prerequisites)
-3. [Configure your text editor for DSL scripts (*.rhe)](#Configure-your-text-editor-for-DSL-scripts-rhe)
-4. [Read next](#Read-next)
+1. [Install prerequisites](#install-prerequisites)
+2. [Verify the prerequisites](#verify-the-prerequisites)
+3. [Configure your text editor for DSL scripts (*.rhe)](#configure-your-text-editor-for-dsl-scripts-rhe)
+4. [Read next](#read-next)
 
 ## Install prerequisites
 
@@ -14,7 +14,11 @@ Prerequisites for the Rhetos server:
 * Windows 8 or newer
 * .NET Framework 4.5.1
 * IIS with ASP.NET 4.x installed
-  * To make sure all of the needed ASP.NET components are installed, follow the instructions in the chapter "[Installing IIS Features on Windows 8 and Windows 10](https://docs.microsoft.com/en-us/previous-versions/dynamicsnav-2016/hh167503(v=nav.90)#installing-iis-features-on-windows-8-and-windows-10)" on MSDN, but **skip .NET 3.5** features.
+  * There no need to install NET 3.5 features on IIS. Only NET 4.x features are needed.
+  * To make sure all of the required ASP.NET components are installed,
+    follow the instructions from the MSDN article
+    [Install and Configure IIS](https://docs.microsoft.com/en-us/previous-versions/dynamicsnav-2016/hh167503(v=nav.90)#installing-iis-features-on-windows-8-and-windows-10),
+    but only from the chapter **"Installing IIS Features on Windows 8 and Windows 10"**, and **skip** .NET 3.5 features.
 * Microsoft SQL Express or SQL Server 2008 or newer, or Oracle Database 11g Release 2 or newer.
 
 Application development environment (prerequisites for tutorials):
@@ -43,7 +47,7 @@ Verify command-prompt utilities:
 
 Verify Visual Studio 2017 and ASP.NET:
 
-1. Start "Visual Studio" **as administrator**.
+1. Start "Visual Studio" **as administrator** (right click => Run as administrator).
 2. Create a new project from the template "ASP.NET Web Application (.NET Framework)", select the "MVC" project template and Change Authentication to "Windows Security".
 3. Project Properties => Web => Change the setting "IIS Express" to "Local IIS", and Create Virtual Directory.
 4. Build and Start the application (F5) to check if everything is installed correctly.
