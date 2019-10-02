@@ -55,8 +55,10 @@ The `Module` concept creates a *namespace* in the generated C# code, and a *sche
 * Note that modules are not directly related to deployment packages:
   A single deployment package can contain DSL scripts with entities for many modules.
   Also, multiple deployment packages can create or extend entities in a single module.
-* For example, a small application will probable have one deployment package and
-  one business module with the same name.
+* Choosing a module name is similar to namespaces: the name should represent a topic,
+  for example Sales. It is often in plural.
+  A small application will usually have only one business module with the same name
+  as the application, while larger applications might have few modules.
 
 The `Entity` concept generates the following application code:
 
@@ -119,16 +121,17 @@ Module Bookstore
 }
 ```
 
-`Reference` property represents the "N : 1" relationship in the data model, and usually a lookup field in the user interface.
+`Reference` property represents the "N : 1" relationship in the data model,
+and usually a lookup field in the user interface.
 
-* In the generated C# code it creates
+* In the database it creates a Guid column (with an "ID" suffix)
+  and an associated foreign key constraint.
+  * In the example above, `Reference Author` creates the foreign key column *AuthorID*
+    in the *Book* table.
+* In the generated C# application code it creates
   * a [navigation property](https://docs.microsoft.com/en-us/ef/ef6/fundamentals/relationships)
   for use in Entity Framework LINQ queries,
   * and a simple Guid property (with an "ID" suffix) for raw data loading and saving.
-* In the database it creates a Guid column (with an "ID" suffix)
-  and an associated foreign key constraint.
-
-In the example above, `Reference Author` creates the foreign key column *AuthorID* in the *Book* table.
 
 The **simplified syntax** can be used for Reference (without the referenced module and entity name,
 see `Reference Book` above) if the property name is same as the referenced entity,
@@ -185,43 +188,45 @@ For example, the extension may contain a group of properties that are applied on
 some records of the base entity, so it could be wasteful to include them in the base entity's table.
 
 * In the database it creates a foreign key from the extension table's ID column to the base table's ID column.
-* In the generated C# code it creates the following navigation properties for use in Entity Framework LINQ queries:
-  * `Base` property on the extension entity that references the base entity.
-  * `Extension_<ExtensionName>` property on base entity that references the extension.
-    If the extended entity is in a different module, the property name is `Extension_<ModuleName>_<EntityName>`.
-
-For example, the *Book* entity has *Extension_ChildrensBook* and *Extension_ForeignBook* navigation
-properties for easy navigation from book to the extensions.
-If we want to access the Translator from the Book in the C# code, we can write:
-
-```C#
-var translators = repository.Bookstore.Book.Query()
-    .Select(book => book.Extension_ForeignBook.Translator.Name);
-```
 
 The extension may exist for each base record ("1 : 1" relationship) or for a subset of
 base records ("0..1 : 1" relationship), there is no distinction in the data model.
 
-Note: The Extends concepts does not change the data model or web API of the base entity.
-The base entity and the extension can each be loaded and saved as a separate entities.
-
 Data modelling considerations:
 
+* Note that the Extends concepts **does not change** the data model (or web API) of the **base entity**.
+  Also, the extension does not contain the properties from the base entity, it only reference the base entity.
+  The base entity and the extension can each be loaded and saved as **separate entities**.
 * The extensions are natural pattern for implementing **additional information** to a base entity,
   that is not always saved or read at the same time or by the same user as the base entity.
-* Since the extension records are optional, one or more extensions can be applicable at the same time
-  to a base entity record, based on the record's type or a user permissions.
-* The extensions could be used to implement the object-oriented inheritance in the database,
-  but it's downside it that the database structure and constraints do not enforce that the base entity
-  has *one and only one* extension.
+* One base entity can have multiple extension entities.
+  In the example above, some books can be both children's and foreign at the same time,
+  and some books are neither.
+* The extensions could be used to implement the **object-oriented inheritance** in the database,
+  but it's downside it that the database structure and constraints do not enforce that
+  the base entity has *one and only one* extension.
   In most situations, the [Polymorphic](Polymorphic-concept) concept could be more suited
   for implementing the inheritance, instead of the Extends concept.
 
-Extends vs UniqueReference:
+Navigation properties for LINQ queries:
+
+* In the generated application code, the Extends concept creates the following navigation properties for use in Entity Framework LINQ queries:
+  * `Base` property on the extension entity that references the base entity.
+  * `Extension_<ExtensionName>` property on base entity that references the extension.
+    If the extended entity is in a different module, the property name is `Extension_<ModuleName>_<EntityName>`.
+* For example, the *Book* entity has *Extension_ChildrensBook* and *Extension_ForeignBook* navigation
+  properties for easy navigation from book to the extensions.
+  If we want to access the Translator from the Book in the C# code, we can write:
+    ```cs
+    var translators = repository.Bookstore.Book.Query()
+        .Select(book => book.Extension_ForeignBook.Translator.Name);
+    ```
+
+Extends vs UniqueReference concept:
 
 * The Extends concept behaves as a "part-of" relationship to the base entity,
   similar to the Detail on Reference (see the description of Detail concept above).
-  This means that from the business perspective, the extension is considered a part of the base entity,
+  This means that **from the business perspective, the extension is considered a part of the base entity**,
   its data is probably displayed and entered by user on the same form.
   Alternatively, if one-to-one relationship is needed on some entities,
   but the extended entity should not be considered as a part of the base entity
@@ -262,6 +267,10 @@ Currently there is no high-level concept in Rhetos CommonConcepts that would rep
 This kind of relationship is usually implemented with an standard
 [associative entity](https://en.wikipedia.org/wiki/Associative_entity) pattern:
 a separate entity that connects the two main entities.
+
+Note that the Detail concept can also be used in the associative table for many-to-many relationship,
+for example if the relationship should be considered as a logical part of one of the entities
+(a book can have multiple topics, and deleting a books implies deleting the related BookTopic records).
 
 ## Relationships summary
 
