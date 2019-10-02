@@ -78,15 +78,34 @@ The following script is semantically identical to the example above:
 <b>Entity</b> Demo.Region;
 </pre>
 
-Placing one statement into another is a helper for setting **the first argument** of the statement to reference the parent statement.
-Notice changes in the `ShortString` placement and syntax in the following three equivalent examples:
+Placing one statement into another is a helper for setting **the first argument** of the
+statement to reference the parent statement.
+Notice changes in the `ShortString` placement and syntax in the following
+three **equivalent examples**:
 
 <pre>
-<b>Module</b> Demo { <b>Entity</b> School { <b>ShortString</b> Name; } }
+// Example 1:
+<b>Module</b> Demo
+{
+    <b>Entity</b> School
+    {
+        <b>ShortString</b> Name;
+    }
+}
 
-<b>Module</b> Demo { <b>Entity</b> School; <b>ShortString</b> School.Name; }
+// Example 2:
+<b>Module</b> Demo
+{
+    <b>Entity</b> School;
+    <b>ShortString</b> School.Name;
+}
 
-<b>Module</b> Demo { <b>Entity</b> School; } <b>ShortString</b> Demo.School.Name;
+// Example 3:
+<b>Module</b> Demo
+{
+    <b>Entity</b> School;
+}
+<b>ShortString</b> Demo.School.Name;
 </pre>
 
 ## See also
