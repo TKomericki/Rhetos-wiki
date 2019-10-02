@@ -91,7 +91,8 @@ Notes:
    * If you are creating a Bookstore demo application, set the following:
      * Location: create the `test` subfolder in your "Bookstore" project folder (`...\Bookstore\test\`),
      * Name: "Bookstore.Playground"
-     * disable the checkboxes "Create directory for solution" and "Create new Git repository".
+     * VS 2019: Enable checkbox "Place solution and project in the same directory".
+     * VS 2017: Disable the checkboxes "Create directory for solution" and "Create new Git repository".
 2. Project => Add reference... => Browse... => Select all dlls from the Rhetos server's bin folder
   (for example `Bookstore\dist\BookstoreRhetosServer\bin`), **except the two** Microsoft.*.dll files
   => Add => OK.
@@ -101,8 +102,8 @@ Notes:
 5. Copy the content of the `Main` method, from the *Rhetos Server DOM.linq* script
   in the Rhetos server folder, into the Main method of your Playground project.
 6. Replace the line `var rhetosServerPath = Path.GetDirectoryName(Util.CurrentQueryPath);`
-  with `var rhetosServerPath = @"<relative or absolute path to the Rhetos server folder>";`, for example
-  `var rhetosServerPath = @"..\..\..\..\dist\BookstoreRhetosServer";`.
+  with `var rhetosServerPath = @"<relative or absolute path to the Rhetos server folder>";`,
+  for example `var rhetosServerPath = @"..\..\..\..\dist\BookstoreRhetosServer";`.
 7. Fix the compiler errors by adding the suggested "using" statement for each error.
   The resulting using statements should look like this:
     ```C#
