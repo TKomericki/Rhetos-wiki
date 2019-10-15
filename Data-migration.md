@@ -283,9 +283,10 @@ The `DeployPackages.exe` utility will automatically execute the data-migration s
   Rhetos will keep a backup of its data in the migration tables.
 * If the property/entity/module is brought back later, Rhetos will automatically restore the data
   from the corresponding data migration table.
-* During deployment, Rhetos keeps track of the data that is copied from the original tables to the migration tables.
-  If multiple migration scripts execute the `Rhetos.DataMigrationUse` procedure for a same table, the data will
-  be copied only on a fist call.
+* During deployment, Rhetos keeps track of the data that is copied from
+  the original tables to the migration tables.
+  If multiple migration scripts execute the `Rhetos.DataMigrationUse` procedure for a same table,
+  the data will be copied only on a first call.
   This ensures that later script will not overwrite data modification of a previous script.
 
 ### Database structure independence
