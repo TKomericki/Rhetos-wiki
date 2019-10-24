@@ -9,7 +9,8 @@
     "spellright.documentTypes": [
         "latex",
         "md",
-        "markdown"
+        "markdown",
+        "plaintext"
     ],
     "editor.rulers": [
         80,

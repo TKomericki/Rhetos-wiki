@@ -61,11 +61,16 @@ Alternatively, you could build the Rhetos server binaries from the latest versio
 Rhetos packages define the content of the Rhetos server. This section describes **the initialization of the packages configuration files**, but with no packages selected. That will result with an *empty* Rhetos server being deployed.
 
 1. In the **RhetosServer** folder:
-    * Create a copy if the "Template.RhetosPackages.config" file and rename the copy to "RhetosPackages.config", if the target file does not already exist.
-    * Create a copy if the "Template.RhetosPackageSources.config" file and rename the copy to "RhetosPackageSources.config", if the target does not already exist.
-2. Verify that the RhetosServer is configured correctly by opening command prompt at `RhetosServer\bin` folder and running `DeployPackages.exe`.
-    * The output may include "*[Error] DeploymentConfiguration: No packages*" and "*[Error] DeployPackages: WARNING: Empty assembly...*", because no packages are provided in the "RhetosPackages.config".
-      This is ok for now.
+    * Create a copy if the "Template.RhetosPackages.config" file and rename the copy
+      to "RhetosPackages.config", if the target file does not already exist.
+    * Create a copy if the "Template.RhetosPackageSources.config" file and rename the copy
+      to "RhetosPackageSources.config", if the target does not already exist.
+2. Verify that the RhetosServer is configured correctly by opening command prompt
+   at `RhetosServer\bin` folder and running `DeployPackages.exe`.
+    * Note that the output may include warnings or errors
+      `No packages specified in 'RhetosPackages.config'`
+      and `Empty assembly is generated`.
+      This is ok for now, because no packages are provided yet.
     * The last printed line should be "*[Trace] DeployPackages: Done.*".
 
 ## IIS setup
