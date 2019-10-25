@@ -1,7 +1,7 @@
 
 # Using old packages with new NuGet dependencies
 
-This article shows now to add `bindingRedirect` configuration,
+This article shows how to add `bindingRedirect` configuration,
 to allow your existing application to work with existing plugin packages,
 without recompiling them with new version of the dependencies.
 
@@ -75,8 +75,8 @@ in the error message (usually only "Autofac" is needed, as shown above).
 
 ## Troubleshooting
 
-* If a web request returns error
-  "*The service '...' cannot be activated due to an exception during compilation ...*"
-  or "*The service '...' configured for WCF is not registered with the Autofac container.*",
-  compare the your new Web.config to the old version and
-  make sure that you still have the `probing` element in the `configuration/runtime/assemblyBinding`.
+1. If a web request returns error one of the following errors,
+   compare the your new Web.config to the old version and
+   make sure that you still have the `probing` element in the `configuration/runtime/assemblyBinding`.
+   * *The service '...' cannot be activated due to an exception during compilation ...*
+   * *The service '...' configured for WCF is not registered with the Autofac container.*
