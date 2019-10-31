@@ -31,7 +31,8 @@ Note that **any new property type** can be created and implemented as a reusable
 * In the database it creates a Guid column (with an "ID" suffix)
   and an associated foreign key constraint.
 
-See the [Data model and relationships](Data-model-and-relationships) tutorial, chapter "One-to-many relation", for examples and explanation of the **Reference** concept.
+See the [Data model and relationships](Data-model-and-relationships) tutorial,
+section "One-to-many relation", for examples and explanation of the **Reference** concept.
 
 ## LinkedItems property
 

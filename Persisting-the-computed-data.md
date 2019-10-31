@@ -41,11 +41,11 @@ then persist it if needed for better performance.
 The basic code that computes the data should be written in a same way for both of this options,
 whether it is a simple database view or a complex algorithm implemented in C#.
 
-The following chapters describe how to persist the computed data and keep control over it.
+The following sections describe how to persist the computed data and keep control over it.
 
 ## ComputedFrom concept
 
-> Note: This chapter needs improvement to clarify the mentioned concepts and examples,
+> Note: This section needs improvement to clarify the mentioned concepts and examples,
 > and conform to instructions in [Writing tutorial articles](Writing-tutorial-articles)
 
 Persisting the computed data is done by developing the data source that computes the data

@@ -32,7 +32,7 @@ Contents:
 The *simplest* data validations (for example a maximum allowed value or a regular expression pattern match)
 can be just declared in the DSL script directly on the property.
 
-See the available concepts and examples in chapter
+See the available concepts and examples in section
 [Property value constraints](Implementing-simple-business-rules#property-value-constraints):
 Required, Unique, MaxValue, MaxLength, RegExMatch, etc.
 
@@ -98,7 +98,7 @@ Entity Disposal
 
 Note that you can use navigation properties in the **ItemFilter** to read data
 from the referenced objects and extensions.
-See the examples in the following chapters for using subqueries and more complex data analysis.
+See the examples in the following sections for using subqueries and more complex data analysis.
 
 * The `item` refers to a records of the Disposal entity, but this code is not executed for each instance separately.
   Instead it is part of the EF LINQ query, converted to SQL query, and can be executed on multiple records in a single query.
@@ -168,7 +168,7 @@ data validations** in this strict sense:
 * See [Row permissions](RowPermissions-concept) and [Basic permissions](Basic-permissions),
   if the read or write operation depends on the user that executes it.
 * See [Deny data modifications](Implementing-simple-business-rules#deny-data-modifications)
-  chapter for *Lock*, *DenyUserEdit* and related concepts.
+  section for *Lock*, *DenyUserEdit* and related concepts.
 * If you need to implement a very specific business rule for which there is no
   standard concept available
   (for example to deny deleting certain records while allowing updates),
@@ -179,7 +179,7 @@ data validations** in this strict sense:
 
 ## Additional validation examples
 
-This chapter contains examples of more complex validation filters.
+This section contains examples of more complex validation filters.
 
 Any ItemFilter and ComposableFilterBy can be used for definition of invalid items with InvalidData.
 See [Filters and other read methods](Filters-and-other-read-methods) for more info.
@@ -239,9 +239,9 @@ since the validation provides no parameters when executed.
 
 ## Error response and metadata
 
-Test the validations from the previous chapters by directly executing the save method
+Test the validations from the previous sections by directly executing the save method
 in the generated [object model](Using-the-Domain-Object-Model),
-or by saving with REST request (see [Test and review](Create-your-first-Rhetos-application#test-and-review) chapter).
+or by saving with REST request (see [Test and review](Create-your-first-Rhetos-application#test-and-review) section).
 
 For example:
 
@@ -315,7 +315,7 @@ to the client application in the error metadata.
   to the error response.
   This metadata may be used in frontend to display the error message in a certain way.
 
-Continuing the examples from the previous chapters (see `InvalidData ImportantBookExplanation`):
+Continuing the examples from the previous sections (see `InvalidData ImportantBookExplanation`):
 
 > Use the REST Web API to insert a new Disposal with a short explanation for the Book
 > that has word "important" in the title.
@@ -369,7 +369,7 @@ but the `Severity` and `Property` metadata is visible.
 Task:
 
 > The validation `ItemFilter UncertainExplanations`,
-> in the example from a chapter above,
+> in the example from a section above,
 > has error message provided as a fixed string:
 >
 > ```c

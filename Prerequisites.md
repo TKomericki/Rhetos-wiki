@@ -18,7 +18,7 @@ Prerequisites for the Rhetos server:
   * To make sure all of the required ASP.NET components are installed,
     follow the instructions from the MSDN article
     [Install and Configure IIS](https://docs.microsoft.com/en-us/previous-versions/dynamicsnav-2016/hh167503(v=nav.90)#installing-iis-features-on-windows-8-and-windows-10),
-    but only from the chapter **"Installing IIS Features on Windows 8 and Windows 10"**, and **skip** .NET 3.5 features.
+    but only from the section **"Installing IIS Features on Windows 8 and Windows 10"**, and **skip** .NET 3.5 features.
 * Microsoft SQL Express or SQL Server 2008 or newer, or Oracle Database 11g Release 2 or newer.
 
 Application development environment (prerequisites for tutorials):

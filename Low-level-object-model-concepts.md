@@ -85,7 +85,7 @@ Module Bookstore
 
         SaveMethod
         {
-            // ... Insert the examples from this chapter here. ...
+            // ... Insert the examples from this tutorial here. ...
         }
     }
 }
@@ -179,7 +179,7 @@ or to deny modification of some records.
 The following example loads the review score and the referenced book's title.
 This data will be used later in implementation of other business rules:
 `OnSaveUpdate AppendTextIfScoreChanged` and `OnSaveValidate DenyChangeOfLockedTitle`
-(see the chapters below).
+(see the tutorial sections below).
 
 ```c
 Entity Review

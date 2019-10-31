@@ -17,22 +17,22 @@ Prerequisites:
 
 Contents:
 
-1. [Filters](#Filters)
-   1. [ItemFilter concept](#ItemFilter-concept)
-   2. [Testing a filter](#Testing-a-filter)
-   3. [ItemFilter with related data and subquery](#ItemFilter-with-related-data-and-subquery)
-   4. [ComposableFilterBy concept](#ComposableFilterBy-concept)
-   5. [ComposableFilterBy with parameters](#ComposableFilterBy-with-parameters)
-   6. [Predefined filters](#Predefined-filters)
-2. [Other read methods](#Other-read-methods)
-   1. [FilterBy concept](#FilterBy-concept)
-   2. [Query concept](#Query-concept)
-3. [Development guidelines and advanced topics](#Development-guidelines-and-advanced-topics)
-   1. [When not to write filters](#When-not-to-write-filters)
-   2. [Using additional data or system components in filters](#Using-additional-data-or-system-components-in-filters)
-   3. [Filter name is filter parameter type](#Filter-name-is-filter-parameter-type)
-   4. [Combining filters and other read methods](#Combining-filters-and-other-read-methods)
-4. [Read next](#Read-next)
+1. [Filters](#filters)
+   1. [ItemFilter concept](#itemfilter-concept)
+   2. [Testing a filter](#testing-a-filter)
+   3. [ItemFilter with related data and subquery](#itemfilter-with-related-data-and-subquery)
+   4. [ComposableFilterBy concept](#composablefilterby-concept)
+   5. [ComposableFilterBy with parameters](#composablefilterby-with-parameters)
+   6. [Predefined filters](#predefined-filters)
+2. [Other read methods](#other-read-methods)
+   1. [FilterBy concept](#filterby-concept)
+   2. [Query concept](#query-concept)
+3. [Development guidelines and advanced topics](#development-guidelines-and-advanced-topics)
+   1. [When not to write filters](#when-not-to-write-filters)
+   2. [Using additional data or system components in filters](#using-additional-data-or-system-components-in-filters)
+   3. [Filter name is filter parameter type](#filter-name-is-filter-parameter-type)
+   4. [Combining filters and other read methods](#combining-filters-and-other-read-methods)
+4. [Read next](#read-next)
 
 ## Filters
 
@@ -168,7 +168,7 @@ Module Bookstore
 * The filter's code snippet has access to the `_domRepository` and `_executionContext` members
   that provides the additional data (same as `var context` and `var repository` in the linked article).
 
-Test the filter (see the chapter above) to review the SQL query that is executed on the database.
+Test the filter (see the section above) to review the SQL query that is executed on the database.
 
 ### ComposableFilterBy concept
 
@@ -214,7 +214,7 @@ The **ComposableFilterBy** allows implementing more complex filters:
 * ComposableFilterBy can have parameters.
   Even if the **parameters are not used** in the example above,
   they must be declared with the "empty" `Parameter` concept.
-  See the next chapter on filter parameters.
+  See the next section on filter parameters.
   * The empty `Parameter LongBooks2 { }` can be written shorter as `Parameter LongBooks2;`.
 
 ItemFilter vs. ComposableFilterBy:
@@ -577,7 +577,7 @@ with the [RepositoryUses concept](Low-level-object-model-concepts).
 All filters and other read methods have a *name* that is same as
 the *class* in the object model that provides the filter parameters.
 For example, see [ComposableFilterBy with parameters](#composablefilterby-with-parameters)
-chapter above.
+section above.
 
 Internally, the filter's name does not have a specific purpose in the system.
 The filter is defined **purely by its parameter type**, and all filters
@@ -654,7 +654,7 @@ such as **ItemFilter**, **ComposableFilterBy** or a generic property filter.
 
 Usage:
 
-* To apply multiple filters in C# code, see "Filters" and "Applying-multiple-filters" chapters
+* To apply multiple filters in C# code, see "Filters" and "Applying-multiple-filters" sections
   in [Using the Domain Object Model](Using-the-Domain-Object-Model#Filters) article.
 * See "Filter" in [RestGenerator specification](https://github.com/Rhetos/RestGenerator/blob/master/Readme.md#filters)
   on how to apply filters in a REST request.

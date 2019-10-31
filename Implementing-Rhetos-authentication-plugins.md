@@ -31,7 +31,7 @@ On the Rhetos homepage (<http://localhost/Rhetos>, or similar) at the end of the
 * A web form is needed for user to enter the username and the password. This is usually developed as a part of the business application's front-end. Additionally, the AspNetFormsAuth plugin extends the Rhetos homepage (<http://localhost/Rhetos>, or similar) with a few simple pages for user login and administration, intended for developers and system administrators.
 * After logging in, ASP.NET uses a secure cookie to cache the authentication token in the user's browser session.
 
-**Any additional authentication method** can be developed as a new plugin, by any means of user authenticity verification, as long as the plugin can provide the username to the rest of the system (see the next chapter).
+**Any additional authentication method** can be developed as a new plugin, by any means of user authenticity verification, as long as the plugin can provide the username to the rest of the system (see the next section).
 
 * Sometimes the development of the new plugin can be simplified by extending the AspNetFormsAuth plugin, so that after the new mechanism verifies the user it can use the ASP.NET methods to directly create the user's security token. AspNetFormsAuth can work with that token after that, even though user's password is never set or used.
 

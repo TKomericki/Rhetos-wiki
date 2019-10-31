@@ -180,7 +180,7 @@ For example, loaded books contain simple `AuthorID` Guid property,
 but not `Author` property that would reference the entity Person.
 
 The Load method can have a **filter** as a parameter.
-More information on using filters is available in the chapters below.
+More information on using filters is available in the sections below.
 
 ### Query data
 
@@ -604,7 +604,7 @@ properties.Select(p => p.GetUserDescription()).Dump("Common.Principal ShortStrin
 
 ## Helpers for writing code snippets
 
-The scripts in the following chapters will help you with development and testing of code snippets for filters and actions. The code snippet can then be copied to the *.rhe* script.
+The scripts in the following sections will help you with development and testing of code snippets for filters and actions. The code snippet can then be copied to the *.rhe* script.
 
 ### ComposableFilterBy code snippet
 

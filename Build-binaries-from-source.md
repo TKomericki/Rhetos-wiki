@@ -2,7 +2,7 @@
 
 This is an alternative process to the
 [Development environment setup](Development-environment-setup#get-rhetos-server-binaries)
-chapter "Get Rhetos server binaries".
+section "Get Rhetos server binaries".
 
 > Note that using the latest version of the source is not recommended for business application development, because of possible compatibility issues with other Rhetos packages that might be resolved only when the new release of the framework and the packages is published.
 

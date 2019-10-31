@@ -75,7 +75,7 @@ Rhetos packages define the content of the Rhetos server. This section describes 
 
 ## IIS setup
 
-Follow the steps in this chapter if using IIS (recommended) instead of IIS Express.
+Follow the steps in this section if using IIS (recommended) instead of IIS Express.
 
 1. Start "Internet Information Services (IIS) Manager".
 2. Select "Application Pools" => "Add Application Pool...", enter the following data:
@@ -119,8 +119,8 @@ Follow the steps in this chapter if using IIS (recommended) instead of IIS Expre
 
 ## IIS Express setup
 
-Follow the steps in this chapter **only if using IIS Express instead of IIS**.
-IIS is recommended (see the previous chapter), but IIS Express can be useful if a restricted environment is needed on the development machine.
+Follow the steps in this section **only if using IIS Express instead of IIS**.
+IIS is recommended (see the previous section), but IIS Express can be useful if a restricted environment is needed on the development machine.
 
 The following instructions use tools from the Rhetos source repository.
 

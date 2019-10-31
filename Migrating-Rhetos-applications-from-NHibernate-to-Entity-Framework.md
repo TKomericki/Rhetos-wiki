@@ -3,10 +3,10 @@ The following text describes the breaking changes that require modifications in 
 
 How to use this document:
 
-1. Apply all instructions from the first 4 chapters to your application. Most of those changes will result with compile-time errors if not applied properly, so the migration process should be straightforward.
+1. Apply all instructions from the first 4 tutorial sections to your application. Most of those changes will result with compile-time errors if not applied properly, so the migration process should be straightforward.
 2. Some incompatibilities between NH and EF will result with **run-time errors** when executing LINQ queries.
   This means that whole application will have to be tested in order to validate that the migration is successful.
-  The [Troubleshooting](#troubleshooting) chapter will help with fixing those errors:
+  The [Troubleshooting](#troubleshooting) section will help with fixing those errors:
   **search for the error message** and follow the instructions.
 
 Table of contents:
