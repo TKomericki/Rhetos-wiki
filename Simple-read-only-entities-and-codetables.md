@@ -5,6 +5,7 @@ Table of contents:
 1. [Hardcoded concept](#hardcoded-concept)
 2. [Usage in the object model](#usage-in-the-object-model)
 3. [Usage in the database](#usage-in-the-database)
+4. [Usage in polymorphic implementation](#usage-in-polymorphic-implementation)
 
 ## Hardcoded concept
 
@@ -70,5 +71,51 @@ WHERE
     book.GenreID = BookStore.Genre_Fantasy()
 ```
 
-Every Entry concept creates a scalar function that returns the ID of the defined entry.
+Every Entry concept creates a **scalar function that returns the ID** of the defined entry.
 See `BookStore.Genre_Fantasy()` in the example above.
+
+## Usage in polymorphic implementation
+
+For example, implement a shipment event "ApproveShipment" (see [Polymorphic concept](Polymorphic-concept))
+that returns "Approved" as a new status.
+
+Solution:
+
+```C
+Hardcoded ShipmentStatus
+{
+    Entry Preparing;
+    Entry Approved;
+    Entry Delivered;
+}
+
+Polymorphic ShipmentEvent
+{
+    DateTime EffectiveSince;
+    Reference Shipment;
+    Reference NewStatus Bookstore.ShipmentStatus;
+}
+
+Entity ApproveShipment
+{
+    DateTime EffectiveSince { CreationTime; }
+    Reference Shipment;
+
+    Is Bookstore.ShipmentEvent
+    {
+        Implements Bookstore.ShipmentEvent.NewStatus Bookstore.ShipmentStatus.Approved;
+
+        // Slower alternative: Calling the database function:
+        //Implements Bookstore.ShipmentEvent.NewStatus "Bookstore.ShipmentStatus_Approved()";
+    }
+}
+```
+
+The `Implements` concept provides an option to **directly reference the hardcoded
+entry** `Bookstore.ShipmentStatus.Approved` to return the entry ID.
+This will result with the optimized literal value in the generated database code.
+
+Note that implementation of the polymorphic property can be specified with an SQL code snippet,
+so it can call the database function `Bookstore.ShipmentStatus_Approved()` to return the status ID
+(see the previous section). This option can be slower in situations when the function needs
+to be called on large number of records.
