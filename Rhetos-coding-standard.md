@@ -40,7 +40,6 @@ Table of contents:
 ### Organizing DSL scripts
 
 * DSL scripts (.rhe) must be placed inside the DslScripts subfolder inside the Rhetos package's folder.
-* Use "UTF-8 with BOM" encoding for the .rhe scripts.
 * The application should be separated to multiple module if it is possible to deploy a different combination of modules to different clients.
   Each module should be developed as a separate Rhetos package.
 * For larger modules the DSL scripts should be distributed by topic to subfolders inside the DslScripts folder.
