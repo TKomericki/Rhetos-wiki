@@ -1,5 +1,14 @@
 # Migrating an existing application to UseDatabaseNullSemantics
 
+Contents:
+
+1. [What is UseDatabaseNullSemantics](#what-is-usedatabasenullsemantics)
+2. [Recommendations for Rhetos applications](#recommendations-for-rhetos-applications)
+3. [How to change UseDatabaseNullSemantics in Rhetos application](#how-to-change-usedatabasenullsemantics-in-rhetos-application)
+4. [Testing and migrating the existing features in your application](#testing-and-migrating-the-existing-features-in-your-application)
+
+## What is UseDatabaseNullSemantics
+
 UseDatabaseNullSemantics in an Entity Framework configuration setting that modifies how EF
 generates SQL queries.
 The change is briefly described in MSDN article
@@ -13,6 +22,8 @@ but may result with slower execution time in some complex cases. For example:
 | --- | --- | --- |
 | `query.Where(a => a.X == b)` | `SELECT .. FROM ... WHERE a.X = b` | `SELECT .. FROM ... WHERE (((a.X = b) AND (NOT (a.X IS NULL OR b IS NULL))) OR ((a.X IS NULL) AND (b IS NULL)))`
 | `query.Select(person => person.FirstName + " " + person.LastName)` | `SELECT person.FirstName + N' ' + person.LastName` | `SELECT CASE WHEN (person.FirstName IS NULL) THEN N'' ELSE person.FirstName END + N' ' + CASE WHEN (person.LastName IS NULL) THEN N'' ELSE person.LastName END`
+
+## Recommendations for Rhetos applications
 
 For **new Rhetos applications** it is recommended to set UseDatabaseNullSemantics to **True**,
 because of the performance impact. This means that when writing LINQ queries, the developer
