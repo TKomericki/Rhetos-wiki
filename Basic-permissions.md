@@ -1,16 +1,17 @@
 Contents:
 
-1. [Users and roles](#users-and-roles)
-   1. [Common administration activities](#common-administration-activities)
-   2. [Claims](#claims)
-   3. [Permissions](#permissions)
-2. [Development](#development)
+1. [Introduction](#introduction)
+2. [Common administration activities](#common-administration-activities)
+3. [Claims](#claims)
+4. [Permissions](#permissions)
+5. [System roles: AllPrincipals and Anonymous](#system-roles-allprincipals-and-anonymous)
+6. [Automatic user management](#automatic-user-management)
+7. [Application development](#application-development)
    1. [Suppressing permissions in a development environment](#suppressing-permissions-in-a-development-environment)
-   2. [Automatic user management](#automatic-user-management)
-   3. [Inserting the permissions on deployment](#inserting-the-permissions-on-deployment)
-3. [See also](#see-also)
+   2. [Inserting the permissions on deployment](#inserting-the-permissions-on-deployment)
+8. [See also](#see-also)
 
-## Users and roles
+## Introduction
 
 By using a hierarchy of roles, the administrator can create
 groups of users and permissions, or connect them directly.
@@ -21,7 +22,7 @@ The diamond shapes represent the associative entities.
 
 ![Roles and Claims](images/claims.png)
 
-### Common administration activities
+## Common administration activities
 
 All administration activities are performed by modifying the data in the entities from the diagram above. For example:
 
@@ -30,13 +31,15 @@ All administration activities are performed by modifying the data in the entitie
   * If the forms authentication is used instead,
     check for the additional administration activities in the
     [AspNetFormsAuth documentation](https://github.com/Rhetos/AspNetFormsAuth/blob/master/Readme.md).
-* To create **new roles** and define the **role permissions**, enter the data in *Common.Role* and *Common.RolePermission*.
-  Some roles and the role permissions are usually preconfigured by the development team while developing the application.
+* To create **new roles** and define the **role permissions**, enter the data
+  in *Common.Role* and *Common.RolePermission*.
+  Some roles and the role permissions are usually preconfigured by the development team
+  while developing the application.
 * To configure the **user's permissions**, enter the data in *Common.PrincipalHasRole*
   (this will provide the permissions from the selected roles).
   Alternatively, a user can have  or *Common.PrincipalPermission*.
 
-### Claims
+## Claims
 
 Each record in a *Common.Claim* entity represents a basic element of access permission:
 an operation on a resource (entity, action, ...) that can be allowed or denied.
@@ -59,7 +62,7 @@ A custom claim can be created in a DSL script by using the CustomClaim concept. 
 CustomClaim 'SomeModule.SomeResource' 'CustomOperationName';
 ```
 
-### Permissions
+## Permissions
 
 User's permissions are defined here a **set of claims** that a certain user has.
 They are represented in the system by connecting principals with the claims,
@@ -69,36 +72,55 @@ to the user directly or from the user's roles.
 
 Denying permissions:
 
-* All claims are denied by default, and added with user's and role's permission.
-* Sometimes it is difficult to set up a purely additive system of roles and permissions. For example, if a user inherits some permissions (claims) from a certain role, but you need to remove some of those permissions without modifying this role, you can explicitly deny this permissions by setting `IsAuthorized = 0` in *PrincipalPermission* or *RolePermission* (with an additional role).
-* Deny will always override the allowed permissions from other roles, so if the user has a certain permission allowed by one of his roles and denied by some other role, at the and the permission will be denied.
-* Please note that denying permissions should be used as a **rare exception** because it complicates the administration of the permissions in the future.
+* All claims are denied by default.
+* Sometimes it is difficult to set up a purely additive system of roles and permissions.
+  For example, if a user inherits some permissions (claims) from a certain role,
+  but you need to remove some of those permissions without modifying this role,
+  you can explicitly deny this permissions by setting `IsAuthorized = 0`
+  in *PrincipalPermission* or *RolePermission* (with an additional role).
+* Deny will always override the allowed permissions from other roles,
+  so if the user has a certain permission allowed by one of his roles and denied
+  by some other role, at the and the permission will be denied.
+* Please note that denying permissions should be used as a **rare exception**
+  because it complicates the administration of the permissions in the future.
 
-## Development
+## System roles: AllPrincipals and Anonymous
 
-### Suppressing permissions in a development environment
+*This feature is available since Rhetos v3.0.*
 
-Suppressing permissions is useful only in an early stage of the project, while prototyping.
-It allows developers to test the new features without need to manage users, roles and permissions.
+Every authenticated user (Common.Principal) is automatically assumed to have a role
+named "AllPrincipals", if this role exists in Common.Role.
 
-The basic permission checking can be turned off in a development environment by setting the following options in the Rhetos server's **web.config** file.
+Additionally, every authenticated *and unauthenticated* user is automatically assumed
+to have a role named "Anonymous", if this role exists in Common.Role.
 
-1. **"Security.AllClaimsForUsers"** - The value should contain a comma-separated
-   list of users with server computer name (formatted `username@servername, ...`)
-   that will automatically have full permissions. Examples:
-   * Domain user on a shared server:
-     `<add key="Security.AllClaimsForUsers" value="mydomain\myusername@myserver" />`.
-   * Local windows user without Windows domain:
-     `<add key="Security.AllClaimsForUsers" value="mypc\myusername@mypc" />`.
-   * Forms Authentication user "admin":
-     `<add key="Security.AllClaimsForUsers" value="admin@myserver" />`.
-2. **"BuiltinAdminOverride"** - If set to "True",
-   the user that is a local administrator will have full permissions.
-   This option works only for Windows authentication, and if the web server
-   is able to check the user's Windows groups (usually in development environment).
-   Use the AllClaimsForUsers option otherwise.
+* To specify basic permissions that all users automatically have,
+  create the role named "AllPrincipals" (or "Anonymous")
+  and assign the role permission (Common.RolePermission)
+  or inherit permissions from other roles (Common.RoleInheritsRole).
+* Note that the authorization subsystem will assume that each principal
+  has these roles, if they exist in Common.Role,
+  even if there are no such records in Common.PrincipalHasRole.
 
-### Automatic user management
+The following issues need to be considered for anonymous access:
+
+* Note that IIS does not support Anonymous and Windows authentication on the same web application.
+* To enable anonymous access make sure that *Web.config* does not contain `<deny users="?" />`.
+  If you don't need anonymous access, keep this line for improved security and performance.
+* Troubleshooting: If you have added Anonymous permissions, but still getting `HTTP Error 401.0 - Unauthorized`,
+  review the stack trace in RhetosServer.log to make sure that your authentication plugin
+  (IUserInfo implementation) handles unauthenticated users correctly.
+* Anonymous web methods should be avoided for business features,
+  and manually configured in web.config by `location / system.web / authorization / allow` elements.
+  This is important to reduce security impact of any mistake in configuration
+  or implementation of business application's permissions.
+  If you need a public Web API to expose a subset of the application's business features or data,
+  the best practice is to create a stand-alone web service with custom developed API.
+  This will allow for easier maintenance of backward compatible API and versioning
+  with multiple actively supported versions,
+  while making internal changes in your application's data structure and other features.
+
+## Automatic user management
 
 For back-office business applications, an explicit user management is done
 by system administrator within the Rhetos application
@@ -124,20 +146,65 @@ The following built-in features may help with those business requirements:
    the **user groups in Active Directory**, add the
    [ActiveDirectorySync](https://github.com/Rhetos/ActiveDirectorySync) plugin package
    to the Rhetos application.
-   * This will allow the domain administrator to indirectly set the user permissions in the Rhetos application.
+   * This will allow the domain administrator to indirectly set the user permissions
+     in the Rhetos application.
+
+## Application development
+
+### Suppressing permissions in a development environment
+
+Suppressing permissions is useful only in an early stage of the project, while prototyping.
+It allows developers to test the new features without need to manage users, roles and permissions.
+
+The basic permission checking can be turned off in a development environment by setting
+the following options in the Rhetos server's **web.config** file.
+
+1. **"Security.AllClaimsForUsers"** - The value should contain a comma-separated
+   list of users with server computer name (formatted `username@servername, ...`)
+   that will automatically have full permissions. Examples:
+   * Domain user on a shared server:
+     `<add key="Security.AllClaimsForUsers" value="mydomain\myusername@myserver" />`.
+   * Local windows user without Windows domain:
+     `<add key="Security.AllClaimsForUsers" value="mypc\myusername@mypc" />`.
+   * Forms Authentication user "admin":
+     `<add key="Security.AllClaimsForUsers" value="admin@myserver" />`.
+2. **"BuiltinAdminOverride"** - If set to "True",
+   the user that is a local administrator will have full permissions.
+   This option works only for Windows authentication, and if the web server
+   is able to check the user's Windows groups (usually in development environment).
+   Use the AllClaimsForUsers option otherwise.
 
 ### Inserting the permissions on deployment
 
-There is often a need to insert some permissions as the new version of the application is deployed. This usually means inserting or updating the data in tables *Common.Role*, *Common.RolePermission* or *Common.PrincipalPermission*.
+There is often a need to insert some permissions as the new version of the application is deployed.
+This usually means inserting or updating the data in tables *Common.Role*,
+*Common.RolePermission* or *Common.PrincipalPermission*.
 
-The recommended solution is to include [Rhetos.AfterDeploy](https://github.com/Rhetos/AfterDeploy) package, and write the AfterDeploy SQL scripts that will insert, update or delete the permission records in the database to match the expected permissions.
+The recommended solution is to include [Rhetos.AfterDeploy](https://github.com/Rhetos/AfterDeploy)
+package, and write the AfterDeploy SQL scripts that will insert,
+update or delete the permission records in the database to match the expected permissions.
 
-Note: The DataMigration scripts are often the first solution that comes to mind, but there are issues with this approach:
+Note: The DataMigration scripts are often the first solution that comes to mind,
+but there are issues with this approach:
 
-* DataMigration scripts are intended for incremental modifications. This means that when changing permissions, new DataMigration scripts should be added to correct the existing permissions. It is easier to maintain an AfterDeploy script that is executed on each deployment, that contains a complete list of wanted permissions and updates the records in database to match the list.
-* The claims in *Common.Claim* table are generated automatically at the end of each deployment (see the *DeployPackages.log*). The data-migration scripts are executed at the beginning of the deployment, so the inserted permissions will not include the new claims that will be generated at the end. Possible workaround is to insert the claims along with the permissions, but the AfterDeploy script is much better solutions.
-* This recommendation to use AfterDeploy scripts is specific to managing permissions. For most other data that needs to be initialized or hard-coded in the database, the DataMigration scripts are recommended way to go, because they will work well with future changes of the database structure.
+* DataMigration scripts are intended for incremental modifications.
+  This means that when changing permissions, new DataMigration scripts should be added
+  to correct the existing permissions.
+  It is easier to maintain an AfterDeploy script that is executed on each deployment,
+  that contains a complete list of wanted permissions and updates the records
+  in database to match the list.
+* The claims in *Common.Claim* table are generated automatically at the end of
+  each deployment (see the *DeployPackages.log*).
+  The data-migration scripts are executed at the beginning of the deployment, so the inserted
+  permissions will not include the new claims that will be generated at the end.
+  Possible workaround is to insert the claims along with the permissions,
+  but the AfterDeploy script is much better solutions.
+* This recommendation to use AfterDeploy scripts is specific to managing permissions.
+  For most other data that needs to be initialized or hard-coded in the database,
+  the DataMigration scripts are recommended way to go,
+  because they will work well with future changes of the database structure.
 
 ## See also
 
-* See other options for user authorization in the article [User authentication and authorization](User-authentication-and-authorization).
+* See other options for user authorization in the article
+  [User authentication and authorization](User-authentication-and-authorization).
