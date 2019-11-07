@@ -12,7 +12,7 @@ Contents:
 Prerequisites for the Rhetos server:
 
 * Windows 8 or newer
-* .NET Framework 4.5.1
+* .NET Framework 4.7.2
 * IIS with ASP.NET 4.x installed
   * There no need to install NET 3.5 features on IIS. Only NET 4.x features are needed.
   * To make sure all of the required ASP.NET components are installed,

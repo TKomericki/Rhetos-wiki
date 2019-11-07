@@ -87,7 +87,7 @@ Notes:
 ### Option B: Creating a "playground" console app
 
 1. In Visual Studio create a new project from template "Console App (.NET Framework)".
-   * Select .NET framework 4.5.1 (same as Rhetos)
+   * Select .NET framework 4.7.2 (same as Rhetos)
    * If you are creating a Bookstore demo application, set the following:
      * Location: create the `test` subfolder in your "Bookstore" project folder (`...\Bookstore\test\`),
      * Name: "Bookstore.Playground"
