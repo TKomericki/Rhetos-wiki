@@ -313,6 +313,8 @@ SqlQueryable DocumentInfo
     }
 
     RowPermissions { InheritFromBase; }
+
+    AutodetectSqlDependencies;
 }
 ```
 

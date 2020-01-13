@@ -15,7 +15,9 @@ Table of contents:
 3. [How to write a macro concept](#how-to-write-a-macro-concept)
 4. [How to write a concept with code generator](#how-to-write-a-concept-with-code-generator)
 5. [How to deploy created concept](#how-to-deploy-created-concept)
-6. [See also](#see-also)
+6. [Advanced topics](#advanced-topics)
+   1. [Dependency between code generators](#dependency-between-code-generators)
+7. [See also](#see-also)
 
 ## What is Rhetos DSL concept
 
@@ -39,10 +41,10 @@ Module Bookstore
 {
     Entity Employee
     {
-        ShortString PrimaryPhoneNumber { RegexMatch "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" "Invalid phone number format."; }
-        ShortString SecondaryPhoneNumber { RegexMatch "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" "Invalid phone number format."; }
-        ShortString FaxNumber { RegexMatch "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" "Invalid phone number format."; }
-        ShortString MobileNumber { RegexMatch "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" "Invalid phone number format."; }
+        ShortString PrimaryPhoneNumber { RegexMatch "[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*" "Invalid phone number format."; }
+        ShortString SecondaryPhoneNumber { RegexMatch "[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*" "Invalid phone number format."; }
+        ShortString FaxNumber { RegexMatch "[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*" "Invalid phone number format."; }
+        ShortString MobileNumber { RegexMatch "[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*" "Invalid phone number format."; }
     }
 }
 ```
@@ -133,7 +135,7 @@ namespace MyFirstConcept
                 new RegExMatchInfo
                 {
                     Property = conceptInfo,
-                    RegularExpression = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$",
+                    RegularExpression = "[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*",
                     ErrorMessage = "Invalid phone number format."
                 }
             }
@@ -247,6 +249,28 @@ Entity Book
 To deploy a newly created Rhetos DSL concept you need to
 [create a Rhetos package](Creating-a-Rhetos-package) and add your binaries to it,
 or add them to an existing Rhetos package.
+
+## Advanced topics
+
+### Dependency between code generators
+
+Code generator should use tags (for example `InsertCode(..., concept, tag)` or `tag.Evaluate(concept)`)
+*only* for the concepts that it references directly or indirectly.
+For example, a code generator for EntityInfo concept should only use tags for EntityInfo,
+DataStructureInfo (base class) and for ModuleInfo in which the entity is placed,
+because the EntityInfo class has a property that references ModuleInfo.
+
+* If this rule is not followed, then Rhetos may not be aware of the dependencies
+  between the code generators.
+  Deployment might fail with error `Generated script does not contain tag ...`
+  if the code generator that *uses* some tag is executed
+  before the code generator that *adds* this tag.
+* You may test if your code generators have consistent dependencies,
+  by checking if deployment runs successfully with different internal ordering of concepts:
+  Run the deployment once with
+  `<add key="CommonConcepts.Debug.SortConcepts" value="Key" />`
+  (appSettings in Web.config file), then with
+  `<add key="CommonConcepts.Debug.SortConcepts" value="KeyDescending" />`.
 
 ## See also
 

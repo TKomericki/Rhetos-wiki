@@ -3,12 +3,12 @@ Then can often be used by simply declaring them on an entity or a property.
 
 Contents:
 
-1. [Property value constraints](#Property-value-constraints)
-2. [Deny data modifications](#Deny-data-modifications)
-3. [Automatically generated data](#Automatically-generated-data)
-4. [Logging data changes and auditing](#Logging-data-changes-and-auditing)
-5. [Other features](#Other-features)
-6. [See also](#See-also)
+1. [Property value constraints](#property-value-constraints)
+2. [Deny data modifications](#deny-data-modifications)
+3. [Automatically generated data](#automatically-generated-data)
+4. [Logging data changes and auditing](#logging-data-changes-and-auditing)
+5. [Other features](#other-features)
+6. [See also](#see-also)
 
 ## Property value constraints
 
@@ -29,6 +29,8 @@ The following concepts are available in CommonConcepts package:
 * `MinLength` - Limit the smallest allowed length of the string.
 * `MaxLength` - Limit the largest allowed length of the string.
 * `RegExMatch` - Use a regular expression to validate the string property value.
+  The validation is checked only if the property value is entered (add Required concept if needed).
+  The provided pattern must match the *whole* property value (`^` and `$` are automatically added to pattern).
 
 For more complex data validations a specific filter can be developed,
 see [Data validations](Data-validations) article for more info.
@@ -150,7 +152,7 @@ See [Logging data changes and auditing](Logging#logging-data-changes-and-auditin
   * It creates a composable filter `Rhetos.Dom.DefaultConcepts.ActiveItems`,
     with an optional parameter `ItemID`.
     It returns all active items and additionally the item with the given ID.
-    This is a common patter for lookup that needs to display the current item whether it is active or not.
+    This is a common pattern for lookup that needs to display the current item whether it is active or not.
   * Code example is available in DSL script [SimpleBusinessLogic.rhe](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/CommonConceptsTest/DslScripts/SimpleBusinessLogic.rhe).
 
 * `PessimisticLocking` - Enables automatic verification of explicit client locks when saving a record. A user can change a records only when there is no ExclusiveLock from another user on this record. When editing detail records, only master needs to be locked.
