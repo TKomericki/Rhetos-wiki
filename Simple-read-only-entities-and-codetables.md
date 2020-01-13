@@ -1,4 +1,4 @@
-The Hardcoded concept is used to easily create simple read-only entities and code tables.
+The **Hardcoded** concept is used to easily create simple read-only entities and code tables.
 
 Table of contents:
 

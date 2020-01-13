@@ -20,7 +20,7 @@ Contents:
 
 1. [How to execute the examples](#how-to-execute-the-examples)
    1. [Option A: LINQPad](#option-a-linqpad)
-   2. [Option B: Creating a "playground" console app](#option-b-creating-a-playground-console-app)
+   2. [Option B: Creating a &quot;playground&quot; console app](#option-b-creating-a-quotplaygroundquot-console-app)
 2. [Understanding the generated object model](#understanding-the-generated-object-model)
 3. [Reading the data](#reading-the-data)
    1. [Load data](#load-data)
@@ -194,7 +194,8 @@ var query2 = query
     .Select(b => new { b.Title, b.Author.Name });
 
 // Entity Framework overrides ToString to return the generated SQL query.
-query2.ToString().Dump("Generated SQL query");
+query.ToString().Dump("Generated SQL (query)");
+query2.ToString().Dump("Generated SQL (query2)");
 
 // ToList will force Entity Framework to load the data from the database.
 var items = query2.ToList();
@@ -518,7 +519,7 @@ Don't forget to run `DeployPackages.exe` after implementing Action in the DSL sc
 In LINQPad or in the playground console app, execute the Insert5Books action.
 
 ```C#
-// Null argument is send because this action has no parameters.
+// Null argument is send because this action does not use parameters.
 repository.Bookstore.Insert5Books.Execute(null);
 ```
 

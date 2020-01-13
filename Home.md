@@ -64,7 +64,7 @@ Support:
   new features and breaking changes.
 * [How to upgrade your application to a new version of Rhetos](Upgrade-Rhetos-version)
 
-## Recommended plugins
+## Recommended plugin packages
 
 * [CommonConcepts](https://github.com/Rhetos/Rhetos/tree/master/CommonConcepts) contains standard concepts for building applications, such as entities, validations and computations.
 * [ActiveDirectorySync](https://github.com/Rhetos/ActiveDirectorySync). Rhetos supports Windows Authentication by default. This package synchronizes Rhetos user roles with Active Directory, allowing user permissions to be defined by AD user groups.

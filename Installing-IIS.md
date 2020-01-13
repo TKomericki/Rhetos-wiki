@@ -1,6 +1,6 @@
 # Installing IIS Features on Windows 8 and Windows 10
 
-*This article is based on
+*Disclaimer: This article is based on
 [Installing IIS Features on Windows 8 and Windows 10](https://docs.microsoft.com/en-us/previous-versions/dynamicsnav-2016/hh167503(v=nav.90)#installing-iis-features-on-windows-8-and-windows-10)
 for Microsoft Dynamics.
 See the original article for instructions on other environments.
