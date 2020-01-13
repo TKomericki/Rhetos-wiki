@@ -47,8 +47,14 @@ Contributions are done by [creating a fork]((https://help.github.com/articles/fo
 
 Before submitting a pull request:
 
-* Please run the unit tests before submitting the pull request.
-  Rhetos contains two types of unit tests: standard unit tests (in Rhetos.sln), and integration tests (in CommonConceptsTest.sln) that can be run only after a successful deployment.
-* Check if you code conforms to the [Rhetos coding standard](Rhetos-coding-standard).
+* Check if your code conforms to the [Rhetos coding standard](Rhetos-coding-standard).
+* Open command prompt and run `CleanBuildDeployTest.bat`, and check the the last output line
+  is `CleanBuildDeployTest.bat SUCCESSFULLY COMPLETED.`
+  * This batch script runs a clean build and all unit tests.
+  * Before running the script, edit `Source\Rhetos\RhetosPackages.config` to contain
+    line `<package id="Rhetos.CommonConceptsTest" source="..\..\CommonConcepts\CommonConceptsTest" />`.
+  * Note that Rhetos contains two types of unit tests: standard unit tests (in Rhetos.sln),
+    and integration tests (in CommonConceptsTest.sln). This batch script will build and deploy
+    the test application in `Source\Rhetos` subfolder, in order to run the integration tests.
 * Some changes that could break the backward compatibility should be implemented with a legacy-support option:
   [Backward compatible feature implementation](Backward-compatible-feature-implementation-in-Rhetos-and-CommonConcepts)
