@@ -159,7 +159,8 @@ Note that the existing Deactivatable concept simply adds a `bool Active` propert
 See the article [Implementing simple business rules](Implementing-simple-business-rules)
 for more info on the Deactivatable concept.
 
-In order to create new concept, it is required to add assembly reference `System.ComponentModel.Composition` and two nuget packages, `Rhetos` and `Rhetos.CommonConcepts`.
+In order to create new concept, it is required to add two NuGet packages `Rhetos` and `Rhetos.CommonConcepts`.
+If the `Export` attribute is not recognized, add an assembly reference to `System.ComponentModel.Composition`.
 
 First, we will implement ConceptInfo for this new concept:
 
