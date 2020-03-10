@@ -208,7 +208,7 @@ there are two options to update the persisted data by yourself.
     * This is a **preferred solution**. Since this data-migration script is created along
       with the change in computation source, the *recompute* will be executed exactly once
       on each deployment environment, exactly *when* the change of the computation source is deployed.
-2. Manually execute the Recompute method with LinqPad (see [example](Using-the-Domain-Object-Model)) after the deployment.
+2. Manually execute the Recompute method with LINQPad (see [example](Using-the-Domain-Object-Model)) after the deployment.
     * This will need to be done manually on each deployment environment (including other developers' PCs).
 
 ### Suppressing recompute on deployment
