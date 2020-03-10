@@ -54,7 +54,6 @@ Fundamentals:
 * [Data migration](Data-migration)
 * [Logging](Logging)
 * [Debugging](Debugging)
-* [TemplaterReport](TemplaterReport)
 * [Rhetos coding standard](Rhetos-coding-standard)
 
 Support:
