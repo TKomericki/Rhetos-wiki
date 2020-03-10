@@ -21,16 +21,16 @@ Contents:
 
 [Simple property types](Data-structure-properties):
 
-* **ShortString** `<DataStructure>.<property name>` - Maximal length 256 characters.
-* **LongString** `<DataStructure>.<property name>` - Unlimited length.
-* **Integer** `<DataStructure>.<property name>`
-* **Decimal** `<DataStructure>.<property name>`
-* **Money** `<DataStructure>.<property name>`
-* **Bool** `<DataStructure>.<property name>`
-* **Date** `<DataStructure>.<property name>`
-* **DateTime** `<DataStructure>.<property name>`
-* **Guid** `<DataStructure>.<property name>`
-* **Binary** `<DataStructure>.<property name>`
+* **ShortString** `<DataStructure>.<property name>` - Unicode string property, intended for short single-line text. Maximal length 256 characters.
+* **LongString** `<DataStructure>.<property name>` - Unicode string property, intended for long multi-line text. Length is not limited by the application.
+* **Integer** `<DataStructure>.<property name>` - Integer property.
+* **Decimal** `<DataStructure>.<property name>` - Decimal property.
+* **Money** `<DataStructure>.<property name>` - Currency value property, limited to 2 decimals in database.
+* **Bool** `<DataStructure>.<property name>` - Boolean property.
+* **Date** `<DataStructure>.<property name>` - Date property.
+* **DateTime** `<DataStructure>.<property name>` - DateTime property.
+* **Guid** `<DataStructure>.<property name>` - GUID property.
+* **Binary** `<DataStructure>.<property name>` - Byte array property.
 
 [Relationships](Data-model-and-relationships) and [navigation properties](Data-structure-properties):
 
