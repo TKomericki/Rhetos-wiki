@@ -10,7 +10,6 @@ Contents:
 8. [Claims and permissions](#claims-and-permissions)
 9. [Low-level object model concepts](#low-level-object-model-concepts)
 10. [Database objects](#database-objects)
-11. [TODO](#todo)
 
 ## Data model and relationships
 
@@ -59,29 +58,42 @@ Hardcoded:
 
 LegacyEntity:
 
-* **LegacyEntity** `<Module>.<name> <table> <view>` - Simplifies access from Rhetos application to legacy application database. It maps a Rhetos data structure to the legacy database table or view. It allows both read and write operations (either with updateable views or generated instead-of triggers). It allows mapping of complex primary and foreign keys to standard Rhetos reference properties. Prerequisites: The legacy table needs to be extended with uniqueidentifier ID column with default `NEWID()` and a unique index.
-* **LegacyEntity** `<Module>.<name> <table>` - Creates view with entity name and the corresponding instead-of triggers for writing data.
-* **LegacyProperty**
-* **LegacyPropertyReadOnly**
+* **LegacyEntity** `<Module>.<name> <table> <view>` - Simplifies access from Rhetos application to legacy application database. It maps a Rhetos data structure to the legacy database table or view. It allows both read and write operations (either with updateable views or generated instead-of triggers). It allows mapping of complex primary and foreign keys to standard Rhetos reference properties. Prerequisites: The legacy table needs to be extended with `uniqueidentifier` ID column with default `NEWID()` and a unique index.
+* **LegacyEntity** `<Module>.<name> <table>` - Simplifies access from Rhetos application to legacy application database. It maps a Rhetos data structure to the legacy database table or view. It allows both read and write operations (either with updateable views or generated instead-of triggers). It allows mapping of complex primary and foreign keys to standard Rhetos reference properties. Prerequisites: The legacy table needs to be extended with `uniqueidentifier` ID column with default `NEWID()` and a unique index. Automatically creates view with entity name and the corresponding instead-of triggers for writing data directly into that view.
+* **LegacyProperty** `<Property> 'column'` - Mapping a writable property to a column in source view. It also extends the generated triggers, making the view writable.
+* **LegacyProperty** `<Property> 'columns' 'referencedTable' 'referencedColumns'` - Mapping reference property to a FK column in source view. It supports foreign keys over multiple columns; they will be automatically mapped to a single `uniqueidentifier` value for standard Rhetos reference property.
+* **LegacyPropertyReadOnly** `<Property> 'column'` - Mapping a read-only property to a column in source view.
 
 [Polymorphic](Polymorphic-concept):
 
 * **Polymorphic** `<Module>.<name>` - A common interface that can be implemented by multiple entities.
 * **Is** `<subtype DataStructure>.<Polymorphic>` - Data structure is a subtype (an implementation) of the given polymorphic.
-**Implements** `<Is>.<Property> 'SQL expression'` - Implement a property by a specific SQL expression.
-**Implements** `<Is>.<Property> <HardcodedEntry>` - Implement a property by a hardcoded entity entry.
+* **Implements** `<Is>.<Property> 'SQL expression'` - Implement a property by a specific SQL expression.
+* **Implements** `<Is>.<Property> <HardcodedEntry>` - Implement a property by a hardcoded entity entry.
 * **Where** `<Is>.<expression>` - Is is used to limit the items that will be included in the polymorphic implementation.
 * **Materialized** `<Polymorphic>` - Manually creates a materialized table, when there are no references or extensions to the polymorphic
 * **SqlImplementation** `<Is> 'sqlQuery'` - Instead of using property implementations (`Implements` keyword), a specific SQL query may be provided to implement the mapping between the subtype and the polymorphic entity.
 
-Other concepts:
+C# interface implementation.
+These concepts help keeping the algorithm implementations independent of the generated object model,
+by providing statically-typed querying and saving of generated object model entities,
+without referencing the generated assembly.
 
-* **Implements** `<DataStructure>.<interface type>` - Implements the given C# interface on the entity's POCO class.
+* **Implements** `<DataStructure>.<interface type>` - Data structure's POCO class implements the given C# interface.
+* **ImplementsQueryable** `<DataStructure>.<interfaceType>` - Data structure's queryable class implements the given C# interface.
+* **RegisteredImplementation** `<Implements or ImplementsQueryable>` - Registers the data structure (and it's repository) as the *default* implementation of the given interface. This allows easy access the data structure's repository by using `GenericRepository<ThisInterface>` from dependency injection.
+
+Property templates and dependencies:
+
 * **PropertyFrom** `<destination DataStructure>.<source Property>` - Copies property from another data structure, along with the associated Required and SqlIndex concepts.
 * **AllPropertiesFrom** `<destination DataStructure>.<source DataStructure>` - Copies all properties from another data structure, along with the associated Required, SqlIndex and Extends concepts.
 * **AllPropertiesWithCascadeDeleteFrom** `<destination DataStructure>.<source DataStructure>` - Copies all properties from another data structure, along with the associated Required, SqlIndex, Extends and CascadeDelete concepts.
 * **PrerequisiteAllProperties** `<Entity>` - This concept is used as a placeholder for internal optimization when all properties of an entity are required as a prerequisite for another concept.
 A dependent object can reference this concept as a dependency, instead of referencing each property individually.
+
+Other:
+
+* **Write** `<DataStructure> 'saveImplementation'` - Adds a custom Save method to data structure that is not writable by default.
 
 ## Simple business rules
 
@@ -138,12 +150,14 @@ Logging data changes and auditing:
 * **Logging** `<entity>` - Creates a database trigger that monitors all inserts, updates and deletes, and writes them to `Common.Log` table.
 * **Log** `<Logging <Property>` - Sets properties which changes are tracked.
 * **AllProperties** `<Logging>` - Enables logging on all properties.
+* **RelatedItem** `<Logging>.<parentTable>.<referenceColumn>.<relationName>` - Connect log records between two entities. This concept is used automatically to include details and extension log records. Read the connected log records with SqlQueryable `Common.RelatedEventsSource`.
 * **LogReaderAdditionalSource** `<SqlQueryable>.<name> 'snippet'` - Enables implementation of a custom Log archive. The archive can be integrated into the existing auditing features by extending `LogReader` and `LogRelatedItemReader`. A low-level concept that inserts the SQL code snippet to the log reader SqlQueryable at the place of the given tag (an SQL comment).
 
 Other features:
 
 * **Deactivatable** `<Entity>` - Allows tracking of active and deactivated records. Generates property `Bool Active`.
-* **PessimisticLocking** `<Entity>` - Enables automatic verification of explicit client locks when saving a record. Generates server actions SetLock and ReleaseLock.
+* **PessimisticLocking** `<DataStructure>` - Enables automatic verification of explicit client locks when saving a record. Generates server actions SetLock and ReleaseLock.
+* **PessimisticLockingParent** `<Reference> <detail PessimisticLocking>` - Lock on parent automatically locks all detail records. Use this concept to include additional detail entities that have a reference to the parent entity, but is not marked as Detail.
 
 ## Computed data and read-only data structures
 
@@ -155,13 +169,13 @@ Other features:
 
 Additional concepts:
 
-* **ExternalReference** `<Module>.<type or assembly>` - Adds the dll reference for the generated application. The dll can be referenced in two ways:
-  * (Recommended) By C# type which is used (the assembly qualified name). Version, Culture or PublicKeyToken can be removed from the AssemblyQualifiedName for dlls that are placed in the Rhetos application folder.
-  * By dll name (e.g. 'Rhetos.MyFunctions.dll').
+* **ExternalReference** `<Module>.<type or assembly>` - Adds the DLL reference for the generated application. The DLL can be referenced in two ways:
+  * (Recommended) By C# type which is used (the assembly qualified name). Version, Culture or PublicKeyToken can be removed from the AssemblyQualifiedName for DLLs that are placed in the Rhetos application folder.
+  * By DLL name (e.g. 'Rhetos.MyFunctions.dll').
 * **UseExecutionContext** `<computation>` - Adds an additional input parameter "ExecutionContext" to the Computed or QueryableExtension lambda expression.
   This concept is obsolete, repository member `_executionContext` should be used instead.
 
-[Saving computed data](Persisting-the-computed-data):
+[Caching the computed data](Persisting-the-computed-data):
 
 * **Persisted** `<Module>.<name> <source DataStructure>` - Creates entity which will contain cached data from the given source. The source can be any readable data structure (Browse, SqlQueryable, Computed and similar).
   * **AllProperties** `<Persisted>` - Copies all properties from source data structure to the cache entity, along with the associated Required, SqlIndex, Extends and CascadeDelete concepts.
@@ -170,7 +184,6 @@ Additional concepts:
   * **KeepSynchronized** `<Persisted> <saveFilter>` - Same as above, but leaving some computed records unchanged. The "save filter" is a lambda expression `(IEnumerable<Entity> items, repository) => IEnumerable<Entity>`, that returns subset of items which are allowed to be updated by the KeepSynchronized mechanism.
   * **ComputeForNewBaseItems** `<Persisted>` - Automatically updates cache when a base record is inserted. Automatically enabled when the cache is an extension of an entity.
   * **ComputeForNewBaseItems** `<Persisted> 'filterSaveExpression'` - Automatically updates cache when a base record is inserted for items that pass the given filter.
-
 
 * **ComputedFrom** `<target Entity>.<source DataStructure>` - A more flexible version of `Persisted`. It allows a property-level recomputing instead of entity-level. It is intended to be used as an internal concept for building simpler macro concepts.
   * **AllProperties** `<ComputedFrom>` - Copies all properties from source data structure to the cache entity, along with the associated Required, SqlIndex, Extends and CascadeDelete concepts.
@@ -254,11 +267,6 @@ for all queryable data structures (Entity, Browse, SqlQueryable, QueryableExtens
   * Each provided data source should have a FilterBy implementation with the filter parameter name same as the report name.
   * It is recommended to use FilterByBase, FilterByReferenced and FilterByLinkedItems, to avoid writing redundant filters on related structures (e.g. report may filtered documents and the related detail items).
 * **DataSource** `<Report>.'order' <DataStructure>` - Definition of a single data source for the report. Use the DataSources concept instead, it automatically generates the DataSource statements.
-* **ConvertFormat** `<Report>.<format extension>` - Automatically sets the expected report format on download. If set, the user cannot choose the format.
-* [**TemplaterReport**](TemplaterReport) `<Module>.<name> <file path>` - A report that fills a predefined template with the data collected by DataSources.
-  * Supported templated files: doc, docx, xls and xlsx. Supports downloading report in original format or converter to pdf.
-  * The file path should be formed as: `package name\file name`
-  * **REMARK:** This concept is not available in CommonConcepts package. It is required a separate "TemplaterReport" DSL package.
 
 ## Complex concepts
 
@@ -376,22 +384,3 @@ Use the following concepts to define the dependencies:
 * **SqlDependsOnView** `<dependent object> <dependsOn SqlView>` - This object should be created in database *after* the given SqlView is created.
 * **SqlDependsOnFunction** `<dependent object> <dependsOn SqlFunction>` - This object should be created in database *after* the given SqlFunction is created.
 * **SqlDependsOnSqlObject** `<dependent object> <dependsOn SqlObject>` - This object should be created in database *after* the given SqlObject is created.
-
-## TODO
-
-* **ImplementsQueryable** `<DataStructure>.<interfaceType>` - CLASS ImplementsQueryableInterfaceInfo.
-ImplementsQueryable - Spominje se u Migrating-Rhetos-applications-from-NHibernate-to-Entity-Framework
-
-* **PessimisticLocking** `<resource DataStructure>` - CLASS PessimisticLockingInfo.
-* **PessimisticLockingParent** `<Reference> <detail PessimisticLocking>` - CLASS PessimisticLockingParentInfo.
-
-
-* **RegisteredImplementation** `<Implements>` - CLASS RegisteredInterfaceImplementationHelperInfo. Registers the data structure (and it's repository) as the main implementation of the given interface. This allows for type-safe code in external business layer class library to have simple access to the generated data structure's class and the repository using predefined interfaces.
-* **RegisteredImplementation** `<ImplementsQueryable>` - CLASS RegisteredQueryableInterfaceImplementationHelperInfo. Registers the data structure (and it's repository) as the main implementation of the given interface. This allows for type-safe code in external business layer class library to have simple access to the generated data structure's class and the repository using predefined interfaces.
-
-RegisteredImplementation - 1 Registers the data structure (and it's repository) as the main implementation of the given interface.This allows for type-safe code in external business layer class library to have simple access to the generated data structure's class and the repository using predefined interfaces.
-2 Used for exposing repositories of an entity that implements a given interface. It helps to keep algorithm implementations out of DSL scripts by providing statically-typed querying and saving of generated object model entities without referencing the generated assembly.
-
-* **RelatedItem** `<Logging>.<table>.<column>.<relation>` - CLASS LoggingRelatedItemInfo.
-
-* **Write** `<DataStructure> 'saveImplementation'` - CLASS WriteInfo.
