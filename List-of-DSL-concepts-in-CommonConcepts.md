@@ -236,8 +236,8 @@ See the full article: [Developing filters and other read methods](Filters-and-ot
   * **ComposableFilterByReferenced** `<source DataStructure>.<parameter> <referenceFromMe Reference> 'subFilterExpression'` - For inheriting filters from referenced data structure. Use subFilterExpression to additionally filter out some items or sort the items within a group with the same reference value.
 * **ItemFilter** `<DataStructure>.<filter name> <lambda>` - Helper concept for simplified definition of simple "one-liner" filters, that generates a ComposableFilterBy.
   The lambda expression returns whether each records passes the filter: `item => bool`.
-  * **ItemFilterReferenced** `<source DataStructure>.<filterName> <referenceFromMe Reference> 'subFilterExpression'` - For inheriting filters from referenced data structure.
-  * **ItemFilterReferenced** `<source DataStructure>.<filterName> <referenceFromMe Reference>` - For inheriting filters from referenced data structure. Use subFilterExpression to additionally filter out some items or sort the items within a group with the same reference value.
+  * **ItemFilterReferenced** `<source DataStructure>.<filterName> <referenceFromMe Reference>` - Inherits filters from referenced data structure.
+  * **ItemFilterReferenced** `<source DataStructure>.<filterName> <referenceFromMe Reference> 'subFilterExpression'` - Inherits filters from referenced data structure.  Use subFilterExpression to additionally filter out some items or sort the items within a group with the same reference value.
 
 Additional concepts:
 
@@ -248,7 +248,7 @@ Additional concepts:
 * **FilterByReferenced** `<detail DataStructure>.<parameter type> <parent Reference> <lambda>` - Copies a FilterBy filter implementation from the parent data structure to the detail.
   The lambda expression can contain additional data processing of the filtered items: `IEnumerable<Detail> => .. additional filter or sort from group with the same parent`.
 * **FilterByLinkedItems** `<parent DataStructure>.<parameter type> <detail Reference>'` -  Copies a FilterBy filter from a detail data structure to the parent.
-* **FilterByBase** `<extension DataStructure>.<parameter type>`
+* **FilterByBase** `<extension DataStructure>.<parameter type>` - Copies a FilterBy filter from base data structure.
 * **ApplyFilterOnClientRead** `<DataStructure>.<filterName>` - The given filter will be automatically applied when reading data on each web request.
 * **ApplyFilterOnClientRead** `<DataStructure>.<filterName> 'where'` - The given filter will be automatically applied when reading data on each web request.
 * **ApplyOnClientRead** `<ItemFilter or ComposableFilterBy>` - The given filter will be automatically applied when reading data on each web request.
