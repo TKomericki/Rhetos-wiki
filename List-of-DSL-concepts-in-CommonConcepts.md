@@ -1,3 +1,7 @@
+The CommonConcepts package is a **standard library** of common business features, implemented as a domain-specific programming language (DSL). It is a recommended package to include in all Rhetos applications.
+
+The DSL defined by CommonConcepts is extended by other Rhetos DSL packages, by adding new business features (new DSL concepts) or new technology implementations for existing concepts.
+
 Contents:
 
 1. [Data model and relationships](#data-model-and-relationships)
