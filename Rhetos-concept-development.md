@@ -269,9 +269,9 @@ because the EntityInfo class has a property that references ModuleInfo.
 * You may test if your code generators have consistent dependencies,
   by checking if deployment runs successfully with different internal ordering of concepts:
   Run the deployment once with
-  `<add key="CommonConcepts.Debug.SortConcepts" value="Key" />`
+  `<add key="Dsl.InitialConceptsSort" value="Key" />`
   (appSettings in Web.config file), then with
-  `<add key="CommonConcepts.Debug.SortConcepts" value="KeyDescending" />`.
+  `<add key="Dsl.InitialConceptsSort" value="KeyDescending" />`.
 
 ## See also
 
