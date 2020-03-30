@@ -157,18 +157,24 @@ Suppressing permissions is useful only in an early stage of the project, while p
 It allows developers to test the new features without need to manage users, roles and permissions.
 
 The basic permission checking can be turned off in a development environment by setting
-the following options in the Rhetos server's **web.config** file.
+the following options in the Rhetos server's **web.config** file, or preferably a user-specific
+config file (for example, **ExternalAppSettings.config**, referenced from web.config).
 
-1. **"Security.AllClaimsForUsers"** - The value should contain a comma-separated
-   list of users with server computer name (formatted `username@servername, ...`)
-   that will automatically have full permissions. Examples:
+1. **"Security.AllClaimsForUsers"** - *(recommended)* The value should contain a comma-separated
+   list of users, formatted `username@servername`, that will automatically have all basic permissions.
+   You can find your *username* and *servername* by running `whoami` and `hostname` in command prompt.
+   The *servername* refers to machine where the Rhetos application is hosted.
+   Examples:
    * Domain user on a shared server:
-     `<add key="Security.AllClaimsForUsers" value="mydomain\myusername@myserver" />`.
+     `<add key="Security.AllClaimsForUsers" value="mydomain\myusername@ourserver" />`.
    * Local windows user without Windows domain:
      `<add key="Security.AllClaimsForUsers" value="mypc\myusername@mypc" />`.
    * Forms Authentication user "admin":
      `<add key="Security.AllClaimsForUsers" value="admin@myserver" />`.
-2. **"BuiltinAdminOverride"** - If set to "True",
+2. **"Security.AllClaimsForAnonymous"** - *(since Rhetos v4)* If set to "True",
+   users will have all basic permissions when authentication is configured to anonymous.
+   This feature will raise an error if any other authentication method is used.
+3. **"BuiltinAdminOverride"** - If set to "True",
    the user that is a local administrator will have full permissions.
    This option works only for Windows authentication, and if the web server
    is able to check the user's Windows groups (usually in development environment).
