@@ -272,6 +272,7 @@ because the EntityInfo class has a property that references ModuleInfo.
   `<add key="Dsl.InitialConceptsSort" value="Key" />`
   (appSettings in Web.config file), then with
   `<add key="Dsl.InitialConceptsSort" value="KeyDescending" />`.
+  *(since Rhetos v4.0)*
 
 ## See also
 

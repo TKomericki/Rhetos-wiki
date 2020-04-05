@@ -171,9 +171,10 @@ config file (for example, **ExternalAppSettings.config**, referenced from web.co
      `<add key="Security.AllClaimsForUsers" value="mypc\myusername@mypc" />`.
    * Forms Authentication user "admin":
      `<add key="Security.AllClaimsForUsers" value="admin@myserver" />`.
-2. **"Security.AllClaimsForAnonymous"** - *(since Rhetos v4)* If set to "True",
+2. **"Security.AllClaimsForAnonymous"** - If set to "True",
    users will have all basic permissions when authentication is configured to anonymous.
    This feature will raise an error if any other authentication method is used.
+   *(since Rhetos v4.0)*
 3. **"BuiltinAdminOverride"** - If set to "True",
    the user that is a local administrator will have full permissions.
    This option works only for Windows authentication, and if the web server
