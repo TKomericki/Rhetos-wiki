@@ -1,7 +1,7 @@
 Rhetos can install a plugin package directly from the online NuGet gallery, or from a local folder (nupkg file extension).
 
 Many Rhetos packages are available at the [NuGet.org](https://www.nuget.org/) public online gallery.
-See [Recommended plugins](Home#recommended-plugins).
+See [Recommended plugin packages](Home#recommended-plugin-packages).
 
 ## Installing an additional plugin package to the Rhetos server application
 
