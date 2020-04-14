@@ -7,3 +7,5 @@ SqlIndex
 SqlObject
 SqlDependsOn
 Deactivatable
+MvcModelGenerator
+nuspec
