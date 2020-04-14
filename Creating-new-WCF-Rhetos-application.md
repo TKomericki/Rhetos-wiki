@@ -1,6 +1,6 @@
 # Creating new WCF Rhetos application
 
-New Rhetos applications should be created in Visual Studio with "New project" command.
+Since Rhetos v4.0, new Rhetos applications should be created in Visual Studio with "New project" command.
 
 Current limitations:
 

@@ -1,10 +1,17 @@
 # Upgrading custom utility applications to Rhetos 4.0
 
-Rhetos has migrated to new configuration and DI container initialization design. Changes are not fully backward-compatible, so some of the existing code may stop working.
+Rhetos has migrated to new configuration and DI container initialization design.
+Changes are not fully backward-compatible, so some of the existing code may stop working.
 
-Mostly, these changes will affect any kind of tools/executables which are custom entry points to running Rhetos. Code that initializes Rhetos container or sets up options will be affected.
+Mostly, these changes will affect any kind of tools/executables which are custom entry points
+to running Rhetos. Code that initializes Rhetos container or sets up options will be affected.
+Expected errors are:
 
-Here are described some common scenarios of upgrade to Rhetos 4.0, for different types of custom utility applications:
+* `System.MissingMethodException: Method not found: 'Void Rhetos.Utilities.Paths.InitializeRhetosServerRootPath(System.String)'`
+* `System.MissingMethodException: Method not found: 'Void Rhetos.Extensibility.Plugins.SetInitializationLogging(Rhetos.Logging.ILogProvider)'`
+
+Here are described some common scenarios of **upgrade to Rhetos 4.0**,
+for different types of custom utility applications:
 
 Contents:
 
@@ -60,8 +67,7 @@ builder.RegisterType<ConsoleLogProvider>().As<ILogProvider>();
 var container = builder.Build();
 ```
 
-This should be replaced with new design which includes creating a configuration
-and then configuring a container:
+This should be replaced with the following code:
 
 ```cs
 var container = Host.CreateRhetosContainer(registerCustomComponents: builder => { builder.RegisterType<ProcessUserInfo>().As<IUserInfo>(); });
@@ -81,5 +87,5 @@ Notes:
 
 ## Custom code that uses RhetosTestContainer to encapsulate container creation and usage
 
-RhetosTestContainer has been modified internally to comply with new design and using it
+`RhetosTestContainer` class has been modified internally to comply with new design and using it
 is backward-compatible.
