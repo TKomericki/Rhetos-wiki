@@ -3,7 +3,7 @@
 Rhetos has migrated to new configuration and DI container initialization design.
 Changes are not fully backward-compatible, so some of the existing code may stop working.
 
-Mostly, these changes will affect any kind of tools/executables which are custom entry points
+Mostly, these changes will affect any kind of **tools/executables** which are custom entry points
 to running Rhetos. Code that initializes Rhetos container or sets up options will be affected.
 Expected errors are:
 

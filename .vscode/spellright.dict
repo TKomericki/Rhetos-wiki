@@ -9,3 +9,4 @@ SqlDependsOn
 Deactivatable
 MvcModelGenerator
 nuspec
+DslScripts

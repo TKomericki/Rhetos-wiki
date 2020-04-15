@@ -268,11 +268,12 @@ because the EntityInfo class has a property that references ModuleInfo.
   before the code generator that *adds* this tag.
 * You may test if your code generators have consistent dependencies,
   by checking if deployment runs successfully with different internal ordering of concepts:
-  Run the deployment once with
-  `<add key="Dsl.InitialConceptsSort" value="Key" />`
-  (appSettings in Web.config file), then with
-  `<add key="Dsl.InitialConceptsSort" value="KeyDescending" />`.
-  *(since Rhetos v4.0)*
+  Run the deployment once with [build configuration](Configuration-management#build-configuration) settings
+  `<add key="Dsl.InitialConceptsSort" value="Key" />`, then with
+  `<add key="Dsl.InitialConceptsSort" value="KeyDescending" />`
+  *(available since Rhetos v4.0)*.
+  If using Rhetos.MSBuild, see [Build configuration](Configuration-management#build-configuration)
+  section for configuration settings placement.
 
 ## See also
 

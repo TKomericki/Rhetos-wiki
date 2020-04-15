@@ -11,6 +11,8 @@ Web.config:
 ```xml
 <appSettings file="ExternalAppSettings.config">
   ...
+  <add key="Legacy.OldFeatureName" value="False" />
+  or
   <add key="CommonConcepts.Legacy.OldFeatureName" value="False" />
 </appSettings>
 ```
