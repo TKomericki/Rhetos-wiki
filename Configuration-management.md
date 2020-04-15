@@ -9,6 +9,7 @@ Content:
 2. [Build configuration](#build-configuration)
 3. [Database update configuration](#database-update-configuration)
 4. [Application run-time configuration](#application-run-time-configuration)
+5. [Configuring application from code](#configuring-application-from-code)
 
 ## General notes
 
@@ -72,8 +73,9 @@ Default configuration sources for application with **Rhetos.MSBuild / Rhetos CLI
 2. Rhetos.exe.config (from bin folder) - Do not edit.
 3. rhetos-app.settings.json
 4. rhetos-app.local.settings.json
-5. **rhetos-dbupdate.settings.json** - Recommended for configuring database update.
-6. Rhetos CLI switches.
+5. Overrides *SqlCommandTimeout* to 0 (unlimited).
+6. **rhetos-dbupdate.settings.json** - Recommended for configuring database update.
+7. Rhetos CLI switches.
 
 Common options classes:
 
@@ -102,3 +104,17 @@ Common options classes:
 * [DatabaseOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/DatabaseOptions.cs)
 * [SecurityOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/SecurityOptions.cs)
 * [IAssetsOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/IAssetsOptions.cs)
+
+## Configuring application from code
+
+ContainerBuilder extensions, ConfigurationBuilder, IConfigurationProvider, ...
+
+`Host.CreateRhetosContainer` and `RhetosRuntime.BuildConfiguration` methods allow extending
+and overriding application configuration by using `IConfigurationBuilder` instance.
+
+* `IConfigurationBuilder` provides extension methods to add custom configuration settings,
+  such as `AddKeyValue`, `AddOptions` and `AddJsonFile`.
+* Runtime features of the application can access the configuration directly by requesting
+  `IConfiguration` instance from dependency injection, but it is preferred instead to use
+  registered options class (see the "Common options classes" in different sections above),
+  or register additional custom options classes.
