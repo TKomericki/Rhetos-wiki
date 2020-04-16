@@ -11,6 +11,7 @@ Contents:
 1. [Development environment setup](#development-environment-setup)
 2. [Create a new application](#create-a-new-application)
 3. [Troubleshooting](#troubleshooting)
+4. [See also](#see-also)
 
 ## Development environment setup
 
@@ -103,3 +104,8 @@ Contents:
    * Click "Refresh" button in Solution Explorer to refresh IntelliSense.
 
 See also the separate article on [Troubleshooting WCF services](Troubleshooting-WCF-services).
+
+## See also
+
+* [Rhetos CLI](Rhetos-CLI).
+* [Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI](Migrating-from-DeployPackages-to-Rhetos-CLI).

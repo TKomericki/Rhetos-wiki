@@ -16,9 +16,15 @@ Commands:
 
 CLI switches:
 
-* `rhetos --help`
-* `rhetos build --help`
-* <https://github.com/dotnet/command-line-api/wiki/Features-overview#Suggestions>
+* See command-line help for information on arguments and options.
+  You can execute this in Command Prompt or Package Manager Console in Visual Studio.
+  * `rhetos --help`
+  * `rhetos build --help`
+  * `rhetos dbupdate --help`
+* See [System.CommandLine](https://github.com/dotnet/command-line-api/wiki/Features-overview) features for additional debugging switches.
+
+Rhetos.exe is a successor to DeployPackages.exe, see a short comparison in article
+[Migrating from DeployPackages to Rhetos CLI](Migrating-from-DeployPackages-to-Rhetos-CLI#general-information-on-rhetos-cli-vs-deploypackagesexe).
 
 ## MSBuild integration with Rhetos.MSBuild NuGet package
 
@@ -51,5 +57,5 @@ see [Configuration management](Configuration-management) for details.
 
 ## See also
 
-* Rhetos.exe is a successor to DeployPackages.exe, see the comparison in article
-  [Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI](Migrating-from-DeployPackages-to-Rhetos-CLI).
+* [Creating a new Rhetos application with Rhetos.MSBuild](Creating-new-WCF-Rhetos-application.md)
+* [Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI](Migrating-from-DeployPackages-to-Rhetos-CLI).
