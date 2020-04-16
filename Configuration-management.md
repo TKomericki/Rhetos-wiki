@@ -107,14 +107,21 @@ Common options classes:
 
 ## Configuring application from code
 
-ContainerBuilder extensions, ConfigurationBuilder, IConfigurationProvider, ...
-
 `Host.CreateRhetosContainer` and `RhetosRuntime.BuildConfiguration` methods allow extending
 and overriding application configuration by using `IConfigurationBuilder` instance.
 
-* `IConfigurationBuilder` provides extension methods to add custom configuration settings,
-  such as `AddKeyValue`, `AddOptions` and `AddJsonFile`.
+* Use `IConfigurationBuilder` extension methods (such as `AddKeyValue`, `AddOptions`
+  and `AddJsonFile`) to add or override configuration settings.
 * Runtime features of the application can access the configuration directly by requesting
-  `IConfiguration` instance from dependency injection, but it is preferred instead to use
-  registered options class (see the "Common options classes" in different sections above),
+  `IConfiguration` instance from dependency injection, but it is preferred to use registered
+  options classes instead (see the "Common options classes" in different sections above),
   or register additional custom options classes.
+
+Rhetos configuration can be extended with **custom options classes**:
+
+* Register new options class to DI when building DI container with `ContainerBuilder` available
+  at `Host.CreateRhetosContainer`, `RhetosRuntime.BuildContainer` or `RhetosTestContainer.InitializeSession`.
+  For example MyCustomOptions should be registered with the following code:
+  `builder.Register(context => context.Resolve<IConfiguration>().GetOptions<MyCustomOptions>()).SingleInstance();`
+* You may use `OptionsAttribute` to add default configuration path that will be applied
+  in GetOptions and AddOptions methods.
