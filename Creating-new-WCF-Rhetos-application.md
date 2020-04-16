@@ -39,9 +39,12 @@ Contents:
 5. Save the solution (File => Save All). In Visual Studio open Package Manager Console
    and run command `Add-RhetosWcfFiles`. It will add Rhetos WCF startup configuration and services
    to the application.
-   * If the command results with execution policy error, run `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`  and then run `Add-RhetosWcfFiles` again.
+   * If the command results with execution policy error, run `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` and then run `Add-RhetosWcfFiles` again.
    * If the command results with `Access is denied`, save the solution (File => Save All) before running it again.
-6. Create an empty database for this Rhetos application. In your project folder: rename `Template.ConnectionStrings.config` to `ConnectionStrings.config` and enter the SQL server name (`theServer`) and database name (`theDatabase`).
+6. Create an empty database for this Rhetos application.
+   In your project folder: rename `Template.ConnectionStrings.config` to `ConnectionStrings.config`
+   and enter the SQL server [instance](https://stackoverflow.com/a/45789478/2086516) name (`theServer`)
+   and database name (`theDatabase`).
 7. Configure user authentication for your application:
    * Option A) *(Recommended for quick-start)* Enable **anonymous access** by creating `ExternalAppSettings.config` in project folder, with the following content:
      `<appSettings>  <add key="Security.AllClaimsForAnonymous" value="True" />  </appSettings>`.
@@ -89,9 +92,9 @@ Contents:
 3. Web page returns `Access to the path '...' is denied.` or UnauthorizedAccessException in `Internal server error occurred. See RhetosServer.log for more information. (UnauthorizedAccessException`
    * Cause: The application (or IIS app pool) does not have access to application folder.
    * Option A) Open IIS Manager => Find you application => Basic settings => Change application pool to new RhetosAppPool that is configured to run with your development account (see [IIS Setup](Development-environment-setup#iis-setup))
-   * Option B) Add IIS web account permission for the application's folder (see ICACLS commands from <https://github.com/Rhetos/AspNetFormsAuth#2-configure-iis>)
+   * Option B) Add IIS web account permission for the application's folder (see ICACLS commands from [Configure IIS](https://github.com/Rhetos/AspNetFormsAuth#2-configure-iis))
 4. Startup fails with `SqlUtility has not been initialized correctly: Value for connection string (name="ServerConnectionString") is not specified.`
-   * Configure ConnectionStrings.config (=> Rhetos wiki)
+   * Configure ConnectionStrings.config (see instructions in the section above).
 5. Startup fails with SqlException `Login failed for user 'IIS APPPOOL\DefaultAppPool'.`
    * Cause: The application (or IIS app pool) does not have access to the database. If using IIS, Open IIS Manager => Find you application => Basic settings => Change application pool to new RhetosAppPool that is configured to run with your development account (see [IIS Setup](Development-environment-setup#iis-setup))
 6. Startup fails with `User is not authenticated`

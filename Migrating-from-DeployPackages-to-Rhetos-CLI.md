@@ -1,21 +1,14 @@
 # Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI
 
-This article describes how to migrate and existing **Rhetos application or Rhetos plugin package**
-from old build and deployment process (with DeployPackages) to new one (Rhetos.MSBuild with Rhetos CLI).
-
-Before migrating an existing application to Rhetos CLI, first
-**upgrade your application to Rhetos v4.0 while still using DeployPackages**.
-The upgrade instructions are in "Breaking changes" section
-in [Rhetos release notes](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md).
-
-After the update, migrate from DeployPackages to Rhetos.MSBuild with Rhetos CLI,
-by following the instruction in this article.
+This article contains step-by-step instruction for migrating an existing **Rhetos application** or **Rhetos plugin package**
+from old build and deployment process (with DeployPackages) to the new one (Rhetos.MSBuild with Rhetos CLI).
 
 Content:
 
 1. [General information on Rhetos CLI vs. DeployPackages.exe](#general-information-on-rhetos-cli-vs-deploypackagesexe)
-2. [Create new application in Visual Studio](#create-new-application-in-visual-studio)
-3. [Apply the required changes in your existing code](#apply-the-required-changes-in-your-existing-code)
+2. [Upgrade your application to Rhetos v4.0 while still using DeployPackages](#upgrade-your-application-to-rhetos-v40-while-still-using-deploypackages)
+3. [Create new Rhetos application in Visual Studio](#create-new-rhetos-application-in-visual-studio)
+4. [Apply the required changes to your existing code](#apply-the-required-changes-to-your-existing-code)
    1. [NuGet packages must contain DLLs in "lib" instead of "Plugins"](#nuget-packages-must-contain-dlls-in-lib-instead-of-plugins)
    2. [Generated application folder structure is different](#generated-application-folder-structure-is-different)
    3. [Build options are not read from Web.config file](#build-options-are-not-read-from-webconfig-file)
@@ -38,17 +31,28 @@ Rhetos.exe is usually executed automatically by MSBuild (for example when buildi
 application in Visual Studio), if the project includes NuGet package Rhetos.MSBuild.
 It can also be executed manually from command prompt.
 
-## Create new application in Visual Studio
+## Upgrade your application to Rhetos v4.0 while still using DeployPackages
+
+Before migrating an existing application to Rhetos CLI, first
+upgrade your application to Rhetos v4.0 **while still using DeployPackages**,
+and test that it works correctly.
+
+* The upgrade instructions are in "Breaking changes" section
+  in [Rhetos release notes](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md).
+* Also update the referenced Rhetos plugins packages to the latest version,
+  to make sure they are compatible with Rhetos 4.0.
+
+## Create new Rhetos application in Visual Studio
 
 Rhetos applications with DeployPackages were created by unpacking RhetosServer.zip installation
-file, that contained the web application.
+file, that contained the web application. This method is no longer used.
 
 To migrate your existing project from DeployPackages to Rhetos CLI,
-**backup** the old Rhetos application and **create** the new Rhetos web application from scratch
-in Visual Studio, following the instructions from [Creating new WCF Rhetos application](Creating-new-WCF-Rhetos-application).
-After creating the web application:
+**backup** the old Rhetos application and **create the new Rhetos web application** from scratch
+in Visual Studio:
 
-1. Add all NuGet packages to the project, that were used by old Rhetos application.
+1. Following the instructions from [Creating new WCF Rhetos application](Creating-new-WCF-Rhetos-application).
+2. Add all NuGet packages to the project, that were used by the old Rhetos application.
    * You can find the list of packages in *RhetosPackages.config* file,
      or your application's *.nuspec* file (under "dependencies").
    * Use the latest version of Rhetos NuGet packages,
@@ -56,9 +60,9 @@ After creating the web application:
    * If you were using any custom NuGet source in *RhetosPackageSources.config* (e.g. network
      folders or private NuGet galleries), make sure to **add the custom package source** in
      [Visual Studio settings](https://docs.microsoft.com/en-us/nuget/consume-packages/install-use-packages-visual-studio#package-sources).
-2. Move your DSL scripts into DslScripts subfolder in that application, and add them to the project
+3. Move your DSL scripts into DslScripts subfolder in that application, and add them to the project
    in Visual Studio to see them in Solution Explorer.
-3. For large projects, it is recommended to turn off automatic database update on each build,
+4. For large projects, it is recommended to turn off automatic database update on each build,
    and run it manually from console when testing the application with `rhetos.exe dbupdate`
    (the exe is located in bin folder).
    * To turn off automatic database update add the following XML element in the .csproj file,
@@ -69,10 +73,10 @@ After creating the web application:
          <RhetosDeploy>false</RhetosDeploy>
        </PropertyGroup>
      ```
-4. Copy appSettings and system configuration from old Web.config file.
+5. Copy appSettings and system configuration from old Web.config file.
    Review differences between new and old Web.config.
 
-## Apply the required changes in your existing code
+## Apply the required changes to your existing code
 
 ### NuGet packages must contain DLLs in "lib" instead of "Plugins"
 
@@ -112,7 +116,7 @@ For applications built with Rhetos CLI, *Web.config* file (`appSettings` element
 only configuration settings for run-time environment and database update.
 Build configuration must be moved from *Web.config* to *rhetos-build.settings.json* file.
 
-1. **Remove** the following 3 build settings from *Web.config*.
+1. **Remove** the following 3 build settings from *Web.config* `appSettings` element.
     ```xml
     <appSettings file="ExternalAppSettings.config">
       <add key="CommonConcepts.Legacy.AutoGeneratePolymorphicProperty" value="False" />
@@ -144,9 +148,9 @@ Build configuration must be moved from *Web.config* to *rhetos-build.settings.js
 
 ### The "Resources" folder is not generated by default
 
-1. For existing applications and plugins to work, make sure that "Resources" folder
-   is **enabled** in `rhetos-build.settings.json` file with
-   `"Legacy": { "BuildResourcesFolder": true }`.
+1. For existing applications and plugins to work, **enable** "Resources" folder
+   in `rhetos-build.settings.json` file with
+   `"Legacy": { "BuildResourcesFolder": true }`, is not enabled already.
 
 ### Custom usage of AssemblyGenerator
 

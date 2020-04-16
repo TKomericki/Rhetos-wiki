@@ -53,12 +53,15 @@ Alternatively, you could build the Rhetos server binaries from the latest versio
    "Template.ConnectionStrings.config", and rename the copy to "ConnectionStrings.config".
 3. Edit the existing configuration line in the **ConnectionStrings.config** file
    to reference the created database:
-   Replace "theDatabase" with your database name, and "theServer" with SQL Server instance
-   name (check your [Server name](https://stackoverflow.com/a/45789478/2086516) in SSMS).
+   Replace "theDatabase" with your database name, and "theServer" with SQL Server
+   [instance](https://stackoverflow.com/a/45789478/2086516) name.
 
 ## Packages configuration
 
-Rhetos packages define the content of the Rhetos server. This section describes **the initialization of the packages configuration files**, but with no packages selected. That will result with an *empty* Rhetos server being deployed.
+Rhetos packages define the content of the Rhetos server.
+This section describes **the initialization of the packages configuration files**,
+but with no packages selected.
+That will result with an *empty* Rhetos server being deployed.
 
 1. In the **RhetosServer** folder:
     * Create a copy if the "Template.RhetosPackages.config" file and rename the copy
