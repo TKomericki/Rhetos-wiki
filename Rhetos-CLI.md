@@ -4,7 +4,7 @@ Contents:
 
 1. [Features](#features)
 2. [MSBuild integration with Rhetos.MSBuild NuGet package](#msbuild-integration-with-rhetosmsbuild-nuget-package)
-3. [Build and database configuration settings](#build-and-database-configuration-settings)
+3. [Build and dbupdate configuration settings](#build-and-dbupdate-configuration-settings)
 4. [See also](#see-also)
 
 ## Features
@@ -23,8 +23,20 @@ CLI switches:
   * `rhetos dbupdate --help`
 * See [System.CommandLine](https://github.com/dotnet/command-line-api/wiki/Features-overview) features for additional debugging switches.
 
-Rhetos.exe is a successor to DeployPackages.exe, see a short comparison in article
-[Migrating from DeployPackages to Rhetos CLI](Migrating-from-DeployPackages-to-Rhetos-CLI#general-information-on-rhetos-cli-vs-deploypackagesexe).
+During application development, rhetos.exe is usually **executed automatically** by MSBuild
+(for example when building the application in Visual Studio),
+if the project includes NuGet package Rhetos.MSBuild.
+It can also be executed manually from command prompt,
+for example to update the database on deployment.
+
+Rhetos.exe is a successor to DeployPackages.exe. Main design differences in rhetos.exe are:
+
+* Separated commands for build and deploy.
+* It does not download NuGet packages. They are managed by MSBuild and Visual Studio.
+* It does not build the application's DLL files. It generates source code as part of
+  the current project, that will be compiled with MSBuild.
+* It allows custom source code to be developed and compiled side-by-side with generated
+  C# source code in the same Rhetos application.
 
 ## MSBuild integration with Rhetos.MSBuild NuGet package
 
@@ -50,7 +62,7 @@ For large projects, it is recommended to turn off automatic database update on e
 and run it manually from console when testing the application with `rhetos.exe dbupdate`
 (the exe is located in bin folder).
 
-## Build and database configuration settings
+## Build and dbupdate configuration settings
 
 Each Rhetos CLI command reads configuration from different configuration files,
 see [Configuration management](Configuration-management) for details.
@@ -59,3 +71,4 @@ see [Configuration management](Configuration-management) for details.
 
 * [Creating a new Rhetos application with Rhetos.MSBuild](Creating-new-WCF-Rhetos-application.md)
 * [Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI](Migrating-from-DeployPackages-to-Rhetos-CLI).
+b
