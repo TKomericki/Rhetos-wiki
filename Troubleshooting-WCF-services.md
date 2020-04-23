@@ -7,6 +7,7 @@ Contents:
 1. ["Compilation Error" on ASPX pages (for example Rhetos homepage)](#compilation-error-on-aspx-pages-for-example-rhetos-homepage)
 2. [SOAP service "Autofac container" error](#soap-service-autofac-container-error)
 3. [SOAP service "authentication schemes" error](#soap-service-authentication-schemes-error)
+4. [Suppress ASP.NET services initialization](#suppress-aspnet-services-initialization)
 
 ## "Compilation Error" on ASPX pages (for example Rhetos homepage)
 
@@ -83,4 +84,29 @@ To work without Windows Authentication, comment out or delete the following **tw
 <security mode="TransportCredentialOnly">
   <transport clientCredentialType="Windows" />
 </security>
+```
+
+## Suppress ASP.NET services initialization
+
+Some Rhetos plugins (AspNetFormsAuth, for example) use ASP.NET libraries for certain business features.
+There is an issue with WCF services if when those libraries end up directly in bin folder:
+IIS will automatically scan them (only the assembly folder, not all probing paths folders)
+and execute (unnecessary) web initialization code found in those libraries.
+This may cause errors with **missing references to ASP.NET libraries**, if the initialization code
+requires additional libraries that were not included in the project.
+
+One of the workarounds for this issue is to suppress the IIS scanning of those libraries:
+IIS will only scan the libraries that are returned by BuildManager.GetReferencedAssemblies().
+This can be controlled by removing unneeded libraries in configuration file.
+
+**Solution:**
+
+In *Web.config* add the following `remove` elements under
+`configuration/system.web/compilation/assemblies`:
+
+```xml
+<assemblies>
+  <remove assembly="System.Web.WebPages"/>
+  <remove assembly="WebMatrix.WebData"/>
+</assemblies>
 ```
