@@ -27,12 +27,13 @@ Often there will be some form of initialization (at least for Rhetos app root pa
 Paths.InitializeRhetosServerRootPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\.."));
 ```
 
-This needs to be replaced with proper creation of configuration object.
+This needs to be replaced with creation of configuration object.
 Configuration is then used to initialize all legacy static classes.
 
 ```cs
 var host = Host.Find(AppDomain.CurrentDomain.BaseDirectory, new ConsoleLogProvider());
-var configuration = host.RhetosRuntime.BuildConfiguration(new ConsoleLogProvider(), host.ConfigurationFolder, null);
+var configuration = host.RhetosRuntime.BuildConfiguration(new ConsoleLogProvider(), host.ConfigurationFolder,
+    configurationBuilder => configurationBuilder.AddConfigurationManagerConfiguration());
 LegacyUtilities.Initialize(configuration);
 ```
 
@@ -43,10 +44,11 @@ Notes:
   the utility application is located **within the Rhetos application**.
   If that is not the case, specify the path to Rhetos application.
 * The `configuration` includes configuration settings of main Rhetos application
-  (typically from *Web.config*) extended with settings from this custom utility application
-  (from *CustomUtility.exe.config*, for example).
-* Add `registerCustomComponents` parameter to `BuildConfiguration` method to add or override
-  configuration settings in code.
+  (typically from *Web.config*), but the `BuildConfiguration` method allows adding
+  or overriding configuration settings in code.
+  * `AddConfigurationManagerConfiguration` includes current application's standard configuration,
+    that can override main application's configuration when needed (for example to specify
+    a custom SQL command timeout value in the utility's config file).
 
 ## Custom code that constructs and uses Rhetos DI container to interact with Rhetos application
 
@@ -70,17 +72,23 @@ var container = builder.Build();
 This should be replaced with the following code:
 
 ```cs
-var container = Host.CreateRhetosContainer(registerCustomComponents: builder => { builder.RegisterType<ProcessUserInfo>().As<IUserInfo>(); });
+var container = Host.CreateRhetosContainer(
+    addCustomConfiguration: configurationBuilder => configurationBuilder.AddConfigurationManagerConfiguration(),
+    registerCustomComponents: containerBuilder => containerBuilder.RegisterType<ProcessUserInfo>().As<IUserInfo>());
 ```
 
 Notes:
 
-* Add parameters `addCustomConfiguration` or `registerCustomComponents` to `CreateRhetosContainer`
-  method to add or override configuration setting of customize DI components registration.
-* `ProcessUserInfo` is used in the example above to provide that account the executes
-  this utility application as a Rhetos application user.
-  Depending of business features of the application, this account might need to be added
-  to `Common.Principal` table.
+* If the utility application is **not located** within the main Rhetos application (or any subfolder),
+  then add `applicationFolder` parameter with path to the main application.
+* The `CreateRhetosContainer` parameters `addCustomConfiguration` and `registerCustomComponents`
+  allow extending and overriding configuration setting and custom DI components registration.
+  * `ProcessUserInfo` is used in the example above to provide the executing account as a Rhetos application user.
+    Depending of business features of the application, this account might need to be added
+    to `Common.Principal` table.
+  * `AddConfigurationManagerConfiguration` includes current application's standard configuration,
+    that can override main application's configuration when needed (for example to specify
+    a custom SQL command timeout value in utility's config file).
 * In this scenario, note that we are not explicitly initializing legacy static utilities
   via `LegacyUtilities.Initialize()`. This is implicitly called in `CreateRhetosContainer`
   to simplify the migration.
