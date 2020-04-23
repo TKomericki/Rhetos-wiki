@@ -6,10 +6,12 @@ and different project types.
 Content:
 
 1. [General notes](#general-notes)
-2. [Build configuration](#build-configuration)
-3. [Database update configuration](#database-update-configuration)
-4. [Application run-time configuration](#application-run-time-configuration)
-5. [Configuring application from code](#configuring-application-from-code)
+2. [Configuration sources](#configuration-sources)
+   1. [Build configuration](#build-configuration)
+   2. [Database update configuration](#database-update-configuration)
+   3. [Application run-time configuration](#application-run-time-configuration)
+3. [Configuring application from code](#configuring-application-from-code)
+4. [Reading configuration with custom options classes](#reading-configuration-with-custom-options-classes)
 
 ## General notes
 
@@ -20,7 +22,7 @@ Content:
      <appSettings file="ExternalAppSettings.config">
        <add key="CommonConcepts.Legacy.AutoGeneratePolymorphicProperty" value="False" />
        <add key="CommonConcepts.Legacy.CascadeDeleteInDatabase" value="False" />
-       <add key="Dsl.InitialConceptsSort" value="Key" />
+       <add key="InitialConceptsSort" value="Key" />
      </appSettings>
      ```
    * In .json files, path for the key is represented by subobjects. Boolean and numeric values do not use quotes.
@@ -32,19 +34,26 @@ Content:
            "CascadeDeleteInDatabase": false
          }
        },
-       "Dsl": {
-         "InitialConceptsSort": "Key"
-       }
+       "InitialConceptsSort": "Key"
      }
      ```
+3. **Environment-specific configuration file** contains settings specific for a single
+   developer/test/production environment, that extends or override base configuration
+   from Web.config.
+   It should be options and excluded from source repository.
+   Examples:
+   * In Web.config file, the environment-specific configuration file is referenced in
+     appSettings element (see *ExternalAppSettings.config* in the example above).
+   * *rhetos-app.local.settings.json* (see configuration sources below).
 
-## Build configuration
+## Configuration sources
+
+### Build configuration
 
 Default configuration sources for project with **DeployPackages**:
 
-1. *Web.config* (*appSettings* element)
-2. Often extended with configuration in *ExternalAppSettings.config* (only if explicitly specified in *Web.config*).
-3. *DeployPackages.exe.config*.
+1. *Web.config* (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
+2. *DeployPackages.exe.config*.
 
 Default configuration sources for project with **Rhetos.MSBuild / Rhetos CLI**:
 
@@ -59,17 +68,18 @@ Common options classes:
 * [RhetosBuildEnvironment](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/RhetosBuildEnvironment.cs) - Specified by development environment setup. Considered hardcoded during build.
 * [IAssetsOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/IAssetsOptions.cs)
 
-## Database update configuration
+### Database update configuration
 
 Default configuration sources for application with **DeployPackages**:
 
-1. *Web.config* (*appSettings* element)
-2. Often extended with configuration in *ExternalAppSettings.config* (only if explicitly specified in *Web.config*).
-3. *DeployPackages.exe.config*.
+1. *Web.config* (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
+2. rhetos-app.settings.json - Since Rhetos v4.0.
+3. rhetos-app.local.settings.json - Since Rhetos v4.0.
+4. *DeployPackages.exe.config*.
 
 Default configuration sources for application with **Rhetos.MSBuild / Rhetos CLI**:
 
-1. Web.config
+1. *Web.config* (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
 2. Rhetos.exe.config (from bin folder) - Do not edit.
 3. rhetos-app.settings.json
 4. rhetos-app.local.settings.json
@@ -82,16 +92,17 @@ Common options classes:
 * All classes from "Application run-time configuration" are available.
 * [DbUpdateOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/DbUpdateOptions.cs)
 
-## Application run-time configuration
+### Application run-time configuration
 
 Default configuration sources for application with **DeployPackages**:
 
-1. *Web.config* (*appSettings* element)
-2. Often extended with configuration in *ExternalAppSettings.config* (only if explicitly specified in *Web.config*).
+1. *Web.config* (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
+2. rhetos-app.settings.json - Since Rhetos v4.0.
+3. rhetos-app.local.settings.json - Since Rhetos v4.0.
 
 Default configuration sources for application with **Rhetos.MSBuild / Rhetos CLI**:
 
-1. Web.config
+1. *Web.config* (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
 2. **rhetos-app.settings.json** - Recommended for general application configuration.
 3. **rhetos-app.local.settings.json** - Recommended for developer-specific or environment-specific configuration.
 
@@ -99,7 +110,7 @@ See [General notes](#general-notes) above for difference in formatting between .
 
 Common options classes:
 
-* [RhetosAppEnvironment](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/RhetosAppEnvironment.cs) - Specified by build configuration. Considered hardcoded during run-time.
+* [RhetosAppEnvironment](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/RhetosAppEnvironment.cs)
 * [RhetosAppOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/RhetosAppOptions.cs)
 * [DatabaseOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/DatabaseOptions.cs)
 * [SecurityOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/SecurityOptions.cs)
@@ -117,11 +128,16 @@ and overriding application configuration by using `IConfigurationBuilder` instan
   options classes instead (see the "Common options classes" in different sections above),
   or register additional custom options classes.
 
-Rhetos configuration can be extended with **custom options classes**:
+## Reading configuration with custom options classes
 
-* Register new options class to DI when building DI container with `ContainerBuilder` available
-  at `Host.CreateRhetosContainer`, `RhetosRuntime.BuildContainer` or `RhetosTestContainer.InitializeSession`.
-  For example MyCustomOptions should be registered with the following code:
-  `builder.Register(context => context.Resolve<IConfiguration>().GetOptions<MyCustomOptions>()).SingleInstance();`
+Rhetos configuration can be extended with **custom options classes**.
+Options class is a POCO class, that provides type-safe alternative to reading configuration
+directly from IConfiguration with string key.
+
+* Register custom options class to be resolved from IConfiguration, when building the Dependency Injection container.
+  For example, `MyCustomOptions` should be registered with the following code for `ContainerBuilder`:
+  ```cs
+  builder.Register(context => context.Resolve<IConfiguration>().GetOptions<MyCustomOptions>()).SingleInstance();
+  ```
 * You may use `OptionsAttribute` to add default configuration path that will be applied
   in GetOptions and AddOptions methods.
