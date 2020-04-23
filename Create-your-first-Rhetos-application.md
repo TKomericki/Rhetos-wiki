@@ -145,7 +145,7 @@ most Rhetos applications should contain:
    More info at [Creating a Rhetos package](Creating-a-Rhetos-package)
 3. The test script `Test.ps1`. It builds and runs the automated unit tests and the integration tests.
 
-[Build process diagram](https://github.com/Rhetos/Bookstore/blob/master/docs/Build%20process%20diagram.vsdx)
+[Build process diagram](https://github.com/Rhetos/Bookstore/blob/rhetos-2/docs/Build%20process%20diagram.vsdx)
 (Visio document) shows on overview of Bookstore application's components (projects) and their dependencies.
 
 ## Read next

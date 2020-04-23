@@ -15,8 +15,8 @@ Contents:
 
 ## Development environment setup
 
-1. Install the IntelliSense support for Rhetos DSL from latest release <https://github.com/Rhetos/LanguageServices/releases>
-   (download and open *.vsix* file).
+1. Install the IntelliSense support for Rhetos DSL: Visual Studio => Extensions =>
+   Manage Extensions => Online => Search: "Rhetos DSL Language Extension" => Download.
    This extension is not required for developing and building Rhetos applications,
    but it is very useful if using Visual Studio as an editor for DSL scripts.
 
@@ -51,7 +51,8 @@ Contents:
      `<appSettings>  <add key="Security.AllClaimsForAnonymous" value="True" />  </appSettings>`.
    * Option B) If you want to use **Windows authentication with IIS**:
       * Run Visual Studio *as Administrator*. Project properties => Web => Change from "ISS Express" to "Local IIS". On save answer Yes.
-      * Open IIS Manager => Find you application => Authentication => Disable Anonymous, Enable Windows Authentication.
+      * Open IIS Manager => Find your application => Authentication => Disable Anonymous, Enable Windows Authentication.
+      * Open IIS Manager => Find your application => Basic settings => Change application pool to new RhetosAppPool that is configured to run with your development account (see [IIS Setup](Development-environment-setup#iis-setup))
       * Add `Security.AllClaimsForUsers` configuration setting for your account and your
         machine name, to simplify testing. See instructions in
         [Suppressing permissions in a development environment](Basic-permissions#suppressing-permissions-in-a-development-environment).
@@ -92,12 +93,12 @@ Contents:
    * See "Configure user authentication for your application" above.
 3. Web page returns `Access to the path '...' is denied.` or UnauthorizedAccessException in `Internal server error occurred. See RhetosServer.log for more information. (UnauthorizedAccessException`
    * Cause: The application (or IIS app pool) does not have access to application folder.
-   * Option A) Open IIS Manager => Find you application => Basic settings => Change application pool to new RhetosAppPool that is configured to run with your development account (see [IIS Setup](Development-environment-setup#iis-setup))
+   * Option A) Open IIS Manager => Find your application => Basic settings => Change application pool to new RhetosAppPool that is configured to run with your development account (see [IIS Setup](Development-environment-setup#iis-setup))
    * Option B) Add IIS web account permission for the application's folder (see ICACLS commands from [Configure IIS](https://github.com/Rhetos/AspNetFormsAuth#2-configure-iis))
 4. Startup fails with `SqlUtility has not been initialized correctly: Value for connection string (name="ServerConnectionString") is not specified.`
    * Configure ConnectionStrings.config (see instructions in the section above).
 5. Startup fails with SqlException `Login failed for user 'IIS APPPOOL\DefaultAppPool'.`
-   * Cause: The application (or IIS app pool) does not have access to the database. If using IIS, Open IIS Manager => Find you application => Basic settings => Change application pool to new RhetosAppPool that is configured to run with your development account (see [IIS Setup](Development-environment-setup#iis-setup))
+   * Cause: The application (or IIS app pool) does not have access to the database. If using IIS, Open IIS Manager => Find your application => Basic settings => Change application pool to new RhetosAppPool that is configured to run with your development account (see [IIS Setup](Development-environment-setup#iis-setup))
 6. Startup fails with `User is not authenticated`
    * See instructions in "Configure user authentication for your application" above.
 7. Visual Studio shows errors `The type or namespace name '...' could not be found`, even though Build passes successfully.

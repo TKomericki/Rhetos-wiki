@@ -56,11 +56,15 @@ Rhetos build and database update on each build.
 * RhetosBuild - Generate C# source from DSL scripts, and executes other file generators.
 * RhetosDeploy - Update database and initialized application data in database.
 
+Instead of modifying .csproj file, these properties can be provided from command-line
+as MSBuild arguments.
+For example: `MSBuild.exe MyRhetosApp.sln /p:RhetosDeploy=False`
+
 Note that each of the Rhetos commands might not run if there are no changes in source detected.
 
 For large projects, it is recommended to turn off automatic database update on each build,
-and run it manually from console when testing the application with `rhetos.exe dbupdate`
-(the exe is located in bin folder).
+and run it manually from console before testing the application.
+To manually update database execute `rhetos.exe dbupdate` (the exe is located in bin folder).
 
 ## Build and dbupdate configuration settings
 
@@ -71,4 +75,3 @@ see [Configuration management](Configuration-management) for details.
 
 * [Creating a new Rhetos application with Rhetos.MSBuild](Creating-new-WCF-Rhetos-application.md)
 * [Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI](Migrating-from-DeployPackages-to-Rhetos-CLI).
-b
