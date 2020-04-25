@@ -10,8 +10,8 @@ Content:
    1. [Build configuration](#build-configuration)
    2. [Database update configuration](#database-update-configuration)
    3. [Application run-time configuration](#application-run-time-configuration)
-3. [Configuring application from code](#configuring-application-from-code)
-4. [Reading configuration with custom options classes](#reading-configuration-with-custom-options-classes)
+3. [Reading configuration with custom options classes](#reading-configuration-with-custom-options-classes)
+4. [Configuring application from code](#configuring-application-from-code)
 
 ## General notes
 
@@ -116,18 +116,6 @@ Common options classes:
 * [SecurityOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/SecurityOptions.cs)
 * [IAssetsOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/IAssetsOptions.cs)
 
-## Configuring application from code
-
-`Host.CreateRhetosContainer` and `RhetosRuntime.BuildConfiguration` methods allow extending
-and overriding application configuration by using `IConfigurationBuilder` instance.
-
-* Use `IConfigurationBuilder` extension methods (such as `AddKeyValue`, `AddOptions`
-  and `AddJsonFile`) to add or override configuration settings.
-* Runtime features of the application can access the configuration directly by requesting
-  `IConfiguration` instance from dependency injection, but it is preferred to use registered
-  options classes instead (see the "Common options classes" in different sections above),
-  or register additional custom options classes.
-
 ## Reading configuration with custom options classes
 
 Rhetos configuration can be extended with **custom options classes**.
@@ -141,3 +129,15 @@ directly from IConfiguration with string key.
   ```
 * You may use `OptionsAttribute` to add default configuration path that will be applied
   in GetOptions and AddOptions methods.
+
+## Configuring application from code
+
+`Host.CreateRhetosContainer` and `RhetosRuntime.BuildConfiguration` methods allow extending
+and overriding application configuration by using `IConfigurationBuilder` instance.
+
+* Use `IConfigurationBuilder` extension methods (such as `AddKeyValue`, `AddOptions`
+  and `AddJsonFile`) to add or override configuration settings.
+* Runtime features of the application can access the configuration directly by requesting
+  `IConfiguration` instance from dependency injection, but it is preferred to use registered
+  options classes instead (see the "Common options classes" in different sections above),
+  or register additional custom options classes.
