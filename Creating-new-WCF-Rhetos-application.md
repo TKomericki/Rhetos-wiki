@@ -24,10 +24,13 @@ Contents:
 ## Create a new application
 
 1. VS 2019 => **New project** => search and select "**WCF Service Application**" (C#) => Next => Framework: **.NET 4.7.2** => Create.
-   * If nothing is found on search: Click "Install more tools and features" to open Visual Studio Installer => Select "Individual components" tab => Enable "Windows Communication Foundation" => Click "Modify" to install.
+   * If nothing is found on search: Click "Install more tools and features" to open
+     Visual Studio Installer => Select "Individual components" tab =>
+     Enable "Windows Communication Foundation" => Click "Modify" to install.
 2. Test the new project:
    * Select "Service1.svc" in Solution Explorer and press F5 to start debugging.
-   * WCF Test Client should open automatically => Double-click "GetData" method => Invoke => OK => Response should be "You entered: 0".
+   * WCF Test Client should open automatically => Double-click "GetData()" method => Invoke =>
+     OK => Response Value should be "You entered: 0".
 3. Add the following NuGet packages:
    1. Rhetos.Wcf
    2. Rhetos.CommonConcepts
@@ -36,24 +39,33 @@ Contents:
    If your project contains *packages.config*, right-click the file in Solution Explorer
    and select "Migrate packages.config to PackageReference..." if available.
    * If you get an error `Cannot convert from packages.config to PackageRefrence`,
-     change Visual Studio settings: NuGet Package Manager => Package Management => Default package management format = PackageReference.
+     change Visual Studio settings: Tools => NuGet Package Manager => Package Manager Settings =>
+     Default package management format: "PackageReference".
      Then make a new WCF project from scratch.
 5. Save the solution (File => Save All). In Visual Studio open Package Manager Console
    and run command `Add-RhetosWcfFiles`. It will add Rhetos WCF startup configuration and services
    to the application.
-   * If the command results with execution policy error, run `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` and then run `Add-RhetosWcfFiles` again.
-   * If the command results with `Access is denied`, save the solution (File => Save All) before running it again.
+   * If the command results with execution policy error,
+     run `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` and then
+     run `Add-RhetosWcfFiles` again.
+   * If the command results with `Access is denied`, save the solution (File => Save All)
+     before running it again.
 6. Create an empty database for this Rhetos application.
    In your project folder: rename `Template.ConnectionStrings.config` to `ConnectionStrings.config`
    and enter the SQL server [instance](https://stackoverflow.com/a/45789478/2086516) name (`theServer`)
    and database name (`theDatabase`).
 7. Configure user authentication for your application:
-   * Option A) *(Recommended for quick-start)* Enable **anonymous access** by creating `ExternalAppSettings.config` in project folder, with the following content:
-     `<appSettings>  <add key="Security.AllClaimsForAnonymous" value="True" />  </appSettings>`.
+   * Option A) *(Recommended for quick-start)* Enable **anonymous access** by creating
+     `rhetos-app.local.settings.json` in project folder, with the following content:
+     `{ "Rhetos": { "AppSecurity": { "AllClaimsForAnonymous": true } } }`.
    * Option B) If you want to use **Windows authentication with IIS**:
-      * Run Visual Studio *as Administrator*. Project properties => Web => Change from "ISS Express" to "Local IIS". On save answer Yes.
-      * Open IIS Manager => Find your application => Authentication => Disable Anonymous, Enable Windows Authentication.
-      * Open IIS Manager => Find your application => Basic settings => Change application pool to new RhetosAppPool that is configured to run with your development account (see [IIS Setup](Development-environment-setup#iis-setup))
+      * Run Visual Studio *as Administrator*. Project properties => Web =>
+        Change from "ISS Express" to "Local IIS". On save answer Yes.
+      * Open IIS Manager => Find your application => Authentication =>
+        Disable Anonymous, Enable Windows Authentication.
+      * Open IIS Manager => Find your application => Basic settings => Change application pool
+        to new RhetosAppPool that is configured to run with your development account
+        (see [IIS Setup](Development-environment-setup#iis-setup))
       * Add `Security.AllClaimsForUsers` configuration setting for your account and your
         machine name, to simplify testing. See instructions in
         [Suppressing permissions in a development environment](Basic-permissions#suppressing-permissions-in-a-development-environment).
@@ -68,13 +80,16 @@ Contents:
     * Browser should open automatically.
     * Add "rest/Common/Claim/" to the base URL. It should return list of records in JSON format.
     * **In case of an error**, see [Troubleshooting](#troubleshooting) chapter below.
-9. Right-click project => add folder "DslScripts" => in the folder add **Text file** "HelloWorld.rhe", and write a simple Entity in this script.
+9. Right-click project => Add folder "DslScripts" => in the folder add **Text file**
+   "HelloWorld.rhe", and write a simple Entity in this script.
     * You can copy the example of DSL script from
       [tutorial](Create-your-first-Rhetos-application)
       (starting with `Module Bookstore`).
-10. Test: Press F5 and test REST API for new entity (base URL + `rest/Bookstore/Book/`).
-11. Setup git repository
-    1. Add standard Visual Studio [.gitignore](https://github.com/github/gitignore/blob/master/VisualStudio.gitignore) file.
+10. Test: Press F5 and test the REST API for the Book entity
+    (add "rest/Bookstore/Book/" to the base URL). It should return an empty JSON array
+    `{"Records":[]}` it there are no records in the database table.
+11. Setup git repository:
+    1. Add standard [Visual Studio .gitignore](https://github.com/github/gitignore/blob/master/VisualStudio.gitignore) file.
     2. Append Rhetos folders and user files to the end of the .gitignore file.
        For example, if your project subfolder is "WcfService1", append the following:
        ```text
