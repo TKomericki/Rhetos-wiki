@@ -11,7 +11,8 @@ Contents:
 1. [Development environment setup](#development-environment-setup)
 2. [Create a new application](#create-a-new-application)
 3. [Troubleshooting](#troubleshooting)
-4. [See also](#see-also)
+4. [Publishing the application to a test environment or production](#publishing-the-application-to-a-test-environment-or-production)
+5. [See also](#see-also)
 
 ## Development environment setup
 
@@ -105,6 +106,37 @@ Contents:
    * Click "Refresh" button in Solution Explorer to refresh IntelliSense.
 
 See also the separate article on [Troubleshooting WCF services](Troubleshooting-WCF-services).
+
+## Publishing the application to a test environment or production
+
+In **development environment**, you can run the application directly from Visual Studio.
+
+To publish the application to a shared **test or production environment**,
+you will need to copy the application files and update the database:
+
+1. Copy the application files from the project folder to the target folder. This includes:
+   * Bin folder and subfolders.
+   * Resources folder - Some of the Rhetos plugin packages use it, but only if configuration option
+     "BuildResourcesFolder" is enabled in build settings.
+   * Following files from project folder:
+     * *.aspx
+     * *.asax
+     * *.svc
+     * *.linq
+     * Web.config
+     * rhetos-app.settings.json
+2. For *initial* deployment, you will need to setup the new environment,
+   similar to [Development environment setup](Development-Environment-Setup).
+   * Create a web application in IIS with the target folder as a source.
+     Configure app pool and authentication, see [IIS setup](Development-Environment-Setup#iis-setup).
+   * Create an empty database and configure connection string.
+   * Configure environment-specific settings in rhetos-app.local.settings.json,
+     see [Configuration management](Configuration-management).
+3. Update the database by running `rhetos dbupdate` from command prompt
+   in the target application's **bin** folder.
+
+To update the test or production environment to a new version of the application,
+follow the steps 1. and 3. above.
 
 ## See also
 
