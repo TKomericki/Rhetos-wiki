@@ -17,7 +17,7 @@ Contents:
 
 1. [Custom code that utilizes Rhetos static utilities, but DOES NOT construct Rhetos container](#custom-code-that-utilizes-rhetos-static-utilities-but-does-not-construct-rhetos-container)
 2. [Custom code that constructs and uses Rhetos DI container to interact with Rhetos application](#custom-code-that-constructs-and-uses-rhetos-di-container-to-interact-with-rhetos-application)
-3. [Custom code that uses RhetosTestContainer to encapsulate container creation and usage](#custom-code-that-uses-rhetostestcontainer-to-encapsulate-container-creation-and-usage)
+3. [Custom code that uses RhetosTestContainer](#custom-code-that-uses-rhetostestcontainer)
 
 ## Custom code that utilizes Rhetos static utilities, but DOES NOT construct Rhetos container
 
@@ -72,28 +72,42 @@ var container = builder.Build();
 This should be replaced with the following code:
 
 ```cs
-var container = Host.CreateRhetosContainer(
-    addCustomConfiguration: configurationBuilder => configurationBuilder.AddConfigurationManagerConfiguration(),
-    registerCustomComponents: containerBuilder => containerBuilder.RegisterType<ProcessUserInfo>().As<IUserInfo>());
+var processContainer = new ProcessContainer(
+  addCustomConfiguration: configurationBuilder => configurationBuilder.AddConfigurationManagerConfiguration());
+
+using (var container = processContainer.CreateTransactionScopeContainer())
+{
+  // Add your application code here.
+
+  container.CommitChanges();
+}
 ```
 
 Notes:
 
 * If the utility application is **not located** within the main Rhetos application (or any subfolder),
   then add `applicationFolder` parameter with path to the main application.
-* The `CreateRhetosContainer` parameters `addCustomConfiguration` and `registerCustomComponents`
+* The `ProcessContainer` parameters `addCustomConfiguration` and `registerCustomComponents`
   allow extending and overriding configuration setting and custom DI components registration.
-  * `ProcessUserInfo` is used in the example above to provide the executing account as a Rhetos application user.
-    Depending of business features of the application, this account might need to be added
-    to `Common.Principal` table.
   * `AddConfigurationManagerConfiguration` includes current application's standard configuration,
-    that can override main application's configuration when needed (for example to specify
-    a custom SQL command timeout value in utility's config file).
+    that can override main application's configuration when needed
+    (for example to specify a custom SQL command timeout value in utility's config file).
 * In this scenario, note that we are not explicitly initializing legacy static utilities
-  via `LegacyUtilities.Initialize()`. This is implicitly called in `CreateRhetosContainer`
+  via `LegacyUtilities.Initialize()`. This is implicitly called in `ProcessContainer`
   to simplify the migration.
 
-## Custom code that uses RhetosTestContainer to encapsulate container creation and usage
+## Custom code that uses RhetosTestContainer
 
 `RhetosTestContainer` class has been modified internally to comply with new design and using it
-is backward-compatible.
+is **backward-compatible**, so the existing code does not need to be changed.
+
+Optionally, migrate your utilities and tests to use the new `ProcessContainer`,
+instead of `RhetosTestContainer`, for improved error handling.
+
+* Command-line utilities can use the `ProcessContainer` from the example in the section above.
+* Unit tests should reuse a single static instance of `ProcessContainer`, to avoid running
+  initialization code for each test (Entity Framework startup and plugin discovery).
+  See the examples in Bookstore application:
+  [BookstoreContainer](https://github.com/Rhetos/Bookstore/blob/ad7a1dddb99c266cb12a1a7d496bc8129464dc76/test/Bookstore.Service.Test/Tools/BookstoreContainer.cs)
+  is helper class that initializes `ProcessContainer` and is used by
+  [unit tests](https://github.com/Rhetos/Bookstore/blob/ad7a1dddb99c266cb12a1a7d496bc8129464dc76/test/Bookstore.Service.Test/BookTest.cs).

@@ -162,4 +162,4 @@ Build configuration must be moved from *Web.config* to *rhetos-build.settings.js
 ## See also
 
 * [Rhetos CLI](Rhetos-CLI).
-* [Upgrading custom utility applications to Rhetos 4.0](Upgrading-custom-utility-applications-to-Rhetos-40).
+* [Upgrading custom utility applications to Rhetos 4.0](Upgrading-custom-utility-applications-to-Rhetos-4).
