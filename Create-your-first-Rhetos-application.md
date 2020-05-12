@@ -1,7 +1,7 @@
 This article shows how to create a new application that uses Rhetos framework.
 
 In this tutorial, we will create a demo application called "Bookstore",
-and later add some additional features to the application in the other tutorial articles.
+and later add some additional features to the application in other tutorial articles.
 It is a simplified example of a business application that manages different processes in a bookstore.
 
 Contents:

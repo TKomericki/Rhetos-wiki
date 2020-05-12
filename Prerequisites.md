@@ -74,6 +74,12 @@ The **syntax highlighting** plugins are available for the following text editors
 2. In the opened folder, use git to clone the <https://github.com/Rhetos/RhetosVSCode> repository to the subfolder "RhetosVSCode".
 3. Restart Visual Studio Code.
 
+**Visual Studio:**
+
+Install the IntelliSense support for Rhetos DSL:
+
+* Visual Studio => Extensions => Manage Extensions => Online => Search: "Rhetos DSL Language Extension" => Download.
+
 **Notepad++:**
 
 1. Download the [RhetosNppSyntaxHighlight.xml](https://raw.githubusercontent.com/Rhetos/RhetosNPP/master/RhetosNppSyntaxHighlight.xml)

@@ -15,8 +15,8 @@ Contents:
 Commands:
 
 * `build` - Generates C# code, database model file and other project assets.
-  * Inputs for build command are DSL scripts and libraries (usually from NuGet packages)
-    that contain DSL keywords implementation, code generators and other Rhetos plugins.
+  * Inputs for the build command are DSL scripts and libraries that contain DSL language
+    extensions, code generators and other Rhetos plugins (usually from NuGet packages).
 * `dbupdate` - Updates the database structure and initializes the application data in the database.
   * Inputs for dbupdate command are assets files and libraries that are part of the generated
     application. They include database structure model and different kinds of data-initialization code.
