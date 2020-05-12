@@ -80,10 +80,10 @@ Default configuration sources for application with **DeployPackages**:
 Default configuration sources for application with **Rhetos.MSBuild / Rhetos CLI**:
 
 1. *Web.config* (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
-2. Rhetos.exe.config (from bin folder) - Do not edit.
-3. rhetos-app.settings.json
-4. rhetos-app.local.settings.json
-5. Overrides *SqlCommandTimeout* to 0 (unlimited).
+2. rhetos-app.settings.json
+3. rhetos-app.local.settings.json
+4. Overrides *Rhetos:Database:SqlCommandTimeout* to 0 (unlimited).
+5. Rhetos.exe.config (from bin folder) - Do not edit.
 6. **rhetos-dbupdate.settings.json** - Recommended for configuring database update.
 7. Rhetos CLI switches.
 

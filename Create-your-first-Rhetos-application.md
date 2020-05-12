@@ -138,7 +138,7 @@ most Rhetos applications should contain:
       The download is optimized to occur only on the first build or when changing the version
       of the Rhetos server (defined in `Build.ps1`).
    3. Runs MSBuild to build all application components (new custom DSL concepts,
-      and an external algorithm implemented in a separate dll).
+      and an external algorithm implemented in a separate DLL).
    4. Runs DeployPackages to generate a working application in `dist\BookstoreRhetosServer` subfolder.
 2. The NuGet specification file `src\Bookstore.nuspec`.
    It specifies the list of application components that will be deployed to the Rhetos server.
