@@ -240,8 +240,8 @@ since the validation provides no parameters when executed.
 ## Error response and metadata
 
 Test the validations from the previous sections by directly executing the save method
-in the generated [object model](Using-the-Domain-Object-Model),
-or by saving with REST request (see [Test and review](Create-your-first-Rhetos-application#test-and-review) section).
+in the generated [object model](Using-the-Domain-Object-Model), or by saving with a REST request
+(see [Test and review](Creating-new-WCF-Rhetos-application#test-and-review-the-application) section).
 
 For example:
 

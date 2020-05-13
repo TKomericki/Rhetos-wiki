@@ -117,4 +117,4 @@ Install the IntelliSense support for Rhetos DSL:
 
 ## Read next
 
-* [Development environment setup](Development-environment-setup)
+* [Creating a new WCF application with Rhetos framework](Creating-new-WCF-Rhetos-application)

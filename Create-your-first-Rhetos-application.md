@@ -4,6 +4,9 @@ In this tutorial, we will create a demo application called "Bookstore",
 and later add some additional features to the application in other tutorial articles.
 It is a simplified example of a business application that manages different processes in a bookstore.
 
+> NOTE: This article applies to **older versions of Rhetos framework**. For Rhetos framework **v4.0
+and later** versions see article [Creating a new WCF application with Rhetos framework](Creating-new-WCF-Rhetos-application).
+
 Contents:
 
 1. [Setup](#setup)

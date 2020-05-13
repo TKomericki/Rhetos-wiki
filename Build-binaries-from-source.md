@@ -1,8 +1,15 @@
 # Building the Rhetos server binaries from source
 
-This is an alternative process to the
-[Development environment setup](Development-environment-setup#get-rhetos-server-binaries)
-section "Get Rhetos server binaries".
+Official releases of Rhetos framework binaries are available on [NuGet online gallery](https://www.nuget.org/)
+and [GitHub Rhetos releases](https://github.com/Rhetos/Rhetos/releases):
+
+* Rhetos NuGet package
+* Rhetos.CommonConcepts NuGet package
+* Rhetos.MSBuild NuGet package
+* Rhetos.Wcf NuGet package
+* RhetosServer.zip (for older version of Rhetos)
+
+You can build the latest version of the binaries directly from source.
 
 > Note that using the latest version of the source is not recommended for business application development, because of possible compatibility issues with other Rhetos packages that might be resolved only when the new release of the framework and the packages is published.
 

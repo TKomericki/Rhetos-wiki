@@ -10,8 +10,8 @@ such as filters, validations, computations and server actions.
 
 Prerequisites:
 
-* To follow the examples in this tutorial article, you need a working Rhetos application.
-  You can use any existing application or create a new one from [Create your first Rhetos application](Create-your-first-Rhetos-application).
+* To follow the examples in this tutorial article, you need a working application with Rhetos framework.
+  You can use any existing Rhetos application or create a new one from article [Creating a new WCF application with Rhetos framework](Creating-new-WCF-Rhetos-application).
 * Some examples use the entities from the [Bookstore](https://github.com/Rhetos/Bookstore) demo application.
   You can review the bookstore data model in its [DSL scripts](https://github.com/Rhetos/Bookstore/tree/master/src/DslScripts).
   For example, see the `Entity Book` in the *Book.rhe* file.
@@ -20,7 +20,7 @@ Contents:
 
 1. [How to execute the examples](#how-to-execute-the-examples)
    1. [Option A: LINQPad](#option-a-linqpad)
-   2. [Option B: Creating a &quot;playground&quot; console app](#option-b-creating-a-quotplaygroundquot-console-app)
+   2. [Option B: Creating a "playground" console app](#option-b-creating-a-playground-console-app)
 2. [Understanding the generated object model](#understanding-the-generated-object-model)
 3. [Reading the data](#reading-the-data)
    1. [Load data](#load-data)

@@ -108,5 +108,5 @@ see [Configuration management](Configuration-management) for details.
 
 ## See also
 
-* [Creating a new Rhetos application with Rhetos.MSBuild](Creating-new-WCF-Rhetos-application.md)
+* [Creating a new WCF application with Rhetos framework](Creating-new-WCF-Rhetos-application)
 * [Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI](Migrating-from-DeployPackages-to-Rhetos-CLI).

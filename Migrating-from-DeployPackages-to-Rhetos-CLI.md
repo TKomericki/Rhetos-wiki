@@ -38,7 +38,7 @@ To migrate your existing project from DeployPackages to Rhetos CLI,
 **backup** the old Rhetos application and **create the new Rhetos web application** from scratch
 in Visual Studio:
 
-1. Following the instructions from [Creating new WCF Rhetos application](Creating-new-WCF-Rhetos-application).
+1. Following the instructions from [Creating a new WCF application with Rhetos framework](Creating-new-WCF-Rhetos-application).
 2. Add all NuGet packages to the project, that were used by the old Rhetos application.
    * You can find the list of packages in *RhetosPackages.config* file,
      or your application's *.nuspec* file (under "dependencies").

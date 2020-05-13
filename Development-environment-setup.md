@@ -1,5 +1,8 @@
 This article describes how to setup the development environment for developing applications with Rhetos framework.
 
+> NOTE: This article applies to **older versions of Rhetos framework**. For **Rhetos framework v4.0**
+and later versions see article [Creating a new WCF application with Rhetos framework](Creating-new-WCF-Rhetos-application).
+
 Table of contents:
 
 1. [Prerequisites](#prerequisites)

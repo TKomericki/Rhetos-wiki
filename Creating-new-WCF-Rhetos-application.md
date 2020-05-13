@@ -1,4 +1,4 @@
-# Creating new WCF application with Rhetos framework
+# Creating a new WCF application with Rhetos framework
 
 This article shows how to create a new application that uses Rhetos framework.
 
@@ -14,7 +14,7 @@ test it, and later add some additional features in other tutorial articles.
 * Currently only WCF applications are supported. We plan to extend this to any Visual Studio
   project type in future releases.
 
-This article applies to Rhetos framework version 4.0 and later. For **older** versions
+This article applies to **Rhetos framework v4.0** and later versions. For older versions
 see article [Create your first Rhetos application](Create-your-first-Rhetos-application).
 
 Contents:
@@ -26,7 +26,7 @@ Contents:
 5. [Build your application](#build-your-application)
 6. [Test and review the application](#test-and-review-the-application)
 7. [Publishing the application to a test environment or production](#publishing-the-application-to-a-test-environment-or-production)
-8. [A more complex project](#a-more-complex-project)
+8. [A more complex project structure](#a-more-complex-project-structure)
 9. [Read next](#read-next)
 10. [See also](#see-also)
 11. [Troubleshooting](#troubleshooting)
@@ -170,19 +170,25 @@ and some *parameters* after the keyword. Statements can be nested in other state
 
 Rhetos MSBuild integration has already been enabled on this application,
 since we installed Rhetos.Wcf NuGet package (it has a dependency to Rhetos.MSBuild package).
+When building the application in Visual Studio or MSBuild,
+the following steps are executed automatically:
 
-* Building the application with Visual Studio or MSBuild will automatically compile
-  the .rhe scripts and generate additional C# code included in the build.
-* Build also updates the database structure (tables and other objects).
-  For large projects you can [disable](Rhetos-CLI#msbuild-integration-with-rhetosmsbuild-nuget-package)
-  automatic database update on build,
-  and run it manually from console before testing the application.
+1. `rhetos.exe build` command. It compiles DSL scripts (.rhe) and generates
+   additional C# code for the current application (obj\Rhetos\RhetosSource), and the database model.
+2. C# compiler compiles the generated and custom application source.
+3. `rhetos.exe dbupdate` command. It updates the database structure and data.
 
-Add an empty line to HelloWorld.rhe script to provoke Rhetos complier,
-and build the application again.
+You can also manually execute Rhetos CLI commands from command prompt.
+For large projects you can disable automatic database update on build,
+and run it manually from console before testing the application.
+See [Rhetos CLI](Rhetos-CLI) article for more info.
 
-* Review the detailed Rhetos build output in Visual Studio "Output" window
-  (View => Output), by selecting Show output from: "Build".
+Review the Rhetos build output:
+
+1. Add an empty line to HelloWorld.rhe script to provoke Rhetos compiler,
+   and build the application again.
+2. In Visual Studio, open the "Output" window (View => Output), and select Show output from: "Build".
+   It will display the Rhetos CLI output for build and dbupdate commands.
 
 ## Test and review the application
 
@@ -253,7 +259,7 @@ you will need to copy the application files and update the database:
 To update the test or production environment again to a new version of the application,
 follow the steps 1. and 3. above.
 
-## A more complex project
+## A more complex project structure
 
 [Bookstore](https://github.com/Rhetos/Bookstore) demo application, available on GitHub,
 is an example of a Rhetos application with multiple projects, including custom DSL language

@@ -4,8 +4,8 @@ how to define entity relationships and what backend technologies are readily ava
 
 Prerequisites:
 
-* To build and run the examples in this article, first **setup the development project**:
-  [Development environment setup](Development-environment-setup).
+* To build and run the examples in this article, first setup the development project:
+  [Creating a new WCF application with Rhetos framework](Creating-new-WCF-Rhetos-application).
 
 Contents:
 

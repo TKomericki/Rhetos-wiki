@@ -16,7 +16,7 @@ Contributions are very welcome, both in learning resources (wiki articles and co
 
 Tutorials:
 
-* [Create your first Rhetos application](Create-your-first-Rhetos-application)
+* [Creating a new WCF application with Rhetos framework](Creating-new-WCF-Rhetos-application)
 * How to create a data model:
   * [Data model and relationships](Data-model-and-relationships)
   * [Basic property types](Data-structure-properties)
@@ -45,7 +45,6 @@ Sample application:
 Fundamentals:
 
 * [Prerequisites](Prerequisites)
-* [Development environment setup](Development-Environment-Setup)
 * [Rhetos DSL syntax](Rhetos-DSL-syntax)
 * [List of DSL concepts in CommonConcepts package](List-of-DSL-concepts-in-CommonConcepts)
 * [Creating a Rhetos package](Creating-a-Rhetos-package)
