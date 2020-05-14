@@ -30,8 +30,9 @@ This article describes the release process for both Rhetos framework (<https://g
     * [ ] [Framework only] Add the Rhetos server zip file to GitHub release: Open [tags on GitHub](https://github.com/Rhetos/Rhetos/tags)
       => At the tag for the newly released version click "Create release"
       => **Check** that the opened form displays the tag you have just selected
-      => Drag & drop the RhetosServer.x.zip file to the "**Attach binaries**" box
-      => Click "Publish release".
+      * At *Describe this release* write: `See Release notes in [ChangeLog.md](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md)`
+      * Drag & drop the RhetosServer.x.zip file to the "**Attach binaries**" box.
+      * Click "Publish release".
 4. Prepare the code for further development:
     * [ ] In *Build.bat* increase the second version number by 1 and set the third to 0 (for example from 1.2.5 to 1.3.0). Set the `Prelease` version to `auto`, so that the source is ready for the development of the next release:<br/>
       `SET Version=<CURRENT +0.+1.0>`<br/>
