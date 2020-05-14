@@ -394,6 +394,12 @@ END
 IF EXISTS (SELECT * FROM Rhetos.AppliedConcept WHERE CreateQuery LIKE 'CREATE%INDEX% IX_Status_Name %')
 BEGIN
     DROP INDEX IX_Status_Name ON Demo.Status;
+
+    -- Updating Rhetos database metadata, so the framework knows that the index is cleanly removed.
+    DELETE FROM Rhetos.AppliedConceptDependsOn WHERE DependentID =
+        (SELECT ID FROM Rhetos.AppliedConcept WHERE CreateQuery LIKE 'CREATE%INDEX% IX_Status_Name %');
+    DELETE FROM Rhetos.AppliedConceptDependsOn WHERE DependsOnID =
+        (SELECT ID FROM Rhetos.AppliedConcept WHERE CreateQuery LIKE 'CREATE%INDEX% IX_Status_Name %');
     DELETE FROM Rhetos.AppliedConcept WHERE CreateQuery LIKE 'CREATE%INDEX% IX_Status_Name %';
 END
 
