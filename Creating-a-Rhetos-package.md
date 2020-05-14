@@ -1,45 +1,42 @@
-﻿Rhetos is plugin based platform, therefore the Rhetos package
-is fundamental part of development on Rhetos platform.
-Rhetos package is the only way to publish your application on the Rhetos server.
+﻿Rhetos package is a plugin for Rhetos applications that extends features of Rhetos framework.
+It is essentially a **NuGet** package that can contain:
+
+* DSL scripts
+* Libraries (DLLs) that extend Rhetos framework (DSL language, database update, web API and other)
+* Data-migration scripts
+* Additional resources
+
+A Rhetos package typically contains some reusable **business** logic or **technology** implementation.
+For example, a package can extend DSL language with new keywords for specific business
+features, or provide a new web API protocol for existing entities in the application.
+A package can also contain a complete business application.
 
 Table of contents:
 
-1. [What is Rhetos package](#what-is-rhetos-package)
-2. [How to create Rhetos package](#how-to-create-rhetos-package)
-3. [Folder structure of your Rhetos package source](#folder-structure-of-your-rhetos-package-source)
-4. [Example](#example)
-5. [See also](#see-also)
-
-## What is Rhetos package
-
-Rhetos package is a plugin for Rhetos platform.
-It is essentially a special type of NuGet package that Rhetos platform can recognize and absorb your application.
-It can contain:
-
-* DSL scripts
-* binary Rhetos plugins
-* data migration scripts
-* additional resources
+1. [How to create Rhetos package](#how-to-create-rhetos-package)
+2. [Example](#example)
+3. [See also](#see-also)
 
 ## How to create Rhetos package
 
-Rhetos package being a special type of NuGet package,
-you have to create a nuspec file which describes your package.
-Rhetos platform supports four type of files that can be deployed.
-Accordingly, NuGet package is organized in four targets
-that contains your application:
+Like any other NuGet package, you have to create a
+[.nuspec file](https://docs.microsoft.com/en-us/nuget/reference/nuspec) which describes your package.
 
-* DslScripts - target for all the .rhe files
-* DataMigration - target for all the sql data migration scripts
-* Resources - target for all additional resources used in your application (.eg report templates)
-* lib\net451 - target for all the binaries(.dll, .pdb)
+A package contains files, which are organized into following **folders (targets)**,
+based on the file type:
 
-Like any other NuGet package, package can include standard metadata
-for the package (id, version, author, etc.) and list of dependencies.
-All of the mentioned targets can be populated by subfolders
-for better separation of the code and the resources.
+* lib - Binary files (.dll, .pdb). This is a standard NuGet convention. It can contain a subfolder specifying the .NET version.
+* DslScripts - Rhetos DSL scripts (.rhe).
+* DataMigration - Rhetos [data-migration](Data-migration) scripts (.sql).
+* Resources - Additional Rhetos resources used in your application (for example, report templates).
+* Other special subfolders can be used for other file types that may be recognized by NuGet or some Rhetos plugin.
+  For example, the Rhetos.AfterDeploy package detects any SQL scripts in AfterDeploy folder.
 
-Here is the example of nuspec file for a Rhetos package:
+Each of the Rhetos target folders can contain subfolders, to better organize the files and resources.
+
+Package also includes standard NuGet metadata (id, version, author, etc.) and a list of dependencies.
+
+Here is a typical example of .nuspec file:
 
 ``` xml
 <?xml version="1.0"?>
@@ -52,41 +49,28 @@ Here is the example of nuspec file for a Rhetos package:
         <description>My First Rhetos Package</description>
         <copyright>My Organization Inc.</copyright>
         <dependencies>
-            <dependency id="Rhetos" version="1.2.1" />
-            <dependency id="Rhetos.CommonConcepts" version="1.2.0" />
+            <dependency id="Rhetos" version="2.0.0" />
+            <dependency id="Rhetos.CommonConcepts" version="2.0.0" />
         </dependencies>
     </metadata>
     <files>
+        <file src="Readme.md" target="Readme.md" />
         <file src="DataMigration\**\*" target="DataMigration" />
         <file src="DslScripts\**\*" target="DslScripts" />
         <file src="Resources\**\*" target="Resources" />
-        <file src="MyRhetosPlugin\bin\Debug\MyRhetosPlugin.dll " target="lib\net451" />
-        <file src="MyRhetosPlugin\bin\Debug\MyRhetosPlugin.pdb " target="lib\net451" />
+        <file src="MyRhetosPlugin\bin\Debug\MyRhetosPlugin.dll" target="lib\net472" />
+        <file src="MyRhetosPlugin\bin\Debug\MyRhetosPlugin.pdb" target="lib\net472" />
     </files>
 </package>
 ```
 
-Remove from this nuspec file any files/src folders that you are not using in you application.
-
-## Folder structure of your Rhetos package source
-
-Following the Rhetos package structure, the best practice for folder structure looks like this:
-
-```Text
-MyRhetosPackage
-    DslScripts
-    DataMigration
-    Resources
-    MyRhetosPlugin
-        MyRhetosPlugin.csproj
-    MyRhetosPackage.nuspec
-```
+Remove from this .nuspec file any files/src folders that you are not using in your plugin or application.
 
 ## Example
 
-For a complete Rhetos applications see the [Bookstore](https://github.com/Rhetos/Bookstore) example.
-Its `src` folder has the source structure as described above,
-with the nuspec file and the corresponding subfolders.
+For a nuspec file that contains a complete Rhetos application,
+see the [Bookstore](https://github.com/Rhetos/Bookstore) example,
+file `src/Bookstore.nuspec`.
 
 ## See also
 

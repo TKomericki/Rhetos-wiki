@@ -1,9 +1,16 @@
-Rhetos can install a plugin package directly from the online NuGet gallery, or from a local folder (nupkg file extension).
+## Installing an additional Rhetos plugin package to a Rhetos application
 
 Many Rhetos packages are available at the [NuGet.org](https://www.nuget.org/) public online gallery.
-See [Recommended plugin packages](Home#recommended-plugin-packages).
+See [Recommended Rhetos plugin packages](Home#recommended-plugin-packages).
 
-## Installing an additional plugin package to the Rhetos server application
+Packages can be installed directly from the online NuGet gallery, or from a local folder (as a .nupkg file).
+
+### Applications with Rhetos CLI (v4.0 and later) and Rhetos MSBuild integration
+
+These applications are standard Visual Studio projects.
+Simply add the [NuGet package](https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio) to the project.
+
+### Applications with DeployPackages
 
 1. To install the additional package to a Rhetos server, add it to the Rhetos server's **RhetosPackages.config** file.
     * For example, to install a package named "Rhetos.AfterDeploy", version 2.0.0, add the `package` line to the *RhetosPackages.config* file. Remove the version attribute to install the latest version.

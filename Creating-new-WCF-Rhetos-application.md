@@ -239,11 +239,11 @@ you will need to copy the application files and update the database:
    * Bin folder and subfolders.
    * Resources folder - Some of the Rhetos plugin packages use it, but only if configuration option
      "BuildResourcesFolder" is enabled in build settings.
+   * LinqPad folder - Utilities for accessing application's object model.
    * Following files from project folder:
      * *.aspx
      * *.asax
      * *.svc
-     * *.linq
      * Web.config
      * rhetos-app.settings.json
 2. For *initial* deployment, you will need to setup the new environment,
