@@ -1,6 +1,11 @@
 # Rhetos CLI
 
-This article describes features and usage of **rhetos.exe** command-line utility.
+Rhetos CLI (**rhetos.exe**) is a command-line utility for build and deployment of Rhetos applications.
+
+* It is integral part of applications that use Rhetos framework.
+  For quick-start tutorial, see [Creating a new WCF application with Rhetos framework](Creating-new-WCF-Rhetos-application).
+* To start using Rhetos CLI on an older application that currently uses DeployPackages,
+  see [Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI](Migrating-from-DeployPackages-to-Rhetos-CLI).
 
 Contents:
 
@@ -8,7 +13,6 @@ Contents:
 2. [CLI arguments and switches](#cli-arguments-and-switches)
 3. [MSBuild integration with Rhetos.MSBuild NuGet package](#msbuild-integration-with-rhetosmsbuild-nuget-package)
 4. [Build and dbupdate configuration settings](#build-and-dbupdate-configuration-settings)
-5. [See also](#see-also)
 
 ## Features
 
@@ -46,7 +50,7 @@ Generic switches:
 * See [System.CommandLine](https://github.com/dotnet/command-line-api/wiki/Features-overview)
   features for additional debugging switches.
 
-Build command:
+**Build** command:
 
 * Generates C# code, database model file and other project assets.
 * Usage:
@@ -56,7 +60,7 @@ Build command:
 * Options:
   * `--msbuild-format` Adjust error output format for MSBuild integration.
 
-Database update command:
+**Database update** command:
 
 * Updates the database structure and initializes the application data in the database.
 * Usage:
@@ -105,8 +109,3 @@ To manually update database execute `rhetos.exe dbupdate` (the exe is located in
 
 Each Rhetos CLI command reads configuration from different configuration files,
 see [Configuration management](Configuration-management) for details.
-
-## See also
-
-* [Creating a new WCF application with Rhetos framework](Creating-new-WCF-Rhetos-application)
-* [Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI](Migrating-from-DeployPackages-to-Rhetos-CLI).
