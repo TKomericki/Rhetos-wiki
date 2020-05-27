@@ -184,7 +184,8 @@ Some usage examples are available in unit testing script [Computations.rhe](http
 
 "Recompute" in Rhetos refers to the process of updating (also inserting and deleting) the persisted data in a table to match the new data provided by the source.
 
-On each deployment (running *DeployPackages.exe*), for each computation that is marked with **KeepSynchronized**,
+On each Rhetos database update (running *rhetos.exe dbupdate* or *DeployPackages.exe*),
+for each computation that is marked with **KeepSynchronized**,
 Rhetos checks if a sources for the computed data has been modified.
 It if detects that the source has changed, it will automatically update (recompute) the persisted data.
 
@@ -193,7 +194,7 @@ in a SqlQueryable code snippet (if it is a source for a ComputeFrom),
 but it *will not* detect a change in another SQL view that is indirectly used in this computation.
 
 Note: you can check if the persisted data was recomputed during deployment
-in `Logs\DeployPackages.log`, under "KeepSynchronizedRecomputeOnDeploy" log entries.
+in `Logs\RhetosCli.log` or `Logs\DeployPackages.log`, under "KeepSynchronizedRecomputeOnDeploy" log entries.
 
 ### Forcing recompute on deployment
 
@@ -225,7 +226,7 @@ unnecessary recomputes will significantly **improve deployment speed**. A develo
 
 There are different ways to do it:
 
-1. *DeployPackages.exe* `/SkipRecompute` command-line switch.
+1. The `/SkipRecompute` command-line switch for rhetos.exe and DeployPackages.exe.
    * Skip all computations for the current deployment.
 2. Adding `SkipRecomputeOnDeploy` concept to the `ComputedFrom`. (v2.11+)
    * Skip this specific computation in all deployments.

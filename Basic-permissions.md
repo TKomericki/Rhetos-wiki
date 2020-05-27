@@ -201,7 +201,7 @@ but there are issues with this approach:
   that contains a complete list of wanted permissions and updates the records
   in database to match the list.
 * The claims in *Common.Claim* table are generated automatically at the end of
-  each deployment (see the *DeployPackages.log*).
+  each deployment (see *DeployPackages.log* or *RhetosCli.log*).
   The data-migration scripts are executed at the beginning of the deployment, so the inserted
   permissions will not include the new claims that will be generated at the end.
   Possible workaround is to insert the claims along with the permissions,

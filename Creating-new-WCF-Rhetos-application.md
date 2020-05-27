@@ -15,7 +15,8 @@ test it, and later add some additional features in other tutorial articles.
   project type in future releases.
 
 This article applies to **Rhetos framework v4.0** and later versions. For older versions
-see article [Create your first Rhetos application](Create-your-first-Rhetos-application).
+see articles [Create your first Rhetos application](Create-your-first-Rhetos-application)
+or [Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI](Migrating-from-DeployPackages-to-Rhetos-CLI).
 
 Contents:
 
@@ -134,7 +135,7 @@ with .NET Framework, follow the article [Prerequisites](Prerequisites).
 ## Write a simple DSL script
 
 Right-click the project => Add folder "DslScripts".
-In the folder add **Text file** "HelloWorld.rhe", and enter the following code:
+In the folder add **Text file** "Books.rhe", and enter the following code:
 
 ```c
 Module Bookstore
@@ -255,6 +256,7 @@ you will need to copy the application files and update the database:
      see [Configuration management](Configuration-management).
 3. Update the database by running `rhetos dbupdate` from command prompt
    in the target application's **bin** folder.
+   See [Rhetos CLI](Rhetos-CLI) article for dbupdate options.
 
 To update the test or production environment again to a new version of the application,
 follow the steps 1. and 3. above.
@@ -276,17 +278,9 @@ Add new features to you application with following tutorial articles:
 1. How to create a data model: [Data model and relationships](Data-model-and-relationships)
 2. Add simple features to your application: [Implementing simple business rules](Implementing-simple-business-rules)
 
-## See also
-
-* [Rhetos CLI](Rhetos-CLI) - Tool that compiles DSL scripts and updates database.
-  It is automatically integrated with MSBuild by Rhetos.MSBuild NuGet package.
-* [Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI](Migrating-from-DeployPackages-to-Rhetos-CLI) -
-  Update applications with older version of Rhetos framework (before 4.0)
-  to the new build process.
-
 ## Troubleshooting
 
-1. Build fails with error `DeployPackages: System.Configuration.ConfigurationErrorsException: Unable to open configSource file 'ConnectionStrings.config'.`
+1. Build fails with error `System.Configuration.ConfigurationErrorsException: Unable to open configSource file 'ConnectionStrings.config'.`
    * Cause: *Web.config* references *ConnectionStrings.config* that is missing. See instructions above on how to add *ConnectionStrings.config*.
 2. Startup fails with `Specified argument was out of the range of valid values.Parameter name: site`
    * See "Configure user authentication for your application" above.

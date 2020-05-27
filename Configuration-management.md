@@ -20,8 +20,8 @@ Content:
    * In .config files, they are always part of `appSettings` element. Keys contain dot as a path separator.
      ```xml
      <appSettings file="ExternalAppSettings.config">
-       <add key="CommonConcepts.Legacy.AutoGeneratePolymorphicProperty" value="False" />
-       <add key="CommonConcepts.Legacy.CascadeDeleteInDatabase" value="False" />
+       <add key="CommonConcepts:AutoGeneratePolymorphicProperty" value="False" />
+       <add key="CommonConcepts:CascadeDeleteInDatabase" value="False" />
        <add key="InitialConceptsSort" value="Key" />
      </appSettings>
      ```
@@ -29,10 +29,8 @@ Content:
      ```json
      {
        "CommonConcepts": {
-         "Legacy": {
-           "AutoGeneratePolymorphicProperty": false,
-           "CascadeDeleteInDatabase": false
-         }
+          "AutoGeneratePolymorphicProperty": false,
+          "CascadeDeleteInDatabase": false
        },
        "InitialConceptsSort": "Key"
      }

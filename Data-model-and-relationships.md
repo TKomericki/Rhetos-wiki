@@ -47,8 +47,8 @@ Module Bookstore
 }
 ```
 
-Place this code in the *DslScripts\Books.rhe*  file, and run *RhetosServer\bin\DeployPackages.exe*.
-Review the generated database objects in SSMS.
+Place this code in the *DslScripts\Books.rhe* file, and build the application.
+Review the generated database objects in SQL Server Management Studio.
 
 The `Module` concept creates a *namespace* in the generated C# code, and a *schema* in the database.
 

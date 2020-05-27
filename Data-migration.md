@@ -263,12 +263,13 @@ If a property's type is changed, deployment of the new version will to the follo
 
 ### Deploying migration scripts
 
-The `DeployPackages.exe` utility will automatically execute the data-migration scripts.
+When Rhetos updates the application's database (*rhetos.exe dbupdate* or *DeployPackages.exe*),
+it will automatically execute the data-migration scripts:
 
-* `DeployPackages.exe` executes the data-migration scripts before upgrading the database structure.
-* If `DeployPackages.exe` fails while upgrading the database structure, it will execute those data-migration scripts
-  again on next deployment. This means that the migration scripts should be written in such way that allows a script
-  to be executed multiple times without negative consequences.
+* It executes the data-migration scripts *before* modifying the database structure (tables and columns, e.g.).
+* If the database update fails, it will execute those data-migration scripts
+  *again* on next deployment. This means that the migration scripts should be written in such way that allows a script
+  to be executed *multiple* times without negative consequences.
 * If a Rhetos package depends on another package (dependencies are defined in .nuspec),
   migration scripts from the other package will be executed first.
 * DateMigration scripts within a package are executed ordered by folder name,
@@ -303,7 +304,7 @@ when the entity in module "M" is renamed from "A" to "B".
 
 Option A) Deployment before the data migration:
 
-1. DeployPackages.exe - Update database
+1. Rhetos dbupdate - Updating database structure
     1. **Drop M.A: backup to _M.A**
     2. Create M.B
 2. Manual execution of the data-migration script
@@ -314,23 +315,23 @@ Option A) Deployment before the data migration:
 
 Option B) Data migration before the deployment:
 
-1. DeployPackages.exe - Data migration
+1. Rhetos dbupdate - Data migration
     1. **DataMigrationUse M.A: M.A => _M.A**
     2. DataMigrationUse M.B: M.B => _M.B (nothing to do, B does not exist)
     3. **Update: _M.A => _M.B**
     4. DataMigrationApply M.B: _M.B => M.B (nothing to do, B does not exist)
-2. DeployPackages.exe - Update database
+2. Rhetos dbupdate - Updating database structure
     1. Drop M.A
     2. **Create M.B: restore from _B**
 
 ### Cleanup
 
-* After upgrading the database, `DeployPackages.exe` will delete the migration columns and tables
+* After upgrading the database, Rhetos will delete the migration columns and tables
   that are copied to the original tables.
 * The migration table and columns that don't exist in the new version of the application will be kept as a backup.
 * You can optionally delete the backup data by running `CleanupOldData.exe`;
   it will delete everything in database schemas that start with an underscore ("_").
-  This is not recommended if the last deployment failed, because it could result with a data loss.
+  This is *not recommended* if the last deployment failed, because it could result with a data loss.
 
 ### Database constraint blocking the data migration
 
@@ -360,7 +361,7 @@ Example scenario:
     Code = '002', Name = 'Status A'
     ```
 
-3. When we run DeployPackages.exe, the data-migration scripts are executed *before* upgrading the database structure
+3. When we run Rhetos dbupdate, the data-migration scripts are executed *before* upgrading the database structure
    (i.e. before this unique index is dropped). This is why the data-migration script
    will result with the database error: `Cannot insert duplicate key row ...` when the new data
    is copied to the `Status` table (this error will occur at the line with DataMigrationApplyMultiple).

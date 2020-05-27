@@ -46,22 +46,23 @@ Contents:
 ## How to execute the examples
 
 The examples from this article can be executed with the [LINQPad](https://www.linqpad.net/) script `Rhetos Server DOM.linq`,
-already available in your application's Rhetos server folder,
+already available in your application's folder,
 or create a "playground" console app in Visual Studio with ConsoleDump NuGet plugin.
 
 * **LINQPad** - Simple to setup, nicer output format. Free, but IntelliSense (autocomplete) requires buying a license.
 * **"Playground" console app** in Visual Studio - 10 minutes setup (see below), IntelliSense included.
 
-In both cases, to run any example from this article, copy the code snippet from each example into the marked position in the Main method. You can delete the rest of the script below the `var repository` line.
+In both cases, to run any example from this article, copy the code snippet from each example
+into the marked position in the Main method.
+You can delete the rest of the script below the `var repository` line.
 
 ```C#
 void Main()
 {
-    ConsoleLogger.MinLevel = EventType.Info; // Use "Trace" for more detailed log.
-    var rhetosServerPath = Path.GetDirectoryName(Util.CurrentQueryPath);
-    Directory.SetCurrentDirectory(rhetosServerPath);
-    // Set commitChanges parameter to COMMIT or ROLLBACK the data changes.
-    using (var container = new RhetosTestContainer(commitChanges: false))
+    string applicationFolder = Path.GetDirectoryName(Util.CurrentQueryPath);
+    ConsoleLogger.MinLevel = EventType.Info; // Use EventType.Trace for more detailed log.
+
+    using (var container = ProcessContainer.CreateTransactionScopeContainer(applicationFolder))
     {
         var context = container.Resolve<Common.ExecutionContext>();
         var repository = context.Repository;
@@ -71,43 +72,44 @@ void Main()
 }
 ```
 
-Note that this code contains `commitChanges: false`. This means that all **changes in the database will be rolled back** at the end of the script.
+Note that this code contains `commitChanges: false`. This means that all **changes in the database
+will be rolled back** at the end of the script.
 
 ### Option A: LINQPad
 
 1. Download the latest version of LINQPad from <https://www.linqpad.net/>.
-2. Open the LINQPad script `Rhetos Server DOM.linq` from your application's Rhetos server folder.
+2. Open the LINQPad script `Rhetos Server DOM.linq` from your application's folder.
 3. Run it with F5. It should print a few tables and end with "Done.".
 
 Notes:
 
 * The examples use the LINQPad's method `Dump()` to print the results in a grid.
-* LINQPad keeps the Rhetos server's process **active between executions**. This improves performance, but you will need to stop the LINQPad process ("Cancel All Thread and Reset" menu option) before calling **DeployPackages.exe**, to **unlock the dll files**.
+* LINQPad keeps the Rhetos application's process **active between executions**. This improves performance,
+  but you will need to stop the LINQPad process ("Cancel All Thread and Reset" menu option)
+  after modifying the DSL scripts, before building the application again, to **unlock the generated dll files**.
 
 ### Option B: Creating a "playground" console app
 
-1. In Visual Studio create a new project from template "Console App (.NET Framework)".
-   * Select .NET framework 4.7.2 (same as Rhetos)
+1. In Visual Studio, add a new project to the existing solution with the main Rhetos application:
+   * Project template: "Console App (.NET Framework)".
+   * Framework: ".NET Framework 4.7.2" (same as your main Rhetos application).
    * If you are creating a Bookstore demo application, set the following:
-     * Location: create the `test` subfolder in your "Bookstore" project folder (`...\Bookstore\test\`),
+     * Location: create `test` subfolder in your "Bookstore" project folder (`...\Bookstore\test\`),
      * Name: "Bookstore.Playground"
-     * VS 2019: Enable checkbox "Place solution and project in the same directory".
-     * VS 2017: Disable the checkboxes "Create directory for solution" and "Create new Git repository".
-2. Project => Add reference... => Browse... => Select all dlls from the Rhetos server's bin folder
-  (for example `Bookstore\dist\BookstoreRhetosServer\bin`), **except the two** Microsoft.*.dll files
-  => Add => OK.
-3. Repeat the previous step for this two Rhetos server subfolders: `bin\Generated` and `bin\Plugins`.
-4. Project => Manage NuGet Packages... => Browse => search "ConsoleDump"
-  => select the ConsoleDump package => Install => OK.
-5. Copy the content of the `Main` method, from the *Rhetos Server DOM.linq* script
-  in the Rhetos server folder, into the Main method of your Playground project.
-6. Replace the line `var rhetosServerPath = Path.GetDirectoryName(Util.CurrentQueryPath);`
-  with `var rhetosServerPath = @"<relative or absolute path to the Rhetos server folder>";`,
-  for example `var rhetosServerPath = @"..\..\..\..\dist\BookstoreRhetosServer";`.
-7. Fix the compiler errors by adding the suggested "using" statement for each error.
-  The resulting using statements should look like this:
+2. Add a project reference to the main Rhetos application:
+   Project => Add reference... => Projects => Check "Bookstore.Service" => OK.
+3. Project => Manage NuGet Packages... => Browse => search "ConsoleDump"
+   => select the ConsoleDump package => Install => OK.
+4. Copy the content of the `Main` method from the *Rhetos Server DOM.linq* script
+   in the Rhetos application folder (`Bookstore.Service\LinqPad` e.g.), into the Main method of your Playground project.
+5. Replace the line `string applicationFolder = Path.GetDirectoryName(Util.CurrentQueryPath);`
+   with `string applicationFolder = @"<relative or absolute path to the Rhetos application folder>";`,
+   for example `string applicationFolder = @"..\..\..\..\src\Bookstore.Service";`.
+6. Fix the compiler errors by adding the suggested "using" statement for each error.
+   The resulting using statements should look like this:
     ```C#
     using ConsoleDump;
+    using Rhetos;
     using Rhetos.Configuration.Autofac;
     using Rhetos.Dom.DefaultConcepts;
     using Rhetos.Logging;
@@ -117,9 +119,11 @@ Notes:
     using System.IO;
     using System.Linq;
     ```
-8. Run the application with **Ctrl+F5**. It should print a few tables and end with "Done.".
-9. Troubleshooting:
-   * If you get an error `DirectoryNotFoundException: Could not find a part of the path ...`, check how the reported path relates to the `var rhetosServerPath` line in the Main method (see steps above). Correct the rhetosServerPath to match the Rhetos server folder.
+7. Run the application with **Ctrl+F5**. It should print a few tables and end with "Done.".
+8. Troubleshooting:
+   * If you get an error `FrameworkException: Cannot find application's configuration (rhetos-app.settings.json) in ...`,
+     check how the reported path relates to the `string applicationFolder` line in the Main method
+     (see the steps above). Correct the applicationFolder to match the Rhetos application folder.
 
 Notes:
 
@@ -129,9 +133,9 @@ at <https://github.com/Rhetos/Bookstore/tree/master/test/Bookstore.Playground>.
 
 ## Understanding the generated object model
 
-When you run *DeployPackages.exe*, it will read DSL scripts and generated the web application. Most of the application's business features are implemented in the three generated source files: "ServerDom.Model.cs", "ServerDom.Orm.cs" and "ServerDom.Repositories.cs". You can find them in the Rhetos server subfolder `bin\Generated\` (for example, `Bookstore\dist\BookstoreRhetosServer\bin\Generated\`).
+When you build the Rhetos application with MBuild integration, it will read DSL scripts and generated additional code the web application. Most of the application's business features are implemented in the three generated source files: "ServerDom.Model.cs", "ServerDom.Orm.cs" and "ServerDom.Repositories.cs". You can find them in the Rhetos application subfolder `bin\Generated\` (for example, `Bookstore\dist\BookstoreRhetosServer\bin\Generated\`).
 
-Now we will review the generated files and notice some classes and methods that we will use later in this tutorial article. In this example, we will look for features related to the [Entity Book](https://github.com/Rhetos/Bookstore/blob/master/src/DslScripts/Book.rhe) from the Bookstore demo application. You can use any other entity from your application.
+Now we will review the generated files and notice some classes and methods that we will use later in this tutorial article. In this example, we will look for features related to the [Entity Book](https://github.com/Rhetos/Bookstore/blob/master/src/Bookstore.Service/DslScripts/Book.rhe) from the Bookstore demo application. You can use any other entity from your application.
 
 Fore each entity, three classes are generated:
 
@@ -207,8 +211,10 @@ The **Query** method does not load the data from the database
 It returns a LINQ query of the queryable class with navigation properties,
 that can be used to include the data from other related objects (reference, extensions and similar).
 
-* For example, the class in the query contains both `AuthorID` Guid property and the `Author` property that references the entity Person.
-* The data will be loaded from the database when a `ToList()` method is executed on the query, or any other method that requires the data (First(), Any(), ...).
+* For example, the class in the query contains both `AuthorID` Guid property and
+  the `Author` property that references the entity Person.
+* The data will be loaded from the database when a `ToList()` method is executed on the query,
+  or any other method that requires the data (First(), Any(), ...).
 
 The Query method can have a **filter** as a parameter, same as the Load method.
 
@@ -368,7 +374,8 @@ booksWithComments.Select(book => book.Title).Dump();
 ```
 
 The code above will result with **NotSupportedException**:
-"LINQ to Entities does not recognize the method ... Query() ...". The Entity Framework 6.1 does not support usage of custom methods (`Comment.Query()`) for a subquery.
+"LINQ to Entities does not recognize the method ... Query() ...".
+The Entity Framework 6.1 does not support usage of custom methods (`Comment.Query()`) for a subquery.
 
 There are two approaches to solve this with the subquery:
 
@@ -410,7 +417,8 @@ WHERE
 
 ### Overview of the read methods
 
-The repository class for Entity, SqlQueryable or Browse, contains the following methods for reading and filtering the data:
+The repository class for Entity, SqlQueryable or Browse, contains the following methods
+for reading and filtering the data:
 
 | | Get a list or an array of simple items<br>Returns `IEnumerable<SimpleClass>` | Get a LINQ query<br>Returns `IQueryable<QueryableClass>` |
 | --- | --- | --- |
@@ -437,7 +445,10 @@ By default, if commitChanges is false, all the changes **will be rolled back** a
 
 ### Save data
 
-Entity's repository class has a `Save(...)` method, that receives a list of records to insert, update and delete. There are also simple extension methods available for those operations (`Insert`, `Update`, `Delete`) that will internally call the Save method.
+Entity's repository class has a `Save(...)` method, that receives a list of records
+to insert, update and delete.
+There are also simple extension methods available for those operations (`Insert`, `Update`, `Delete`)
+that will internally call the Save method.
 
 This example uses the table `Common.Principal`, that is available in the CommonConcept package.
 
@@ -480,7 +491,8 @@ but the additional navigation properties will be ignored.
 
 ### Sketch a code snippet when developing a new Action
 
-[Action](Action-concept) concept in Rhetos represents a custom server-side command that returns no data.
+[Action](Action-concept) concept in Rhetos represents a custom server-side command
+that returns no data.
 
 For example, in LINQPad or the playground app,
 write a code for the Bookstore demo application that **inserts five books**.
@@ -514,7 +526,7 @@ Module Bookstore
 ### Execute action
 
 This example uses the [Action](Action-concept) created in the previous example.
-Don't forget to run `DeployPackages.exe` after implementing Action in the DSL script.
+Don't forget to run build the Rhetos application after implementing Action in the DSL script.
 
 In LINQPad or in the playground console app, execute the Insert5Books action.
 
@@ -569,7 +581,7 @@ repository.Bookstore.InsertManyBooks.Execute(actionParameter);
 "Recompute" refers to the process of updating the persisted computed data,
 see [Persisting the computed data](Persisting-the-computed-data).
 
-This example requires **CommonConceptsTest** plugin to be deployed on Rhetos server.
+This example requires **CommonConceptsTest** NuGet package included in the Rhetos application.
 It is available in Rhetos source subfolder `CommonConcepts\CommonConceptsTest`.
 
 ```C#
@@ -580,11 +592,13 @@ It is available in Rhetos source subfolder `CommonConcepts\CommonConceptsTest`.
 repository.TestComputedFrom.PersistComplex.RecomputeFromSource();
 ```
 
-Modify `ConsoleLogger.MinLevel = EventType.Info` to `EventType.Trace`, to see the steps of the recompute analysis: Initialize new items, Load old items, Diff, Save.
+Modify `ConsoleLogger.MinLevel = EventType.Info` to `EventType.Trace`, to see the steps
+of the recompute analysis: Initialize new items, Load old items, Diff, Save.
 
 ## Analyze the DSL model
 
-This example uses the methods of the `IDslModel` interface for performance-efficient search on the DSL model: `FindByType`, `FindByKey` and `FindByReference`.
+This example uses the methods of the `IDslModel` interface for performance-efficient search
+on the DSL model: `FindByType`, `FindByKey` and `FindByReference`.
 
 ```C#
 var dslModel = container.Resolve<IDslModel>();
@@ -605,7 +619,9 @@ properties.Select(p => p.GetUserDescription()).Dump("Common.Principal ShortStrin
 
 ## Helpers for writing code snippets
 
-The scripts in the following sections will help you with development and testing of code snippets for filters and actions. The code snippet can then be copied to the *.rhe* script.
+The scripts in the following sections will help you with development and testing of code snippets
+for filters and actions.
+The code snippet can then be copied to the *.rhe* script.
 
 ### ComposableFilterBy code snippet
 
@@ -630,7 +646,8 @@ IQueryable<Common.Queryable.Common_Claim> filteredQuery =
 filteredQuery.ToSimple().Dump("ComposableFilterBy query");
 ```
 
-After developing and testing the ComposableFilterBy's code snippet, use it to put the filter (`DemoFilter`) in the *.rhe* script:
+After developing and testing the ComposableFilterBy's code snippet, use it to put
+the filter (`DemoFilter`) in the *.rhe* script:
 
 ```C
 Module Common

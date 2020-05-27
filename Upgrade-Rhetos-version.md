@@ -1,18 +1,33 @@
-# How to upgrade your application to a new version of Rhetos
+# How to upgrade your application to a new version of Rhetos framework and package
 
-## Preparation
+Contents:
 
-Check Rhetos [release notes](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md)
+1. [Review "Breaking changes"](#review-breaking-changes)
+2. [Upgrading applications built with Rhetos CLI and Rhetos.MSBuild](#upgrading-applications-built-with-rhetos-cli-and-rhetosmsbuild)
+3. [Upgrading applications built with DeployPackages](#upgrading-applications-built-with-deploypackages)
+   1. [Upgrade to new version of Rhetos framework](#upgrade-to-new-version-of-rhetos-framework)
+   2. [Upgrade to new version of Rhetos packages](#upgrade-to-new-version-of-rhetos-packages)
+
+## Review "Breaking changes"
+
+Check Rhetos [Release notes](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md)
 for all versions between you current version and the new one.
 Look if there are any **"Breaking changes"** sections for those versions:
 they will describe everything that you will need to change in your application
 *after* upgrading to the new version of Rhetos framework.
 
-## Upgrade to new version of Rhetos framework
+## Upgrading applications built with Rhetos CLI and Rhetos.MSBuild
+
+Rhetos framework is included it the application as a standard NuGet package.
+Open "Manage NuGet Packages" in Visual Studio and update the Rhetos packages under "Updates" tab.
+
+## Upgrading applications built with DeployPackages
+
+### Upgrade to new version of Rhetos framework
 
 Check if your project's build script has this step automated.
 For example see the "Install-RhetosServer" line in
-<https://github.com/Rhetos/Bookstore/blob/master/Build.ps1>,
+<https://github.com/Rhetos/Bookstore/blob/rhetos-2/Build.ps1>,
 it includes the Rhetos framework version number
 and automatically updates the framework if changed.
 **Skip the steps** from this sections, if this is automated in your project.
@@ -31,7 +46,7 @@ Steps:
 5. Keep your old Web.config file, instead of using the new one from the zip.
    This will ensure that your application works in backward compatible mode.
 
-## Upgrade to new version of Rhetos packages
+### Upgrade to new version of Rhetos packages
 
 What to upgrade:
 

@@ -1,7 +1,8 @@
 # Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI
 
 This article contains step-by-step instruction for migrating an existing **Rhetos application** or **Rhetos plugin package**
-from old build and deployment process (with DeployPackages) to the new one (Rhetos.MSBuild with Rhetos CLI).
+from old build and deployment process (with DeployPackages) to the new one (Rhetos.MSBuild with Rhetos CLI),
+available since Rhetos 4.0.
 
 See [Rhetos CLI Features](Rhetos-CLI#features) for overview of rhetos.exe
 and comparison to old utility **DeployPackages.exe**.
@@ -103,12 +104,20 @@ For applications built with Rhetos CLI, *Web.config* file (`appSettings` element
 only configuration settings for run-time environment and database update.
 Build configuration must be moved from *Web.config* to *rhetos-build.settings.json* file.
 
-1. **Remove** the following 3 build settings from *Web.config* `appSettings` element.
+1. **Remove** the following **3 settings** from *Web.config* `appSettings` element.
     ```xml
-    <appSettings file="ExternalAppSettings.config">
+    <appSettings>
       <add key="CommonConcepts.Legacy.AutoGeneratePolymorphicProperty" value="False" />
       <add key="CommonConcepts.Legacy.CascadeDeleteInDatabase" value="False" />
       <add key="InitialConceptsSort" value="Key" />
+    </appSettings>
+    ```
+    or
+    ```xml
+    <appSettings>
+      <add key="CommonConcepts:AutoGeneratePolymorphicProperty" value="False" />
+      <add key="CommonConcepts:CascadeDeleteInDatabase" value="False" />
+      <add key="Rhetos:Build:InitialConceptsSort" value="Key" />
     </appSettings>
     ```
 2. Place them in *rhetos-build.settings.json* file, located in the project root folder
@@ -116,13 +125,15 @@ Build configuration must be moved from *Web.config* to *rhetos-build.settings.js
    or **remove** the settings if they were not configured in *Web.config*.
     ```json
     {
-      "CommonConcepts": {
-        "Legacy": {
-          "AutoGeneratePolymorphicProperty": false,
-          "CascadeDeleteInDatabase": false
+      "Rhetos": {
+        "Build": {
+          "InitialConceptsSort": "Key"
         }
       },
-      "InitialConceptsSort": "Key"
+      "CommonConcepts": {
+        "AutoGeneratePolymorphicProperty": false,
+        "CascadeDeleteInDatabase": false
+      }
     }
     ```
 3. You can **keep the other** `appSettings` options in *Web.config*, or move them to a separate
