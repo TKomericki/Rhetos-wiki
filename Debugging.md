@@ -1,8 +1,6 @@
 # Debugging
 
-Applications build with Rhetos are basically standard C# applications, and can bi debugged
-directly in Visual Studio.
-See the instruction in a corresponding section below, depending on which Rhetos build process
+See the tutorial in a corresponding section below, depending on which Rhetos build process
 is used in your application.
 
 Contents:
