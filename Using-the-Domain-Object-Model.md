@@ -1,8 +1,9 @@
 The **Domain Object Model** (DOM) is a set of C# classes that implement
 the application's business logic and control the application's data.
 
-Rhetos generates the object model from the application's DSL model
-(from the *.rhe* scripts) and compiles it to *ServerDom* dlls.
+When building the application, Rhetos generates the object model in the additional C# files,
+based on the application's DSL model (from the *.rhe* scripts).
+These additional files are automatically compiled as part of the application.
 
 This article helps developers to understand the generated classes and methods,
 because they will be used in C# code snippets when implementing new business features,
@@ -78,7 +79,7 @@ will be rolled back** at the end of the script.
 ### Option A: LINQPad
 
 1. Download the latest version of LINQPad from <https://www.linqpad.net/>.
-2. Open the LINQPad script `Rhetos Server DOM.linq` from your application's folder.
+2. Open the LINQPad script `LinqPad\Rhetos Server DOM.linq` from your application's folder.
 3. Run it with F5. It should print a few tables and end with "Done.".
 
 Notes:
@@ -100,10 +101,10 @@ Notes:
    Project => Add reference... => Projects => Check "Bookstore.Service" => OK.
 3. Project => Manage NuGet Packages... => Browse => search "ConsoleDump"
    => select the ConsoleDump package => Install => OK.
-4. Copy the content of the `Main` method from the *Rhetos Server DOM.linq* script
-   in the Rhetos application folder (`Bookstore.Service\LinqPad` e.g.), into the Main method of your Playground project.
+4. Copy the content of the `Main` method from the `LinqPad\Rhetos Server DOM.linq` script
+   into the Main method of your Playground project.
 5. Replace the line `string applicationFolder = Path.GetDirectoryName(Util.CurrentQueryPath);`
-   with `string applicationFolder = @"<relative or absolute path to the Rhetos application folder>";`,
+   with a relative or absolute path to the Rhetos application folder,
    for example `string applicationFolder = @"..\..\..\..\src\Bookstore.Service";`.
 6. Fix the compiler errors by adding the suggested "using" statement for each error.
    The resulting using statements should look like this:
@@ -133,20 +134,24 @@ at <https://github.com/Rhetos/Bookstore/tree/master/test/Bookstore.Playground>.
 
 ## Understanding the generated object model
 
-When you build the Rhetos application with MBuild integration, it will read DSL scripts and generated additional code the web application. Most of the application's business features are implemented in the three generated source files: "ServerDom.Model.cs", "ServerDom.Orm.cs" and "ServerDom.Repositories.cs". You can find them in the Rhetos application subfolder `bin\Generated\` (for example, `Bookstore\dist\BookstoreRhetosServer\bin\Generated\`).
+When you build the Rhetos application with MBuild integration, it will read DSL scripts and
+generate additional code.
+Most of the application's business features are implemented in the generated "repository" classes.
+You can find the generated source files the application's subfolder
+`obj\Rhetos\RhetosSource\Repositories\`.
 
 Now we will review the generated files and notice some classes and methods that we will use later in this tutorial article. In this example, we will look for features related to the [Entity Book](https://github.com/Rhetos/Bookstore/blob/master/src/Bookstore.Service/DslScripts/Book.rhe) from the Bookstore demo application. You can use any other entity from your application.
 
 Fore each entity, three classes are generated:
 
 1. **Simple "POCO" class**
-   * Find "class Book" in ServerDom.Model.cs.
+   * Find "class Book" in `obj\Rhetos\RhetosSource\Model\BookstoreModel.cs`.
    * Its namespace is Bookstore, so the full name of the class is Bookstore.Book.
    * This class contains simple properties of this entity, without any business features or data access logic. The base class adds an ID property.
    * Note that the Reference property Author is represented here as a "Guid? AuthorID". This class contains just raw data without references to other objects. It looks the same as the table columns in the database.
    * Also note that all properties in Rhetos are nullable.
 2. **Queryable class with navigation properties**
-   * Find "class Bookstore_Book" in ServerDom.Model.cs.
+   * Find "class Bookstore_Book" in `obj\Rhetos\RhetosSource\Model\BookstoreModel.cs`.
    * This class inherits the simple Book class and adds
      [navigation properties](https://docs.microsoft.com/en-us/ef/ef6/fundamentals/relationships) for use in **Entity Framework LINQ queries** (see `public virtual` properties that reference other entities).
    * This class is mapped to the database table or view by Entity Framework.
@@ -154,7 +159,7 @@ Fore each entity, three classes are generated:
    * The properties contains some wrapper code to handle some edge cases with EF that are not compatible with Rhetos features (deletes the references when detaching an object). We hope to remove it in future releases.
    * Note that the navigation properties are not created only for Reference properties. They can also include some other related Entities and other object types that are extensions or details to this entity.
 3. **Repository class with business features**
-   * Find "class Book_Repository" in ServerDom.Repositories.cs.
+   * Find "class Book_Repository" in `obj\Rhetos\RhetosSource\Repositories\BookstoreRepositories.cs`.
    * This class contains most of the business features and the data access logic.
    * Find the Query() method. It returns the Entity Framework query for this entity.
    * Find the Save(...) method and see it's arguments. It handles inserting, updating and deleting of records.

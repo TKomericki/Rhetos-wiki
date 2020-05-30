@@ -67,8 +67,7 @@ Developers write the business application's code in the DSL scripts:
 
 * A DSL script can be understood as a set of **statements**: Each statement declares **a feature** of the application.
 * Statements are instances of the concepts, starting with a concept keyword followed by parameter values.
-* DSL scripts often include SQL and C# code snippets.
-* DSL scripts can also contain calls to external dlls.
+* DSL scripts often include SQL and C# code snippets, or call external DLLs.
 
 Rhetos works as a compiler to generate the final application from the DSL scripts.
 

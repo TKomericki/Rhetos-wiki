@@ -202,7 +202,8 @@ Steps:
 
 1. Run the application from Visual Studio. It should open web browser with application's base URL,
    displaying "Installed packages" list and "Server status".
-   * The base URL might be <http://localhost/Bookstore.Service>, or similar.
+   * The base URL might be similar to <http://localhost:12345> for IIS Express,
+     or <http://localhost/Bookstore.Service> for IIS.
      Let's call this BASE_URL in the following examples.
 2. Open "BASE_URL/rest/Bookstore/Book/". It should return an empty JSON array
    `{ "Records": [] }` if there are no records in the database table.

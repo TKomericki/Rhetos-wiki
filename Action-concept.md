@@ -2,13 +2,13 @@ The `Action` concept is intended for implementing server commands. The code with
 
 Contents:
 
-1. [Create an action](#Create-an-action)
-2. [Execute an action](#Execute-an-action)
-3. [Using external code when developing actions](#Using-external-code-when-developing-actions)
-   1. [How to use an external class in an Action code snippet](#How-to-use-an-external-class-in-an-Action-code-snippet)
-   2. [How to use an external class in an Action with dependency injection](#How-to-use-an-external-class-in-an-Action-with-dependency-injection)
-   3. [How to avoid circular dependencies between the external class and the generated object model (ServerDom)](#How-to-avoid-circular-dependencies-between-the-external-class-and-the-generated-object-model-ServerDom)
-4. [Example for the ExtAction concept](#Example-for-the-ExtAction-concept)
+1. [Create an action](#create-an-action)
+2. [Execute an action](#execute-an-action)
+3. [Using external code when developing actions](#using-external-code-when-developing-actions)
+   1. [How to use an external class in an Action code snippet](#how-to-use-an-external-class-in-an-action-code-snippet)
+   2. [How to use an external class in an Action with dependency injection](#how-to-use-an-external-class-in-an-action-with-dependency-injection)
+   3. [How to avoid circular dependencies between the external class and the generated object model (ServerDom)](#how-to-avoid-circular-dependencies-between-the-external-class-and-the-generated-object-model-serverdom)
+4. [Example for the ExtAction concept](#example-for-the-extaction-concept)
 5. [BeforeAction concept](#BeforeAction-concept)
 
 ## Create an action
@@ -91,7 +91,8 @@ Module Demo
 
 ### How to use an external class in an Action with dependency injection
 
-1. Implement you class in a separate C# library project (dll).
+1. Implement the custom class that requests other dependency injection components as constructor parameters.
+   For older applications that use DeployPackages, the class must be implemented in a separate C# library project (DLL).
 2. Register your class to the [Autofac](https://autofac.org/) dependency injection container
     * See example of how to register your plugin’s classes: <https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/Plugins/Rhetos.Dom.DefaultConcepts/AutofacModuleConfiguration.cs>
     * The singleton class should be registered to [Autofac](https://autofac.org/) container as a “SingleInstance” component. For other component registration options please refer to Autofac documentation: <https://autofaccn.readthedocs.io/en/latest/register/registration.html>
@@ -101,8 +102,13 @@ Module Demo
 
 ### How to avoid circular dependencies between the external class and the generated object model (ServerDom)
 
+> NOTE: This section describes an issue that occurs on applications that use old Rhetos
+build process with DeployPackages. New application with Rhetos CLI (Rhetos.MSBuild) should implement
+the custom classes directly in the application, thus avoiding any circular dependencies between the
+custom classes and generated source from DSL scripts.
+
 The examples above work only for external classes that do not reference the generated object model (ServerDom).
-If the external class referenced the ServerDom, and the Action references the class, this would result with a circular dependency between the dlls.
+If the external class referenced the ServerDom, and the Action references the class, this would result with a circular dependency between the DLLs.
 
 In such situations, one of the dependencies needs to be removed. There are two options:
 

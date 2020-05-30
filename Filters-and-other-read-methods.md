@@ -99,9 +99,12 @@ to query a subset of the books.
 
 The following articles show how to **test this filter**, or use it in your application:
 
-1. Reading the filtered data from the REST web API is described in the [specification](https://github.com/Rhetos/RestGenerator/blob/master/Readme.md). For example:
-   * <http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"}]>
-2. Using the filter from the C# code is described in [Using the Domain Object Model](Using-the-Domain-Object-Model#Filters). For example:
+1. You can read the filtered data from a REST web API, as described in the
+   [RestGenerator documentation](https://github.com/Rhetos/RestGenerator/blob/master/Readme.md).
+   For example:
+   * <http://localhost/Bookstore.Service/rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"}]>
+2. You can execute the filter directly from C# code, as described in [Using the Domain Object Model](Using-the-Domain-Object-Model#Filters).
+   For example:
     ```C#
     var filterParameter = new Bookstore.LongBooks();
     var query = repository.Bookstore.Book.Query(filterParameter);
@@ -509,7 +512,7 @@ instead it just creates a new query.
 The Query data source is used in a similar way as ComposableFilterBy:
 
 * To test this solution on a Bookstore demo application use the following REST request:
-<http://localhost/BookstoreRhetosServer/rest/Bookstore/BookGrid/?filters=[{"Filter":"Bookstore.WantedBooks"}]>
+  `BASE_URL/rest/Bookstore/BookGrid/?filters=[{"Filter":"Bookstore.WantedBooks"}]`
 * To test it from C# with the domain object model, run the following code:
     ```C#
     var parameter = new Bookstore.WantedBooks { HighPriorityOnly = true };
@@ -640,7 +643,7 @@ You can use these filters same as any other filter or read method in the object 
         .ToString().Dump();
     ```
 * REST request example for the first filter:
-  * <http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/?filters=[{"Filter":"System.String[]","Value":["abc","def"]}]>
+  * `BASE_URL/rest/Bookstore/Book/?filters=[{"Filter":"System.String[]","Value":["abc","def"]}]`
 
 ### Combining filters and other read methods
 
@@ -665,16 +668,16 @@ The "**Example URL**" is using the entities from the [Bookstore](https://github.
 
 | GET request filter parameters example | Data processing workflow | Example URL |
 | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| No filter parameter | Load() | [rest/Bookstore/Book/](http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/) |
-| ItemFilter(param1) | Query() => Filter(param1) | [rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"}]](http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"}]) |
-| ItemFilter(param1), ItemFilter(param2) | Query() => Filter(param1) => Filter(param2) | [rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"},{"Filter":"Bookstore.CommonMisspelling"}]](http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"},{"Filter":"Bookstore.CommonMisspelling"}]) |
-| FilterBy(param1) | Load(param1) | [rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.ComplexSearch"}]](http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.ComplexSearch"}]) |
-| FilterBy(param1), ItemFilter(param2) | Load(param1) => Filter(param2)<br>**ERROR**: *ItemFilter(param2) works only on a query, not on loaded array.* | [rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.ComplexSearch"},{"Filter":"Bookstore.LongBooks"}]](http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.ComplexSearch"},{"Filter":"Bookstore.LongBooks"}]) |
-| ItemFilter(param1), FilterBy(param2) | Query() => Filter(param1) => Load(param2)<br>**ERROR**: *FilterBy(param2) cannot take previous data as an input.* | [rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"},{"Filter":"Bookstore.ComplexSearch"}]](http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"},{"Filter":"Bookstore.ComplexSearch"}]) |
+| No filter parameter | Load() | `rest/Bookstore/Book/` |
+| ItemFilter(param1) | Query() => Filter(param1) | `rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"}]` |
+| ItemFilter(param1), ItemFilter(param2) | Query() => Filter(param1) => Filter(param2) | `rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"},{"Filter":"Bookstore.CommonMisspelling"}]` |
+| FilterBy(param1) | Load(param1) | `rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.ComplexSearch"}]` |
+| FilterBy(param1), ItemFilter(param2) | Load(param1) => Filter(param2)<br>**ERROR**: *ItemFilter(param2) works only on a query, not on loaded array.* | `rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.ComplexSearch"},{"Filter":"Bookstore.LongBooks"}]` |
+| ItemFilter(param1), FilterBy(param2) | Query() => Filter(param1) => Load(param2)<br>**ERROR**: *FilterBy(param2) cannot take previous data as an input.* | `rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"},{"Filter":"Bookstore.ComplexSearch"}]` |
 | Query(param1), ItemFilter(param2) | Query(param1) => Filter(param2) |
 | ItemFilter(param1), Query(param2) | Query() => Filter(param1) => Query(param2)<br>**ERROR**: *Query(param2) cannot take previous data as an input.* |
-| GenericPropertyFilter(param1) | Query() => Filter(param1) | [rest/Bookstore/Book/?filters=[{"Property":"Code","Operation":"Contains","Value":"2"}]](http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/?filters=[{"Property":"Code","Operation":"Contains","Value":"2"}]) |
-| FilterBy(param1), GenericPropertyFilter(param2) | Load(param1) => Filter(param2)<br>**WARNING**: *This is inefficient because the Load method already loaded more data from database than required.* | [rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.ComplexSearch"},{"Property":"Code","Operation":"Contains","Value":"2"}]](http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.ComplexSearch"},{"Property":"Code","Operation":"Contains","Value":"2"}]) |
+| GenericPropertyFilter(param1) | Query() => Filter(param1) | `rest/Bookstore/Book/?filters=[{"Property":"Code","Operation":"Contains","Value":"2"}]` |
+| FilterBy(param1), GenericPropertyFilter(param2) | Load(param1) => Filter(param2)<br>**WARNING**: *This is inefficient because the Load method already loaded more data from database than required.* | `rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.ComplexSearch"},{"Property":"Code","Operation":"Contains","Value":"2"}]` |
 
 In the examples above, the result will be the same if you replace *ItemFilter* with a *ComposableFilterBy*.
 

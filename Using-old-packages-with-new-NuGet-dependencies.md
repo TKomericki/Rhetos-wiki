@@ -53,7 +53,7 @@ add (or replace) the following three `<dependentAssembly>` elements in `configur
 ## Configure Unit tests and utilities
 
 A similar change in *App.config* file should be done in your **unit testing projects**
-and **other applications** (exe utilities) if they reference the generated Rhetos dlls (ServerDom.Reporitories.dll).
+and **other applications** (exe utilities) if they reference the generated application's DLLs (ServerDom.Reporitories.dll, e.g.).
 If your application (or unit test project) does not have the config file,
 create it in Visual Studio: Project => Add New Item => Application Configuration File.
 

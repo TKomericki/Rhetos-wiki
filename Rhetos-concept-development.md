@@ -226,7 +226,7 @@ As you can see, this is where it gets a bit tricky.
 In order to write a code generator you have to know exactly where to place your code
 and the context in which your code will be run.
 There is no other way of finding that out but to browse already generated code
-(e.g.. ServerDom.Repositories.cs that can be found in Generated subfolder of your Rhetos server),
+(e.g. ServerDom.Repositories.cs, or other "*Repositories.cs" files that are generated within the project folder),
 and Rhetos core source code itself.
 Best way of doing this is to find similar functionality in
 [CommonConcepts](https://github.com/Rhetos/Rhetos/tree/master/CommonConcepts) and work from there.

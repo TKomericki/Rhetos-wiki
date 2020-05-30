@@ -95,7 +95,8 @@ When writing low-level code you will need to understand the environment
 **where this code will end up**. For example,
 what local variables and other features are available to be used in your code snippet:
 
-1. In the Bookstore demo application open the generated file `dist\BookstoreRhetosServer\bin\Generated\ServerDom.Repositories.cs`.
+1. In the Bookstore demo application open the generated file
+   `src\Bookstore.Service\obj\Rhetos\RhetosSource\Repositories\BookstoreRepositories.cs`.
 2. Find the `Save` method in `class Review_Repository`:
    * Note that it receives lists (IEnumerable) of items that will be inserted,
      updated and deleted, as parameters: `insertedNew`, `updatedNew` and `deletedIds`.
@@ -463,7 +464,7 @@ of the property type, but it can be **shortened** by omitting Version, Culture a
   assembly name (this is usually the file name "Rhetos.Utilities.dll”
   without the ".dll" extension).
 * Use full AssemblyQualifiedName for .NET framework types to avoid assembly loader issues,
-  and shortened for custom types implemented in dlls that are placed in your Rhetos application folder.
+  and shortened for custom types implemented in DLLs that are placed in your Rhetos application folder.
 * Troubleshooting:
   You can test if a correct string is provided, by checking the result of
   [Type.GetType](https://docs.microsoft.com/en-us/dotnet/api/system.type.gettype?view=netframework-4.8#System_Type_GetType_System_String_)

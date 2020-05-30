@@ -85,10 +85,10 @@ Technical notes:
 * In the application's object model and in the web API, Browse data structure
   is used for reading data in the same way as entity or any other data structure type.
   A client application does not know what kind of the data source is behind
-  <http://localhost/BookstoreRhetosServer/rest/Bookstore/BookGrid/>.
+  <http://localhost/Bookstore.Service/rest/Bookstore/BookGrid/>.
 * The Browse concept is internally represented as a single LINQ query in the generated application.
   You can find the generated LINQ query in the file
-  `dist\BookstoreRhetosServer\bin\Generated\ServerDom.Repositories.cs`
+  `src\Bookstore.Service\obj\Rhetos\RhetosSource\Repositories\BookstoreRepositories.cs`
   by searching for "Extension_ForeignBook.Translator.Name".
 
 Because of its simplicity and extensibility, Browse is a preferred concept to
@@ -292,7 +292,7 @@ but its data is not mapped to database (or Entity Framework).
 
 In the object model and in the web API, Computed is used in a same way as other data structures
 (Browse, SqlQueryable or Entity) for reading the data.
-For example, <http://localhost/BookstoreRhetosServer/rest/Bookstore/BookRating/> will return the list of book ratings.
+For example, <http://localhost/Bookstore.Service/rest/Bookstore/BookRating/> will return the list of book ratings.
 
 In the example above, the C# code snippet uses the generated object model
 to query the books from the database with `repository.Bookstore.Book.Query()`.

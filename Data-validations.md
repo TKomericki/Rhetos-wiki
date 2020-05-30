@@ -249,16 +249,16 @@ For example:
 > Execute POST web request to insert the disposal for this book:
 > Use the ID of the inserted book, but don't enter the Explanation property.
 
-Execute web requests:
+Execute the following web requests (replace "BASE_URL"):
 
 ```text
-POST: http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/
+POST: BASE_URL/rest/Bookstore/Book/
 HEADER: Content-Type: application/json; charset=utf-8
 BODY: { "ID":"712c2146-a6fc-4550-a8ec-ee15df2a4b85", "Title":"An important book" }
 ```
 
 ```text
-POST: http://localhost/BookstoreRhetosServer/rest/Bookstore/Disposal/
+POST: BASE_URL/rest/Bookstore/Disposal/
 HEADER: Content-Type: application/json; charset=utf-8
 BODY: { "BookID":"712c2146-a6fc-4550-a8ec-ee15df2a4b85" }
 ```
@@ -320,10 +320,10 @@ Continuing the examples from the previous sections (see `InvalidData ImportantBo
 > Use the REST Web API to insert a new Disposal with a short explanation for the Book
 > that has word "important" in the title.
 
-Web request:
+Execute the following web requests (replace "BASE_URL"):
 
 ```text
-POST: http://localhost/BookstoreRhetosServer/rest/Bookstore/Disposal/
+POST: BASE_URL/rest/Bookstore/Disposal/
 HEADER: Content-Type: application/json; charset=utf-8
 BODY: { "BookID":"712c2146-a6fc-4550-a8ec-ee15df2a4b85", "Explanation":"damaged" }
 ```

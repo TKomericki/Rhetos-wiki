@@ -285,7 +285,8 @@ Module DemoRowPermissions2
 ```
 
 * **InheritFromBase** can be used on a **Browse** data structures and on entities with **Extends** concept.
-* **InheritFrom** concept's parameter is the full name of `DocumentComment` entity's reference property (`Reference Document`) that references the "parent" entity with row permissions that will be inherited.
+* **InheritFrom** concept's parameter is the full name of `DocumentComment` entity's
+  reference property (`Reference Document`) that references the "parent" entity with row permissions that will be inherited.
 
 ### Optimizing inherited row permissions
 
@@ -318,16 +319,26 @@ SqlQueryable DocumentInfo
 }
 ```
 
-When querying the `DocumentInfo` with row permissions, the generated SQL query should `JOIN` the `DocumentInfo` view to the `Document` table, and use the `Document.DivisionID` column to check the row permissions as seen before.
+When querying the `DocumentInfo` with row permissions, the generated SQL query
+should `JOIN` the `DocumentInfo` view to the `Document` table,
+and use the `Document.DivisionID` column to check the row permissions as seen before.
 
-Since `DocumentInfo` view contains the `Division2ID` column, this column could be used directly and there is no need to join the `Document` table. This optimization can be achieved in Rhetos by using the **SamePropertyValue** concept; it will inform the engine that the inherited property can be used without referencing the base entity in the SQL query.
+Since `DocumentInfo` view contains the `Division2ID` column,
+this column could be used directly and there is no need to join the `Document` table.
+This optimization can be achieved in Rhetos by using the **SamePropertyValue** concept;
+it will inform the engine that the inherited property can be used without
+referencing the base entity in the SQL query.
 
-While this concept is useful on **SqlQueryable**, there is no use of putting **SamePropertyValue** inside **Browse** since **Browse** does not generate SQL view that might be used instead of the base table.
-Also note that this is a minor optimization in most cases, and there is no need to use the **SamePropertyValue** concept unless there are performance issues.
+While this concept is useful on **SqlQueryable**, there is no use of putting **SamePropertyValue**
+inside **Browse** since **Browse** does not generate SQL view that might be used instead of the base table.
+Also note that this is a minor optimization in most cases,
+and there is no need to use the **SamePropertyValue** concept unless there are performance issues.
 
 ## Client code - Reading data with row permissions
 
-*The following examples use the test data from Rhetos unit tests. To prepare the data, open the `CommonConceptsTest.sln` solution in the Rhetos source and run the tests in the `RowPermissionsDemo` class.*
+*The following examples use the test data from Rhetos unit tests.
+To prepare the data, open the `CommonConceptsTest.sln` solution in the Rhetos source
+and run the tests in the `RowPermissionsDemo` class.*
 
 ### Reading all documents (access denied)
 
@@ -345,16 +356,26 @@ Add the `Common.RowPermissionsReadItems` filter to read only documents that a us
 
     http://localhost/Rhetos/rest/DemoRowPermissions1/Document/?filters=[{"Filter":"Common.RowPermissionsReadItems"}]
 
-This web request will return only the records that the current user has permission to read; it will never fail with "Insufficient permissions" error.
+This web request will return only the records that the current user has permission to read;
+it will never fail with "Insufficient permissions" error.
 
-Note that if multiple filters are given, the RowPermissionsReadItems filter should be listed last for performance reasons. If the filter is applied last, it will guarantee that the returned records all pass the filter, and the server will skip the permissions verification of the returned records.
+Note that if multiple filters are given, the RowPermissionsReadItems filter should
+be listed last for performance reasons. If the filter is applied last,
+it will guarantee that the returned records all pass the filter,
+and the server will skip the permissions verification of the returned records.
 
 ## Server code - Manually verifying row permissions
 
-Row permissions are automatically checked for client's read and write requests. Row permissions are ignored inside a server-side functions that use ServerDom repositories the read and write data (inside an **Action** or a report, for example). To explicitly verify the current user's permissions inside the server code, use one of the following methods:
+Row permissions are automatically checked for client's read and write requests.
+Row permissions are ignored inside a server-side functions that use the repository classes directly
+to read and write data (for example, inside an **Action** or a report).
+To explicitly verify the current user's permissions inside the server code,
+use one of the following methods:
 
-1. Use `IProcessingEngine` to execute server commands to read/write data. The processing engine will check the current user's permissions, including row permission.
-2. Directly use row permissions filters (`Common.RowPermissionsReadItems` and `Common.RowPermissionsWriteItems`) on an entity with row permissions, to verify the data before writing it to the database or sending it to the user.
+1. Use `IProcessingEngine` to execute server commands to read/write data.
+   The processing engine will check the current user's permissions, including row permission.
+2. Directly use row permissions filters (`Common.RowPermissionsReadItems` and `Common.RowPermissionsWriteItems`)
+   on an entity with row permissions, to verify the data before writing it to the database or sending it to the user.
 
 ## See also
 

@@ -1,5 +1,10 @@
 # Using Postman with Rhetos REST Web API
 
+In the examples below, we will execute web requests on an application built with Rhetos framework,
+with the base URL `http://localhost/BookstoreRhetosServer`.
+If you are following a Bookstore tutorial, your application's base URL might be
+<http://localhost:PORT_NUMBER> for IIS Express, or <http://localhost/Bookstore.Service> for IIS.
+
 In Postman create a collection for recording all requests. This will simplify and speed up testing of the application.
 First choose the authentication type - NTLM, and enter your domain data:
 
