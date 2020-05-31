@@ -9,7 +9,7 @@ Contents:
 
 ## Install prerequisites
 
-Prerequisites for the Rhetos server:
+Prerequisites for running web applications with Rhetos framework:
 
 * Windows 8 or newer
 * .NET Framework 4.7.2
@@ -87,7 +87,7 @@ Install the IntelliSense support for Rhetos DSL:
 2. Open "Notepad++" => Menu "Language" => "Define your language" => Click "Import..." => Select the downloaded XML file.
 3. Optionally, configure direct *build and deployment* of DSL scripts from Notepad++. This is only for the development environment, and only for older Rhetos applications that contain DeployPackages.exe.
    1. Install the *NppExec* plugin (Plugins -> Plugin Manages ->...).
-   2. F6 -> enter the path to "DeployPackages.exe" inside the Rhetos server, for example
+   2. F6 -> enter the path to "DeployPackages.exe" inside the Rhetos application, for example
       "C:\Projects\MyRhetosServer\bin\DeployPackages.exe", click "Save...", enter script name "DeployPackages".
       Henceforward, that action can be executed directly with CTRL-F6.
    3. For automatic analysis of deployment results: SHIFT-F6 -> "Highlight" -> enter the following table.

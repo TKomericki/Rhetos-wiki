@@ -51,7 +51,7 @@ Steps:
 What to upgrade:
 
 * Your application should use the same version of Rhetos.CommonConcepts package as
-  the Rhetos server version. CommonConcepts is a standard library for Rhetos framework,
+  the Rhetos framework version. CommonConcepts is a standard library for Rhetos framework,
   the two are always developed and released together.
 * If you are upgrading to the latest version of the Rhetos framework,
   it is recommended to upgrade to the latest version of all other Rhetos packages

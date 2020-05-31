@@ -92,7 +92,7 @@ with .NET Framework, follow the article [Prerequisites](Prerequisites).
 
 1. Create an empty database for this Rhetos application.
    In your project folder: rename `Template.ConnectionStrings.config` to `ConnectionStrings.config`
-   and enter the SQL server [instance](https://stackoverflow.com/a/45789478/2086516) name (`theServer`)
+   and enter the SQL Server [instance](https://stackoverflow.com/a/45789478/2086516) name (`theServer`)
    and database name (`theDatabase`).
    * Note: Each developer must have his/her own database for Rhetos application development,
      to avoid conflicts of deploying multiple Rhetos applications to the same database.
@@ -218,7 +218,7 @@ Steps:
       * URL: BASE_URL/rest/Bookstore/Book/
       * Header: Name `Content-Type`, Value `application/json; charset=utf-8`
       * Body: `{ "Code": "B+++", "NumberOfPages": 123, "Title": "The curiousity" }`
-    * The expected response from the server is "400 Bad Request", with the UserMessage
+    * The expected response from the application is "400 Bad Request", with the UserMessage
       "It is not allowed to enter misspelled word "curiousity".".
       This is a standard Rhetos response for validation that is defined with **InvalidData**
       concept (see the DSL script above).

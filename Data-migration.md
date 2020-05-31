@@ -84,7 +84,7 @@ EXEC Rhetos.DataMigrationApplyMultiple 'Common', 'Principal', 'ID, Name';
     * Create a migration table with the selected columns.
     * Copy the data from the original table.
     * If the column already exists, but has a different data type, it will convert the migrated data type if the
-      implicit conversion is supported by the SQL server (see ALTER TABLE ALTER COLUMN).
+      implicit conversion is supported by the SQL Server (see ALTER TABLE ALTER COLUMN).
 4. The `DataMigrationApplyMultiple` procedure will:
     * Copy the data from the migration table to the original table.
     * If there were inserted or deleted records in the migration table, the procedure will also insert/delete the records in the original table.

@@ -73,8 +73,8 @@ See [Rhetos DSL syntax](Rhetos-DSL-syntax) article for better understanding of t
 
 ## Build your application
 
-The Bookstore application backend is a web application set in the `dist\BookstoreRhetosServer` folder.
-The Rhetos server application, that you have downloaded in that folder,
+The Bookstore web application is built in `dist\BookstoreRhetosServer` folder.
+The RhetosServer, that you have downloaded earlier in that folder,
 contains only framework infrastructure, without business features.
 
 All business features are included in the application as packages.
@@ -136,15 +136,15 @@ most Rhetos applications should contain:
 
 1. The build script `Build.ps1`, that does everything needed to produce the application binaries from the source:
    1. It checks for installed prerequisites (MSBuild, NuGet, database connection string, ...).
-   2. Automatically downloads the Rhetos server binaries.
+   2. Automatically downloads the RhetosServer binaries.
       This help us to avoid committing any binaries into the source repository.
       The download is optimized to occur only on the first build or when changing the version
-      of the Rhetos server (defined in `Build.ps1`).
+      of the RhetosServer (defined in `Build.ps1`).
    3. Runs MSBuild to build all application components (new custom DSL concepts,
       and an external algorithm implemented in a separate DLL).
    4. Runs DeployPackages to generate a working application in `dist\BookstoreRhetosServer` subfolder.
 2. The NuGet specification file `src\Bookstore.nuspec`.
-   It specifies the list of application components that will be deployed to the Rhetos server.
+   It specifies the list of application components that will be deployed to the RhetosServer.
    More info at [Creating a Rhetos package](Creating-a-Rhetos-package)
 3. The test script `Test.ps1`. It builds and runs the automated unit tests and the integration tests.
 

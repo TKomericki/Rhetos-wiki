@@ -27,7 +27,7 @@ This article describes the release process for both Rhetos framework (<https://g
     * [ ] Push your repository to GitHub (set the option *Include Tags*).
     * [ ] [Private builds only] Publish the new NuGet package to your company's NuGet gallery (ask your system administrator for the location).
     * [ ] Publish the Rhetos NuGet package(s) to the public [NuGet gallery](https://www.nuget.org/packages/manage/upload).
-    * [ ] [Framework only] Add the Rhetos server zip file to GitHub release: Open [tags on GitHub](https://github.com/Rhetos/Rhetos/tags)
+    * [ ] [Framework only] Add the RhetosServer zip file to GitHub release: Open [tags on GitHub](https://github.com/Rhetos/Rhetos/tags)
       => At the tag for the newly released version click "Create release"
       => **Check** that the opened form displays the tag you have just selected
       * At *Describe this release* write: `See Release notes in [ChangeLog.md](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md)`

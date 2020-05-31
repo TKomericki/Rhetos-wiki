@@ -2,9 +2,9 @@
 
 Welcome to Rhetos wiki!
 
-Rhetos is a DSL framework that enables you to create your own *domain-specific language* to build server applications.
+Rhetos is a DSL framework that enables you to create your own *domain-specific language* to build applications.
 After an application developer describes the application in that language (DSL script), Rhetos will
-use it to generate the application server, including the application's database,
+generate the complete application, including the application's database,
 business layer object model (C#) and web API (REST, SOAP, OData, etc.).
 
 * [What is Rhetos](What-is-Rhetos), an overview of the Rhetos architecture and principles
@@ -74,7 +74,7 @@ Support:
 * [ODataGenerator](https://github.com/Rhetos/ODataGenerator) generates OData interface (Open Data Protocol) for all entities and other queryable data structures that are defined in a Rhetos application.
 * [I18NFormatter](https://github.com/Rhetos/I18NFormatter), enables localization of Rhetos applications using [GetText / PO](http://en.wikipedia.org/wiki/Gettext) standard.
 * [LegacyRestGenerator](https://github.com/Rhetos/LegacyRestGenerator), an old version of REST API, available for backward compatibility.
-* [MvcModelGenerator](https://github.com/Rhetos/MvcModelGenerator) generates ASP.NET MVC model for all entities and other queryable data structures, for use in other web applications when accessing the Rhetos server.
+* [MvcModelGenerator](https://github.com/Rhetos/MvcModelGenerator) generates ASP.NET MVC model for all entities and other queryable data structures, for use in other web applications when accessing the Rhetos application.
 
 See also [Installing plugin packages](Installing-plugin-packages).
 

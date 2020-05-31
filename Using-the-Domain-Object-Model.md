@@ -46,8 +46,8 @@ Contents:
 
 ## How to execute the examples
 
-The examples from this article can be executed with the [LINQPad](https://www.linqpad.net/) script `Rhetos Server DOM.linq`,
-already available in your application's folder,
+The examples from this article can be executed with the [LINQPad](https://www.linqpad.net/)
+script `Rhetos Server DOM.linq`, already available in your application's folder,
 or create a "playground" console app in Visual Studio with ConsoleDump NuGet plugin.
 
 * **LINQPad** - Simple to setup, nicer output format. Free, but IntelliSense (autocomplete) requires buying a license.

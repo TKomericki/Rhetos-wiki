@@ -1,6 +1,7 @@
-# Setting up Rhetos for HTTPS
+# Setting up Rhetos application for HTTPS
 
-In order for Rhetos to work on HTTPS you need to update the binding security elements in Rhetos server's *web.config* file:
+In order for Rhetos WCF web application to work on HTTPS you need to update
+the binding security elements in the application's *Web.config* file:
 
 1. Insert the following snippet into the existing `binding` elements (or update if it already exists):
 

@@ -35,10 +35,10 @@ In your Rhetos application you can:
    and [write](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Logging.Interfaces/ILogger.cs)
    log entries: `logger.Write(...)`.
 2. Configure logging in `Web.config` to create rules on when and where to send those events.
-   Review the `nlog` section in your Rhetos server's *Web.config* file for some examples.
+   Review the `nlog` section in your Rhetos application's *Web.config* file for some examples.
 
 Here are explained some examples from the default configuration of the `<nlog>` section
-in Rhetos server's `Web.config` file.
+in Rhetos application's `Web.config` file.
 Uncomment any existing rule or add new rules as needed.
 
 | Web.config `<nlog>` rule | Description |
@@ -66,11 +66,11 @@ try the following options:
 ## Logging data changes and auditing
 
 Logging can be enabled on any entity to generated an **audit trail**.
-For the audit trail Rhetos server uses *Common.Log* table.
+For the audit trail Rhetos application uses *Common.Log* table.
 When enabled, logging automatically records all changes made on the entity.
 It also records the changed data and information about the user.
 Logging is implemented through SQL triggers which makes it possible to record changes
-made outside the Rhetos server application.
+made outside the Rhetos application.
 
 * More about using the **Logging** concept can be found under
   [Implementing simple business rules](Implementing-simple-business-rules#Logging).
@@ -95,9 +95,9 @@ instead of reading from Common.Log directly.
 | --- | --- |
 | ID uniqueidentifier | Internal PK |
 | Created datetime | Log entry creation time. |
-| User nvarchar(256) | A system account that made the data modification. This is usually account which runs Rhetos server. |
-| Workstation nvarchar(256) | This is usually workstation which runs Rhetos server. |
-| ContextInfo nvarchar(256) | If logged action has been done through Rhetos server, this column will contain username of end user and its PC name or IP in the following format “Rhetos:{username},{host}". |
+| User nvarchar(256) | A system account that made the data modification. This is usually account which runs the Rhetos web application. |
+| Workstation nvarchar(256) | This is usually workstation which runs the Rhetos web application. |
+| ContextInfo nvarchar(256) | If logged action has been done through a Rhetos application, this column will contain username of end user and its PC name or IP in the following format “Rhetos:{username},{host}". |
 | Action nvarchar(256) | Logged action: "Insert", "Update", "Delete" or other.  |
 | TableName nvarchar(256) | Name of the entity whose values have been changed. |
 | ItemId uniqueidentifier | ID of changed item. |

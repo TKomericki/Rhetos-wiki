@@ -1,4 +1,4 @@
-Rhetos is a DSL platform for Enterprise Application Development.
+Rhetos is a DSL platform, specialized for Enterprise Application Development.
 
 * It enables developers to create a **Domain-Specific Programming Language** and use it to write their applications.
 * There are libraries available with ready-to-use implementations of many standard business and design patterns or technology integrations.
@@ -31,7 +31,7 @@ The basic principles:
   * Try to develop most of the application's business logic by simply declaring the features.
   * Reduce the amount of the imperative code in order to decrease code coupling and increase long-term maintainability.
   * Developers are encouraged to recognize business and technology patterns, and create DSL concepts to simplify the use of those patterns in the business application development.
->   Rhetos DSL concepts are able to encapsulate a much larger scope of patterns than just writing a reusable class or a function. The implemented pattern can affect any part of the system, from the database structure to the web API, extend other existing features or implement the crosscutting concerns.
+  > Rhetos DSL concepts are able to encapsulate a much larger scope of patterns than just writing a reusable class or a function. The implemented pattern can affect any part of the system, from the database structure to the web API, extend other existing features or implement the crosscutting concerns.
 * **Code decoupling and Extensibility**
   * Each feature is implemented as a DSL concept with minimal number of dependencies.
   * Additional features are added as an extension from outside, not increasing complexity of the existing features' implementation.
@@ -39,19 +39,17 @@ The basic principles:
 ## What does the Rhetos platform contain
 
 1. Programming language development tools:
-    * A framework for developing DSL concepts (as plugins) and code generators.
-2. Ready-to-use DSL libraries:
-    * Implementations of standard business and design patterns
-    * Web API generators (such as REST, SOAP and OData)
-    * Authentication plugins
-    * Reporting
-    * Internationalization
-    * and others
-3. Application development & deployment process:
-    * Setup the Rhetos server
-    * Use existing libraries with DSL concepts and technology-specific solutions (NuGet packages)
-    * Develop your application: Write DSL scripts, custom DSL concept (generate new NuGet packages)
-    * Deploy all the packages to the Rhetos server to generate the application's business layer, database, web service and other features.
+   * A framework for developing DSL concepts (custom programming language extensions).
+2. Ecosystem of ready-to-use DSL libraries:
+   * Implementations of standard business and design patterns
+   * Web API generators (such as REST, SOAP and OData)
+   * Authentication plugins
+   * Reporting
+   * Internationalization
+   * and others
+3. Build and deployment tools.
+4. Set of best practices and design principles, tuned for large business application development
+   (Event Sourcing, database upgrade and migration process, etc.).
 
 ## Rhetos DSL
 

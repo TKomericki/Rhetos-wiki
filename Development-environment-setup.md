@@ -7,7 +7,7 @@ Table of contents:
 
 1. [Prerequisites](#prerequisites)
 2. [Create a working folder](#create-a-working-folder)
-3. [Get Rhetos server binaries](#get-rhetos-server-binaries)
+3. [Get Rhetos framework binaries](#get-rhetos-framework-binaries)
 4. [Database setup](#database-setup)
 5. [Packages configuration](#packages-configuration)
 6. [IIS setup](#iis-setup)
@@ -31,7 +31,7 @@ Create a development folder for your business application.
 Note that this folder structure is not required by Rhetos, but it is recommended.
 It is used in different Rhetos tutorial articles, it conforms to Microsoft's new projects, and is easy to extend with new services and Rhetos components.
 
-## Get Rhetos server binaries
+## Get Rhetos framework binaries
 
 1. Download the RhetosServer zip file from the [latest release](https://github.com/Rhetos/Rhetos/releases) (not the source code).
 2. Unpack the zip to the RhetosServer folder.
@@ -61,7 +61,7 @@ Alternatively, you could build the Rhetos server binaries from the latest versio
 
 ## Packages configuration
 
-Rhetos packages define the content of the Rhetos server.
+Rhetos packages define the content of the Rhetos application.
 This section describes **the initialization of the packages configuration files**,
 but with no packages selected.
 That will result with an *empty* Rhetos server being deployed.
@@ -88,7 +88,7 @@ Follow the steps in this section if using IIS (recommended) instead of IIS Expre
     * Name: "RhetosAppPool"
     * NET framework version: "v4.x"
     * Managed pipeline mode: "Integrated"
-3. Open "RhetosAppPool" => "Advanced settings" => Change "Identity" => Select "Custom account" => Enter a domain user account that will be used for Rhetos server (on a development computer enter your full account name; to find it type `whoami` in the command prompt). If you are **not using** a Windows domain account, see the next paragraph for setting the custom account.
+3. Open "RhetosAppPool" => "Advanced settings" => Change "Identity" => Select "Custom account" => Enter a domain user account that will be used for Rhetos web application (on a development computer enter your full account name; to find it type `whoami` in the command prompt). If you are **not using** a Windows domain account, see the next paragraph for setting the custom account.
     * Note: This account must have *db_owner* rights for the Rhetos database (see Database setup).
 4. *Only for older versions*: If using Rhetos v1.1 or older, "RhetosAppPool" => "Advanced settings" => check "Enable 32-Bit Application".
 5. Select "Sites" => Right click "Default Web Site" => "Add application...", enter the following data:

@@ -204,8 +204,8 @@ Entity RightToArea
 
 **SqlDefault** -
   Creates a default constraint on the specified column in the table. This concepts intended for internal system use.
-  It cannot be used for setting the default value when saving an entity through the Rhetos server,
-  because the server always sends the NULL value for property without set values.
+  It cannot be used for setting the default value when saving an entity through the Rhetos application,
+  because the application always sends the NULL value for a property without set value.
 
 ```C
 Entity Log

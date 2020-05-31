@@ -157,7 +157,7 @@ Suppressing permissions is useful only in an early stage of the project, while p
 It allows developers to test the new features without need to manage users, roles and permissions.
 
 The basic permission checking can be turned off in a development environment by setting
-the following options in the Rhetos server's **web.config** file, or preferably a user-specific
+the following options in the application's **Web.config** file, or preferably a user-specific
 config file (for example, **ExternalAppSettings.config**, referenced from web.config).
 
 1. **Rhetos:AppSecurity:AllClaimsForUsers** - *(recommended)* The value should contain a comma-separated
@@ -166,19 +166,19 @@ config file (for example, **ExternalAppSettings.config**, referenced from web.co
    The *servername* refers to machine where the Rhetos application is hosted.
    For older applications use [Configuration keys before Rhetos v4.0](Configuration-management#configuration-keys-before-rhetos-v40).
    Usage examples:
-   * Domain user on a shared server:
-     `<add key="Rhetos:AppSecurity:AllClaimsForUsers" value="mydomain\myusername@ourserver" />`.
-   * Local windows user without Windows domain:
-     `<add key="Rhetos:AppSecurity:AllClaimsForUsers" value="mypc\myusername@mypc" />`.
+   * Local Windows user, running the application locally, without Windows domain:
+     `<add key="Rhetos:AppSecurity:AllClaimsForUsers" value="MY_PC_NAME\myusername@MY_PC_NAME" />`.
+   * Domain user, with test application running on a shared server:
+     `<add key="Rhetos:AppSecurity:AllClaimsForUsers" value="mydomain\myusername@OUR_SERVER_NAME" />`.
    * Forms Authentication user "admin":
-     `<add key="Rhetos:AppSecurity:AllClaimsForUsers" value="admin@myserver" />`.
+     `<add key="Rhetos:AppSecurity:AllClaimsForUsers" value="admin@MY_SERVER_NAME" />`.
 2. **Rhetos:AppSecurity:AllClaimsForAnonymous** - If set to "true",
    users will have all basic permissions when authentication is configured to anonymous.
    This feature will raise an error if any other authentication method is used.
    *(since Rhetos v4.0)*
 3. **Rhetos:AppSecurity:BuiltinAdminOverride** - If set to "true",
    the user that is a local administrator will have full permissions.
-   This option works only for web service with Windows authentication, and if the web server
+   This option works only for web service with Windows authentication, and if the web application
    is able to check the user's Windows groups (usually in development environment).
    Use the AllClaimsForUsers option otherwise.
    For older applications use [Configuration keys before Rhetos v4.0](Configuration-management#configuration-keys-before-rhetos-v40).

@@ -5,7 +5,8 @@ with the base URL `http://localhost/BookstoreRhetosServer`.
 If you are following a Bookstore tutorial, your application's base URL might be
 <http://localhost:PORT_NUMBER> for IIS Express, or <http://localhost/Bookstore.Service> for IIS.
 
-In Postman create a collection for recording all requests. This will simplify and speed up testing of the application.
+In Postman create a collection for recording all requests.
+This will simplify and speed up testing of the application.
 First choose the authentication type - NTLM, and enter your domain data:
 
 ![Postman image 1](images/postman-image1.png)
@@ -20,7 +21,8 @@ If your request updates the database, then you should select *Body -> raw* and s
 ![Postman image 2](images/postman-image2.png)
 ![Postman image 3](images/postman-image3.png)
 
-The request is sent to Rhetos through a REST service in the following format: `{Rhetos server URL}/Rest/{Module}/{Entity}/`
+The request is sent to Rhetos through a REST service in the following format:
+`{BASE_URL}/Rest/{Module}/{Entity}/`
 
 The image above shows accessing the BookstoreRestServer application through the REST service,
 and then accessing the module Bookstore and its entity Book.
@@ -59,11 +61,14 @@ After saving in the database, the field below displays either an error or the ID
 }
 ```
 
-If we want to fetch the given record, the ID needs to be added in the URL and the GET method need to be selected: `http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/f0544f71-7d35-4f3d-9410-025651bcc306`
+If we want to fetch the given record, the ID needs to be added in the URL
+and the GET method need to be selected:
+`http://localhost/BookstoreRhetosServer/rest/Bookstore/Book/f0544f71-7d35-4f3d-9410-025651bcc306`
 
 When reading a specific record from the database, the URL should not end with `/`.
 
-When deleting a record, you should select the DELETE method and add the ID of the record to the URL. See the image below:
+When deleting a record, you should select the DELETE method and add the ID of the record to the URL.
+See the image below:
 
 ![Postman image 4](images/postman-image4.png)
 

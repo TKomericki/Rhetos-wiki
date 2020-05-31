@@ -12,7 +12,7 @@ Simply add the [NuGet package](https://docs.microsoft.com/en-us/nuget/quickstart
 
 ### Applications with DeployPackages
 
-1. To install the additional package to a Rhetos server, add it to the Rhetos server's **RhetosPackages.config** file.
+1. To install the additional package to a Rhetos application, add it to the Rhetos application's **RhetosPackages.config** file.
     * For example, to install a package named "Rhetos.AfterDeploy", version 2.0.0, add the `package` line to the *RhetosPackages.config* file. Remove the version attribute to install the latest version.
 
         ```XML
@@ -32,4 +32,4 @@ Simply add the [NuGet package](https://docs.microsoft.com/en-us/nuget/quickstart
 
 3. Read the package's **Readme.md** file, to see if there are additional step that need to be done in order to install or configuring the plugin correctly.
 
-4. Run `bin\DeployPackages.exe` to rebuild the Rhetos server application with the new package.
+4. Run `bin\DeployPackages.exe` to rebuild the Rhetos application with the new package.

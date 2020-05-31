@@ -1,4 +1,6 @@
-The `Action` concept is intended for implementing server commands. The code with the action will be execution in a single transaction, so that in case of an error the whole action will be canceled (all-or-nothing).
+The `Action` concept is intended for implementing server commands that are available as web API methods.
+The action's code will be execution in a single transaction,
+so that in case of an error the whole action will be canceled (all-or-nothing).
 
 Contents:
 

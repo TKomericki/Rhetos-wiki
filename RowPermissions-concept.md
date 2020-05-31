@@ -2,14 +2,19 @@ Row permissions are intended for implementing business requirements that can be 
 
 > Some employees are allowed to access (read or write) some subset of the entity's records.
 
-* Note that row permissions are **not intended** for limiting access to specific **actions**, or **filtering** out some records in one part of the application while allowing the user to access the same records in another part of the application.
+* Note that row permissions are **not intended** for limiting access to specific **actions**,
+  or **filtering** out some records in one part of the application
+  while allowing the user to access the same records in another part of the application.
 * For a simpler model of user permissions, see [Basic-permissions](Basic-permissions).
 
 Row permissions are based on filters that are applied when reading and writing entity's records:
 
-* The user will be **denied read or write command** if the involved records do not pass the given row permissions filter.
-* A client may **explicitly apply** the row permissions filter (`Common.RowPermissionsReadItems`) when reading data from the Rhetos server, in order to avoid any access-denied errors.
-* Row permissions are **ignored** inside a server-side functions (inside an **Action** or a **FilterBy**, e.g.). To explicitly verify user's permissions in a sever action, see "Manually verifying row permissions" below.
+* The user will be **denied read or write command** if the involved records do not pass
+  the given row permissions filter.
+* A client may **explicitly apply** the row permissions filter (`Common.RowPermissionsReadItems`)
+  when reading data from the Rhetos web application, in order to avoid any access-denied errors.
+* Row permissions are **ignored** inside a server-side functions (inside an **Action** or a **FilterBy**, e.g.).
+  To explicitly verify user's permissions in a sever action, see "Manually verifying row permissions" below.
 
 Contents:
 
@@ -334,7 +339,7 @@ inside **Browse** since **Browse** does not generate SQL view that might be used
 Also note that this is a minor optimization in most cases,
 and there is no need to use the **SamePropertyValue** concept unless there are performance issues.
 
-## Client code - Reading data with row permissions
+## Client side - Reading data with row permissions
 
 *The following examples use the test data from Rhetos unit tests.
 To prepare the data, open the `CommonConceptsTest.sln` solution in the Rhetos source
@@ -362,14 +367,14 @@ it will never fail with "Insufficient permissions" error.
 Note that if multiple filters are given, the RowPermissionsReadItems filter should
 be listed last for performance reasons. If the filter is applied last,
 it will guarantee that the returned records all pass the filter,
-and the server will skip the permissions verification of the returned records.
+and the server application will skip the permissions verification of the returned records.
 
-## Server code - Manually verifying row permissions
+## Server side - Manually verifying row permissions
 
 Row permissions are automatically checked for client's read and write requests.
 Row permissions are ignored inside a server-side functions that use the repository classes directly
 to read and write data (for example, inside an **Action** or a report).
-To explicitly verify the current user's permissions inside the server code,
+To explicitly verify the current user's permissions inside the application's code,
 use one of the following methods:
 
 1. Use `IProcessingEngine` to execute server commands to read/write data.
