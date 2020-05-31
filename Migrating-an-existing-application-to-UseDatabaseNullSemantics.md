@@ -40,8 +40,10 @@ and adjusting the implementation where needed. More on this is described in the 
 In *Web.config* file, add or modify the following `appSettings` element:
 
 ```xml
-<add key="EntityFramework.UseDatabaseNullSemantics" value="True" />
+<add key="Rhetos:App:EntityFrameworkUseDatabaseNullSemantics" value="True" />
 ```
+
+For older applications use [Configuration keys before Rhetos v4.0](Configuration-management#configuration-keys-before-rhetos-v40).
 
 ## Testing and migrating the existing features in your application
 

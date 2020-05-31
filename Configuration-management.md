@@ -12,53 +12,61 @@ Content:
    3. [Application run-time configuration](#application-run-time-configuration)
 3. [Reading configuration with custom options classes](#reading-configuration-with-custom-options-classes)
 4. [Configuring application from code](#configuring-application-from-code)
+5. [Configuration keys before Rhetos v4.0](#configuration-keys-before-rhetos-v40)
 
 ## General notes
 
-1. When there are **multiple configuration sources** specified, the later will extend and override configuration from previous sources.
-2. Configuration settings are **differently formatted** in .config files and .json files. See the same example in both files bellow.
-   * In .config files, they are always part of `appSettings` element. Keys contain dot as a path separator.
+1. When there are **multiple configuration sources** specified, the later will extend and override
+   configuration from previous sources.
+2. Configuration settings are **differently formatted** in .config files and .json files.
+   See the same example in both files bellow.
+   * In .config files, they are always part of `appSettings` element.
+     Keys contain colon or dot as a path separator.
      ```xml
      <appSettings file="ExternalAppSettings.config">
        <add key="CommonConcepts:AutoGeneratePolymorphicProperty" value="False" />
        <add key="CommonConcepts:CascadeDeleteInDatabase" value="False" />
-       <add key="InitialConceptsSort" value="Key" />
+       <add key="SomeOldPlugin.CustomOption" value="SomeText" />
      </appSettings>
      ```
-   * In .json files, path for the key is represented by subobjects. Boolean and numeric values do not use quotes.
+   * In .json files, path for the key is represented by subobjects.
+     Boolean and numeric values do not use quotes.
      ```json
      {
        "CommonConcepts": {
           "AutoGeneratePolymorphicProperty": false,
           "CascadeDeleteInDatabase": false
        },
-       "InitialConceptsSort": "Key"
+       "SomeOldPlugin": {
+         "CustomOption": "SomeText"
+       }
      }
      ```
-3. **Environment-specific configuration file** contains settings specific for a single
-   developer/test/production environment, that extends or override base configuration
-   from Web.config.
-   It should be options and excluded from source repository.
-   Examples:
-   * In Web.config file, the environment-specific configuration file is referenced in
-     appSettings element (see *ExternalAppSettings.config* in the example above).
-   * *rhetos-app.local.settings.json* (see configuration sources below).
+3. **Environment-specific configuration files** contain settings that are specific for a single
+   developer/test/production environment.
+   They extends or overrides the base configuration (Web.config or rhetos-app.settings.json).
+   These files should be optional and excluded from source repository.
+   Environment-specific configuration files:
+   * *rhetos-app.local.settings.json* (since Rhetos v4.0), see configuration sources below for more details.
+   * In Web.config file, the environment-specific configuration files can be explicitly referenced in
+     different sections of the configuration. For example, `appSettings` element in the snippet above
+     references *ExternalAppSettings.config* file.
 
 ## Configuration sources
 
 ### Build configuration
 
-Default configuration sources for project with **DeployPackages**:
-
-1. *Web.config* (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
-2. *DeployPackages.exe.config*.
+See [General notes](#general-notes) above for difference in formatting between .config and .json files.
 
 Default configuration sources for project with **Rhetos.MSBuild / Rhetos CLI**:
 
 1. Rhetos.exe.config (from NuGet packages folder) - Do not edit.
 2. **rhetos-build.settings.json** - Recommended for configuring build.
 
-See [General notes](#general-notes) above for difference in formatting between .config and .json files.
+Default configuration sources for project with **DeployPackages**:
+
+1. Web.config (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
+2. DeployPackages.exe.config - Do not edit.
 
 Common options classes:
 
@@ -68,22 +76,22 @@ Common options classes:
 
 ### Database update configuration
 
-Default configuration sources for application with **DeployPackages**:
-
-1. *Web.config* (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
-2. rhetos-app.settings.json - Since Rhetos v4.0.
-3. rhetos-app.local.settings.json - Since Rhetos v4.0.
-4. *DeployPackages.exe.config*.
-
 Default configuration sources for application with **Rhetos.MSBuild / Rhetos CLI**:
 
-1. *Web.config* (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
+1. Web.config (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
 2. rhetos-app.settings.json
 3. rhetos-app.local.settings.json
-4. Overrides *Rhetos:Database:SqlCommandTimeout* to 0 (unlimited).
+4. Overrides *Rhetos:Database:SqlCommandTimeout* option to 0 (unlimited).
 5. Rhetos.exe.config (from bin folder) - Do not edit.
 6. **rhetos-dbupdate.settings.json** - Recommended for configuring database update.
 7. Rhetos CLI switches.
+
+Default configuration sources for application with **DeployPackages**:
+
+1. Web.config (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
+2. rhetos-app.settings.json - Since Rhetos v4.0.
+3. rhetos-app.local.settings.json - Since Rhetos v4.0.
+4. DeployPackages.exe.config - Do not edit.
 
 Common options classes:
 
@@ -92,19 +100,19 @@ Common options classes:
 
 ### Application run-time configuration
 
-Default configuration sources for application with **DeployPackages**:
-
-1. *Web.config* (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
-2. rhetos-app.settings.json - Since Rhetos v4.0.
-3. rhetos-app.local.settings.json - Since Rhetos v4.0.
+See [General notes](#general-notes) above for difference in formatting between .config and .json files.
 
 Default configuration sources for application with **Rhetos.MSBuild / Rhetos CLI**:
 
-1. *Web.config* (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
+1. Web.config (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
 2. **rhetos-app.settings.json** - Recommended for general application configuration.
 3. **rhetos-app.local.settings.json** - Recommended for developer-specific or environment-specific configuration.
 
-See [General notes](#general-notes) above for difference in formatting between .config and .json files.
+Default configuration sources for application with **DeployPackages**:
+
+1. Web.config (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
+2. rhetos-app.settings.json - Since Rhetos v4.0.
+3. rhetos-app.local.settings.json - Since Rhetos v4.0.
 
 Common options classes:
 
@@ -139,3 +147,30 @@ and overriding application configuration by using `IConfigurationBuilder` instan
   `IConfiguration` instance from dependency injection, but it is preferred to use registered
   options classes instead (see the "Common options classes" in different sections above),
   or register additional custom options classes.
+
+## Configuration keys before Rhetos v4.0
+
+Rhetos framework v4.0 introduced new settings structure and modified configuration keys.
+Here is a mapping between old and new options keys.
+
+| Rhetos v1, v2, v3 | Rhetos v4+ |
+| -- | -- |
+| AssemblyGenerator.ErrorReportLimit | Rhetos:Build:AssemblyGeneratorErrorReportLimit |
+| AuthorizationAddUnregisteredPrincipals | Rhetos:App:AuthorizationAddUnregisteredPrincipals |
+| AuthorizationCacheExpirationSeconds | Rhetos:App:AuthorizationCacheExpirationSeconds |
+| BuiltinAdminOverride | Rhetos:AppSecurity:BuiltinAdminOverride |
+| CommonConcepts.Debug.SortConcepts | Rhetos:Build:InitialConceptsSort |
+| CommonConcepts.Legacy.AutoGeneratePolymorphicProperty | CommonConcepts:AutoGeneratePolymorphicProperty |
+| CommonConcepts.Legacy.CascadeDeleteInDatabase | CommonConcepts:CascadeDeleteInDatabase |
+| DataMigration.SkipScriptsWithWrongOrder | Rhetos:DbUpdate:DataMigrationSkipScriptsWithWrongOrder |
+| EntityFramework.UseDatabaseNullSemantics | Rhetos:App:EntityFrameworkUseDatabaseNullSemantics |
+| Security.AllClaimsForUsers | Rhetos:AppSecurity:AllClaimsForUsers |
+| Security.LookupClientHostname | Rhetos:AppSecurity:LookupClientHostname |
+| SqlCommandTimeout | Rhetos:Database:SqlCommandTimeout |
+| SqlExecuter.MaxJoinedScriptCount | Rhetos:SqlTransactionBatches:MaxJoinedScriptCount |
+| SqlExecuter.MaxJoinedScriptSize | Rhetos:SqlTransactionBatches:MaxJoinedScriptSize |
+| SqlExecuter.ReportProgressMs | Rhetos:SqlTransactionBatches:ReportProgressMs  |
+
+When running older applications on new Rhetos framework, you can either update the settings keys,
+or enable the legacy keys support. For migration instructions, see Breaking changes in
+[Release notes](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md#breaking-changes).

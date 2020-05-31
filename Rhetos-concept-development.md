@@ -273,13 +273,11 @@ because the EntityInfo class has a property that references ModuleInfo.
   if the code generator that *uses* some tag is executed
   before the code generator that *adds* this tag.
 * You may test if your code generators have consistent dependencies,
-  by checking if deployment runs successfully with different internal ordering of concepts:
-  Run the deployment once with [build configuration](Configuration-management#build-configuration) settings
-  `<add key="InitialConceptsSort" value="Key" />`, then with
-  `<add key="InitialConceptsSort" value="KeyDescending" />`
-  *(available since Rhetos v4.0)*.
-  If using Rhetos.MSBuild, see [Build configuration](Configuration-management#build-configuration)
-  section for configuration settings placement.
+  by checking if deployment runs successfully with different internal ordering of concepts
+  (available *since Rhetos v4.0*):
+  * Run the deployment once with [Build configuration](Configuration-management#build-configuration)
+    setting `{ "Rhetos": { "Build": { "InitialConceptsSort": "Key" } } }`,
+    then again with `{ "Rhetos": { "Build": { "InitialConceptsSort": "KeyDescending" } } }`.
 
 ## See also
 

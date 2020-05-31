@@ -121,7 +121,7 @@ Follow the steps in this section if using IIS (recommended) instead of IIS Expre
 5. If the web application fails with a file access error, set the required permissions for the IIS system accounts "BUILTIN\IIS_IUSRS" and "NT AUTHORITY\IUSR":
     * Read permissions to the RhetosServer folder.
     * Write permissions to the RhetosServer logs folder ("RhetosServer\Logs", or directly "RhetosServer" folder).
-6. Open "RhetosServer\Web.config" file and set the "Security.AllClaimsForUsers" parameter value to your username and computer name, formatted "username@computername". Note that your username may include the domain name prefix.
+6. Open "RhetosServer\Web.config" file and set the "Rhetos:AppSecurity:AllClaimsForUsers" parameter value to your username and computer name, formatted "username@computername". Note that your username may include the domain name prefix. For older applications use [Configuration keys before Rhetos v4.0](Configuration-management#configuration-keys-before-rhetos-v40).
 
 ## IIS Express setup
 

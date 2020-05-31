@@ -132,9 +132,9 @@ or setup default permission for all users.
 
 The following built-in features may help with those business requirements:
 
-1. If `AuthorizationAddUnregisteredPrincipals` option is set to "True"
-   in *web.config* file, Rhetos will **automatically add a new user account**
-   in table "Common.Principal" on the first login.
+1. To **automatically add new user account** in table "Common.Principal" on the first login,
+   set `Rhetos:App:AuthorizationAddUnregisteredPrincipals` option to `true`
+   (for older applications use [Configuration keys before Rhetos v4.0](Configuration-management#configuration-keys-before-rhetos-v40)).
    * The created account will have no permissions by default,
      but the additional functionality can be added to automatically initialize
      the user's roles and permissions (for example, by using the
@@ -160,26 +160,28 @@ The basic permission checking can be turned off in a development environment by 
 the following options in the Rhetos server's **web.config** file, or preferably a user-specific
 config file (for example, **ExternalAppSettings.config**, referenced from web.config).
 
-1. **"Security.AllClaimsForUsers"** - *(recommended)* The value should contain a comma-separated
+1. **Rhetos:AppSecurity:AllClaimsForUsers** - *(recommended)* The value should contain a comma-separated
    list of users, formatted `username@servername`, that will automatically have all basic permissions.
    You can find your *username* and *servername* by running `whoami` and `hostname` in command prompt.
    The *servername* refers to machine where the Rhetos application is hosted.
-   Examples:
+   For older applications use [Configuration keys before Rhetos v4.0](Configuration-management#configuration-keys-before-rhetos-v40).
+   Usage examples:
    * Domain user on a shared server:
-     `<add key="Security.AllClaimsForUsers" value="mydomain\myusername@ourserver" />`.
+     `<add key="Rhetos:AppSecurity:AllClaimsForUsers" value="mydomain\myusername@ourserver" />`.
    * Local windows user without Windows domain:
-     `<add key="Security.AllClaimsForUsers" value="mypc\myusername@mypc" />`.
+     `<add key="Rhetos:AppSecurity:AllClaimsForUsers" value="mypc\myusername@mypc" />`.
    * Forms Authentication user "admin":
-     `<add key="Security.AllClaimsForUsers" value="admin@myserver" />`.
-2. **"Rhetos:AppSecurity:AllClaimsForAnonymous"** - If set to "True",
+     `<add key="Rhetos:AppSecurity:AllClaimsForUsers" value="admin@myserver" />`.
+2. **Rhetos:AppSecurity:AllClaimsForAnonymous** - If set to "true",
    users will have all basic permissions when authentication is configured to anonymous.
    This feature will raise an error if any other authentication method is used.
    *(since Rhetos v4.0)*
-3. **"BuiltinAdminOverride"** - If set to "True",
+3. **Rhetos:AppSecurity:BuiltinAdminOverride** - If set to "true",
    the user that is a local administrator will have full permissions.
-   This option works only for Windows authentication, and if the web server
+   This option works only for web service with Windows authentication, and if the web server
    is able to check the user's Windows groups (usually in development environment).
    Use the AllClaimsForUsers option otherwise.
+   For older applications use [Configuration keys before Rhetos v4.0](Configuration-management#configuration-keys-before-rhetos-v40).
 
 ### Inserting the permissions on deployment
 

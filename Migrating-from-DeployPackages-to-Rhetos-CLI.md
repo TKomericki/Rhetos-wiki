@@ -104,20 +104,20 @@ For applications built with Rhetos CLI, *Web.config* file (`appSettings` element
 only configuration settings for run-time environment and database update.
 Build configuration must be moved from *Web.config* to *rhetos-build.settings.json* file.
 
-1. **Remove** the following **3 settings** from *Web.config* `appSettings` element.
+1. **Remove** the following **3 settings** from Web.config `appSettings` element.
     ```xml
     <appSettings>
+      <add key="InitialConceptsSort" value="Key" />
       <add key="CommonConcepts.Legacy.AutoGeneratePolymorphicProperty" value="False" />
       <add key="CommonConcepts.Legacy.CascadeDeleteInDatabase" value="False" />
-      <add key="InitialConceptsSort" value="Key" />
     </appSettings>
     ```
     or
     ```xml
     <appSettings>
+      <add key="Rhetos:Build:InitialConceptsSort" value="Key" />
       <add key="CommonConcepts:AutoGeneratePolymorphicProperty" value="False" />
       <add key="CommonConcepts:CascadeDeleteInDatabase" value="False" />
-      <add key="Rhetos:Build:InitialConceptsSort" value="Key" />
     </appSettings>
     ```
 2. Place them in *rhetos-build.settings.json* file, located in the project root folder

@@ -31,7 +31,13 @@ Table of contents:
 * `Guid.Parse("...")` => `new Guid("...")`
 * `SqlLike` => `Like`
 * `item.FullTextSearch(...)` => `DatabaseExtensionFunctions.FullTextSearch(item.ID, ...)`
-* Enable the following configuration option in *web.config*: `<add key="EntityFramework.UseDatabaseNullSemantics" value="True" />`. This will instruct the Entity Framework to generate [simpler](https://msdn.microsoft.com/en-us/library/dn221475%28v=vs.113%29.aspx) SQL queries, similar to NHibernate's, that will lessen the risk of backward-compatibility issues and performance issues.
+* Enable the following configuration option in *web.config*:
+  `<add key="Rhetos:App:EntityFrameworkUseDatabaseNullSemantics" value="True" />`
+  (for older applications use [Configuration keys before Rhetos v4.0](Configuration-management#configuration-keys-before-rhetos-v40)).
+  This will instruct the Entity Framework to generate
+  [simpler](https://msdn.microsoft.com/en-us/library/dn221475%28v=vs.113%29.aspx) SQL queries,
+  similar to NHibernate's, that will lessen the risk of backward-compatibility issues
+  and performance issues.
 
 ## Hard-to-Detect incompatibilities
 
