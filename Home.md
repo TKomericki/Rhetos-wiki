@@ -48,6 +48,7 @@ Fundamentals:
 * [Rhetos DSL syntax](Rhetos-DSL-syntax)
 * [List of DSL concepts in CommonConcepts package](List-of-DSL-concepts-in-CommonConcepts)
 * [Rhetos CLI](Rhetos-CLI)
+* [Configuration management](Configuration-management)
 * [Creating a Rhetos package](Creating-a-Rhetos-package)
 * [Rhetos RESTful web API plugin](https://github.com/Rhetos/RestGenerator/blob/master/Readme.md), [Set up HTTPS](Setting-up-Rhetos-for-HTTPS)
 * [User authentication and authorization](User-authentication-and-authorization)

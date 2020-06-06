@@ -19,7 +19,7 @@ Prerequisites for running web applications with Rhetos framework:
 
 Application development environment (prerequisites for tutorials):
 
-* Visual Studio 2015 or newer
+* Visual Studio 2017 v15.7 or later. Visual Studio 2019 is recommended.
 * [NuGet.exe](https://www.nuget.org/downloads) command-line utility, download and [add to the PATH](https://www.howtogeek.com/118594/how-to-edit-your-system-path-for-easy-command-line-access/) environment variable
 * [Git client](https://gitforwindows.org), installed and added to the PATH environment variable
 * Text editor (recommended Visual Studio Code, SublimeText3 or Notepad++)

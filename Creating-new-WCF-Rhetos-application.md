@@ -29,8 +29,7 @@ Contents:
 7. [Publishing the application to a test environment or production](#publishing-the-application-to-a-test-environment-or-production)
 8. [A more complex project structure](#a-more-complex-project-structure)
 9. [Read next](#read-next)
-10. [See also](#see-also)
-11. [Troubleshooting](#troubleshooting)
+10. [Troubleshooting](#troubleshooting)
 
 ## Development environment setup
 
