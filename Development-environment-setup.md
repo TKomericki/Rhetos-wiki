@@ -51,7 +51,7 @@ Alternatively, you could build the Rhetos server binaries from the latest versio
 
 ## Database setup
 
-1. Create an empty database (SQL Server 2008 or newer, Developer Edition is recommended).
+1. Create an empty database (SQL Server 2008 or newer, Developer Edition is recommended for development).
 2. In the folder `RhetosServer\bin` create a copy of the template file
    "Template.ConnectionStrings.config", and rename the copy to "ConnectionStrings.config".
 3. Edit the existing configuration line in the **ConnectionStrings.config** file
@@ -103,7 +103,7 @@ Follow the steps in this section if using IIS (recommended) instead of IIS Expre
    Verify that the web site is working and the Rhetos server status is displayed on the web page.
     * Troubleshooting: If you are getting an error "Access is denied." in browser, with the message "Error message 401.3: You do not have permission to view this directory ...", it is probably caused by working from  development folder instead of "inetpub". To fix this, execute the **step 4.** in the following paragraph, that contains running the `ICACLS` commands.
 
-**If is is not possible to use Windows domain account**, the Rhetos service can be set up to use ApplicationPoolIdentity in a development environment:
+**If is is not possible to use Windows domain account**, the web application can be set up to use ApplicationPoolIdentity in a development environment:
 
 1. **Skip the following steps** if you are using a Windows domain account.
 2. Modify the *RhetosAppPool* to use built-in account "ApplicationPoolIdentity", instead of the developers domain account (Advanced Settings => Identity). This is the default user for a new app pool.

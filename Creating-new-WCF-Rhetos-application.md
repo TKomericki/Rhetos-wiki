@@ -89,13 +89,13 @@ with .NET Framework, follow the article [Prerequisites](Prerequisites).
 
 ## Set up the database and user authentication
 
-1. Create an empty database for this Rhetos application.
-   In your project folder: rename `Template.ConnectionStrings.config` to `ConnectionStrings.config`
-   and enter the SQL Server [instance](https://stackoverflow.com/a/45789478/2086516) name (`theServer`)
-   and database name (`theDatabase`).
-   * Note: Each developer must have his/her own database for Rhetos application development,
-     to avoid conflicts of deploying multiple Rhetos applications to the same database.
-2. Configure user authentication for your application:
+1. Create an empty database for this Rhetos application
+   (SQL Server 2008 or newer, Developer Edition is recommended for development).
+   * Note: Each application and each developer should have a separate database.
+2. In your project folder, rename `Template.ConnectionStrings.config` to `ConnectionStrings.config`.
+   Edit `ConnectionStrings.config`: replace `theDatabase` with your database name,
+   and `theServer` with your SQL Server [instance](https://stackoverflow.com/a/45789478/2086516) name.
+3. Configure user authentication for your application:
    * Option A) *(Recommended for quick-start)* **Enable anonymous access**:
      * Create file `rhetos-app.local.settings.json` in project folder, with the following content:
        `{ "Rhetos": { "AppSecurity": { "AllClaimsForAnonymous": true } } }`.
@@ -109,8 +109,8 @@ with .NET Framework, follow the article [Prerequisites](Prerequisites).
          to new RhetosAppPool that is configured to run with your development account
          (see [IIS Setup](Development-environment-setup#iis-setup))
      * Create file `rhetos-app.local.settings.json` in project folder, with the following content:
-       `{ "Rhetos": { "AppSecurity": { "AllClaimsForUsers": "..." } } }`,
-       for your account and your machine name, to simplify testing. See instructions in
+       `{ "Rhetos": { "AppSecurity": { "AllClaimsForUsers": "account@computername" } } }`,
+       for your account and your machine name, to simplify testing. See the instructions in
        [Suppressing permissions in a development environment](Basic-permissions#suppressing-permissions-in-a-development-environment).
        This is an environment-specific file, it should not be added to the Visual Studio project or source control.
    * Option C) **Windows authentication with IIS Express**:
@@ -118,13 +118,13 @@ with .NET Framework, follow the article [Prerequisites](Prerequisites).
        * in element `anonymousAuthentication` set `enabled` attribute to `false`.
        * in element `windowsAuthentication` set `enabled` attribute to `true`.
      * Create file `rhetos-app.local.settings.json` in project folder, with the following content:
-       `{ "Rhetos": { "AppSecurity": { "AllClaimsForUsers": "..." } } }`,
-       for your account and your machine name, to simplify testing. See instructions in
+       `{ "Rhetos": { "AppSecurity": { "AllClaimsForUsers": "account@computername" } } }`,
+       for your account and your machine name, to simplify testing. See the instructions in
        [Suppressing permissions in a development environment](Basic-permissions#suppressing-permissions-in-a-development-environment).
        This is an environment-specific file, it should not be added to the Visual Studio project or source control.
    * Other [authentication methods](https://github.com/Rhetos/Rhetos/wiki/User-authentication-and-authorization)
      can be used, by adding a plugin package or implementing a custom user provider.
-3. Test the application: Select the project in Solution Explorer (e.g. Bookstore.Service)
+4. Test the application: Select the project in Solution Explorer (e.g. Bookstore.Service)
    and press F5 to start debugging.
     * Web browser should open automatically, displaying "Installed packages" list and "Server status".
       * If using Windows Authentication, check that "User identity" displays your account name.
@@ -247,12 +247,11 @@ you will need to copy the application files and update the database:
      * *.svc
      * Web.config
      * rhetos-app.settings.json
-2. For *initial* deployment, you will need to setup the new environment,
-   similar to [Development environment setup](Development-Environment-Setup):
+2. For *initial* deployment, you will need to setup IIS and database:
    * Create a web application in IIS with the target folder as a source.
      Configure app pool and authentication, see [IIS setup](Development-Environment-Setup#iis-setup).
    * Create an empty database and configure connection string.
-   * Configure environment-specific settings in rhetos-app.local.settings.json,
+   * Configure any environment-specific settings in rhetos-app.local.settings.json,
      see [Configuration management](Configuration-management).
 3. Update the database by running `rhetos dbupdate` from command prompt
    in the target application's **bin** folder.
