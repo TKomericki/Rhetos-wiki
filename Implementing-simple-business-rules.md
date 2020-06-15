@@ -19,8 +19,12 @@ The following concepts are available in CommonConcepts package:
   There are two subvariant of this concept:
   * `SystemRequired` - The user does not need to enter the property value, but it's value should be entered (perhaps automatically by some other business rules).
   * `UserRequired` - User (or client applications) needs to provide the property value.
-  * Note: Required properties are created with nullable types in C# and database.
-    The validation in implemented in Save method.
+  * Note: The required data validation is implemented in the application layer,
+    without the **NOT NULL** constraint in database.
+    A required property has nullable type in both C# and database.
+    This design decision simplifies interaction between database changes by Rhetos and custom data-migration scripts.
+    It also makes the deployment process more robust and allows more flexibility when modifying business rules
+    (with focus on maintainability of large business applications).
 * `Unique` - Two records cannot have same value of this property.
   * `UniqueMultiple` - A unique constraint over multiple properties:
     Two records cannot have same combination of values.
