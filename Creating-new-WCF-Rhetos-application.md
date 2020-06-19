@@ -266,7 +266,7 @@ follow the steps 1. and 3. above.
 is an example of a Rhetos application with multiple projects, including custom DSL language
 extensions, basic unit tests and integration tests.
 
-You can use its project structure, build process and utility scripts as a *prototype*
+You can use its **project structure, build process and utility scripts** as a *prototype*
 for a new Rhetos applications.
 For more information, see [Readme.md](https://github.com/Rhetos/Bookstore/blob/master/Readme.md).
 
