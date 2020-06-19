@@ -1,32 +1,41 @@
-This roadmap presents high-level priorities, goals and plans for further development of the platform. Each point represents a themed group which will be broken into one or more projects during implementation.
+This roadmap presents high-level priorities, goals and plans for further development of the platform.
+Each point represents a themed group which will be broken into one or more projects during implementation.
 
-## 1. Better IDE experience
+The best way to give feedback is to create issues or comment and vote on existing [issues](https://github.com/Rhetos/Rhetos/issues).
 
-* Embedded C# code IntelliSense
-* Better Rhetos DSL IntelliSense
-* Seamless build workflow
+## 1. Improving build performance (Rhetos 4.1)
 
-We want to significantly improve overall experience of developing Rhetos based applications. Specifically, primary focus is to provide full IntelliSense and static code analysis features for Rhetos DSL code as well as embedded C# code used in it.
+The goal is to speed up the code-build-test development cycle,
+by optimizing build process
+and improving application startup time.
 
-We would also like developers to be able to seamlessly run (and debug) their Rhetos based applications from within IDE in the same way they can run a regular C# application.
+## 2. Migration to .NET Core (Rhetos 5.0)
 
-Please discuss this topic on [Rhetos#49](https://github.com/Rhetos/Rhetos/issues/49).
+With .NET Core gaining so much momentum, especially in the open-source space,
+we feel it is a natural next step for Rhetos platform.
 
-## 2. Complex web API methods
-
-The existing REST service exposes only simple objects by default. For example, if developer needs to read or write a master-detail object in a single request, a custom code must be developed, sometimes with custom data serialization within already serialized web requests.
-
-Our goal is to allow developers to simply create view-models or DTOs, including complex hierarchical objects, using only declarative code, without need for developing middleware service or custom web methods.
-
-Please discuss this topic on [Rhetos#50](https://github.com/Rhetos/Rhetos/issues/50).
-
-## 3. Migration to .NET Core
-
-With .NET Core gaining so much momentum, especially in the open-source space, we feel it is a natural next step for Rhetos platform.
-
-We want to fully migrate Rhetos and all its components to .NET Core platform. Expected benefits are: better performance, modern tooling and cross-platform support.
+We want to fully migrate Rhetos and all its components to .NET Core platform.
+Expected benefits are: better performance, modern tooling and cross-platform support.
 
 Please discuss this topic on [Rhetos#119](https://github.com/Rhetos/Rhetos/issues/119).
+
+## 3. Runtime performance
+
+There are many possibilities to improve the runtime performance at the framework level,
+that could provide benefits to both new and existing Rhetos applications:
+data caching, read scalability, batching database writes and queries (validations),
+reducing grouping row permissions to aggregate roots, and others.
+
+## 4. Extending developers' toolset
+
+Please review the list of project [candidates](https://github.com/Rhetos/Rhetos/milestone/11)
+on GitHub issues list: 
+DSL concepts for custom business process implementation (BPM),
+Asynchronous and background processing,
+Swagger/OpenAPI integration,
+better support for multitenant applications, and others.
+
+Vote or comment on the issues to provide feedback.
 
 ## Timeline
 
@@ -36,6 +45,7 @@ As development on these points gets planned we will post further information.
 The short-term release plan is described with [Milestones](https://github.com/Rhetos/Rhetos/milestones?direction=asc&sort=title&state=open).
 See [Release management](Release-management) article for other information on release planning and publishing.
 
-## Related resources
+## Previous releases
 
-* [Release notes](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md) for previous releases
+See [Previous releases](Previous-releases) article for a high-level overview of previous releases,
+and [Release notes](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md) for detailed info.
