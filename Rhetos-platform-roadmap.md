@@ -24,16 +24,19 @@ Please discuss this topic on [Rhetos#119](https://github.com/Rhetos/Rhetos/issue
 There are many possibilities to improve the runtime performance at the framework level,
 that could provide benefits to both new and existing Rhetos applications:
 data caching, read scalability, batching database writes and queries (validations),
-reducing grouping row permissions to aggregate roots, and others.
+reducing row permissions to aggregate roots, and other.
 
-## 4. Extending developers' toolset
+## 4. Extending developer's toolset
 
-Please review the list of project [candidates](https://github.com/Rhetos/Rhetos/milestone/11)
-on GitHub issues list: 
-DSL concepts for custom business process implementation (BPM),
-Asynchronous and background processing,
-Swagger/OpenAPI integration,
-better support for multitenant applications, and others.
+There is an active list of project [candidates](https://github.com/Rhetos/Rhetos/milestone/11)
+on GitHub issues list.
+It contains features such as
+
+- DSL concepts for custom business process implementation (BPM),
+- Asynchronous and background processing,
+- Swagger/OpenAPI integration,
+- better support for multitenant applications,
+- and others.
 
 Vote or comment on the issues to provide feedback.
 
