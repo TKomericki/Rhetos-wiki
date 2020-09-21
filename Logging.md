@@ -93,21 +93,28 @@ instead of reading from Common.Log directly.
 
 | Column name | Description |
 | --- | --- |
-| ID uniqueidentifier | Internal PK |
+| ID uniqueidentifier | Internal primary key. |
+| Action nvarchar(256) | Logged action, for example "Insert", "Update", "Delete" or other. |
+| TableName nvarchar(256) | Name of the entity that have been modified. (optional) |
+| ItemId uniqueidentifier | ID of changed item. (optional) |
+| Description nvarchar(max) | Contains serialized XML of changed data. It only contains old values while the new values can be found in the actual table. (optional) |
 | Created datetime | Log entry creation time. |
-| User nvarchar(256) | A system account that made the data modification. This is usually account which runs the Rhetos web application. |
+| User nvarchar(256) | A **system account** that made the data modification. This is usually account which runs the Rhetos web application. |
 | Workstation nvarchar(256) | This is usually workstation which runs the Rhetos web application. |
-| ContextInfo nvarchar(256) | If logged action has been done through a Rhetos application, this column will contain username of end user and its PC name or IP in the following format “Rhetos:{username},{host}". |
-| Action nvarchar(256) | Logged action: "Insert", "Update", "Delete" or other.  |
-| TableName nvarchar(256) | Name of the entity whose values have been changed. |
-| ItemId uniqueidentifier | ID of changed item. |
-| Description nvarchar(max) | Contains serialized XML of changed data. It only contains old values while the new values can be found in the actual table. |
+| ContextInfo nvarchar(256) | If logged action has been done through a Rhetos application, this column will contain username of the **end user** and its PC name or IP in the following format “Rhetos:{username},{host}". |
 
-If the **impersonation** is used (see plugins
-[WindowsAuthImpersonation](https://github.com/Rhetos/WindowsAuthImpersonation)
-and [AspNetFormsAuthImpersonation](https://github.com/Rhetos/AspNetFormsAuthImpersonation))
-ContextInfo will contain both the original and the impersonated
-user name in format "{original user} as {impersonated user}".
+Note that there are two different columns with information on user account: **User** and **ContextInfo**.
+
+* *User* is the account that accessed the database, this is usually the account that runs
+  the Rhetos web application, executes the deployment process or a user that directly
+  accessed the database with SQL Server Management Studio, for example.
+* *ContextInfo* is a description of the end user that was using the application
+  when the log entry was created.
+* If the **impersonation** is used (see plugins
+  [WindowsAuthImpersonation](https://github.com/Rhetos/WindowsAuthImpersonation)
+  and [AspNetFormsAuthImpersonation](https://github.com/Rhetos/AspNetFormsAuthImpersonation))
+  ContextInfo will contain both the original and the impersonated
+  user name in format "{original user} as {impersonated user}".
 
 ## Other similar features
 
