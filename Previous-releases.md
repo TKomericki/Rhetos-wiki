@@ -1,30 +1,29 @@
 # Previous major releases
 
-See [Release notes](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md) for detail info
-on previous releases.
+This article shows a *high-level* overview of past major releases.
+For _detailed_ info on previous releases, see the [Release notes](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md).
 
-Here is a high-level overview of past major releases.
-
-## Rhetos 4.0: Better IDE experience
+## Rhetos 4: Better IDE experience
 
 * Rhetos DSL IntelliSense for Visual Studio.
 * Rhetos framework is simply added to an application as a NuGet package.
 * Seamless development and build workflow in Visual Studio.
   Custom C# code is compiled together with DSL scripts, as a part of build in Visual Studio.
+* Reduced build time.
 
-## Rhetos 3.0
+## Rhetos 3
 
 * Upgrade from .NET Framework 4.5.1 to .NET Framework 4.7.2.
 * Build and runtime performances improvements.
 
-## Rhetos 2.0-2.12
+## Rhetos 2
 
 * ServerDom assembly split to multiple files.
 * Build and runtime performances improvements.
 * New concepts: UniqueReference, ApplyFilterOnClientRead, DefaultValue, SkipRecomputeOnDeploy, Hardcoded, ...
 * DeployPackages DatabaseOnly for easier deployment on test and production environments.
 
-## Rhetos 1.0-1.10
+## Rhetos 1
 
 * Migrations from NHibernate to Entity Framework 6.1.3.
 * New concepts: AllowSave, InvalidData custom messages and metadata, SamePropertyValue, ...
@@ -34,7 +33,7 @@ Here is a high-level overview of past major releases.
 * Rhetos NuGet package available for plugin package development.
 * Repository members are available in all C# code snippets.
 
-## Rhetos 0.9.0-0.9.36
+## Rhetos 0.9
 
 * Core framework features: DSL parser, code generators, database upgrade, SOAP and REST API.
 * Many business patterns implemented as DSL concepts in CommonConcepts package.
