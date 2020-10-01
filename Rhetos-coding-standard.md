@@ -100,9 +100,16 @@ Other:
              throw UserException("Movie name must contain the director's name.");
       ```
 
-* Try to use a single entity for each business event, so that most user's business process operations can be mapped to a single INSERT operation to the entity that represents the corresponding business process event.
+* Avoid implementing business rules in Action and similar concepts.
+  Business rules should be implemented on the entities  (validations and computations),
+  not in the web API methods.
+  Use the *event sourcing* design pattern instead:
+  Try to use a single entity for each business event, so that most business process operations can be mapped to a single INSERT operation to the entity that represents the corresponding business process event.
 * Avoid using `Action` concept to save master and detail entity in a same transaction.
-  Redesign the user interface to allow entering master and detail separately without loss of consistency.
+  Try using a declarative approach without the custom code, that is more customizable and easier to maintain:
+  Design the user interface to allow entering master and detail separately without loss of consistency,
+  or use [Rhetos.ComplexEntity](https://www.nuget.org/packages/Rhetos.ComplexEntity/) to specify
+  web API for master-detail and other aggregate entities.
 * Avoid using `Action` or `SaveMethod` concept to update related computed (redundant) data when saving an entity.
   Use the following Rhetos concepts to keep the computed data up-to-date: `Persisted`, `ComputedFrom`, `KeepSynchronized` and `ChangesOn`.
   Use simple CRUD operations for saving the data.
