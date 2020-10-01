@@ -218,7 +218,8 @@ Automatically recomputing data on deployment may be undesirable in some situatio
 while we still want to use `KeepSynchronized` for standard user's actions in the application.
 
 Suppressing is specially interesting when an application contains some very large tables, and suppressing
-unnecessary recomputes will significantly **improve deployment speed**. A developer should suppress recomputing **on very large tables** if:
+unnecessary recomputes will significantly **improve deployment speed**.
+A developer should suppress recomputing **on very large tables** if:
 
 1. If Rhetos detects a change in computation source and will trigger recompute, but we know that the change does not affect the computation result, and there is no need to recompute all the data.
 2. We need to recompute all the data, but we do not want to do it within deployment, to make sure that the deployment is finished in a reasonable amount of time.
@@ -233,6 +234,10 @@ There are different ways to do it:
 3. Adding a data-migration script (described above) that updates the computation's `Context` to 'NORECOMPUTE'.
    * Skip this specific computation in the next deployment.
    * This option is usually chosen when a computation source has changed insignificantly, without affecting the result (see the case "1" above).
+
+Note that when a recompute on deployment is skipped, Rhetos will not try recompute it again
+on **next deployment**, unless there are some a new changes in source code that require
+recomputing the data again.
 
 ## Legacy features
 
