@@ -116,6 +116,18 @@ Note that there are two different columns with information on user account: **Us
   ContextInfo will contain both the original and the impersonated
   user name in format "{original user} as {impersonated user}".
 
+Depending on usage of the Logging concept, log table can grow large (millions of records),
+resulting with slowdown on log inserts, caused by indexes on that table.
+In such cases, to avoid performance issues, log entries should be periodically moved to an
+archive (once per day, for example), to keep the main log table small.
+
+* Recommended way of doing this is with
+  [Rhetos.LogArchive](https://github.com/Rhetos/LogArchive/blob/master/Readme.md) package.
+  It creates a separate archive table in the same database and provides utility scripts.
+  When reading records with *Common.LogReader*, it will join the main log table with the archive and return full log.
+* In more extreme cases, if the log table size causes issues with database backup,
+  then the log should be archived into a separate database.
+
 ## Other similar features
 
 Alternatively, for entities whose value may change over time
