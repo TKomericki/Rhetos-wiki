@@ -18,7 +18,7 @@ This article describes the release process for both Rhetos framework (<https://g
     * [ ] [Framework only] In the *Install* subfolder: zip the *RhetosServer* folder to *RhetosServer.&lt;NEW VERSION&gt;.zip* (for example RhetosServer.1.2.0.zip).
 3. Publish:
     * [ ] [Private builds only] Copy the generated files from the Install folder to your company's shared storage.
-      * Rhetos framework build creates 1 zip and 4 nupkg files. A Rhetos package build creates 1 nupkg file.
+      * Rhetos framework build creates 1 zip and 4 nupkg files. A Rhetos package build usually creates 1 nupkg file.
     * [ ] Commit your repository changes, **except Build.bat file**, with comment "Release &lt;NEW VERSION&gt;.".
       For example "Release 1.2.0.".
       * Note: If there is nothing to commit, simply do the next step on the last commit.
@@ -30,7 +30,7 @@ This article describes the release process for both Rhetos framework (<https://g
     * [ ] [Framework only] Add the RhetosServer zip file to GitHub release: Open [tags on GitHub](https://github.com/Rhetos/Rhetos/tags)
       => At the tag for the newly released version click "Create release"
       => **Check** that the opened form displays the tag you have just selected
-      * At *Describe this release* write: `See Release notes in [ChangeLog.md](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md)`
+      * At *Describe this release* write: `See Release notes in [ChangeLog.md](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md).`
       * Drag & drop the RhetosServer.x.zip file to the "**Attach binaries**" box.
       * Click "Publish release".
 4. Prepare the code for further development:
