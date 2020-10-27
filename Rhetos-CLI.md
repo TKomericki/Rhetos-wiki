@@ -78,7 +78,7 @@ executes rhetos.exe on build.
 
 * If there are any build errors or warning, you can **review detailed output** of rhetos.exe
   build and dbupdate commands in Visual Studio inside Output window (View => Output),
-  by selecting Show output from: Build.
+  by selecting Show output from: "Build".
 * You can automatically show this windows on each build in Visual Studio => Tools => Options
   => Projects and Solutions => General => Enable: Show Output window when build starts.
 

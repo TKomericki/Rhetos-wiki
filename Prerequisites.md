@@ -76,9 +76,10 @@ The **syntax highlighting** plugins are available for the following text editors
 
 **Visual Studio:**
 
-Install the IntelliSense support for Rhetos DSL:
-
-* Visual Studio => Extensions => Manage Extensions => Online => Search: "Rhetos DSL Language Extension" => Download.
+1. Install the IntelliSense support for Rhetos DSL:
+   * Visual Studio => Extensions => Manage Extensions => Online => Search: "Rhetos DSL Language Extension" => Download.
+2. For a better insight on build process, show Output on build:
+   * Tools => Options => Projects and Solutions => General => Enable: "Show Output window when build starts".
 
 **Notepad++:**
 
