@@ -61,7 +61,7 @@ with .NET Framework, follow the article [Prerequisites](Prerequisites).
 4. Make sure your project is in "*PackageReference*" format instead of using *packages.config*:
    If your project contains *packages.config*, right-click the file in Solution Explorer
    and select "Migrate packages.config to PackageReference..." if available.
-   * If you get an error `Cannot convert from packages.config to PackageRefrence`,
+   * If you get an error `Cannot convert from packages.config to PackageReference`,
      change Visual Studio settings: Tools => NuGet Package Manager => Package Manager Settings =>
      Default package management format: "PackageReference".
      Then make a new WCF project from scratch.
