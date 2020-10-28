@@ -113,6 +113,7 @@ with .NET Framework, follow the article [Prerequisites](Prerequisites).
        for your account and your machine name, to simplify testing. See the instructions in
        [Suppressing permissions in a development environment](Basic-permissions#suppressing-permissions-in-a-development-environment).
        This is an environment-specific file, it should not be added to the Visual Studio project or source control.
+     * In the table `Common.Principal` insert a record with the `Name` column set to your username.
    * Option C) **Windows authentication with IIS Express**:
      * Edit `.vs\<solution name>\config\applicationhost.config`
        * in element `anonymousAuthentication` set `enabled` attribute to `false`.
@@ -122,13 +123,14 @@ with .NET Framework, follow the article [Prerequisites](Prerequisites).
        for your account and your machine name, to simplify testing. See the instructions in
        [Suppressing permissions in a development environment](Basic-permissions#suppressing-permissions-in-a-development-environment).
        This is an environment-specific file, it should not be added to the Visual Studio project or source control.
+     * In the table `Common.Principal` insert a record with the `Name` column set to your username.
    * Other [authentication methods](https://github.com/Rhetos/Rhetos/wiki/User-authentication-and-authorization)
      can be used, by adding a plugin package or implementing a custom user provider.
 4. Test the application: Select the project in Solution Explorer (e.g. Bookstore.Service)
    and press F5 to start debugging.
     * Web browser should open automatically, displaying "Installed packages" list and "Server status".
       * If using Windows Authentication, check that "User identity" displays your account name.
-    * Add "rest/Common/Claim/" to the base URL. It should return list of records in JSON format.
+    * In the browser append `rest/Common/Claim/` to the base URL. It should return list of records in JSON format.
     * **In case of an error**, see [Troubleshooting](#troubleshooting) chapter below.
 
 ## Write a simple DSL script
