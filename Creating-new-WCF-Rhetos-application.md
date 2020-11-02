@@ -33,17 +33,22 @@ Contents:
 
 ## Development environment setup
 
-Install the **IntelliSense** support for **Rhetos DSL**: Visual Studio => Extensions =>
-Manage Extensions => Online => Search: "Rhetos DSL Language Extension" => Download.
-Note that this extension is not required for developing and building Rhetos applications,
-but it is very useful when using Visual Studio as an editor for DSL scripts.
-
-To make sure that you have all system components installed for developing web applications
-with .NET Framework, follow the article [Prerequisites](Prerequisites).
+1. Install the **IntelliSense** support for **Rhetos DSL**: Visual Studio => Extensions =>
+   Manage Extensions => Online => Search: "Rhetos DSL Language Extension" => Download.
+   Note that this extension is not required for developing and building Rhetos applications,
+   but it is very useful when using Visual Studio as an editor for DSL scripts.
+2. Before creating a new project, make sure that you will use the new **PackageReference** format
+   in Visual Studio, instead of **packages.config**.:
+   Visual Studio 2019 => Tools => NuGet Package Manager => Package Manager Settings =>
+   Default package management format: "PackageReference".
+   Rhetos MSBuild integration requires the information on packages that is provided by
+   PackageReference format.
+3. To make sure that you have all system components installed for developing web applications
+   with .NET Framework, follow the article [Prerequisites](Prerequisites).
 
 ## Create a new application in Visual Studio
 
-1. VS 2019 => Create a new project => search and select "**WCF Service Application**" (C#) => Next.
+1. Visual Studio 2019 => Create a new project => search and select "**WCF Service Application**" (C#) => Next.
    For tutorial, enter Project name: "Bookstore.Service", Solution name: "Bookstore".
    Select framework: ".NET Framework 4.7.2", then click Create.
    * If "WCF Service Application" project type is not available:
@@ -58,14 +63,7 @@ with .NET Framework, follow the article [Prerequisites](Prerequisites).
    1. Rhetos.Wcf
    2. Rhetos.CommonConcepts
    3. Rhetos.RestGenerator
-4. Make sure your project is in "*PackageReference*" format instead of using *packages.config*:
-   If your project contains *packages.config*, right-click the file in Solution Explorer
-   and select "Migrate packages.config to PackageReference..." if available.
-   * If you get an error `Cannot convert from packages.config to PackageReference`,
-     change Visual Studio settings: Tools => NuGet Package Manager => Package Manager Settings =>
-     Default package management format: "PackageReference".
-     Then make a new WCF project from scratch.
-5. Save the solution (File => Save All). In Visual Studio open Package Manager Console
+4. Save the solution (File => Save All). In Visual Studio open Package Manager Console
    and run command `Add-RhetosWcfFiles`. It will add Rhetos WCF startup configuration and services
    to the application.
    * If the command results with execution policy error,
@@ -73,7 +71,7 @@ with .NET Framework, follow the article [Prerequisites](Prerequisites).
      run `Add-RhetosWcfFiles` again.
    * If the command results with `Access is denied`, save the solution (File => Save All)
      before running it again.
-6. Configure git repository:
+5. Configure git repository:
    1. Add a standard [Visual Studio .gitignore](https://github.com/github/gitignore/blob/master/VisualStudio.gitignore)
       file to the solution's folder.
    2. Append Rhetos folders and user files to the end of the .gitignore file.
