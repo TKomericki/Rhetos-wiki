@@ -3,13 +3,13 @@
 This article shows a *high-level* overview of past major releases.
 For _detailed_ info on previous releases, see the [Release notes](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md).
 
-## Rhetos 4: Better IDE experience
+## Rhetos 4: Better IDE experience and build performance
 
 * Rhetos DSL IntelliSense for Visual Studio.
 * Rhetos framework is simply added to an application as a NuGet package.
 * Seamless development and build workflow in Visual Studio.
   Custom C# code is compiled together with DSL scripts, as a part of build in Visual Studio.
-* Reduced build time.
+* Significantly reduced build time.
 
 ## Rhetos 3
 
