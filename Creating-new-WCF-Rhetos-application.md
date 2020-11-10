@@ -94,10 +94,13 @@ Contents:
    Edit `ConnectionStrings.config`: replace `theDatabase` with your database name,
    and `theServer` with your SQL Server [instance](https://stackoverflow.com/a/45789478/2086516) name.
 3. Configure user authentication for your application:
+   * Create file `rhetos-app.local.settings.json` in project folder
+     (where `Bookstore.Service.csproj` is located).
+     This is an environment-specific file, it should not be added to the Visual Studio project or source control.
+     It is already excluded from source repository by .gitignore (see above).
    * Option A) *(Recommended for quick-start)* **Enable anonymous access**:
-     * Create file `rhetos-app.local.settings.json` in project folder, with the following content:
-       `{ "Rhetos": { "AppSecurity": { "AllClaimsForAnonymous": true } } }`.
-       This is an environment-specific file, it should not be added to the Visual Studio project or source control.
+     * In file `rhetos-app.local.settings.json` enter text:
+       `{ "Rhetos": { "AppSecurity": { "AllClaimsForAnonymous": true } } }`
    * Option B) **Windows authentication with IIS**:
      * Run Visual Studio *as Administrator*. Project properties => Web =>
        Change from "ISS Express" to "Local IIS". On save answer Yes.
@@ -106,29 +109,28 @@ Contents:
        * Basic settings => Change application pool
          to new RhetosAppPool that is configured to run with your development account
          (see [IIS Setup](Development-environment-setup#iis-setup))
-     * Create file `rhetos-app.local.settings.json` in project folder, with the following content:
+     * In file `rhetos-app.local.settings.json` enter text:
        `{ "Rhetos": { "AppSecurity": { "AllClaimsForUsers": "account@computername" } } }`,
        for your account and your machine name, to simplify testing. See the instructions in
        [Suppressing permissions in a development environment](Basic-permissions#suppressing-permissions-in-a-development-environment).
-       This is an environment-specific file, it should not be added to the Visual Studio project or source control.
-     * In the table `Common.Principal` insert a record with the `Name` column set to your username.
+     * In the table `Common.Principal` insert a record with the `Name` column value set to your username.
    * Option C) **Windows authentication with IIS Express**:
      * Edit `.vs\<solution name>\config\applicationhost.config`
        * in element `anonymousAuthentication` set `enabled` attribute to `false`.
        * in element `windowsAuthentication` set `enabled` attribute to `true`.
-     * Create file `rhetos-app.local.settings.json` in project folder, with the following content:
+     * In file `rhetos-app.local.settings.json` enter text:
        `{ "Rhetos": { "AppSecurity": { "AllClaimsForUsers": "account@computername" } } }`,
        for your account and your machine name, to simplify testing. See the instructions in
        [Suppressing permissions in a development environment](Basic-permissions#suppressing-permissions-in-a-development-environment).
-       This is an environment-specific file, it should not be added to the Visual Studio project or source control.
      * In the table `Common.Principal` insert a record with the `Name` column set to your username.
    * Other [authentication methods](https://github.com/Rhetos/Rhetos/wiki/User-authentication-and-authorization)
-     can be used, by adding a plugin package or implementing a custom user provider.
+     can be used by adding a specific plugin package or implementing a custom user provider.
 4. Test the application: Select the project in Solution Explorer (e.g. Bookstore.Service)
    and press F5 to start debugging.
     * Web browser should open automatically, displaying "Installed packages" list and "Server status".
       * If using Windows Authentication, check that "User identity" displays your account name.
-    * In the browser append `rest/Common/Claim/` to the base URL. It should return list of records in JSON format.
+    * In the browser append `rest/Common/Claim/` to the base URL.
+      It should return list of records in JSON format.
     * **In case of an error**, see [Troubleshooting](#troubleshooting) chapter below.
 
 ## Write a simple DSL script
