@@ -97,13 +97,21 @@ Similar features and alternatives:
 ## Automatically generated data
 
 * `DefaultValue` - Generate the default property value when inserting a new record (since Rhetos v2.10).
-* `AutoCode` - Automatically generate numeric codes for each new record. When inserting a new record, the initially entered value is interpreted as a format for generating the code. It supports the following formatting:
-  * Multiple digits with leading zeros: for example, if "+++" is entered, a three-digit number will be created (001, 002, 003, ...)
-  * Prefix: for example, if "BOOK+" is entered, the generated codes will be BOOK1, BOOK2, BOOK3, ....
-  * Combination of the above.
-  * By default, users can enter the code manually instead of generating it automatically, by entering the value that is not a valid pattern format (does not end with a "+").
-  * `AutoCode`, `DenyUserEdit` and `DefaultValue` are often used on the same property when the codes are automatically generated, the user must not enter it's own code or code format, and the DefaultValue provides the number format (if it's not simple 1, 2, 3, ...).
-  * `AutoCode` supports Integer and ShortString property types.
+* `AutoCode` - Automatically generate numeric codes for each new record.
+  * When inserting a new record, the initially entered value is interpreted as a format for generating the code.
+    It supports the following formatting:
+    * Multiple digits with leading zeros: for example, if "+++" is entered,
+      a three-digit number will be created (001, 002, 003, ...).
+      After all values have been taken, it will automatically increase the number of digits.
+    * Custom prefix: for example, if "BOOK+" is entered,
+      the generated codes will be BOOK1, BOOK2, BOOK3, ....
+  * `AutoCode`, `DefaultValue` and `DenyUserEdit` are often used together on a same property:
+    * Use `DenyUserEdit` if the user should not enter it's own code or code format.
+      By default, the users can enter the code manually, instead of generating it automatically,
+      by entering the value that does not end with "+".
+    * Use `DefaultValue` to specify custom prefix and number of digits, if the codes are not simple numbers (1, 2, 3, ...).
+  * AutoCode supports `Integer` and `ShortString` property types.
+  * AutoCode automatically generates `Unique` index and `SystemRequired` on the property, no need to add them in DSL script.
 * `AutoCodeForEach` - Same as `AutoCode`, but the numbers are starting from 1 within each group of records. The group is defined by the second property value.
 * `CreationTime` - Automatically enters time when the records was created.
 * `ModificationTimeOf` - Automatically enters time when some given property was last updated.

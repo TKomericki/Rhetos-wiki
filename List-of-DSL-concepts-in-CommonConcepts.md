@@ -140,9 +140,9 @@ Deny data modifications:
 
 Automatically generated data:
 
-* **AutoCode** `<ShortString or Integer>` - Automatically generate numeric codes. The codes can have a given string prefix and a fixed number of digits. It generates Unique constraint on the property.
+* **AutoCode** `<ShortString or Integer>` - Automatically generate numeric codes for each new record. The codes can be formatted to have custom prefix and a fixed number of digits. It generates Unique constraint on the property.
 * **AutoCodeForEach** `<ShortString or Integer> <group by Property>` - Same as `AutoCode`, but the numbers are starting from 1 within each group of records. The group is defined by the second property value.
-* **AutoCodeCached** `<ShortString>` - An optimized version of `AutoCode` for large tables. It stores the latest used code, so it does not need to read the existing records when generating a new code, but it requires manual initialization the persisted data at initial deployment or import database records.
+* **AutoCodeCached** `<ShortString>` - An optimized version of `AutoCode` for large tables. It stores the latest used code, so it does not need to read the existing records when generating a new code, but it requires manual initialization of the cache data (with DataMigration script) for the existing records.
 * **AutoCodeForEachCached** `<ShortString> <group by Property>` -  Equivalent to `AutoCodeForEach` with cached last code values.
 * **CreationTime** `<DateTime property>` - Automatically enters time when the records was created.
 * **CreatedBy** `<Reference to Common.Principal>` - Writes the current user's ID when saving a new record.
