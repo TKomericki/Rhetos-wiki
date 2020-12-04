@@ -1,43 +1,60 @@
-# Migrating from DateTime to DateTime2
+# Migrating from datetime to datetime2
 
-Since Rhetos 4.3, the DateTime property concept can generate *DateTime2* column in database,
-instead of old *DateTime* column type.
-This behavior is configurable and disabled by default in Rhetos 4.3, for backward compatibility.
+Before Rhetos v4.3, the DateTime property concept generated *datetime* column in database.
+Since v4.3, it can be configured to generate **datetime** or newer **datetime2** column type.
 
-The DateTime2 column type can be enabled by setting the [build option](https://github.com/Rhetos/Rhetos/wiki/Configuration-management#build-configuration)
-"CommonConcepts:UseLegacyMsSqlDateTime" to false.
+* For backward compatibility, Rhetos v4.3 generates *datetime* column type by default.
+  The *datetime2* column type can be enabled by setting the
+  [build option](https://github.com/Rhetos/Rhetos/wiki/Configuration-management#build-configuration)
+  "CommonConcepts:UseLegacyMsSqlDateTime" to false.
+  Rhetos v5.0 and later generates *datetime2* by default.
+* For new applications it is recommended to use *datetime2*.
 
-**If the application is built with this option, Rhetos will automatically modify the column type on next database upgrade.**
+Rhetos will create *datetime2* column type with millisecond precision by default: `datetime2(3)`.
 
-## Optimized database upgrade
+## Changes in application code
 
-The standard Rhetos database upgrade process is robust, but can be slow on large databases.
+Before migrating the existing application to *datetime2*,
+see [Difference between DateTime and DateTime2 DataType](https://sqlhints.com/tag/datetime-vs-datetime2/)
+and check if your application code needs to be updated.
 
-If your database has datetime columns with more then 1 million rows, you may consider manually
+For example, '-' operator in T-SQL returns time difference between two *datetime* values, but
+raises an SQL error on *datetime2* values. Use DATEDIFF function instead.
+
+## Database update
+
+If a Rhetos application is built with *datetime2* column type enabled,
+Rhetos will automatically modify the columns in database on next database update.
+Downgrade is also automatically handled.
+
+## Optimized database update
+
+The generic Rhetos database update process is robust, but can be slow on large databases:
+It would drop old *datetime* columns, create new ones and migrates the data.
+
+If your database has *datetime* columns with more then 1 million rows, you may consider manually
 updating the column type and Rhetos metadata in the database with a migration script.
 
-The migration script should be manually reviewed and executed before the upgrade on a large database.
-The following scripts will **create** the migration script, see **instructions** below.
+The migration script should be **manually** reviewed and executed, before the update on a large database.
+The following utility scripts **creates the migration script, see the instructions below.**
 
-It could be modified to run on upgrade and automatically execute the generated script
-(as a standard Rhetos data-migration script), but in that case it should be made more robust
-by limiting its scope to only the few largest columns and modified to check if each column
-currently existing in the database.
+This script might be customized to execute automatically on database update
+(as a standard Rhetos data-migration script), but in that case it should be made more robust,
+by limiting its scope to only the few largest columns, and making sure it can be executed
+even on an empty database.
 
 ```sql
---======================================================================================
 /*
 Instructions:
 
-1. This script creates a migration script for DateTime columns. The migration script should be generated, reviewed and executed just before upgrading the database.
+1. This utility script creates a migration script for DateTime columns. The migration script
+   should be generated, reviewed and executed manually just before upgrading the database.
 2. Before running this scripts, prepare the output string formatting in SSMS:
    - Tools => Options => Query Results => SQL Server => Results to Test => Output format: "Tab delimited", Maximum number of characters: "1000000".
-   - Reopen the SQL script in SSMS (the above settings are not applyed to currently open scripts).
+   - Reopen the SQL script in SSMS (the above settings are not applied to currently open scripts).
    - Query => Results To => Results to Text.
 3. *Review* the generated migration script for any issues and *edit* it manually if needed.
 */
---======================================================================================
-
 SET NOCOUNT ON;
 
 SELECT
@@ -53,8 +70,6 @@ FROM
 WHERE
     c.InfoType LIKE 'Rhetos.Dsl.DefaultConcepts.DateTimePropertyInfo%'
     AND c.CreateQuery LIKE 'ALTER TABLE % ADD % DATETIME %';
-
---===============================================================================
 
 SELECT
     DateTimeColumn = c.CreateQuery,
@@ -78,8 +93,6 @@ FROM
 WHERE
     dc.CreateQuery <> '';
 
---===============================================================================
-
 SELECT 'BEGIN TRAN';
 
 SELECT '--=== DROP DEPENDENT CONCEPTS ===--';
@@ -95,7 +108,8 @@ SELECT '--=== ALTER DATETIME COLUMNS AND RHETOS METADATA ===--';
 
 SELECT
     'ALTER TABLE [' + SchemaName + '].[' + TableName + '] ALTER COLUMN [' + ColumnName + '] datetime2(3);' + CHAR(13) + CHAR(10)
-    + 'UPDATE Rhetos.AppliedConcept SET CreateQuery = REPLACE(CreateQuery, ''ADD ' + ColumnName + ' DATETIME '', ''ADD ' + ColumnName + ' DATETIME2(3) '') WHERE ID = ''' + CONVERT(varchar(100), ID) + ''''
+    + 'UPDATE Rhetos.AppliedConcept SET CreateQuery = REPLACE(CreateQuery, ''ADD ' + ColumnName + ' DATETIME '', ''ADD '
+    + ColumnName + ' DATETIME2(3) '') WHERE ID = ''' + CONVERT(varchar(100), ID) + ''''
 FROM
     #DateTimeProperties
 ORDER BY

@@ -14,7 +14,7 @@ The following concepts are available in CommonConcepts DSL:
 | **Money** | decimal? | money | SQL constraint for 2 decimal precision. |
 | **Bool** | bool? | bit |
 | **Date** | DateTime? | date |
-| **DateTime** | DateTime? | datetime |
+| **DateTime** | DateTime? | datetime2(3) or datetime | Datetime2 is available since Rhetos v4.3. See details [below](#datetime-property-configuration).
 | **Guid** | Guid? | uniqueidentifier |
 | **Binary** | byte[] | varbinary(max) |
 
@@ -39,3 +39,19 @@ section "One-to-many relation", for examples and explanation of the **Reference*
 **LinkedItems** property adds a property that contains a list of detail items (records from another entity that references this entity).
 
 Note: This is a navigation property for use in Entity Framework LINQ queries. This concepts does not change the database structure or the generated web API.
+
+## DateTime property configuration
+
+Before Rhetos v4.3, the DateTime property concept always generated *datetime* column in database.
+Since v4.3, the database column type can be configured in
+[build options](https://github.com/Rhetos/Rhetos/wiki/Configuration-management#build-configuration):
+
+* "CommonConcepts:UseLegacyMsSqlDateTime" (boolean) -
+  Generate old *datetime* type instead of  *datetime2* column type.
+  Default is *true* for Rhetos v4.3+ (for backward compatibility), and *false* for Rhetos v5.0+.
+* "CommonConcepts:DateTimePrecision" (integer, default 3) -
+  Number of decimal places for seconds.
+  It is recommended to use precision 3 (millisecond precision) to avoid round-trip issues with front end
+  (for example, JavaScript usually works with time in milliseconds).
+  For specific high-precision measurement, a new DSL property concept could be created.
+  Also note that SYSDATETIME() in SQL Server typically does not provide higher accuracy then 1 ms.
