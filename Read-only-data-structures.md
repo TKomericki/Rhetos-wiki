@@ -234,7 +234,7 @@ by using the navigation property `Extension_BookInfo`.
 
 The Computed concept allows developer to create a data source that is implemented with a C# code.
 It is usually used for data processing when an SQL query is not an efficient solution,
-and the algorithm is often implemented in an external dll.
+and the algorithm is often implemented in an external DLL.
 
 Task:
 
@@ -317,6 +317,7 @@ Module Bookstore
         ShortString Name;
     }
 
+    // For older Rhetos applications built with DeployPackages, add the required assembly references:
     ExternalReference 'Newtonsoft.Json.JsonConvert, Newtonsoft.Json';
     ExternalReference 'System.Net.Http.HttpClient, System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a';
 }

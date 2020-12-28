@@ -87,7 +87,7 @@ Notes:
 * The examples use the LINQPad's method `Dump()` to print the results in a grid.
 * LINQPad keeps the Rhetos application's process **active between executions**. This improves performance,
   but you will need to stop the LINQPad process ("Cancel All Thread and Reset" menu option)
-  after modifying the DSL scripts, before building the application again, to **unlock the generated dll files**.
+  after modifying the DSL scripts, before building the application again, to **unlock the generated DLL files**.
 
 ### Option B: Creating a "playground" console app
 

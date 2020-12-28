@@ -101,7 +101,7 @@ Module Bookstore
 Module Bookstore
 {
     // ComputeBookRating computes some information about the book by using C# implementation
-    // from an external dll. The result is persisted (as a cache) in Entity BookRating,
+    // from an external DLL. The result is persisted (as a cache) in Entity BookRating,
     // and updated automatically.
 
     Computed ComputeBookRating

@@ -85,7 +85,7 @@ libraries from Plugins folder.
    * bin\Generated:
      * assets files => bin\RhetosAssets
      * generated source => bin\DebugSource (different file names, separated by modules)
-     * generated binaries are now part of the generated application's dll file
+     * generated binaries are now part of the generated application's DLL file
      * Note that at build-time, the generated source is compiled from obj\Rhetos\RhetosSource,
        and assets are generated in obj\Rhetos\RhetosAssets.
    * Resources => Resources

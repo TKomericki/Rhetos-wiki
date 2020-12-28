@@ -11,14 +11,14 @@ Contents:
    2. [How to use an external class in an Action with dependency injection](#how-to-use-an-external-class-in-an-action-with-dependency-injection)
    3. [How to avoid circular dependencies between the external class and the generated object model (ServerDom)](#how-to-avoid-circular-dependencies-between-the-external-class-and-the-generated-object-model-serverdom)
 4. [Example for the ExtAction concept](#example-for-the-extaction-concept)
-5. [BeforeAction concept](#BeforeAction-concept)
+5. [BeforeAction concept](#beforeaction-concept)
 
 ## Create an action
 
 The action can be implemented in two ways:
 
 * Using the `Action` concept, which assumes writing the C# code directly in the .rhe script, or in a referenced .cs script file.
-* Using the `ExtAction` concept, where the C# code is implemented in a plugin dll.
+* Using the `ExtAction` concept, where the C# code is implemented in a plugin DLL.
 
 Both ways have their pros and cons, and the choice depends on a situation. The `Action` concept is good for simple code snippets, while `ExtAction` is usually used for more complex implementations.
 
@@ -66,9 +66,10 @@ Module Demo
 
 ### How to use an external class in an Action code snippet
 
-For example, an Action should call an external method `string CreateUniqueName()`, implemented in class `MyNamespace.MyClass`, in a separate dll `MyAssembly.dll`.
+For example, an Action can call an external method `string CreateUniqueName()`, implemented in class `MyNamespace.MyClass`, in a separate DLL `MyAssembly.dll`.
 
-In the DSL script add the `ExternalReference` statement, so that the generated object model references the dll in which your class is implemented.
+For older Rhetos applications built with DeployPackages, in the DSL script add the `ExternalReference` statement,
+so that the generated object model references the DLL in which your class is implemented.
 
 ```C
 Module Demo
