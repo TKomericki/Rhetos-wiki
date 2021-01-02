@@ -38,10 +38,15 @@ Hardcoded Genre
 
 The **Hardcoded** concept extends the Entity concept and takes care of updating the data in the database.
 
-The **Entry** concept creates a row in the database for every entry.
+The **Entry** concept creates a **row in the database table** for every entry.
+
+* The entry name (`Fantasy` and `Crime` in the example above) is automatically available as a ShortString Name property on the Hardcoded entity.
+* The entry's ID property value is automatically generated based on its name.
+  Optionally, a custom ID value can be provided as a parameter,
+  for example `Entry Fantasy '3DA20360-D212-438A-B43D-EA15800BA9E9'` (since Rhetos v4.3).
 
 The **Value** concept adds the value to the column.
-It uses the CONVERT function to insert the string literal that represents the value of the property into the column.
+It uses the CONVERT function in database to insert the string literal that represents the value of the property into the column.
 
 ## Usage in the object model
 
