@@ -481,3 +481,8 @@ or test environment. The following two files are added to the projects DataMigra
 
     EXEC Rhetos.DataMigrationApplyMultiple 'Common', 'Principal', 'ID, Name';
     ```
+
+   Note that headers of 'up' and 'down' scripts must have the matching tag (GUID),
+   but the down script has "DATAMIGRATION-DOWN" header label.
+   Naming convention is enforced to keep the 'up' and 'down' scripts together:
+   The 'down' script must match the 'up' script name with suffix ".down".
