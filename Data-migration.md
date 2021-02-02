@@ -26,6 +26,11 @@ Table of contents:
 
 ## Developing data-migration scripts
 
+Compared to *Entity Framework migrations*, in Rhetos migrations developers only need to
+manage **migration of data**. Changes to database structure (tables, columns and other objects)
+are managed by Rhetos framework internally. Developers might use data-migration scripts to modify
+the database structure only in rare cases in order to optimize standard Rhetos framework upgrade process.
+
 ### SQL scripts
 
 Data-migration scripts are regular SQL scripts, with the code following specific rules as describes in this article.
