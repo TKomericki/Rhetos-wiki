@@ -59,7 +59,7 @@ Contents:
    1. Select "Service1.svc" in Solution Explorer and press F5 to start debugging.
    2. WCF Test Client should open automatically => Double-click "GetData()" method => Invoke =>
       OK => Response Value should be "You entered: 0".
-3. Add the following **NuGet packages**:
+3. Add the following **NuGet packages** (if NuGet dialog asks for format, select ProjectReference instead of packages.config).
    1. Rhetos.Wcf
    2. Rhetos.CommonConcepts
    3. Rhetos.RestGenerator
