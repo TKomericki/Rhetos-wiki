@@ -43,7 +43,7 @@ Module Demo
     {
         var principal = new Common.Principal
         {
-            ID = parameter.ID,
+            ID = parameter.ID ?? Guid.NewGuid(),
             Name = parameter.Name
         };
         repository.Common.Principal.Insert(principal);
@@ -81,7 +81,7 @@ Module Demo
         var nameGenerator = new MyNamespace.MyClass();
         var principal = new Common.Principal
         {
-            ID = parameter.ID,
+            ID = parameter.ID ?? Guid.NewGuid(),
             Name = nameGenerator.CreateUniqueName()
         };
         repository.Common.Principal.Insert(principal);
@@ -144,7 +144,7 @@ public static void CreatePrincipal(CreatePrincipal parameter, DomRepository repo
 {
     var principal = new Common.Principal
     {
-        ID = parameter.ID,
+        ID = parameter.ID ?? Guid.NewGuid(),
         Name = parameter.Name
     }
 

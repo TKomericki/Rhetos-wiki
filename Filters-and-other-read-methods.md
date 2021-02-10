@@ -401,7 +401,7 @@ The loaded books are **processed in the C# code** to mask the titles before bein
 * This kind of processing could not be implemented cleanly with the ComposableFilterBy concept.
 * FilterBy is often used to process the data by an algorithm
   implemented in some external DLL.
-  For example, see FilterBy in [ComputeBookRating](https://github.com/Rhetos/Bookstore/tree/master/src/DslScripts),
+  For example, see FilterBy in [ComputeBookRating](https://github.com/Rhetos/Bookstore/blob/master/src/Bookstore.Service/DslScripts/BookRating.rhe),
   from the Bookstore demo application.
 
 Combining multiple filters and paging:
