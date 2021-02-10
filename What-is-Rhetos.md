@@ -14,7 +14,8 @@ Rhetos works as a compiler that **generates the business application** from the 
 
 Rhetos comes with the *CommonConcepts* DSL package, a programming language extension that contains many ready-to-use features for building applications.
 
-[Syntax highlighting](Prerequisites#Configure-your-text-editor-for-DSL-scripts-rhe) is available for Visual Studio Code, SublimeText3 and Notepad++.
+IntelliSense is available for Visual Studio.
+[Syntax highlighting](Prerequisites#Configure-your-text-editor-for-DSL-scripts-rhe) is also available for Visual Studio Code, SublimeText3 and Notepad++.
 
 ## Why was Rhetos created
 
