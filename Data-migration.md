@@ -337,6 +337,8 @@ Option B) Data migration before the deployment:
 * The migration table and columns that don't exist in the new version of the application will be kept indefinitely as a backup.
 * You can optionally delete the backup tables (everything in database schemas that start with an underscore "_").
   This is *not recommended* if the last deployment failed, because it could result with a data loss.
+  Delete the old migration tables only if they contain a considerable amount of data and
+  you need to reduce the database size.
 
 ### Database constraint blocking the data migration
 
