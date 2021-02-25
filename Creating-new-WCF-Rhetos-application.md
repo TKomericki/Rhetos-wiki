@@ -290,6 +290,7 @@ Add new features to you application with following tutorial articles:
    * Option A) Open IIS Manager => Find your application => Basic settings => Change application pool to new RhetosAppPool that is configured to run with your development account (see [IIS Setup](Development-environment-setup#iis-setup))
    * Option B) Add IIS web account permission for the application's folder (see ICACLS commands from [Configure IIS](https://github.com/Rhetos/AspNetFormsAuth#2-configure-iis))
 4. Startup fails with `SqlUtility has not been initialized correctly: Value for connection string (name="ServerConnectionString") is not specified.`
+   or `Configuration value for connection string 'RhetosConnectionString' (settings key "ConnectionStrings:RhetosConnectionString") is not specified.`
    * Configure ConnectionStrings.config (see instructions in the section above).
 5. Startup fails with SqlException `Login failed for user 'IIS APPPOOL\DefaultAppPool'.`
    * Cause: The application (or IIS app pool) does not have access to the database. If using IIS, Open IIS Manager => Find your application => Basic settings => Change application pool to new RhetosAppPool that is configured to run with your development account (see [IIS Setup](Development-environment-setup#iis-setup))
