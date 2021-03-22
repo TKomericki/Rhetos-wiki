@@ -23,7 +23,7 @@ Application development environment (prerequisites for tutorials):
 * [NuGet.exe](https://www.nuget.org/downloads) command-line utility, download and [add to the PATH](https://www.howtogeek.com/118594/how-to-edit-your-system-path-for-easy-command-line-access/) environment variable
 * [Git client](https://gitforwindows.org), installed and added to the PATH environment variable
 * Text editor (recommended Visual Studio Code, SublimeText3 or Notepad++)
-* [LinqPad](https://www.linqpad.net/Download.aspx), the latest version
+* [LinqPad 5](https://www.linqpad.net/Download.aspx)
 * [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms), the latest version
 
 ## Verify the prerequisites
