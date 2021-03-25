@@ -230,6 +230,18 @@ Steps:
 7. View the new book in the database or in browser. Check that the inserted book has automatically
    generated three-digit Code with prefix "B" (by **AutoCode** concept for pattern "B+++").
 
+Review the generated source code in Visual Studio:
+
+1. In Solution Explorer select your application project (Bookstore.Service),
+   and click "Show All Files" toolbar button.
+   It should display additional files and subfolders under the projects.
+2. Open `obj\Rhetos\Source\Model\BookstoreModel.cs` and find `class Book`.
+   It contains basic properties as specified in the DSL script.
+3. Open `obj\Rhetos\Source\Repositories\BookstoreRepositories.cs` and find `class Book_Repository`.
+   It contains implementation of all business rules for the Book entity.
+   * For example, it contains a `Filter` method with parameter `CommonMisspelling`, that applies
+     the filter specified in the DSL script on a given LINQ query.
+
 ## Publishing the application to a test environment or production
 
 In **development environment**, you can run the application directly from Visual Studio,
