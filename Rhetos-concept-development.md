@@ -130,15 +130,15 @@ namespace MyFirstConcept
     {
         public IEnumerable<IConceptInfo> CreateNewConcepts(PhoneNumberInfo conceptInfo, IDslModel existingConcepts)
         {
-            return new IConceptInfo[]
-            {
-                new RegExMatchInfo
+            List<IConceptInfo> newConcepts = new List<IConceptInfo>();
+            if (DataStructure is IWritableOrmDataStructure) // Activate validation only on writable data, for example on Entity.
+                newConcepts.Add(new RegExMatchInfo // Effect is same as adding "RegExMatch" validation on this property in DSL script.
                 {
                     Property = conceptInfo,
                     RegularExpression = "[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*",
                     ErrorMessage = "Invalid phone number format."
-                }
-            }
+                });
+            return newConcepts;
         }
     }
 }
