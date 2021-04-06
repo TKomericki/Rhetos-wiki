@@ -135,7 +135,7 @@ namespace MyFirstConcept
                 newConcepts.Add(new RegExMatchInfo // Effect is same as adding "RegExMatch" validation on this property in DSL script.
                 {
                     Property = conceptInfo,
-                    RegularExpression = "[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*",
+                    RegularExpression = @"[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*",
                     ErrorMessage = "Invalid phone number format."
                 });
             return newConcepts;
