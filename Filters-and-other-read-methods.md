@@ -544,7 +544,7 @@ If you need to use some simple filters in your application to select the data ba
 **there is no need** to write a specific server-side filter in the DSL script.
 
 * Rhetos REST web API automatically provides some **generic property filters**
-  (see "Filters" in the [specification](https://github.com/Rhetos/RestGenerator/blob/master/Readme.md#filters))
+  (see "Filters" in the [specification](https://github.com/Rhetos/RestGenerator/blob/master/Readme.md#reading-data))
   and **paging features** for all queryable data sources such as Entity, Browse or SqlQueryable.
 * Some examples of simple filters from the beginning of this article are not needed by the client application to filter the data;
   it can be done with the generic property filters.
@@ -659,7 +659,7 @@ Usage:
 
 * To apply multiple filters in C# code, see "Filters" and "Applying-multiple-filters" sections
   in [Using the Domain Object Model](Using-the-Domain-Object-Model#Filters) article.
-* See "Filter" in [RestGenerator specification](https://github.com/Rhetos/RestGenerator/blob/master/Readme.md#filters)
+* See "Filter" in [RestGenerator specification](https://github.com/Rhetos/RestGenerator/blob/master/Readme.md#reading-data)
   on how to apply filters in a REST request.
 
 The following table shows examples of reading data from the REST service with some filter parameters.

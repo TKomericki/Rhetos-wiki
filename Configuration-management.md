@@ -116,7 +116,7 @@ Default configuration sources for application with **DeployPackages**:
 
 Common options classes:
 
-* [RhetosAppEnvironment](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/RhetosAppEnvironment.cs)
+* [RhetosAppEnvironment](https://github.com/Rhetos/Rhetos/blob/release-4/Source/Rhetos.Utilities/RhetosAppEnvironment.cs) (Rhetos v4)
 * [RhetosAppOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/RhetosAppOptions.cs)
 * [DatabaseOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/DatabaseOptions.cs)
 * [AppSecurityOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/AppSecurityOptions.cs)
