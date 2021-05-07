@@ -122,6 +122,7 @@ Contents:
        `{ "Rhetos": { "AppSecurity": { "AllClaimsForUsers": "account@computername" } } }`,
        for your account and your machine name, to simplify testing. See the instructions in
        [Suppressing permissions in a development environment](Basic-permissions#suppressing-permissions-in-a-development-environment).
+       Note that the backslash character ("`\`") should be written as "`\\`" in a .json file.
      * In the table `Common.Principal` insert a record with the `Name` column set to your username.
    * Other [authentication methods](https://github.com/Rhetos/Rhetos/wiki/User-authentication-and-authorization)
      can be used by adding a specific plugin package or implementing a custom user provider.

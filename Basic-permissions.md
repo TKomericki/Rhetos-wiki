@@ -172,6 +172,7 @@ config file (for example, **ExternalAppSettings.config**, referenced from web.co
      `<add key="Rhetos:AppSecurity:AllClaimsForUsers" value="mydomain\myusername@OUR_SERVER_NAME" />`.
    * Forms Authentication user "admin":
      `<add key="Rhetos:AppSecurity:AllClaimsForUsers" value="admin@MY_SERVER_NAME" />`.
+   * Note that the **backslash character** ("`\`") should be written as "`\\`" **in a .json file**.
 2. **Rhetos:AppSecurity:AllClaimsForAnonymous** - If set to "true",
    users will have all basic permissions when authentication is configured to anonymous.
    This feature will raise an error if any other authentication method is used.
