@@ -119,25 +119,28 @@ and that is to add regex validation of the phone number.
 This is done by implementing IConceptMacro interface and exposing it via MEF (using Export attribute):
 
 ```csharp
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using Rhetos.Dsl;
 using Rhetos.Dsl.DefaultConcepts;
 
 namespace MyFirstConcept
 {
-    [Export(typeof (IConceptMacro))]
+    [Export(typeof(IConceptMacro))]
     public class PhoneNumberMacro : IConceptMacro<PhoneNumberInfo>
     {
         public IEnumerable<IConceptInfo> CreateNewConcepts(PhoneNumberInfo conceptInfo, IDslModel existingConcepts)
         {
-            List<IConceptInfo> newConcepts = new List<IConceptInfo>();
-            if (DataStructure is IWritableOrmDataStructure) // Activate validation only on writable data, for example on Entity.
+            var newConcepts = new List<IConceptInfo>();
+
+            if (conceptInfo.DataStructure is IWritableOrmDataStructure) // Activate validation only on writable data, for example on Entity.
                 newConcepts.Add(new RegExMatchInfo // Effect is same as adding "RegExMatch" validation on this property in DSL script.
                 {
                     Property = conceptInfo,
                     RegularExpression = @"[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*",
                     ErrorMessage = "Invalid phone number format."
                 });
+
             return newConcepts;
         }
     }
