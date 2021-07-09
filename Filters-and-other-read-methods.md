@@ -692,12 +692,12 @@ SQL query parametrization when filtering by a GUID:
 
 * When using the generic filter operators *equal/equals/notequal/notequals* with the value of type `Guid` or `Guid?` the generated SQL query will be parametrized.
 SQL query parametrization helps SQL Server to reuse the execution plans.
-* This optimization is available since Rhetos v3.0.
+* Available since Rhetos v3.0.
 
 SQL query not-nullable optimization when filtering by a GUID
 
 * When using the `Guid` type instead of `Guid?`, the generated SQL query will not check for null parameter values.
-* This optimization is available since Rhetos v4.1.
+* Available since Rhetos v4.1.
 Applications with EntityFrameworkUseDatabaseNullSemantics option set to true (default) already had this optimization implemented by Entity Framework.
 
 EF query cash reuse when filtering by a list of GUIDs
@@ -706,7 +706,7 @@ EF query cash reuse when filtering by a list of GUIDs
 The problem with this expression is that Entity Framework does not cache the generated SQL query, and generating it may take a few seconds for very complex LINQ queries.
 To avoid this problem we are using an optimization where the query expression will be modified so that Entity Framework can reuse it from the cache but the generated SQL Query should be the same.
 * The same optimization can be achieved in custom code using the `EFExpression.OptimizeContains` method on an expression that should be used as a database query or using the `WhereContains` extension method on an `IQueryable`.
-* This optimization is available since Rhetos v3.0.
+* Available since Rhetos v3.0.
 
 ## Read next
 
