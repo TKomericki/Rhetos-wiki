@@ -3,6 +3,18 @@
 This article shows a *high-level* overview of past major releases.
 For _detailed_ info on previous releases, see the [Release notes](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md).
 
+## Rhetos 5: Migration to .NET 5
+
+* Migrated from .NET Framework to .NET 5.
+* Rhetos framework can be used in any type of C# application,
+  from simple libraries to ASP.NET Core web applications.
+* Rhetos applications can run on both Windows and Linux.
+* Some features are no longer managed by Rhetos framework.
+  Instead, a standard .NET toolset is used for
+  [user authentication](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/?view=aspnetcore-5.0),
+  web API ([Swagger](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-5.0&tabs=visual-studio), e.g.),
+  custom web controllers and host logging.
+
 ## Rhetos 4: Better IDE experience and build performance
 
 * Rhetos DSL IntelliSense for Visual Studio.
