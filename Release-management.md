@@ -13,8 +13,8 @@ Each of those 3 types of releases is built and published in the same way and con
 Major and minor releases:
 
 * A minor release is expected to be published **once per month**.
-  The next 3 minor releases are planned ahead with GitHub [Milestones](https://github.com/Rhetos/Rhetos/milestones?direction=asc&sort=title&state=open).
-* A major release is published less often, depending on the basic technology changes or major changes in development process.
+  The next minor releases are planned ahead with GitHub [Milestones](https://github.com/Rhetos/Rhetos/milestones?direction=asc&sort=title&state=open).
+* A major release is published less often, depending on the basic technology changes or major changes in development process. See [Previous major releases](Previous-releases).
 * Long-term plans are described in [Rhetos roadmap](Rhetos-platform-roadmap).
 
 Patches are released as needed (*ad hoc*), when a critical fix is required for an existing release.
