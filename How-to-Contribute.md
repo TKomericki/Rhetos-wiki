@@ -58,3 +58,7 @@ Before submitting a pull request:
     the test application in `Source\Rhetos` subfolder, in order to run the integration tests.
 * Some changes that could break the backward compatibility should be implemented with a legacy-support option:
   [Backward compatible feature implementation](Backward-compatible-feature-implementation-in-Rhetos-and-CommonConcepts)
+
+## See also
+
+* [Release management](Release-management)
