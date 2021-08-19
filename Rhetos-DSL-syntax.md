@@ -40,6 +40,10 @@ Example:
 }
 </pre>
 
+Rhetos DSL keywords are **case-insensitive** (`Module`, `Entity`, etc.),
+but the generated C# code is case-sensitive,
+so the entity names and similar features should be considered case sensitive (`Demo`, `School`, etc.).
+
 ### String literals
 
 * Simple strings such as object names (**identifiers**) do not need parenthesis.
