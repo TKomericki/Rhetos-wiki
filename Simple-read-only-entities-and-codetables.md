@@ -16,22 +16,25 @@ To simplify this process you can use the **Hardcoded** concept:
 
 Sample code:
 
-```C
+```c
 Hardcoded Genre
 {
-    LongString ShortDescription;
-    Bool Fiction;
+    ShortString Label; // Short text displayed to user.
+    LongString Description;
+    Bool IsFiction;
 
-    Entry Fantasy
+    Entry ScienceFiction
     {
-        Value ShortDescription 'Fantasy is a genre of speculative fiction set in a fictional universe';
-        Value Fiction 1;
+        Value Label 'Science fiction';
+        Value Description 'A speculative fiction with imagined elements that are inspired by natural sciences or social sciences.';
+        Value IsFiction 1;
     }
 
-    Entry Crime
+    Entry Biography
     {
-        Value ShortDescription 'Suspense and mystery are key elements that are nearly ubiquitous to the genre';
-        Value Fiction 0;
+        Value Label 'Biography';
+        Value Description 'A written narrative of a person's life.';
+        Value IsFiction 0;
     }
 }
 ```
@@ -40,10 +43,10 @@ The **Hardcoded** concept extends the Entity concept and takes care of updating 
 
 The **Entry** concept creates a **row in the database table** for every entry.
 
-* The entry name (`Fantasy` and `Crime` in the example above) is automatically available as a ShortString Name property on the Hardcoded entity.
+* The entry name (`ScienceFiction` and `Biography` in the example above) is automatically available as a `ShortString Name` property on the Hardcoded entity.
 * The entry's ID property value is automatically generated based on its name.
   Optionally, a custom ID value can be provided as a parameter,
-  for example `Entry Fantasy '3DA20360-D212-438A-B43D-EA15800BA9E9'` (since Rhetos v4.3).
+  for example `Entry ScienceFiction '3DA20360-D212-438A-B43D-EA15800BA9E9'` (since Rhetos v4.3).
 
 The **Value** concept adds the value to the column.
 It uses the CONVERT function in database to insert the string literal that represents the value of the property into the column.
@@ -55,11 +58,11 @@ The Hardcoded concept allows you to use the predefined entries inside the object
 Sample code:
 
 ```CS
-repository.Bookstore.Book.Query().Where(x => x.GenreID == Bookstore.Genre.Crime);
+repository.Bookstore.Book.Query().Where(x => x.GenreID == Bookstore.Genre.ScienceFiction);
 ```
 
 Every Entry creates a static property on the generated POCO class that returns the ID of the defined entry.
-See `Bookstore.Genre.Crime` in the example above.
+See `Bookstore.Genre.ScienceFiction` in the example above.
 
 ## Usage in the database
 
@@ -73,11 +76,11 @@ SELECT
 FROM
     BookStore.Book book
 WHERE
-    book.GenreID = BookStore.Genre_Fantasy()
+    book.GenreID = BookStore.Genre_ScienceFiction()
 ```
 
 Every Entry concept creates a **scalar function that returns the ID** of the defined entry.
-See `BookStore.Genre_Fantasy()` in the example above.
+See `BookStore.Genre_ScienceFiction()` in the example above.
 
 ## Usage in polymorphic implementation
 
