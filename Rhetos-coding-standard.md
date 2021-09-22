@@ -3,9 +3,10 @@ Table of contents:
 1. [Business application development](#business-application-development)
    1. [Naming convention](#naming-convention)
    2. [Formatting](#formatting)
-   3. [Organizing DSL scripts](#organizing-dsl-scripts)
-   4. [Error messages](#error-messages)
-   5. [Anti-patterns](#anti-patterns)
+   3. [Implementing business features](#implementing-business-features)
+   4. [Organizing DSL scripts](#organizing-dsl-scripts)
+   5. [Error messages](#error-messages)
+   6. [Anti-patterns](#anti-patterns)
 2. [Developing new DSL concepts](#developing-new-dsl-concepts)
    1. [Concept naming convention](#concept-naming-convention)
    2. [Principles and guidelines](#principles-and-guidelines)
@@ -36,6 +37,14 @@ Table of contents:
 * Use single quotes for C# code snippets (`'`) and double quotes for SQL (`"`).
 * Larger SQL code snippets should be extracted to a separate .sql file in the "SQL" subfolder.
   The file can be referenced from the .rhe script, for example: `SqlQueryable DocumentInfo <SQL\DocumentInfo.sql> { ...`.
+
+### Implementing business features
+
+* For Reference properties use short syntax where possible, for example `Reference Group;` instead of
+  `Reference Group Demo.Group;`. Short syntax conveys intent that this is a simple natural relation.
+* Use Browse instead of SqlQueryable where possible. Browse is a simpler concept,
+  extendable for customizations, and it makes code more readable
+  by stating to developers that there is no data processing occurring in that place.
 
 ### Organizing DSL scripts
 
