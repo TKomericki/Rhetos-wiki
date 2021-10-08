@@ -2,15 +2,19 @@
 
 Welcome to Rhetos wiki!
 
-Rhetos is a DSL framework that enables you to create your own *domain-specific language* to build applications.
-After an application developer describes the application in that language (DSL script), Rhetos will
-generate the complete application, including the application's database,
-business layer object model (C#) and web API (REST, SOAP, OData, etc.).
+Rhetos is a DSL framework that enables you to create your own *domain-specific programming language*.
+After an application developer describes the application in that language (DSL script),
+Rhetos will generate the application's source code, database model, web API and other components.
+
+Rhetos extends the modern .NET technology stack with advanced programming paradigms:
+declarative programming, metaprogramming and AOP.
 
 * [What is Rhetos](What-is-Rhetos), an overview of the Rhetos architecture and principles
 * [Roadmap](Rhetos-platform-roadmap)
 
-Contributions are very welcome, both in learning resources (wiki articles and code samples) or framework and plugins development. See [How to Contribute](How-to-Contribute) for more information.
+Contributions are very welcome, both in learning resources (wiki articles and code samples)
+or framework and plugins development.
+See [How to Contribute](How-to-Contribute) for more information.
 
 ## Application development with Rhetos
 
