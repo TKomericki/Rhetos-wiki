@@ -11,12 +11,13 @@ Table of contents:
    1. [SQL scripts](#sql-scripts)
    2. [Formatting](#formatting)
    3. [Rules for writing data-migration scripts](#rules-for-writing-data-migration-scripts)
-2. [Examples](#examples)
+2. [Modifying an existing data-migration script](#modifying-an-existing-data-migration-script)
+3. [Examples](#examples)
    1. [Renaming a property](#renaming-a-property)
    2. [Moving a property from one entity to another](#moving-a-property-from-one-entity-to-another)
    3. [Initializing a new unique property value](#initializing-a-new-unique-property-value)
    4. [Changing a property's type](#changing-a-propertys-type)
-3. [Advanced Topics](#advanced-topics)
+4. [Advanced Topics](#advanced-topics)
    1. [Deploying migration scripts](#deploying-migration-scripts)
    2. [Automatic use of the migration tables when dropping and creating columns](#automatic-use-of-the-migration-tables-when-dropping-and-creating-columns)
    3. [Database structure independence](#database-structure-independence)
@@ -114,6 +115,25 @@ you might need to **manually adjust** the *DataMigrationUse* and *DataMigrationA
   Make sure to specify the correct [column type](Data-structure-properties).
 * You may remove *DataMigrationUse* for columns that are not needed in this script. Keep the ID column.
 * You may remove columns from *DataMigrationApplyMultiple* if not modifying the data in those columns. Keep the ID column.
+
+## Modifying an existing data-migration script
+
+When modifying an existing data-migration script, always consider if the **old version** of the script
+has already been executed on your database, other developers' databases, test environments
+or a production environment.
+
+* For example, if the old script inserted some incorrect data, then the new version of the script might
+  leave the old incorrect data on databases where the old script has already been executed.
+
+As a rule of thumb, it best to **always add a new scripts that corrects the data, instead of modify an existing one**.
+
+* This way, you can be sure that the result will be the same on all environments,
+  whether the old script has been executed previously or not.
+
+There are cases when you need to modify the existing script. For example if the old script has a
+bug that deletes some data from the database, then adding a new script cannot correct the bug.
+When modifying an existing script, make sure to **change the GUID code** in the script header if
+you want it to execute again on a database where it has already been executed.
 
 ## Examples
 
