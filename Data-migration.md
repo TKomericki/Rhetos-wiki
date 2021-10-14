@@ -11,13 +11,13 @@ Table of contents:
    1. [SQL scripts](#sql-scripts)
    2. [Formatting](#formatting)
    3. [Rules for writing data-migration scripts](#rules-for-writing-data-migration-scripts)
-2. [Modifying an existing data-migration script](#modifying-an-existing-data-migration-script)
-3. [Examples](#examples)
+   4. [Modifying an existing data-migration script](#modifying-an-existing-data-migration-script)
+2. [Examples](#examples)
    1. [Renaming a property](#renaming-a-property)
    2. [Moving a property from one entity to another](#moving-a-property-from-one-entity-to-another)
    3. [Initializing a new unique property value](#initializing-a-new-unique-property-value)
    4. [Changing a property's type](#changing-a-propertys-type)
-4. [Advanced Topics](#advanced-topics)
+3. [Advanced Topics](#advanced-topics)
    1. [Deploying migration scripts](#deploying-migration-scripts)
    2. [Automatic use of the migration tables when dropping and creating columns](#automatic-use-of-the-migration-tables-when-dropping-and-creating-columns)
    3. [Database structure independence](#database-structure-independence)
@@ -116,7 +116,7 @@ you might need to **manually adjust** the *DataMigrationUse* and *DataMigrationA
 * You may remove *DataMigrationUse* for columns that are not needed in this script. Keep the ID column.
 * You may remove columns from *DataMigrationApplyMultiple* if not modifying the data in those columns. Keep the ID column.
 
-## Modifying an existing data-migration script
+### Modifying an existing data-migration script
 
 When modifying an existing data-migration script, always consider if the **old version** of the script
 has already been executed on your database, other developers' databases, test environments
