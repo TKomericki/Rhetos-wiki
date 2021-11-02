@@ -125,13 +125,13 @@ or a production environment.
 * For example, if the old script inserted some incorrect data, then the new version of the script might
   leave the old incorrect data on databases where the old script has already been executed.
 
-As a rule of thumb, it best to **always add a new scripts that corrects the data, instead of modify an existing one**.
+As a rule of thumb, it best to **always add a new script that corrects the data, instead of modifying the existing one**.
 
 * This way, you can be sure that the result will be the same on all environments,
   whether the old script has been executed previously or not.
 
 There are cases when you need to modify the existing script. For example if the old script has a
-bug that deletes some data from the database, then adding a new script cannot correct the bug.
+bug that deletes some data from the database, then adding a new script cannot correct the lost data.
 When modifying an existing script, make sure to **change the GUID code** in the script header if
 you want it to execute again on a database where it has already been executed.
 
