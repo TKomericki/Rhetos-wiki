@@ -8,6 +8,6 @@
 
 * [Tutorials and samples](Home#application-development-with-rhetos)
 * [List of DSL concepts in CommonConcepts package](List-of-DSL-concepts-in-CommonConcepts)
-* [Recommended plugins](Home#recommended-plugins)
+* [Recommended plugins](Home#recommended-plugin-packages)
 * [Support](https://github.com/Rhetos/Rhetos/issues?q=is%3Aissue) - Questions and Issues
 * [Release notes](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md)
