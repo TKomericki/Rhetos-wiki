@@ -72,15 +72,33 @@ Support:
 ## Recommended plugin packages
 
 * [CommonConcepts](https://github.com/Rhetos/Rhetos/tree/master/CommonConcepts) contains standard concepts for building applications, such as entities, validations and computations.
-* [ActiveDirectorySync](https://github.com/Rhetos/ActiveDirectorySync). Rhetos supports Windows Authentication by default. This package synchronizes Rhetos user roles with Active Directory, allowing user permissions to be defined by AD user groups.
-* [AspNetFormsAuth](https://github.com/Rhetos/AspNetFormsAuth), provides Forms Authentication to Rhetos applications.
 * [RestGenerator](https://github.com/Rhetos/RestGenerator) automatically generates RESTful JSON web API for all entities and other readable or writable data structures that are defined in a Rhetos application. Additionally allows executing actions and downloading reports.
+* [FloydExtensions](https://github.com/Rhetos/FloydExtensions), generates TypeScript model interfaces from DSL model and provides the structure metadata.
+* [LogArchive](https://github.com/Rhetos/LogArchive), provides simple archive storage for the Common.Log table to improve the application's performance.
+  The archive is integrated into existing auditing features, and automatically available to the log readers.
+* [ActiveDirectorySync](https://github.com/Rhetos/ActiveDirectorySync). For applications that use Windows authentication, this package synchronizes Rhetos user roles with Active Directory, allowing user permissions to be defined by configuring AD user groups.
 * [AfterDeploy](https://github.com/Rhetos/AfterDeploy), simplifies the handling of SQL scripts that need to be executed on each deployment.
 * [LightDMS](https://github.com/Rhetos/LightDMS),  light document versioning system plugin for Rhetos. Supports database table storage, SQL Server filestream and Azure Blob Storage.
 * [ODataGenerator](https://github.com/Rhetos/ODataGenerator) generates OData interface (Open Data Protocol) for all entities and other queryable data structures that are defined in a Rhetos application.
-* [I18NFormatter](https://github.com/Rhetos/I18NFormatter), enables localization of Rhetos applications using [GetText / PO](http://en.wikipedia.org/wiki/Gettext) standard.
-* [LegacyRestGenerator](https://github.com/Rhetos/LegacyRestGenerator), an old version of REST API, available for backward compatibility.
 * [MvcModelGenerator](https://github.com/Rhetos/MvcModelGenerator) generates ASP.NET MVC model for all entities and other queryable data structures, for use in other web applications when accessing the Rhetos application.
+* [Jobs](https://github.com/Rhetos/Jobs), provides an implementation of asynchronous execution of background jobs.
+  It contains two packages: Rhetos.Jobs.Abstractions, that provides interfaces for asynchronous operations,
+  and Rhetos.Jobs.Hangfire, an implementation option using Hangfire library.
+* [Events](https://github.com/Rhetos/HttpNotifications), provides an infrastructure for decoupling
+  a feature that emits an event (save operation, for example) and a feature that processes it (a business rule or a notification).
+  The event handlers are executed synchronously, but they may generate asynchronous tasks
+  or background jobs if needed, depending on the implementation.
+* [HttpNotifications](https://github.com/Rhetos/HttpNotifications), sends HTTP POST notifications to subscriber URL for any configurable event.
+
+Plugin packages for older versions of Rhetos or backward compatibility support:
+
+* [AspNetFormsAuth](https://github.com/Rhetos/AspNetFormsAuth), provides Forms Authentication to Rhetos applications.
+  Since Rhetos v5, authentication is managed by ASP.NET Core, so Rhetos does not need to handle user authentication.
+* [I18NFormatter](https://github.com/Rhetos/I18NFormatter), enables localization of Rhetos applications
+  using [GetText / PO](http://en.wikipedia.org/wiki/Gettext) standard.
+  Since Rhetos v5, it is recommended to let ASP.NET Core manage the localization instead,
+  see [an example](https://github.com/Rhetos/Rhetos.Samples.AspNet/#adding-localization) with OrchardCore localization library.
+* [LegacyRestGenerator](https://github.com/Rhetos/LegacyRestGenerator), an old version of REST API, available for backward compatibility.
 
 See also [Installing plugin packages](Installing-plugin-packages).
 
