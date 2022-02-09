@@ -178,7 +178,7 @@ to specify when to update the cached data, and which records need updating.
       `ChangesOnChangedItems Test.Item 'FilterCriteria' 'changedItems => new FilterCriteria("path to referenced entity", "In", changedItems.Select(item => item.ID))';`
 * **KeyProperties** - A list of properties that are used as a key when comparing the data from source to the cache. By default, the data is matched by ID.
 
-Some usage examples are available in unit testing script [Computations.rhe](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/CommonConcepts.Test/DslScripts/Computations.rhe).
+Some usage examples are available in unit testing script [Computations.rhe](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/CommonConcepts.TestApp/DslScripts/Computations.rhe).
 
 ## Automatic recompute on deployment
 

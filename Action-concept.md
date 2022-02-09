@@ -100,7 +100,7 @@ Module Demo
     * See example of how to register your plugin’s classes: <https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/Plugins/Rhetos.Dom.DefaultConcepts/AutofacModuleConfiguration.cs>
     * The singleton class should be registered to [Autofac](https://autofac.org/) container as a “SingleInstance” component. For other component registration options please refer to Autofac documentation: <https://autofaccn.readthedocs.io/en/latest/register/registration.html>
 3. This class can then be used in the Action concept by adding it to the Action’s repository with `RepositoryUses` concept.
-    * See example in the unit test DSL script: <https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/CommonConcepts.Test/DslScripts/DataStructure.rhe>
+    * See example in the unit test DSL script: <https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/CommonConcepts.TestApp/DslScripts/DataStructure.rhe>
     * In this example the RepositoryUses concept adds the `_logProvider` member property to be used in the Action’s code snippet. In that line you can see the property type `ILogProvider` (here you can use that singleton class name instead of the interface) and the assembly where the type is implemented “Rhetos.Logging.Interfaces.dll” (without the .dll extension).
 
 ### How to avoid circular dependencies between the external class and the generated object model (ServerDom)
