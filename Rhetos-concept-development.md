@@ -255,7 +255,7 @@ Rhetos concepts are usually developed in a stand-alone C# library that reference
 * If you are developing custom concepts specific for your application,
   you can directly reference the project with concepts from your application project.
   For example, see the solution for [Bookstore](https://github.com/Rhetos/Bookstore) demo application:
-  it contains the main application Bookstore.Service that references the Bookstore.Concepts project with
+  it contains the main application Bookstore.Service that references the Bookstore.RhetosExtensions project with
   custom DSL concepts.
 * If you are developing a reusable library, [create a NuGet package](Creating-a-Rhetos-package)
   and add your library to it, then reference it from a Rhetos application.
