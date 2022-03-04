@@ -421,7 +421,7 @@ The values are implemented with a lambda expression:
 It works in a similar way, but it can only provide constant values.
 
 It cannot be used to include custom data in the error message,
-it's only purpose is to **simplify message translation** to different languages
+its only purpose is to **simplify message translation** to different languages
 by separating different parameters from the error message, thus allowing us
 to translate only one message to different languages that can be reused on
 multiple entities and validations with different parameters.

@@ -203,7 +203,7 @@ Data modelling considerations:
   In the example above, some books can be both children's and foreign at the same time,
   and some books are neither.
 * The extensions could be used to implement the **object-oriented inheritance** in the database,
-  but it's downside it that the database structure and constraints do not enforce that
+  but its downside it that the database structure and constraints do not enforce that
   the base entity has *one and only one* extension.
   In most situations, the [Polymorphic](Polymorphic-concept) concept could be more suited
   for implementing the inheritance, instead of the Extends concept.

@@ -164,7 +164,7 @@ Fore each entity, three classes are generated:
    * Find "class Book_Repository" in `obj\Rhetos\RhetosSource\Repositories\BookstoreRepositories.cs`.
    * This class contains most of the business features and the data access logic.
    * Find the Query() method. It returns the Entity Framework query for this entity.
-   * Find the Save(...) method and see it's arguments. It handles inserting, updating and deleting of records.
+   * Find the Save(...) method and see its arguments. It handles inserting, updating and deleting of records.
      This is usually the largest method in this class, because many business rules
      are applied on save.
      * It contains different validations (that throw an exception for invalid data), initialization of values (such as AutoCode), updates any dependent caches values and similar.

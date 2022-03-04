@@ -77,7 +77,7 @@ extension) and `ID` (as Guid property).
   Note that an extended entity ForeignBook (see the [Extends](Data-model-and-relationships) concept)
   creates the navigation property `Extension_ForeignBook`, from the base entity "Book" to the extension.
 
-The Browse data structure is registered as an extension of it's base entity.
+The Browse data structure is registered as an extension of its base entity.
 It also includes the ID property from the base entity (`Book`).
 
 Technical notes:

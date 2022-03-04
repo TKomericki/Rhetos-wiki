@@ -17,7 +17,7 @@ The following concepts are available in CommonConcepts package:
 
 * `Required` - The property value must be entered when saving a record.
   There are two subvariant of this concept:
-  * `SystemRequired` - The user does not need to enter the property value, but it's value should be entered (perhaps automatically by some other business rules).
+  * `SystemRequired` - The user does not need to enter the property value, but its value should be entered (perhaps automatically by some other business rules).
   * `UserRequired` - User (or client applications) needs to provide the property value.
   * Note: The required data validation is implemented in the application layer,
     without the **NOT NULL** constraint in database.
@@ -106,7 +106,7 @@ Similar features and alternatives:
     * Custom prefix: for example, if "BOOK+" is entered,
       the generated codes will be BOOK1, BOOK2, BOOK3, ....
   * `AutoCode`, `DefaultValue` and `DenyUserEdit` are often used together on a same property:
-    * Use `DenyUserEdit` if the user should not enter it's own code or code format.
+    * Use `DenyUserEdit` if the user should not enter its own code or code format.
       By default, the users can enter the code manually, instead of generating it automatically,
       by entering the value that does not end with "+".
     * Use `DefaultValue` to specify custom prefix and number of digits, if the codes are not simple numbers (1, 2, 3, ...).
@@ -141,7 +141,7 @@ Module Demo
         {
             Log Demo.Person.FirstName;
             Log Demo.Person.LastName;
-            // 'Description' property is long and not interesting, so we don't want to log it's values.
+            // 'Description' property is long and not interesting, so we don't want to log its values.
         }
     }
 

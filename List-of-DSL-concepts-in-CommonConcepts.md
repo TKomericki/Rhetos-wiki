@@ -85,7 +85,7 @@ without referencing the generated assembly.
 
 * **Implements** `<DataStructure>.<interface type>` - Data structure's POCO class implements the given C# interface.
 * **ImplementsQueryable** `<DataStructure>.<interfaceType>` - Data structure's queryable class implements the given C# interface.
-* **RegisteredImplementation** `<Implements or ImplementsQueryable>` - Registers the data structure (and it's repository) as the *default* implementation of the given interface. This allows easy access the data structure's repository by using `GenericRepository<ThisInterface>` from dependency injection.
+* **RegisteredImplementation** `<Implements or ImplementsQueryable>` - Registers the data structure (and its repository) as the *default* implementation of the given interface. This allows easy access the data structure's repository by using `GenericRepository<ThisInterface>` from dependency injection.
 
 Property templates and dependencies:
 
@@ -316,7 +316,7 @@ See more on related topics in article [User authentication and authorization](Us
 [RowPermissions](RowPermissions-concept):
 
 * **RowPermissions** `<DataStructure>` - Restricts access for selected users to a subset of the entity's records.
-  * **AutoInheritRowPermissions** `<Module>` - Each detail data structure in the module will inherit row permissions from it's mater data structure. Each extension in the module will inherit row permissions from it's base data structure.
+  * **AutoInheritRowPermissions** `<Module>` - Each detail data structure in the module will inherit row permissions from its mater data structure. Each extension in the module will inherit row permissions from its base data structure.
   * **AutoInheritRowPermissionsInternally** `<Module>` - Similar to `AutoInheritRowPermissions` but it does not inherit row permissions from other modules.
   * **Allow** `<RowPermissions>.<ruleName> 'filterExpressionFunction'` - Allow read and write access to selected records.
   * **AllowRead** `<RowPermissions>.<ruleName> 'filterExpressionFunction'` - Allow read access to selected records.

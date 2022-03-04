@@ -6,8 +6,8 @@ and each version of the record is effective from that time.
 
 Contents:
 
-1. [Add temporal data management to an existing entity](#Add-temporal-data-management-to-an-existing-entity)
-2. [Modify the data of an entity with history](#Modify-the-data-of-an-entity-with-history)
+1. [Add temporal data management to an existing entity](#add-temporal-data-management-to-an-existing-entity)
+2. [Modify the data of an entity with history](#modify-the-data-of-an-entity-with-history)
 
 ## Add temporal data management to an existing entity
 
@@ -61,7 +61,7 @@ This is why we usually only allow users to deactivate a records, instead of dele
 The entity `Demo.Contract` represents the latest version of the contact.
 
 **Insert and delete** operations will insert a new contract or delete a contract
-along with it's history records.
+along with its history records.
 
 **Updating** a record in the `Demo.Contract` can have different consequences,
 based on the given value of `ActiveSince` property:

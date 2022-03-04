@@ -119,7 +119,7 @@ In such situations, one of the dependencies needs to be removed. There are two o
 * The external class can use generic repository interfaces instead of directly referencing the ServerDom.
   * This can be done by using some of the helper classes and interfaces from the Rhetos.CommonConcepts nuget: GenericRepositories, GenericRepository, IRepository, IQueryableRepository, IReadableRepository or IWritableRepository.
   * The data (the properties of the loaded entities) can be accessed by using `dynamic` C# objects, or by creating interfaces that the Entity will implement in the DSL script. For examples see `Implements` keyword in [Security.rhe](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/DslScripts/Security.rhe).
-  * In this case, the dependency injection pattern should be used, so that the external class can get all other components from the system in it's constructor (for example, the GenericRepositories instance). See "How to" above.
+  * In this case, the dependency injection pattern should be used, so that the external class can get all other components from the system in its constructor (for example, the GenericRepositories instance). See "How to" above.
 
 ## Example for the ExtAction concept
 

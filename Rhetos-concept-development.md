@@ -85,7 +85,7 @@ Choosing of what type of concept to implement depends on functionality that we w
 
 ## How to write a macro concept
 
-What every concept needs is definition of it's DSL syntax.
+What every concept needs is definition of its DSL syntax.
 This is done by implementing IConceptInfo interface and exposing it via MEF (using Export attribute).
 IConceptInfo interface is defined in Rhetos.Dsl.Interfaces assembly which is part of Rhetos core.
 You also need to define a DSL keyword for your concept this is done by adding ConceptKeyword attribute
