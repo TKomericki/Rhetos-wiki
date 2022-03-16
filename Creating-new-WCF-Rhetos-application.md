@@ -71,6 +71,7 @@ Contents:
      run `Add-RhetosWcfFiles` again.
    * If the command results with `Access is denied`, save the solution (File => Save All)
      before running it again.
+     If needed, try closing all Visual Studio windows and open the solution again.
 5. Configure git repository:
    1. Add a standard [Visual Studio .gitignore](https://github.com/github/gitignore/blob/master/VisualStudio.gitignore)
       file to the solution's folder.
