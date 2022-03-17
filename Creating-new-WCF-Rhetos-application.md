@@ -63,7 +63,8 @@ Contents:
    1. Rhetos.Wcf
    2. Rhetos.CommonConcepts
    3. Rhetos.RestGenerator
-4. Save the solution (File => Save All). In Visual Studio open Package Manager Console
+4. Save the solution (File => Save All). In Visual Studio open Package Manager Console,
+   in the console at "Default project" select you application (Bookstore.Service, e.g.)
    and run command `Add-RhetosWcfFiles`. It will add Rhetos WCF startup configuration and services
    to the application.
    * If the command results with execution policy error,
