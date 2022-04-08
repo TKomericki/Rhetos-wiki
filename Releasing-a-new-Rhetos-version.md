@@ -38,5 +38,5 @@ This article describes the release process for both Rhetos framework (<https://g
       `SET Version=<CURRENT +0.+1.0>`<br/>
       `SET Prerelease=auto`
     * [ ] Run *Build.bat*.
-    * [ ] Commit with comment "Development &lt;NEXT VERSION&gt;". For example "Development 1.3.0.".
+    * [ ] Commit with comment "Development &lt;NEXT VERSION&gt;.". For example "Development 1.3.0.".
     * [ ] Push the repository to GitHub (set the option *Include Tags*).
