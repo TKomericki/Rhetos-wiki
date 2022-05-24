@@ -5,10 +5,10 @@ For _detailed_ info on previous releases, see the [Release notes](https://github
 
 ## Rhetos 5: Migration to .NET 5
 
-* Migrated from .NET Framework to .NET 5.
+* Migrated from .NET Framework to .NET 5. Rhetos 5.1 also supports .NET 6.
 * Rhetos framework can be used in any type of C# application,
   from simple libraries to ASP.NET Core web applications.
-* Rhetos applications can run on both Windows and Linux.
+* Rhetos applications can run on Windows, Linux and macOS.
 * Some features are no longer managed by Rhetos framework.
   Instead, a standard .NET toolset is used for
   [user authentication](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/?view=aspnetcore-5.0),

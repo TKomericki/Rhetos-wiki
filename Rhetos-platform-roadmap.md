@@ -3,24 +3,14 @@ Each point represents a themed group which will be broken into one or more proje
 
 The best way to give feedback is to create issues or comment and vote on existing [issues](https://github.com/Rhetos/Rhetos/issues).
 
-## 1. Migration to .NET Core (Rhetos 5.0)
-
-With .NET Core gaining so much momentum, especially in the open-source space,
-we feel it is a natural next step for Rhetos platform.
-
-We want to fully migrate Rhetos and all its components to .NET Core platform.
-Expected benefits are: better performance, modern tooling and cross-platform support.
-
-Please discuss this topic on [Rhetos#119](https://github.com/Rhetos/Rhetos/issues/119).
-
-## 2. Runtime performance
+## 1. Runtime performance
 
 There are many possibilities to improve the runtime performance at the framework level,
 that could provide benefits to both new and existing Rhetos applications:
 data caching, read scalability, batching database writes and queries (validations),
 reducing row permissions to aggregate roots, and other.
 
-## 3. Extending developer's toolset
+## 2. Extending developer's toolset
 
 There is an active list of project [Candidates](https://github.com/Rhetos/Rhetos/milestone/11)
 on GitHub issues list.
