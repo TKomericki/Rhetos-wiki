@@ -4,8 +4,12 @@ In this tutorial, we will create a demo application called "Bookstore",
 and later add some additional features to the application in other tutorial articles.
 It is a simplified example of a business application that manages different processes in a bookstore.
 
-> NOTE: This article applies to **older versions of Rhetos framework**. For Rhetos framework **v4.0
-and later** versions see article [Creating a new WCF application with Rhetos framework](Creating-new-WCF-Rhetos-application).
+> OTHER VERSIONS OF RHETOS:
+This article applies to **Rhetos v3** and older versions.
+For newer versions see a corresponding article for
+[Rhetos v5](Creating-a-new-application-with-Rhetos-framework),
+[Rhetos v4](Creating-new-WCF-Rhetos-application)
+or [Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI](Migrating-from-DeployPackages-to-Rhetos-CLI).
 
 Contents:
 

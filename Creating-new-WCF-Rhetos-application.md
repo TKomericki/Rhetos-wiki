@@ -14,8 +14,11 @@ test it, and later add some additional features in other tutorial articles.
 * Currently only WCF applications are supported. We plan to extend this to any Visual Studio
   project type in future releases.
 
-This article applies to **Rhetos framework v4.0** and later versions. For older versions
-see articles [Create your first Rhetos application](Create-your-first-Rhetos-application)
+> OTHER VERSIONS OF RHETOS:
+This article applies to **Rhetos v4**.
+For other versions see a corresponding article for
+[Rhetos v5](Creating-a-new-application-with-Rhetos-framework),
+[Rhetos v3](Create-your-first-Rhetos-application)
 or [Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI](Migrating-from-DeployPackages-to-Rhetos-CLI).
 
 Contents:
@@ -126,7 +129,7 @@ Contents:
        [Suppressing permissions in a development environment](Basic-permissions#suppressing-permissions-in-a-development-environment).
        Note that the backslash character ("`\`") should be written as "`\\`" in a .json file.
      * In the table `Common.Principal` insert a record with the `Name` column set to your username.
-   * Other [authentication methods](https://github.com/Rhetos/Rhetos/wiki/User-authentication-and-authorization)
+   * Other [authentication methods](User-authentication-and-authorization)
      can be used by adding a specific plugin package or implementing a custom user provider.
 4. Test the application: Select the project in Solution Explorer (e.g. Bookstore.Service)
    and press F5 to start debugging.
