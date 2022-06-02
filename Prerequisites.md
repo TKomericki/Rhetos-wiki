@@ -1,74 +1,61 @@
 This article describes how to install and verify the prerequisites for developing applications with Rhetos framework. This is generally a standard C#/ASP.NET development environment.
 
+> OTHER VERSIONS OF RHETOS:
+This article applies to **Rhetos v5** and later versions.
+For older versions see [Prerequisites v4](Prerequisites-v4).
+
 Contents:
 
-1. [Install prerequisites](#install-prerequisites)
-2. [Verify the prerequisites](#verify-the-prerequisites)
-3. [Configure your text editor for DSL scripts (*.rhe)](#configure-your-text-editor-for-dsl-scripts-rhe)
+1. [Prerequisites](#prerequisites)
+2. [Recommended application development environment](#recommended-application-development-environment)
+3. [Configure your text editor for Rhetos DSL scripts](#configure-your-text-editor-for-rhetos-dsl-scripts)
 4. [Read next](#read-next)
 
-## Install prerequisites
+## Prerequisites
 
-Prerequisites for running web applications with Rhetos framework:
+Prerequisites for running applications with Rhetos framework:
 
-* Windows 8 or newer
-* .NET Framework 4.7.2
-* IIS with ASP.NET 4.x installed
-  * Follow the [installation instructions](Installing-IIS).
-* Microsoft SQL Express or SQL Server 2008 or newer, or Oracle Database 11g Release 2 or newer.
+* Linux, Windows or macOS.
+  See [.NET 6 - Supported OS versions](https://github.com/dotnet/core/blob/main/release-notes/6.0/supported-os.md) for more details on versions and distributions.
+* [.NET 6 runtime](https://dotnet.microsoft.com/en-us/download).
+  Older versions of .NET Framework and .NET 5 are supported with [previous Rhetos versions](Previous-releases).
+* SQL Server 2008 or newer, Microsoft SQL Express, or Oracle Database 11g Release 2 or newer.
 
-Recommended application development environment (prerequisites for tutorials):
+## Recommended application development environment
 
-* Visual Studio 2017 v15.7 or later. Visual Studio 2022 is recommended.
-* [NuGet.exe](https://www.nuget.org/downloads) command-line utility, download and [add to the PATH](https://www.howtogeek.com/118594/how-to-edit-your-system-path-for-easy-command-line-access/) environment variable
-* [Git client](https://gitforwindows.org), installed and added to the PATH environment variable
-* Text editor (recommended Visual Studio Code, SublimeText3 or Notepad++)
+There are no special prerequisites for development environment of Rhetos applications.
+Rhetos is distributed as a NuGet package, and it will work on any environment
+that supports development of .NET 5/.NET 6 applications on Linux, Windows or macOS.
+
+Tutorials in this wiki use the following development tools, as a recommended application development environment:
+
+* [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download).
+* Visual Studio 2022 with Rhetos DSL IntelliSense, or a text editor with Rhetos DSL syntax highlighting (Visual Studio Code, SublimeText3 or Notepad++). See the setup in a following section.
+* [NuGet.exe](https://www.nuget.org/downloads) command-line utility, download and [add to the PATH](https://www.howtogeek.com/118594/how-to-edit-your-system-path-for-easy-command-line-access/) environment variable.
+* [Git client](https://gitforwindows.org), installed and added to the PATH environment variable.
 * [LINQPad](https://www.linqpad.net), for testing and support.
   Select the latest version based on the .NET version of your application,
   see "[Supported frameworks](https://www.linqpad.net/Download.aspx)".
-* [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms), the latest version
+* [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms), the latest version.
 
-## Verify the prerequisites
-
-Verify IIS:
-
-1. Start => Run (Win+R), and then type `InetMgr`.
-   The "Internet Information Services (IIS) Manager" should be opened.
-2. Start your browser, and then type `http://localhost` in the address.
-   The default web site opens and should display an IIS image.
-
-Verify command-prompt utilities:
+Verify command-prompt utilities after installation:
 
 1. Open command-prompt and enter the following commands to check if the utilities are installed and available in the PATH environment variable:
     * `nuget.exe list rhetos` (it should print a list of Rhetos packages available in the online gallery)
     * `git.exe --version` (it should report the installed git version)
 
-Verify Visual Studio 2019 and ASP.NET:
+## Configure your text editor for Rhetos DSL scripts
 
-1. Start "Visual Studio" **as administrator** (right click => Run as administrator).
-2. Create a new project from the template "ASP.NET Web Application (.NET Framework)" with C# and .NET Framework 4.7.2. Select the "MVC" project template and under Authentication click "Change" and select "Windows Authentication".
-3. Project Properties => Web => Change the setting "IIS Express" to "Local IIS", and click "Create Virtual Directory".
-4. Build and Start the application (F5) to check if everything is installed correctly.
-  The ASP.NET web page should automatically open in a browser (<http://localhost/WebApplicationX/>).
-5. Delete the test project.
+The following plugins for text editors are not required for development of Rhetos apps,
+but can help with syntax highlighting or IntelliSense for Rhetos DSL scripts (*.rhe files)
 
-Verify the SQL Server and your development database:
+**Visual Studio 2019 or 2022:**
 
-1. Start "SQL Server Management Studio" and connect to the SQL Server that you will be using for development.
-2. Create and new empty database that will be used for developing the Rhetos application.
-    * Note: Each developer must have his/her own database for Rhetos application development, to avoid conflicts of deploying multiple Rhetos applications to the same database.
-3. Open a new query window on the created database and execute query: `print user_name()`. The query should output `dbo`, meaning that the user has full permissions on the database.
+Visual Studio extension for Rhetos includes highlighting, autocomplete, error reporting, signature help tooltips and other features.
 
-Verify building Rhetos from source:
-
-1. Use git to clone the repository <https://github.com/Rhetos/Rhetos.git> to a new source folder on your disk:
-    * In the command prompt run `git clone https://github.com/Rhetos/Rhetos.git RhetosSource`
-2. Open the command prompt in the created Rhetos source folder and run `Build.bat`.
-    * **Verify that the last printed line is "Build.bat SUCCESSFULLY COMPLETED".**
-
-## Configure your text editor for DSL scripts (*.rhe)
-
-The **syntax highlighting** plugins are available for the following text editors.
+1. Install the IntelliSense support for Rhetos DSL, see [Installation](https://github.com/Rhetos/LanguageServices#installation) instructions.
+2. For a better insight on build process, show Output on build:
+   * Tools => Options => Projects and Solutions => General => Enable: "Show Output window when build starts".
 
 **Visual Studio Code:**
 
@@ -76,12 +63,11 @@ The **syntax highlighting** plugins are available for the following text editors
 2. In the opened folder, use git to clone the <https://github.com/Rhetos/RhetosVSCode> repository to the subfolder "RhetosVSCode".
 3. Restart Visual Studio Code.
 
-**Visual Studio:**
+**SublimeText3:**
 
-1. Install the IntelliSense support for Rhetos DSL:
-   * Visual Studio => Extensions => Manage Extensions => Online => Search: "Rhetos DSL Language Extension" => Download.
-2. For a better insight on build process, show Output on build:
-   * Tools => Options => Projects and Solutions => General => Enable: "Show Output window when build starts".
+1. Install the *PackageControl* plugin by following the instructions at <https://packagecontrol.io/installation>.
+2. Install the *RhetosDSL* sublime text package: Ctrl-Shift-P, select "install package", select "RhetosDSL".
+    * Note: The source code is available at <https://github.com/Hugibeer/RhetosDSLSyntax>.
 
 **Notepad++:**
 
@@ -112,12 +98,6 @@ The **syntax highlighting** plugins are available for the following text editors
    The plug-in enables you to define and use shortcuts that will be replaced with complete expressions.
    For example replace "ss" with "ShortString" and so on.
 
-**SublimeText3:**
-
-1. Install the *PackageControl* plugin by following the instructions at <https://packagecontrol.io/installation>.
-2. Install the *RhetosDSL* sublime text package: Ctrl-Shift-P, select "install package", select "RhetosDSL".
-    * Note: The source code is available at <https://github.com/Hugibeer/RhetosDSLSyntax>.
-
 ## Read next
 
-* [Creating a new WCF application with Rhetos framework](Creating-new-WCF-Rhetos-application)
+* [Creating a new application with Rhetos framework](Creating-a-new-application-with-Rhetos-framework)
