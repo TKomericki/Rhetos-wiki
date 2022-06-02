@@ -1,11 +1,13 @@
 # Previous major releases
 
 This article shows a *high-level* overview of past major releases.
-For _detailed_ info on previous releases, see the [Release notes](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md).
+For *detailed_info* on previous releases, see the [Release notes](https://github.com/Rhetos/Rhetos/blob/master/ChangeLog.md).
 
-## Rhetos 5: Migration to .NET 5
+## Rhetos 5: Migration to .NET 5/6
 
-* Migrated from .NET Framework to .NET 5. Rhetos 5.1 also supports .NET 6.
+* Migrated from .NET Framework 4.7.2:
+  * Rhetos 5.0 supports .NET 5 applications.
+  * Rhetos 5.1 supports .NET 5 and .NET 6.
 * Rhetos framework can be used in any type of C# application,
   from simple libraries to ASP.NET Core web applications.
 * Rhetos applications can run on Windows, Linux and macOS.
@@ -47,7 +49,7 @@ For _detailed_ info on previous releases, see the [Release notes](https://github
 
 ## Rhetos 0.9
 
-* Core framework features: DSL parser, code generators, database upgrade, SOAP and REST API.
+* Core framework features: DSL parser, code generators, database update, SOAP and REST API.
 * Many business patterns implemented as DSL concepts in CommonConcepts package.
 * Basic security and row permissions.
 * Official plugin packages: authentication methods, web APIs, AD integration, OData, ...

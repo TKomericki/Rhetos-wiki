@@ -5,7 +5,7 @@ Since v4.3, it can be configured to generate **datetime** or newer **datetime2**
 
 * For backward compatibility, Rhetos v4.3 generates *datetime* column type by default.
   The *datetime2* column type can be enabled by setting the
-  [build option](https://github.com/Rhetos/Rhetos/wiki/Configuration-management#build-configuration)
+  [build option](Configuration-management#build-configuration)
   "CommonConcepts:UseLegacyMsSqlDateTime" to false.
   Rhetos v5.0 and later generates *datetime2* by default.
 * For new applications it is recommended to use *datetime2*.

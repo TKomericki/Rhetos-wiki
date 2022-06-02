@@ -159,9 +159,10 @@ This can be useful when maintaining an enterprise application, for example:
 The term "data validations" in this article describes a business rule that checks
 **whether a certain data is valid or not**.
 
-The validation *should not depend* on the operation context, on the user's role and permissions
+The validation **should not depend on the operation context**, on the user's role and permissions
 or the previous data values that were overwritten.
 The validation should just analyze the new state of the data and decide if it is correct as it is.
+
 There are alternative concepts available for other features that are **not
 data validations** in this strict sense:
 

@@ -44,7 +44,7 @@ Note: This is a navigation property for use in Entity Framework LINQ queries. Th
 
 Before Rhetos v4.3, the DateTime property concept always generated *datetime* column in database.
 Since v4.3, the database column type can be configured in
-[build options](https://github.com/Rhetos/Rhetos/wiki/Configuration-management#build-configuration):
+[build options](Configuration-management#build-configuration):
 
 * "CommonConcepts:UseLegacyMsSqlDateTime" (boolean) -
   Generate old *datetime* type instead of  *datetime2* column type.
