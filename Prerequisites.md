@@ -17,13 +17,15 @@ Prerequisites for running web applications with Rhetos framework:
   * Follow the [installation instructions](Installing-IIS).
 * Microsoft SQL Express or SQL Server 2008 or newer, or Oracle Database 11g Release 2 or newer.
 
-Application development environment (prerequisites for tutorials):
+Recommended application development environment (prerequisites for tutorials):
 
-* Visual Studio 2017 v15.7 or later. Visual Studio 2019 is recommended.
+* Visual Studio 2017 v15.7 or later. Visual Studio 2022 is recommended.
 * [NuGet.exe](https://www.nuget.org/downloads) command-line utility, download and [add to the PATH](https://www.howtogeek.com/118594/how-to-edit-your-system-path-for-easy-command-line-access/) environment variable
 * [Git client](https://gitforwindows.org), installed and added to the PATH environment variable
 * Text editor (recommended Visual Studio Code, SublimeText3 or Notepad++)
-* [LinqPad 5](https://www.linqpad.net/Download.aspx)
+* [LINQPad](https://www.linqpad.net), for testing and support.
+  Select the latest version based on the .NET version of your application,
+  see "[Supported frameworks](https://www.linqpad.net/Download.aspx)".
 * [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms), the latest version
 
 ## Verify the prerequisites

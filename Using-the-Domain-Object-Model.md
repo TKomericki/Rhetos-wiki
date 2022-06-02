@@ -80,7 +80,9 @@ Add `scope.CommitChanges()` at the end of the using block if you need to commit 
 
 ### Option A: LINQPad
 
-1. Download and install "LINQPad 5" from <https://www.linqpad.net/>.
+1. Download and install [LINQPad](https://www.linqpad.net).
+   Select the latest version based on the .NET version of your application,
+   see "[Supported frameworks](https://www.linqpad.net/Download.aspx)".
 2. Open the LINQPad script `LinqPad\Rhetos Server DOM.linq` from your application's folder.
 3. Run it with F5. It should print a few tables and end with "Done.".
 
