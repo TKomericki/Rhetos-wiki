@@ -1,6 +1,6 @@
 # Creating a new application with Rhetos framework
 
-This article shows how to add Rhetos to ASP.NET Web API application.
+This tutorial shows how to add Rhetos to ASP.NET Web API application.
 
 In this tutorial, we will create **a business service** for demo application called **"Bookstore"**,
 test it, and later add some additional features in other tutorial articles.
@@ -24,16 +24,17 @@ or [Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI](Migrating-f
 Contents:
 
 1. [Prerequisites](#prerequisites)
-2. [Create a web app and add Rhetos](#create-a-web-app-and-add-rhetos)
+2. [Introduction: Rhetos DSL programming language](#introduction-rhetos-dsl-programming-language)
+3. [Create a web app and add Rhetos](#create-a-web-app-and-add-rhetos)
    1. [Build your first Rhetos App](#build-your-first-rhetos-app)
    2. [Connecting to ASP.NET pipeline](#connecting-to-aspnet-pipeline)
    3. [Connecting to a database](#connecting-to-a-database)
    4. [Applying Rhetos model to database](#applying-rhetos-model-to-database)
-3. [Use Rhetos components in ASP.NET controllers](#use-rhetos-components-in-aspnet-controllers)
-4. [Additional development environment setup](#additional-development-environment-setup)
+4. [Use Rhetos components in ASP.NET controllers](#use-rhetos-components-in-aspnet-controllers)
+5. [Additional development environment setup](#additional-development-environment-setup)
    1. [Using Visual Studio](#using-visual-studio)
    2. [Setup git repository](#setup-git-repository)
-5. [Additional integration/extension options](#additional-integrationextension-options)
+6. [Additional integration/extension options](#additional-integrationextension-options)
    1. [Adding Rhetos dashboard](#adding-rhetos-dashboard)
    2. [Adding Rhetos.RestGenerator](#adding-rhetosrestgenerator)
    3. [View Rhetos.RestGenerator endpoints in Swagger](#view-rhetosrestgenerator-endpoints-in-swagger)
@@ -41,15 +42,54 @@ Contents:
    5. [Use NLog to write application's system log into a file](#use-nlog-to-write-applications-system-log-into-a-file)
    6. [Adding localization](#adding-localization)
    7. [Improve Entity Framework performance](#improve-entity-framework-performance)
-6. [Publishing the application to a test environment or production](#publishing-the-application-to-a-test-environment-or-production)
-7. [A more complex project structure](#a-more-complex-project-structure)
-8. [Read next](#read-next)
+7. [Publishing the application to a test environment or production](#publishing-the-application-to-a-test-environment-or-production)
+8. [A more complex project structure](#a-more-complex-project-structure)
+9. [Read next](#read-next)
 
 ## Prerequisites
 
 1. Run `dotnet --version` in command prompt to check if you have **.NET 6 SDK** installed.
    It should output 6.x.x.
    If not, install the latest version of SDK from <https://dotnet.microsoft.com/download/dotnet/6.0>.
+
+## Introduction: Rhetos DSL programming language
+
+Rhetos enables usage of Rhetos DSL programming language in .NET applications.
+We can combine Rhetos DSL source files with C# source files in a same application.
+
+We will use the following DSL script as the source code of the *Bookstore* application in this tutorial:
+
+```c
+Module Bookstore
+{
+   Entity Book
+   {
+      ShortString Code { AutoCode; }
+      ShortString Title;
+      Integer NumberOfPages;
+
+      ItemFilter CommonMisspelling 'book => book.Title.Contains("curiousity")';
+      InvalidData CommonMisspelling 'It is not allowed to enter misspelled word "curiousity".';
+
+      Logging;
+   }
+}
+```
+
+Before creating the application, let's review this source code first.
+
+Rhetos DSL is a *declarative* programming language,
+so the source code should be viewed as a **set of features** (statements)
+that the application contains, instead of a **list of commands** that the computer will execute.
+
+Each statement is starting with a *keyword* (Module, Entity, ShortString, AutoCode, ...)
+and some *parameters* after the keyword. Statements can be nested in other statements.
+
+* **Module** keyword represents a business module, and a namespace in C# code.
+* **Entity** represents a business object (C# class) and a table in database that contains the object's data.
+  The Book entity here contains some properties and some business features.
+  These features are explained in later tutorial articles, see [Read next](#read-next) below.
+* See [Rhetos DSL syntax](Rhetos-DSL-syntax) article for better understanding of the DSL scripts.
 
 ## Create a web app and add Rhetos
 
@@ -81,43 +121,15 @@ Contents:
 ### Build your first Rhetos App
 
 1. Inside Bookstore.Service, add a subfolder `DslScripts` and inside it create a text file
-   named `Books.rhe`, with the following text:
-
-   ```c
-   Module Bookstore
-   {
-       Entity Book
-       {
-           ShortString Code { AutoCode; }
-           ShortString Title;
-           Integer NumberOfPages;
-   
-           ItemFilter CommonMisspelling 'book => book.Title.Contains("curiousity")';
-           InvalidData CommonMisspelling 'It is not allowed to enter misspelled word "curiousity".';
-   
-           Logging;
-       }
-   }
-   ```
+   named `Books.rhe`.
+   Edit the file to contain the DSL script from the [Introduction](#introduction-rhetos-dsl-programming-language)
+   section above (`Module Bookstore ...`).
 
 2. Run `dotnet build` in "Bookstore.Service" folder to verify that everything compiles.
 
    * On build, your DSL model from the .rhe script is compiled, and the generated Rhetos classes
      are now available in your project in `obj\Rhetos\Source` folder.
-   * SQL code and others application assets are also generated.
-
-This .rhe script is the source code of the Bookstore application,
-written in the Rhetos DSL programming language.
-
-Rhetos DSL is a declarative language, and the source code should be viewed as a **set of features (statements)**.
-Each statement is starting with a *keyword* (Module, Entity, ShortString, AutoCode, ...)
-and some *parameters* after the keyword. Statements can be nested in other statements.
-
-* **Module** keyword represents a business module, and a namespace in C# code.
-* **Entity** represents a business object (C# class) and a table in database that contains the object's data.
-  The Book entity here contains some properties and some business features.
-  These features are explained in later tutorial articles, see [Read next](#read-next) below.
-* See [Rhetos DSL syntax](Rhetos-DSL-syntax) article for better understanding of the DSL scripts.
+   * SQL code and others assets files are also generated.
 
 ### Connecting to ASP.NET pipeline
 
@@ -150,7 +162,7 @@ builder.Services.AddRhetosHost(ConfigureRhetosHostBuilder)
 New ASP.NET 6 applications use "minimal hosting model" by default (i.e. there is no Startup.cs).
 If your application uses a classic Startup class instead,
 adapt the code samples from this tutorial for your application
-by reviewing differenced in [Code samples](https://docs.microsoft.com/en-us/aspnet/core/migration/50-to-60-samples?view=aspnetcore-6.0)
+by reviewing differences in [Code samples](https://docs.microsoft.com/en-us/aspnet/core/migration/50-to-60-samples?view=aspnetcore-6.0)
 from Microsoft.
 
 ### Connecting to a database
