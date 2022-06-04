@@ -32,7 +32,7 @@ Contents:
    4. [Applying Rhetos model to database](#applying-rhetos-model-to-database)
 4. [Use Rhetos components in ASP.NET controllers](#use-rhetos-components-in-aspnet-controllers)
 5. [Additional development environment setup](#additional-development-environment-setup)
-   1. [Using Visual Studio](#using-visual-studio)
+   1. [Using Visual Studio and automatic dbupdate](#using-visual-studio-and-automatic-dbupdate)
    2. [Setup git repository](#setup-git-repository)
 6. [Additional integration/extension options](#additional-integrationextension-options)
    1. [Adding Rhetos dashboard](#adding-rhetos-dashboard)
@@ -207,7 +207,7 @@ To apply the model to database we need to use `rhetos.exe` CLI tool.
 1. Run `dotnet build`
 
 2. In the binary output folder (`Bookstore.Service\bin\Debug\net6.0`) execute dbupdate command:
-   `./rhetos.exe dbupdate Bookstore.Service.dll`
+   `rhetos.exe dbupdate Bookstore.Service.dll`
 
 If you receive a database connection error, correct the connection string
 and run the `dotnet build` again.
@@ -289,7 +289,7 @@ see [example](https://github.com/Rhetos/Bookstore/blob/master/src/Bookstore.Serv
 
 ## Additional development environment setup
 
-### Using Visual Studio
+### Using Visual Studio and automatic dbupdate
 
 Visual Studio is not required for development of Rhetos applications, but it can be helpful because
 there is a DSL IntelliSense extension available for VS.
@@ -304,11 +304,11 @@ there is a DSL IntelliSense extension available for VS.
    Tools => Options => Projects and Solutions => General => Enable: "Show Output window when build starts".
 
 4. For this tutorial, create a solution in Bookstore folder and add the existing project to the solution.
-   You can do this by executing the following command in PowerShell console in "Bookstore" folder:
+   You can do this by executing the following commands in "Bookstore" folder:
 
-   ```powershell
+   ```batch
    dotnet new sln
-   dotnet sln add --in-root src/Bookstore.Service/Bookstore.Service.csproj
+   dotnet sln add --in-root src\Bookstore.Service\Bookstore.Service.csproj
    ```
 
 5. Configure automatic Rhetos database update on build. This is a helpful feature for
@@ -345,6 +345,12 @@ Review the generated source code in Visual Studio:
    * For example, it contains a `Filter` method with parameter `CommonMisspelling`, that applies
      the filter specified in the DSL script on a given LINQ query.
 
+Disabling rhetos dbupdate in build scripts:
+
+* When dbupdate is enabled on build (RhetosDeploy not set to False in .csproj file),
+  you can disable it on automated builds such as Azure Pipelines to make the build process cleaner.
+  Simply disable RhetosDeploy in the build script with /p switch: `dotnet build /p:RhetosDeploy=False`.
+
 ### Setup git repository
 
 This tutorial covers standard application development environment,
@@ -370,7 +376,9 @@ Adding Rhetos dashboard to a Rhetos application:
 
 1. Extend the Rhetos services configuration (at `builder.Services.AddRhetosHost`)
    with the dashboard components: `.AddDashboard()`
+
 2. Extend the application with new endpoint just before `app.Run()`:
+
    ```cs
    if (app.Environment.IsDevelopment())
       app.MapRhetosDashboard();
