@@ -1,37 +1,36 @@
+> OTHER VERSIONS OF RHETOS:
+This article applies to **Rhetos v5 and later** versions.
+For earlier versions see [User authentication and authorization v4](User-authentication-and-authorization-v4).
+
 ## Authentication
 
 *Authentication* refers to a process of establishing the user's identity.
 For example, by providing the username and the password.
 
-### Windows Authentication
+**Any authentication method** supported by ASP.NET may be used in Rhetos apps.
 
-Rhetos supports Windows Authentication *by default*, so the users can
-automatically log in to the web application inside the Windows domain.
+* This is handled by `AddAspNetCoreIdentityUser()` call on AddRhetosHost.
+  See the method call in tutorial article
+  [Creating a new application with Rhetos framework](Creating-a-new-application-with-Rhetos-framework).
+* For example, to add Windows Authentication to your application, follow the ASP.NET Core documentation:
+  [Configure Windows Authentication](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/windowsauth?view=aspnetcore-6.0&tabs=visual-studio).
 
-For additional administration features, such as automatic synchronization
-with the **Active Directory user groups**, see "Automatic user management"
-in [Basic permissions](Basic-permissions#automatic-user-management).
+Various Rhetos plugins are available for additional administration features:
 
-### Forms Authentication
+* Automatic synchronization with the **Active Directory user groups**, see "Automatic user management"
+  in article [Basic permissions](Basic-permissions#automatic-user-management).
+* [Impersonation](https://github.com/Rhetos/Impersonation) -
+  It provides a safe way for specified users to log in as another user for debugging and support.
+* [AspNetFormsAuth](https://github.com/Rhetos/AspNetFormsAuth) -
+  A backward-compatibility plugin for forms authentication on Rhetos applications v4 and earlier.
 
-If the web application must be accessed from outside of Windows Domain
-(for example, a public application), use the **forms authentication** instead.
-The users will log in by typing a username and a password.
+Rhetos components use [IUserInfo](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/IUserInfo.cs)
+interface to retrieve current user information.
 
-* Install forms authentication by including the [AspNetFormsAuth](https://github.com/Rhetos/AspNetFormsAuth)
-  plugin package and follow the additional instruction in the package's readme file.
-* Optional plugin [AspNetFormsAuthImpersonation](https://github.com/Rhetos/AspNetFormsAuthImpersonation)
-  allows the administrator to log in as another user for debugging and support.
-* [SimpleSPRTEmail](https://github.com/Rhetos/SimpleSPRTEmail) plugin adds an
-  authentication service method "Send password reset token" for sending emails if a user forgot the password.
-
-### Additional authentication options
-
-A custom authentication plugin may be added by implementing the
-[IUserInfo](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/IUserInfo.cs) interface
-and registering the new implementation as the Rhetos plugin.
-See [Implementing Rhetos authentication plugins](Implementing-Rhetos-authentication-plugins) article
-for more details on the topic.
+* IUserInfo may be customized by registering a new implementation in Rhetos DI container.
+  Custom implementation of IUserInfo is intended for applications that do not use standard ASP.NET Core authentication middleware.
+  See [Implementing Rhetos authentication plugins](Implementing-Rhetos-authentication-plugins) article
+  for more details on the topic.
 
 ## Authorization
 

@@ -13,10 +13,9 @@ Contents:
    1. [Adding Rhetos dashboard](#adding-rhetos-dashboard)
    2. [Adding Rhetos.RestGenerator](#adding-rhetosrestgenerator)
    3. [View Rhetos.RestGenerator endpoints in Swagger](#view-rhetosrestgenerator-endpoints-in-swagger)
-   4. [Adding ASP.NET authentication and connecting it to Rhetos](#adding-aspnet-authentication-and-connecting-it-to-rhetos)
-   5. [Use NLog to write application's system log into a file](#use-nlog-to-write-applications-system-log-into-a-file)
-   6. [Adding localization](#adding-localization)
-   7. [Improve Entity Framework performance](#improve-entity-framework-performance)
+   4. [Use NLog to write application's system log into a file](#use-nlog-to-write-applications-system-log-into-a-file)
+   5. [Adding localization](#adding-localization)
+   6. [Improve Entity Framework performance](#improve-entity-framework-performance)
 4. [Publishing the application to a test environment or production](#publishing-the-application-to-a-test-environment-or-production)
 5. [A more complex project structure](#a-more-complex-project-structure)
 6. [Read next](#read-next)
@@ -194,91 +193,6 @@ In larger applications, for improved Swagger load time, it is recommended to
 **split each DSL Module into a separate Swagger document** (this is default `GroupNameMapper` behavior).
 See additional instructions in RestGenerator documentation in section
 [Adding Swagger/OpenAPI](https://github.com/Rhetos/RestGenerator/blob/master/Readme.md#adding-swaggeropenapi).
-
-### Adding ASP.NET authentication and connecting it to Rhetos
-
-**Any authentication method** supported by ASP.NET may be used in Rhetos apps.
-
-* This is handled by `AddAspNetCoreIdentityUser()` call on AddRhetosHost,
-  which is already added to your application it an earlier step of this tutorial.
-* For example, to add Windows Authentication to your application,
-  you can follow the ASP.NET documentation:
-  [Configure Windows Authentication](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/windowsauth?view=aspnetcore-6.0&tabs=visual-studio).
-
-In this example we will use an overly simplified authentication method with hardcoded username.
-This is useless for real applications, but it can help with testing demo application in this tutorial.
-
-Add authentication to ASPNET application. Modify `Program.cs`:
-
-```cs
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
-```
-
-Add service configuration:
-
-```cs
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(o => o.Events.OnRedirectToLogin = context =>
-    {
-        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-        return Task.CompletedTask;
-    });
-```
-
-And authentication immediately before `UseAuthorization()`:
-
-```cs
-app.UseAuthentication();
-```
-
-Modify `DemoController.cs`
-
-```cs
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Threading.Tasks;
-using System.Security.Claims;
-```
-
-and a new method to allow us to sign-in:
-
-```cs
-[HttpGet]
-public async Task Login()
-{
-    var claimsIdentity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, "SampleUser") }, CookieAuthenticationDefaults.AuthenticationScheme);
-
-    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-        new ClaimsPrincipal(claimsIdentity),
-        new AuthenticationProperties() { IsPersistent = true });
-}
-```
-
-This is simple stub code to sign-in `SampleUser` so we have a valid user to work with.
-
-In `appsettings.json` set `AllClaimsForAnonymous` to `false`. This disables anonymous workaround we have been using so far.
-
-If you run the app now and navigate to `http://localhost:5000/Demo/Login`
-and then to `http://localhost:5000/Demo/ReadBooks`, you will receive an error:
-`UserException: Your account 'SampleUser' is not registered in the system. Please contact the system administrator.`
-
-Since "SampleUser" doesn't exist in Rhetos we will use a simple configuration feature to treat him as admin.
-
-Add to `appsettings.json`:
-
-```json
-"Rhetos": {
-  "AppSecurity": {
-    "AllClaimsForUsers": "SampleUser"
-  }
-}
-```
-
-`http://localhost:5000/Demo/ReadBooks` should now correctly return number of books.
-
-Browse to Rhetos dashboard `https://localhost:5000/rhetos`,
-it should show User identity: SampleUser, and User authentication type: Cookies.
 
 ### Use NLog to write application's system log into a file
 

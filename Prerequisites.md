@@ -1,8 +1,8 @@
 This article describes how to install and verify the prerequisites for developing applications with Rhetos framework. This is generally a standard C#/ASP.NET development environment.
 
 > OTHER VERSIONS OF RHETOS:
-This article applies to **Rhetos v5** and later versions.
-For older versions see [Prerequisites v4](Prerequisites-v4).
+This article applies to **Rhetos v5 and later** versions.
+For earlier versions see [Prerequisites v4](Prerequisites-v4).
 
 Contents:
 
