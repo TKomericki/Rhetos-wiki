@@ -3,7 +3,7 @@
 Rhetos CLI (**rhetos.exe**) is a command-line utility for build and deployment of Rhetos applications.
 
 * It is integral part of applications that use Rhetos framework.
-  For quick-start tutorial, see [Creating a new WCF application with Rhetos framework](Creating-new-WCF-Rhetos-application).
+  For quick-start tutorial, see [Creating a new application with Rhetos framework](Creating-a-new-application-with-Rhetos-framework).
 * To start using Rhetos CLI on an older application that currently uses DeployPackages,
   see [Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI](Migrating-from-DeployPackages-to-Rhetos-CLI).
 

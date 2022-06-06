@@ -242,7 +242,7 @@ since the validation provides no parameters when executed.
 
 Test the validations from the previous sections by directly executing the save method
 in the generated [object model](Using-the-Domain-Object-Model), or by saving with a REST request
-(see [Test and review](Creating-new-WCF-Rhetos-application#test-and-review-the-application) section).
+(see [View Rhetos REST endpoints in Swagger](Recommended-application-setup#view-rhetosrestgenerator-endpoints-in-swagger) section).
 
 For example:
 

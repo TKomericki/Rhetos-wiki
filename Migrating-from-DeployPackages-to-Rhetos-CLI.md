@@ -1,4 +1,4 @@
-# Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI
+# Migrating from DeployPackages to Rhetos.MSBuild with Rhetos CLI v4
 
 This article contains step-by-step instruction for migrating an existing **Rhetos application** or **Rhetos plugin package**
 from old build and deployment process (with DeployPackages) to the new one (Rhetos.MSBuild with Rhetos CLI),

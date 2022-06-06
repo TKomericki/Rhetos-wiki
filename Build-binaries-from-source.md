@@ -1,13 +1,8 @@
 # Building the Rhetos framework binaries from source
 
-Official releases of Rhetos framework binaries are available on [NuGet online gallery](https://www.nuget.org/)
-and [GitHub Rhetos releases](https://github.com/Rhetos/Rhetos/releases):
-
-* Rhetos NuGet package
-* Rhetos.CommonConcepts NuGet package
-* Rhetos.MSBuild NuGet package
-* Rhetos.Wcf NuGet package
-* RhetosServer.zip (for older version of Rhetos)
+Official releases of Rhetos framework binaries are available on
+[NuGet online gallery](https://www.nuget.org/packages?q=rhetos)
+and [GitHub Rhetos releases](https://github.com/Rhetos/Rhetos/releases).
 
 You can build the latest version of the binaries directly from source.
 
@@ -21,6 +16,4 @@ Steps:
    * In the command prompt run `git clone https://github.com/Rhetos/Rhetos.git RhetosSource`
 2. Open the command prompt in the created Rhetos source folder and run `Build.bat`.
    Verify that the last printed line is "Build.bat SUCCESSFULLY COMPLETED".
-3. The Rhetos framework binaries are created in the subfolder `Install`:
-   * NuGet packages
-   * RhetosServer folder - Binaries for older Rhetos applications with DeployPackages.
+3. The Rhetos framework binaries are created in the subfolder `Install`.

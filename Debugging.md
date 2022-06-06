@@ -11,7 +11,7 @@ Contents:
 
 ## Debugging applications built with Rhetos CLI and Rhetos MSBuild integration
 
-Applications that are built with Rhetos CLI are standard WCF applications;
+Applications that are built with Rhetos CLI are standard .NET applications;
 they can be debugged directly in Visual Studio.
 
 Alternatively, if you are using IIS, instead of running the application from Visual Studio,

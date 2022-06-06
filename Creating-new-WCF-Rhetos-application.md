@@ -36,8 +36,8 @@ Contents:
 
 ## Development environment setup
 
-1. Install the **IntelliSense** support for **Rhetos DSL**: Visual Studio => Extensions =>
-   Manage Extensions => Online => Search: "Rhetos DSL Language Extension" => Download.
+1. Install the **IntelliSense** support for **Rhetos DSL**,
+   see [Installation](https://github.com/Rhetos/LanguageServices#installation) instructions.
    Note that this extension is not required for developing and building Rhetos applications,
    but it is very useful when using Visual Studio as an editor for DSL scripts.
 2. Before creating a new project, make sure that you will use the new **PackageReference** format

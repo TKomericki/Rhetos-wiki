@@ -1,5 +1,8 @@
 # Using old packages with new NuGet dependencies
 
+> This article applies to **Rhetos v4 and earlier** versions.
+Rhetos v5 and later uses .NET Core that does not have issues described here.
+
 This article shows how to add `bindingRedirect` configuration,
 to allow your existing application to work with existing plugin packages,
 without recompiling them with new version of the dependencies.

@@ -12,9 +12,11 @@ such as filters, validations, computations and server actions.
 Prerequisites:
 
 * To follow the examples in this tutorial article, you need a working application with Rhetos framework.
-  You can use any existing Rhetos application or create a new one from article [Creating a new WCF application with Rhetos framework](Creating-new-WCF-Rhetos-application).
+  You can use any existing Rhetos application or create a new one from article
+  [Creating a new application with Rhetos framework](Creating-a-new-application-with-Rhetos-framework).
 * Some examples use the entities from the [Bookstore](https://github.com/Rhetos/Bookstore) demo application.
-  You can review the bookstore data model in its [DSL scripts](https://github.com/Rhetos/Bookstore/tree/master/src/Bookstore.Service/DslScripts).
+  You can review the bookstore data model in its
+  [DSL scripts](https://github.com/Rhetos/Bookstore/tree/master/src/Bookstore.Service/DslScripts).
   For example, see the `Entity Book` in the *Book.rhe* file.
 
 Contents:

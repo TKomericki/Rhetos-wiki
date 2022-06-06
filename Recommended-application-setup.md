@@ -12,7 +12,7 @@ Contents:
 3. [Additional integration/extension options](#additional-integrationextension-options)
    1. [Adding Rhetos dashboard](#adding-rhetos-dashboard)
    2. [Adding Rhetos.RestGenerator](#adding-rhetosrestgenerator)
-   3. [View Rhetos.RestGenerator endpoints in Swagger](#view-rhetosrestgenerator-endpoints-in-swagger)
+   3. [View Rhetos REST endpoints in Swagger](#view-rhetos-rest-endpoints-in-swagger)
    4. [Use NLog to write application's system log into a file](#use-nlog-to-write-applications-system-log-into-a-file)
    5. [Adding localization](#adding-localization)
    6. [Improve Entity Framework performance](#improve-entity-framework-performance)
@@ -129,7 +129,7 @@ The route is configurable in `MapRhetosDashboard` parameter.
 
 Rhetos.RestGenerator package automatically maps all Rhetos data structures to REST endpoints.
 
-If you were following a Bookstore tutorial, it will generate a RESTful JSON web service
+If you are following a Bookstore tutorial, it will generate a RESTful JSON web service
 for the Book entity that was implemented previously in the
 [Books.rhe](Creating-a-new-application-with-Rhetos-framework#introduction-rhetos-dsl-programming-language)
 DSL script.
@@ -155,7 +155,7 @@ Test the generated REST API:
 
 For more info on usage and serialization configuration see [Rhetos.RestGenerator](https://github.com/Rhetos/RestGenerator)
 
-### View Rhetos.RestGenerator endpoints in Swagger
+### View Rhetos REST endpoints in Swagger
 
 Since Swagger is already added to "webapi" project template by default,
 we can generate Open API specification for mapped Rhetos endpoints.

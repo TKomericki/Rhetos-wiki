@@ -75,7 +75,7 @@ and some *parameters* after the keyword. Statements can be nested in other state
 * **Module** keyword represents a business module, and a namespace in C# code.
 * **Entity** represents a business object (C# class) and a table in database that contains the object's data.
   The Book entity here contains some properties and some business features.
-  These features are explained in later tutorial articles, see [Read next](#read-next) below.
+  These features are explained in later tutorial articles.
 * See [Rhetos DSL syntax](Rhetos-DSL-syntax) article for better understanding of the DSL scripts.
 
 ## Create a web app and add Rhetos
@@ -276,5 +276,6 @@ see [example](https://github.com/Rhetos/Bookstore/blob/master/src/Bookstore.Serv
 
 ## Read next
 
+* Install recommended dev tools from article on [Prerequisites](Prerequisites).
 * Configure standard development environment and add common integration features to your Rhetos app:
   [Recommended application setup](Recommended-application-setup).
