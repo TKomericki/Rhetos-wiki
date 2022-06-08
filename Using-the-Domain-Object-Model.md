@@ -24,6 +24,7 @@ Contents:
 1. [How to execute the examples](#how-to-execute-the-examples)
    1. [Option A: LINQPad](#option-a-linqpad)
    2. [Option B: Creating a "playground" console app](#option-b-creating-a-playground-console-app)
+   3. [Executing code snippets](#executing-code-snippets)
 2. [Understanding the generated object model](#understanding-the-generated-object-model)
 3. [Reading the data](#reading-the-data)
    1. [Load data](#load-data)
@@ -55,31 +56,6 @@ or create a "playground" console app in Visual Studio with ConsoleDump NuGet plu
 * **LINQPad** - Simple to setup, nicer output format. Free, but IntelliSense (autocomplete) requires buying a license.
 * **"Playground" console app** in Visual Studio - 10 minutes setup (see below), IntelliSense included.
 
-In both cases, to run any example from this article, copy the code snippet from each example
-into the marked position in the Main method.
-You can delete the rest of the script below the `var repository` line.
-
-```C#
-void Main()
-{
-    string applicationFolder = Path.GetDirectoryName(Util.CurrentQueryPath);
-    ConsoleLogger.MinLevel = EventType.Info; // Use EventType.Trace for more detailed log.
-
-    using (var scope = ProcessContainer.CreateTransactionScopeContainer(applicationFolder))
-    {
-        var context = scope.Resolve<Common.ExecutionContext>();
-        var repository = context.Repository;
-
-        // <<<< Copy-paste the example code here >>>>
-        
-        // scope.CommitChanges(); // Database transaction is rolled back by default.
-    }
-}
-```
-
-Note that the database transaction for each scope is rolled back by default.
-Add `scope.CommitChanges()` at the end of the using block if you need to commit any changes to database.
-
 ### Option A: LINQPad
 
 1. Download and install [LINQPad](https://www.linqpad.net).
@@ -97,9 +73,13 @@ Notes:
 
 ### Option B: Creating a "playground" console app
 
+The following steps show now to create a "playground" console app for .NET 6.
+Same steps with minor adjustments can be user for older versions.
+
 1. In Visual Studio, in the same solution with the existing Rhetos application (Bookstore.Service),
     add a "Console App" C# project, named "Bookstore.Playground" located in the "Bookstore\test" subfolder,
     with .NET 6 framework.
+   * For Rhetos v4 create a .NET Framework 4.7.2 app instead.
 2. Add a project reference to the main Rhetos application:
    Project => Add Project Reference... => Check "Bookstore.Service" => OK.
 3. Project => Manage NuGet Packages... => Browse => search "ConsoleDump"
@@ -121,6 +101,7 @@ Notes:
    ```cs
    string rhetosHostAssemblyPath = @"..\..\..\..\..\src\Bookstore.Service\bin\Debug\net6.0\Bookstore.Service.dll";
    ```
+   For Rhetos v4, the path should reference the Bookstore.Service project folder, instead of the assembly in bin folder.
 7. Set Bookstore.Playground as startup project (Project => Set as Startup Project),
    and run the application with **Ctrl+F5**. It should print a few tables and end with "Done.".
 8. Troubleshooting:
@@ -133,6 +114,32 @@ Notes:
 * The examples use the ConsoleDump's method `Dump()` to print the results in a table format.
 * An example of a similar playground app (for .NET 5) is part of the Bookstore demo application
   at <https://github.com/Rhetos/Bookstore/tree/master/test/Bookstore.Playground>.
+
+### Executing code snippets
+
+Whether using LINQPad or playground console app, to run any example from this article,
+copy the code snippet from each example into the marked position in the Main method.
+You can delete the rest of the script below the `var repository` line.
+
+```cs
+void Main()
+{
+    ConsoleLogger.MinLevel = EventType.Info; // Use EventType.Trace for more detailed log.
+    string rhetosHostAssemblyPath = Path.Combine(Path.GetDirectoryName(Util.CurrentQueryPath), @"..\Bookstore.Service.dll");
+    using (var scope = LinqPadRhetosHost.CreateScope(rhetosHostAssemblyPath))
+    {
+        var context = scope.Resolve<Common.ExecutionContext>();
+        var repository = context.Repository;
+
+        // <<<< Copy-paste the example code here >>>>
+        
+        // scope.CommitChanges(); // Database transaction is rolled back by default.
+    }
+}
+```
+
+Note that the database transaction for each scope is rolled back by default.
+Add `scope.CommitChanges()` at the end of the using block if you need to commit any changes to database.
 
 ## Understanding the generated object model
 
