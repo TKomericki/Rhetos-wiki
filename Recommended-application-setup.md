@@ -122,7 +122,7 @@ Adding Rhetos dashboard to a Rhetos app:
       app.MapRhetosDashboard();
    ```
 
-To see the dashboard, run `dotnet run Environment=Development` and navigate to `http://localhost:5000/rhetos`.
+To see the dashboard, run `dotnet run Environment=Development` and navigate to `https://localhost:5000/rhetos`.
 The route is configurable in `MapRhetosDashboard` parameter.
 
 ### Adding Rhetos.RestGenerator
@@ -147,7 +147,7 @@ Test the generated REST API:
    configuration option (see the example in the [previous tutorial](Creating-a-new-application-with-Rhetos-framework#use-rhetos-components-in-aspnet-controllers)).
 2. Run the application in Visual Studio or execute `dotnet run`.
    The application not contains the generated REST API.
-3. In browser, navigate to `http://localhost:5000/rest/Bookstore/Book` to issue a GET
+3. In browser, navigate to `https://localhost:5000/rest/Bookstore/Book` to issue a GET
    and retrieve all Book entity records in the database.
 4. Open SQL Server Management Studio and and check that the database contains "Bookstore.Book" table.
    Enter some data directly into the table.
@@ -160,22 +160,29 @@ For more info on usage and serialization configuration see [Rhetos.RestGenerator
 Since Swagger is already added to "webapi" project template by default,
 we can generate Open API specification for mapped Rhetos endpoints.
 
-Modify `AddRestApi` call with to read:
+1. Modify `AddRestApi` call with to read:
 
-```cs
-    .AddRestApi(o => 
-    {
-        o.BaseRoute = "rest";
-        o.GroupNameMapper = (conceptInfo, controller, oldName) => "v1";
-    });
-```
+   ```cs
+       .AddRestApi(o => 
+       {
+           o.BaseRoute = "rest";
+           o.GroupNameMapper = (conceptInfo, controller, oldName) => "v1";
+       });
+   ```
+
+2. To support multiple entities with the same name in different modules,
+   add CustomSchemaIds to the existing `builder.Services.AddSwaggerGen` method call:
+
+   ```cs
+   builder.Services.AddSwaggerGen(o => o.CustomSchemaIds(type => type.ToString())); // CustomSchemaIds allows multiple entities with the same name in different modules.
+   ```
 
 This addition maps all generated Rhetos API controllers to an existing Swagger document named 'v1'.
 
 Test the implemented business logic on Book entity, by using Rhetos REST API with Swagger UI:
 
 1. Run the application from Visual Studio (Start without Debugging), or execute `dotnet run Environment=Development`,
-   then navigate to `http://localhost:5000/swagger/index.html`.
+   then navigate to `https://localhost:5000/swagger/index.html`.
    You should see the entire Rhetos REST API in interactive UI.
 2. Use the Swagger UI to **insert a new book** with incorrect title:
    * Expand method "POST /rest/Bookstore/Book" => click "Try it out"
@@ -339,7 +346,7 @@ Add localization to your Rhetos app:
 Test the localization:
 
 1. Run the application.
-2. Use Swagger, or another utility, to POST a request to `http://localhost:5000/rest/Common/Role`
+2. Use Swagger, or another utility, to POST a request to `https://localhost:5000/rest/Common/Role`
    with an empty JSON object in a request body: `{}`.
 3. The server response should contain the localized error message:
    `"Please fill out the field 'Common.Role' on 'Name'. (this is customized message)"`,

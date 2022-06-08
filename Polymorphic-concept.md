@@ -248,7 +248,7 @@ For example, when reading records from `MoneyTransaction` of subtype `LendMoney`
 through REST API, the following filter should be used:
 
 ```json
-http://localhost/Rhetos/rest/Demo/Perf/?filters=[{"Property":"LendMoney","Operation":"NotEqual","Value":null}]
+https://localhost:5000/rest/Demo/Perf/?filters=[{"Property":"LendMoney","Operation":"NotEqual","Value":null}]
 ```
 
 The request above will be translated to an SQL query similar to

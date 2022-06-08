@@ -24,10 +24,10 @@ Contents:
    1. [Solution 1](#solution-1)
    2. [Solution 2](#solution-2)
    3. [Optimizing inherited row permissions](#optimizing-inherited-row-permissions)
-4. [Client code - Reading data with row permissions](#client-code---reading-data-with-row-permissions)
+4. [Client side - Reading data with row permissions](#client-side---reading-data-with-row-permissions)
    1. [Reading all documents (access denied)](#reading-all-documents-access-denied)
    2. [Reading the user's documents](#reading-the-users-documents)
-5. [Server code - Manually verifying row permissions](#server-code---manually-verifying-row-permissions)
+5. [Server side - Manually verifying row permissions](#server-side---manually-verifying-row-permissions)
 6. [See also](#see-also)
 
 ## Simple row permission rules
@@ -349,7 +349,7 @@ and run the tests in the `RowPermissionsDemo` class.*
 
 Use REST API to read all documents, including those that a current user should no access:
 
-    http://localhost/Rhetos/rest/DemoRowPermissions1/Document/
+    https://localhost:5000/rest/DemoRowPermissions1/Document/
 
 Sever response should contain an error:
 
@@ -359,7 +359,7 @@ Sever response should contain an error:
 
 Add the `Common.RowPermissionsReadItems` filter to read only documents that a user is allowed to read:
 
-    http://localhost/Rhetos/rest/DemoRowPermissions1/Document/?filters=[{"Filter":"Common.RowPermissionsReadItems"}]
+    https://localhost:5000/rest/DemoRowPermissions1/Document/?filters=[{"Filter":"Common.RowPermissionsReadItems"}]
 
 This web request will return only the records that the current user has permission to read;
 it will never fail with "Insufficient permissions" error.

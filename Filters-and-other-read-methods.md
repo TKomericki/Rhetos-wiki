@@ -103,7 +103,7 @@ The following articles show how to **test this filter**, or use it in your appli
 1. You can read the filtered data from a REST web API, as described in the
    [RestGenerator documentation](https://github.com/Rhetos/RestGenerator/blob/master/Readme.md).
    For example:
-   * <http://localhost/Bookstore.Service/rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"}]>
+   * <https://localhost:5000/rest/Bookstore/Book/?filters=[{"Filter":"Bookstore.LongBooks"}]>
 2. You can execute the filter directly from C# code, as described in [Using the Domain Object Model](Using-the-Domain-Object-Model#Filters).
    For example:
     ```C#
