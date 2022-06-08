@@ -6,11 +6,8 @@ Contents:
 
 1. [Create an action](#create-an-action)
 2. [Execute an action](#execute-an-action)
-3. [Using external code when developing actions](#using-external-code-when-developing-actions)
-   1. [How to use an external class in an Action code snippet](#how-to-use-an-external-class-in-an-action-code-snippet)
-   2. [How to use an external class in an Action with dependency injection](#how-to-use-an-external-class-in-an-action-with-dependency-injection)
-   3. [How to avoid circular dependencies between the external class and the generated object model (ServerDom)](#how-to-avoid-circular-dependencies-between-the-external-class-and-the-generated-object-model-serverdom)
-4. [Example for the ExtAction concept](#example-for-the-extaction-concept)
+3. [Referencing external code from DSL Actions](#referencing-external-code-from-dsl-actions)
+4. [How to use another class from an Action, with dependency injection](#how-to-use-another-class-from-an-action-with-dependency-injection)
 5. [BeforeAction concept](#beforeaction-concept)
 
 ## Create an action
@@ -62,95 +59,27 @@ Module Demo
 2. The execute an action in C# code from the Rhetos application,
    see [Using the Domain Object Model](Using-the-Domain-Object-Model#execute-action)
 
-## Using external code when developing actions
+## Referencing external code from DSL Actions
 
-### How to use an external class in an Action code snippet
+For Rhetos v4 and earlier versions, see [Using external code when developing DSL Actions](Using-external-code-when-developing-actions) to resolve issues with
+external dependencies.
 
-For example, an Action can call an external method `string CreateUniqueName()`, implemented in class `MyNamespace.MyClass`, in a separate DLL `MyAssembly.dll`.
-
-For older Rhetos applications built with DeployPackages, in the DSL script add the `ExternalReference` statement,
-so that the generated object model references the DLL in which your class is implemented.
-
-```C
-Module Demo
-{
-    ExternalReference 'MyNamespace.MyClass, MyAssembly';
-
-    Action CreatePrincipal '(parameter, repository, userInfo) =>
-    {
-        var nameGenerator = new MyNamespace.MyClass();
-        var principal = new Common.Principal
-        {
-            ID = parameter.ID ?? Guid.NewGuid(),
-            Name = nameGenerator.CreateUniqueName()
-        };
-        repository.Common.Principal.Insert(principal);
-    }'
-    {
-        Guid ID;
-    }
-}
-```
-
-### How to use an external class in an Action with dependency injection
+## How to use another class from an Action, with dependency injection
 
 1. Implement the custom class that requests other dependency injection components as constructor parameters.
-   For older applications that use DeployPackages, the class must be implemented in a separate C# library project (DLL).
+   * For older applications (Rhetos v4 and earlier) that use DeployPackages, the class must be
+     implemented in a separate C# library project (DLL).
 2. Register your class to the [Autofac](https://autofac.org/) dependency injection container
-    * See example of how to register your plugin’s classes: <https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/Plugins/Rhetos.Dom.DefaultConcepts/AutofacModuleConfiguration.cs>
-    * The singleton class should be registered to [Autofac](https://autofac.org/) container as a “SingleInstance” component. For other component registration options please refer to Autofac documentation: <https://autofaccn.readthedocs.io/en/latest/register/registration.html>
-3. This class can then be used in the Action concept by adding it to the Action’s repository with `RepositoryUses` concept.
-    * See example in the unit test DSL script: <https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/CommonConcepts.TestApp/DslScripts/DataStructure.rhe>
-    * In this example the RepositoryUses concept adds the `_logProvider` member property to be used in the Action’s code snippet. In that line you can see the property type `ILogProvider` (here you can use that singleton class name instead of the interface) and the assembly where the type is implemented “Rhetos.Logging.Interfaces.dll” (without the .dll extension).
-
-### How to avoid circular dependencies between the external class and the generated object model (ServerDom)
-
-> NOTE: This section describes an issue that occurs on applications that use old Rhetos
-build process with DeployPackages. New application with Rhetos CLI (Rhetos.MSBuild) should implement
-the custom classes directly in the application, thus avoiding any circular dependencies between the
-custom classes and generated source from DSL scripts.
-
-The examples above work only for external classes that do not reference the generated object model (ServerDom).
-If the external class referenced the ServerDom, and the Action references the class, this would result with a circular dependency between the DLLs.
-
-In such situations, one of the dependencies needs to be removed. There are two options:
-
-* Reflection can be used in the `Action` code snippet to invoke the external method. The `ExtAction` concept is just a helper that does the same.
-* The external class can use generic repository interfaces instead of directly referencing the ServerDom.
-  * This can be done by using some of the helper classes and interfaces from the Rhetos.CommonConcepts nuget: GenericRepositories, GenericRepository, IRepository, IQueryableRepository, IReadableRepository or IWritableRepository.
-  * The data (the properties of the loaded entities) can be accessed by using `dynamic` C# objects, or by creating interfaces that the Entity will implement in the DSL script. For examples see `Implements` keyword in [Security.rhe](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/DslScripts/Security.rhe).
-  * In this case, the dependency injection pattern should be used, so that the external class can get all other components from the system in its constructor (for example, the GenericRepositories instance). See "How to" above.
-
-## Example for the ExtAction concept
-
-DSL:
-
-```C
-Module Demo
-{
-    ExtAction CreatePrincipal 'Demo.Rhetos.Principals, Demo.Rhetos' 'CreatePrincipal'
-    {
-        Guid ID;
-        ShortString Name;
-    }
-}
-```
-
-C#:
-
-```C#
-// This method is implemented in the assembly Demo.Rhetos, in class Principals.
-public static void CreatePrincipal(CreatePrincipal parameter, DomRepository repository, IUserInfo userInfo)
-{
-    var principal = new Common.Principal
-    {
-        ID = parameter.ID ?? Guid.NewGuid(),
-        Name = parameter.Name
-    }
-
-    repository.Common.Principal.Insert(principal);
-}
-```
+   * See example of how to register a custom class directly in the Rhetos app:
+     [ConfigureRhetosHostBuilder: ConfigureContainer](https://github.com/Rhetos/Bookstore/blob/5068c6cd8ba5b5c3eb0b596a2e6db991a47612ff/src/Bookstore.Service/Startup.cs#L146)
+   * See example of how to register your plugin’s classes as a plugin module:
+     [AutofacModuleConfiguration.cs](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/Plugins/Rhetos.Dom.DefaultConcepts/AutofacModuleConfiguration.cs)
+   * Classes that depend on **user context** and **database connection** should be registered with `InstancePerLifetimeScope()`.
+   * A singleton class should be registered to with `SingleInstance()`.
+   * For other component registration options please refer to Autofac documentation:
+     <https://autofaccn.readthedocs.io/en/latest/register/registration.html>
+3. This class can then be used in the Action concept by adding it to the Action’s repository with RepositoryUses concept.
+   See [RepositoryUses documentation](Low-level-object-model-concepts#repositoryuses).
 
 ## BeforeAction concept
 

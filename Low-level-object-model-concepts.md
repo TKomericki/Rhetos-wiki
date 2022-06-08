@@ -440,7 +440,7 @@ Entity Review
     Integer Score { Required; MinValue 1; MaxValue 5; }
     LongString Text;
 
-    RepositoryUses _configuration 'Rhetos.Utilities.IConfiguration, Rhetos.Utilities';
+    RepositoryUses _configuration 'Rhetos.Utilities.IConfiguration';
 
     ComposableFilterBy LongReviews '(query, repository, parameter) =>
         {
@@ -450,30 +450,63 @@ Entity Review
 }
 ```
 
-In the example above, the RepositoryUses concept adds the `_configuration` member property,
-to be used in the ComposableFilterBy.
-It uses a default implementation of the `IConfiguration` interface:
-a Rhetos component that reads configuration from the "Web.config" file.
+> Rhetos v4 and earlier: For older applications that use DeployPackages build process, in the example above replace type name `'Rhetos.Utilities.IConfiguration'`
+with a simplified assembly qualified name: `'Rhetos.Utilities.IConfiguration, Rhetos.Utilities'`.
 
-RepositoryUses requires
-[AssemblyQualifiedName](https://docs.microsoft.com/en-us/dotnet/api/system.type.assemblyqualifiedname)
-of the property type, but it can be **shortened** by omitting Version, Culture and PublicKeyToken.
+In the example above, the RepositoryUses concept generates the following property
+on the **repository class** for entity "Review":
 
-* In the example above, `Rhetos.Utilities.IConfiguration` is the class
-  name or interface name (with the namespace), and `Rhetos.Utilities` is the
-  assembly name (this is usually the file name "Rhetos.Utilities.dll”
-  without the ".dll" extension).
-* Use full AssemblyQualifiedName for .NET framework types to avoid assembly loader issues,
-  and shortened for custom types implemented in DLLs that are placed in your Rhetos application folder.
-* Troubleshooting:
-  You can test if a correct string is provided, by checking the result of
-  [Type.GetType](https://docs.microsoft.com/en-us/dotnet/api/system.type.gettype?view=netframework-4.8#System_Type_GetType_System_String_)
-  in a test application or a LINQPad script.
-  It should return the expected type instead of *null*.
-  For example:
+```cs
+Rhetos.Utilities.IConfiguration _configuration;
+```
+
+* This property is then used in the ComposableFilterBy code snippet.
+* The property's value is automatically resolved from DI container,
+providing an implementation of the `IConfiguration` interface:
+a Rhetos component that reads the application's configuration.
+
+For another example of dependency injection, see Bookstore demo app:
+
+* A custom class SmtpMailSender [(source)](https://github.com/Rhetos/Bookstore/blob/5068c6cd8ba5b5c3eb0b596a2e6db991a47612ff/src/Bookstore.Service/MailNotifications/SmtpMailSender.cs#L8)
+is registered to DI [(source)](https://github.com/Rhetos/Bookstore/blob/5068c6cd8ba5b5c3eb0b596a2e6db991a47612ff/src/Bookstore.Service/Startup.cs#L146),
+then used in repository class [(source)](https://github.com/Rhetos/Bookstore/blob/5068c6cd8ba5b5c3eb0b596a2e6db991a47612ff/src/Bookstore.Service/DslScripts/MailNotifications.rhe#L25)
+for Book entity.
+
+Specifying the RepositoryUses property type:
+
+* Rhetos v5 and later:
+  * The second parameter of RepositoryUses is the property type, as written in C# source.
+  * It may require using the full type name with namespace, if the namespace is not available by default.
+* Rhetos v4 and earlier:
+  * RepositoryUses requires [AssemblyQualifiedName](https://docs.microsoft.com/en-us/dotnet/api/system.type.assemblyqualifiedname)
+    of the property type, but it can be **shortened** by omitting Version, Culture and PublicKeyToken.
+  * In the example above, `Rhetos.Utilities.IConfiguration` is the class
+    name or interface name (with the namespace), and `Rhetos.Utilities` is the
+    assembly name (this is usually the file name "Rhetos.Utilities.dll”
+    without the ".dll" extension).
+  * Use full AssemblyQualifiedName for .NET framework types to avoid assembly loader issues,
+    and shortened for custom types implemented in DLLs that are placed in your Rhetos application folder.
+  * Troubleshooting:
+    You can test if a correct string is provided, by checking the result of
+    [Type.GetType](https://docs.microsoft.com/en-us/dotnet/api/system.type.gettype?view=netframework-4.8#System_Type_GetType_System_String_)
+    in a test application or a LINQPad script.
+    It should return the expected type instead of *null*.
+    For example:
     ```cs
     Type.GetType("Rhetos.Utilities.IConfiguration, Rhetos.Utilities")
     ```
+
+To **add a custom class** to dependency injection container, register it to Rhetos DI container
+with [Autofac](https://autofac.org):
+
+* See example of how to register a custom class directly in the Rhetos app:
+  [ConfigureRhetosHostBuilder: ConfigureContainer](https://github.com/Rhetos/Bookstore/blob/5068c6cd8ba5b5c3eb0b596a2e6db991a47612ff/src/Bookstore.Service/Startup.cs#L146)
+* See example of how to register your plugin’s classes as a plugin module:
+  [AutofacModuleConfiguration.cs](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/Plugins/Rhetos.Dom.DefaultConcepts/AutofacModuleConfiguration.cs)
+* Classes that depend on **user context** and **database connection** should be registered with `InstancePerLifetimeScope()`.
+* A singleton class should be registered to with `SingleInstance()`.
+* For other component registration options please refer to Autofac documentation:
+  <https://autofaccn.readthedocs.io/en/latest/register/registration.html>
 
 ### RepositoryMember
 

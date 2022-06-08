@@ -349,7 +349,8 @@ For example, if the purpose of the feature is "data validation", please use the 
   * **AfterSave** `<SaveMethod>.<ruleName> 'csCodeSnippet'` - The inserted code will be executed after validations.
   * **LoadOldItems** `<SaveMethod>` - Simple helper for reading an old version of the data that can be reused in different business rules. It will load the old data between `Initialization` and `OldDataLoaded`.
     * **Take** `<LoadOldItems>.<property or path>` - Read old value of the selected property. Path over references can be used here to select a property from a referenced entity.
-* **RepositoryUses** `<DataStructure>.<propertyName> 'propertyType'` - Adds a private C# property of the given type to the repository class, and initializes it automatically from the dependency injection container.
+* **RepositoryUses** `<DataStructure>.<propertyName> 'propertyType'` - Adds a private C# property of the given type to the repository class, and initializes it automatically from the dependency injection container. `propertyType` is a C# property type as written in C# source.
+  * For older application that uses DeployPackages build process, instead of Rhetos CLI, the property value should be the assembly qualified name, but it does not need to contain Version, Culture or PublicKeyToken if you are referencing a local assembly in the application's folder.
 * **RepositoryMember** `<DataStructure>.<name> 'csCodeSnippet'` - Adds an arbitrary code to the repository class body. This can simplify code reuse between multiple filters, actions and other features.
 
 ## Database objects

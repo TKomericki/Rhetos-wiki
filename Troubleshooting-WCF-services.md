@@ -1,6 +1,7 @@
 # Troubleshooting WCF services
 
-This article contains tips on some common issues that can occur on old WCF applications, mostly related to service configuration and authentication.
+This article contains tips on some common issues that can occur on old WCF applications,
+mostly related to service configuration and authentication.
 
 Contents:
 
