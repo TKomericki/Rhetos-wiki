@@ -33,7 +33,7 @@ Hardcoded Genre
     Entry Biography
     {
         Value Label 'Biography';
-        Value Description 'A written narrative of a person's life.';
+        Value Description 'A written narrative of a person''s life.';
         Value IsFiction 0;
     }
 }
