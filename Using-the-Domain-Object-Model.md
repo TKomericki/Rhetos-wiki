@@ -97,46 +97,42 @@ Notes:
 
 ### Option B: Creating a "playground" console app
 
-1. In Visual Studio, add a new project to the existing solution with the main Rhetos application:
-   * Project template: "Console App (.NET Framework)".
-   * Framework: ".NET Framework 4.7.2" (same as your main Rhetos application).
-   * If you are creating a Bookstore demo application, set the following:
-     * Location: create `test` subfolder in your "Bookstore" project folder (`...\Bookstore\test\`),
-     * Name: "Bookstore.Playground"
+1. In Visual Studio, in the same solution with the existing Rhetos application (Bookstore.Service),
+    add a "Console App" C# project, named "Bookstore.Playground" located in the "Bookstore\test" subfolder,
+    with .NET 6 framework.
 2. Add a project reference to the main Rhetos application:
-   Project => Add reference... => Projects => Check "Bookstore.Service" => OK.
+   Project => Add Project Reference... => Check "Bookstore.Service" => OK.
 3. Project => Manage NuGet Packages... => Browse => search "ConsoleDump"
    => select the ConsoleDump package => Install => OK.
-4. Copy the content of the `Main` method from the `LinqPad\Rhetos Server DOM.linq` script
-   into the Main method of your Playground project.
-5. Replace the line `string applicationFolder = Path.GetDirectoryName(Util.CurrentQueryPath);`
-   with a relative or absolute path to the Rhetos application folder,
-   for example `string applicationFolder = @"..\..\..\..\src\Bookstore.Service";`.
-6. Fix the compiler errors by adding the suggested "using" statement for each error.
+4. Copy the content of the `Main` method from the `Bookstore.Service\bin\Debug\net6.0\LinqPad\Rhetos DOM.linq` script
+   into the Program.cs file of Bookstore.Playground project.
+5. Fix the compiler errors by adding the suggested "using" statement for each error.
    The resulting using statements should look like this:
-    ```C#
-    using ConsoleDump;
-    using Rhetos;
-    using Rhetos.Configuration.Autofac;
-    using Rhetos.Dom.DefaultConcepts;
-    using Rhetos.Logging;
-    using Rhetos.Utilities;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    ```
-7. Run the application with **Ctrl+F5**. It should print a few tables and end with "Done.".
+   ```cs
+   using ConsoleDump;
+   using Rhetos;
+   using Rhetos.Dom.DefaultConcepts;
+   using Rhetos.Logging;
+   using Rhetos.Utilities;
+   ```
+6. Replace the line `string rhetosHostAssemblyPath = ...`
+   with a relative or absolute path to the Rhetos application assembly,
+   for example:
+   ```cs
+   string rhetosHostAssemblyPath = @"..\..\..\..\..\src\Bookstore.Service\bin\Debug\net6.0\Bookstore.Service.dll";
+   ```
+7. Set Bookstore.Playground as startup project (Project => Set as Startup Project),
+   and run the application with **Ctrl+F5**. It should print a few tables and end with "Done.".
 8. Troubleshooting:
-   * If you get an error `FrameworkException: Cannot find application's configuration (rhetos-app.settings.json) in ...`,
-     check how the reported path relates to the `string applicationFolder` line in the Main method
-     (see the steps above). Correct the applicationFolder to match the Rhetos application folder.
+   * If you get an error `ArgumentException: Please specify the host application assembly file. File '...' does not exist.`,
+     check how the reported path relates to the `string rhetosHostAssemblyPath` line in the Main method
+     (see the steps above). Correct the rhetosHostAssemblyPath to match the Rhetos application folder.
 
 Notes:
 
 * The examples use the ConsoleDump's method `Dump()` to print the results in a table format.
-* For the end result, see the example of the created playground app for the Bookstore demo application
-at <https://github.com/Rhetos/Bookstore/tree/master/test/Bookstore.Playground>.
+* An example of a similar playground app (for .NET 5) is part of the Bookstore demo application
+  at <https://github.com/Rhetos/Bookstore/tree/master/test/Bookstore.Playground>.
 
 ## Understanding the generated object model
 
