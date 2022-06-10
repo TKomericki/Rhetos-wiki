@@ -68,11 +68,13 @@ Default configuration sources for project with **DeployPackages**:
 1. Web.config (*appSettings* element). Sometimes extended with environment-specific configuration, e.g. *ExternalAppSettings.config*.
 2. DeployPackages.exe.config - Do not edit.
 
-Common options classes:
+Common build options classes:
 
 * [BuildOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/BuildOptions.cs)
 * [RhetosBuildEnvironment](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/RhetosBuildEnvironment.cs) - Specified by development environment setup. Considered hardcoded during build.
 * [IAssetsOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/IAssetsOptions.cs)
+* [CommonConceptsOptions](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/Plugins/Rhetos.Dom.DefaultConcepts.Interfaces/CommonConceptsOptions.cs)
+* [CommonConceptsDatabaseSettings](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/Plugins/Rhetos.Dom.DefaultConcepts.Interfaces/CommonConceptsDatabaseSettings.cs)
 
 ### Database update configuration
 
@@ -93,7 +95,7 @@ Default configuration sources for application with **DeployPackages**:
 3. rhetos-app.local.settings.json - Since Rhetos v4.0.
 4. DeployPackages.exe.config - Do not edit.
 
-Common options classes:
+Common dbupdate options classes:
 
 * All classes from "Application run-time configuration" are available.
 * [DbUpdateOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/DbUpdateOptions.cs)
@@ -114,13 +116,14 @@ Default configuration sources for application with **DeployPackages**:
 2. rhetos-app.settings.json - Since Rhetos v4.0.
 3. rhetos-app.local.settings.json - Since Rhetos v4.0.
 
-Common options classes:
+Common runtime options classes:
 
-* [RhetosAppEnvironment](https://github.com/Rhetos/Rhetos/blob/release-4/Source/Rhetos.Utilities/RhetosAppEnvironment.cs) (Rhetos v4)
 * [RhetosAppOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/RhetosAppOptions.cs)
 * [DatabaseOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/DatabaseOptions.cs)
 * [AppSecurityOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/AppSecurityOptions.cs)
 * [IAssetsOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/IAssetsOptions.cs)
+* [CommonConceptsRuntimeOptions](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/Plugins/Rhetos.Dom.DefaultConcepts.Interfaces/CommonConceptsRuntimeOptions.cs)
+* [RhetosAppEnvironment](https://github.com/Rhetos/Rhetos/blob/release-4/Source/Rhetos.Utilities/RhetosAppEnvironment.cs) (Rhetos v4)
 
 ## Reading configuration with custom options classes
 

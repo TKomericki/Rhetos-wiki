@@ -33,7 +33,7 @@ and test that it works correctly.
 ## Create new Rhetos application in Visual Studio
 
 Rhetos applications with DeployPackages were created by unpacking RhetosServer.zip installation
-file, that contained the web application. This method is no longer used.
+file, that contained the web application. This installation method is no longer used.
 
 To migrate your existing project from DeployPackages to Rhetos CLI,
 **backup** the old Rhetos application and **create the new Rhetos web application** from scratch

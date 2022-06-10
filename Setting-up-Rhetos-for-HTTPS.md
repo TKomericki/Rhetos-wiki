@@ -3,7 +3,7 @@
 ## Rhetos v5
 
 On Rhetos v5 and later, web requests are handled by standard ASP.NET Core pipeline, including the HTTPS setup.
-HTTPS is enabled by default on most ASP.NET web projects templates.
+HTTPS is **enabled by default** on most ASP.NET web projects templates.
 See [Enforce HTTPS in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-6.0&tabs=visual-studio) for more info.
 
 ## Rhetos v3 and v4

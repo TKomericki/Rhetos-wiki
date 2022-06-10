@@ -1,10 +1,10 @@
-# How to upgrade your application to a new version of Rhetos framework and package
+# How to upgrade your application to a new version of Rhetos framework and plugin packages
 
 Contents:
 
 1. [Review "Breaking changes"](#review-breaking-changes)
-2. [Upgrading applications built with Rhetos CLI and Rhetos.MSBuild](#upgrading-applications-built-with-rhetos-cli-and-rhetosmsbuild)
-3. [Upgrading applications built with DeployPackages](#upgrading-applications-built-with-deploypackages)
+2. [A) Upgrade a Rhetos app built with Rhetos CLI and Rhetos.MSBuild](#a-upgrade-a-rhetos-app-built-with-rhetos-cli-and-rhetosmsbuild)
+3. [B) Upgrade a Rhetos app built with DeployPackages](#b-upgrade-a-rhetos-app-built-with-deploypackages)
    1. [Upgrade to new version of Rhetos framework](#upgrade-to-new-version-of-rhetos-framework)
    2. [Upgrade to new version of Rhetos packages](#upgrade-to-new-version-of-rhetos-packages)
 
@@ -16,12 +16,12 @@ Look if there are any **"Breaking changes"** sections for those versions:
 they will describe everything that you will need to change in your application
 *after* upgrading to the new version of Rhetos framework.
 
-## Upgrading applications built with Rhetos CLI and Rhetos.MSBuild
+## A) Upgrade a Rhetos app built with Rhetos CLI and Rhetos.MSBuild
 
-Rhetos framework is included it the application as a standard NuGet package.
+Rhetos framework is included in the application as a standard NuGet package.
 Open "Manage NuGet Packages" in Visual Studio and update the Rhetos packages under "Updates" tab.
 
-## Upgrading applications built with DeployPackages
+## B) Upgrade a Rhetos app built with DeployPackages
 
 ### Upgrade to new version of Rhetos framework
 
