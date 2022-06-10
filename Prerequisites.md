@@ -50,7 +50,7 @@ Verify command-prompt utilities after installation:
 The following plugins for text editors are not required for development of Rhetos apps,
 but can help with syntax highlighting or IntelliSense for Rhetos DSL scripts (*.rhe files)
 
-**Visual Studio 2019 or 2022:**
+**Visual Studio 2022 or 2019:**
 
 Visual Studio extension for Rhetos includes highlighting, autocomplete, error reporting, signature help tooltips and other features.
 

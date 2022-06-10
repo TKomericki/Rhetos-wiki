@@ -107,8 +107,9 @@ Contents:
      * In file `rhetos-app.local.settings.json` enter text:
        `{ "Rhetos": { "AppSecurity": { "AllClaimsForAnonymous": true } } }`
    * Option B) **Windows authentication with IIS**:
-     * Run Visual Studio *as Administrator*. Project properties => Web =>
-       Change from "ISS Express" to "Local IIS". On save answer Yes.
+     * Run Visual Studio *as Administrator* to enable IIS support.
+       Project properties => Web => Change from "ISS Express" to "Local IIS".
+       On save answer Yes.
      * Open IIS Manager => Find and select your web application.
        * Authentication => Disable Anonymous, Enable Windows Authentication.
        * Basic settings => Change application pool

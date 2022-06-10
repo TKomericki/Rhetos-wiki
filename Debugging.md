@@ -86,8 +86,8 @@ Steps:
    or configure Visual Studio to debug the DLLs that built in the release mode (see above).
    * You can see in Bookstore's [build script](https://github.com/Rhetos/Bookstore/blob/rhetos-2/Build.ps1)
      that the `/Debug` switch is already set.
-2. Open Visual Studio with *Run as Administrator* (don't open a project or a solution).
-   * Running VS as administrator is required when debugging IIS web applications.
+2. Open Visual Studio (don't open a project or a solution).
+   * If debugging an *IIS* web application, run Visual Studio *as Administrator* for IIS access.
 3. In Visual Studio, open file `dist\BookstoreRhetosServer\bin\Generated\ServerDom.Repositories.cs`,
    it contains the feature implementation that we need to debug.
    * You can debug any other generated source file, but most of the business features usually

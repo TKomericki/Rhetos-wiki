@@ -306,7 +306,7 @@ There are different kinds of filters that can be used here.
 2. **Lambda** expression.
 
     ```C#
-    repository.Bookstore.Book.Load(book => book.Title.StartsWith("The"));
+    repository.Bookstore.Book.Load(book => book.Title.StartsWith("The")).Dump();
     ```
 
 3. Predefined filter - **Get by ID**.
@@ -355,7 +355,7 @@ query.ToString().Dump();
 ```
 
 The code above will result with the following SQL query.
-Not that all the filter are included in a single database request.
+Note that all the filter are included in a single database request.
 
 ```SQL
 SELECT

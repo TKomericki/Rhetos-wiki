@@ -49,7 +49,7 @@ Verify command-prompt utilities:
 
 Verify Visual Studio 2019 and ASP.NET:
 
-1. Start "Visual Studio" **as administrator** (right click => Run as administrator).
+1. Start "Visual Studio" **as administrator** (right click => Run as administrator) for IIS support.
 2. Create a new project from the template "ASP.NET Web Application (.NET Framework)" with C# and .NET Framework 4.7.2. Select the "MVC" project template and under Authentication click "Change" and select "Windows Authentication".
 3. Project Properties => Web => Change the setting "IIS Express" to "Local IIS", and click "Create Virtual Directory".
 4. Build and Start the application (F5) to check if everything is installed correctly.
