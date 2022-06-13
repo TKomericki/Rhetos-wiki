@@ -31,9 +31,11 @@ Steps:
 3. Open generated source file `obj\Rhetos\RhetosSource\Repositories\BookstoreRepositories.cs`,
    it contains the feature implementation that we need to debug.
 4. In the source file search for the line that contains code from the LongBooks3 filter:
-   `filtered = filtered.Where(item => item.Extension_ForeignBook.ID != null);`
+   `Where(item => item.Extension_ForeignBook.ID != null);`
     * This is the Filter method that implements the LongBooks3 filter.
-5. Put the breakpoint (F9) at the line "return filtered;".
+    * Alternatively, you can expand the file BookstoreRepositories.cs in Solution Explorer,
+      then navigate to class Book_Repository and method Filer(...LongBooks3).
+5. Put the breakpoint (F9) at the line with the `return filtered;`.
 6. Right-click on "Bookstore.Service" project, click "Set as Startup Project",
    and Run the application (F5).
 7. Browser will open automatically. In the address bar, add to following to the existing base URL,
@@ -116,7 +118,7 @@ Steps:
 ## Tips and Tricks
 
 1. You can use LINQPad, instead of the browser, to execute the feature that you need to debug.
-   Just attach Visual Studio to LINQPad process instead of w3wp.exe.
+   Just attach Visual Studio to the LINQPad process.
    * This is especially helpful if you need multiple steps to prepare the test data,
      or if you want to try different code snippets to test the issue.
      See [Using the Domain Object Model](Using-the-Domain-Object-Model)

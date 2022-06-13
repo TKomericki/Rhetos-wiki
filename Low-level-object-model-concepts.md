@@ -96,7 +96,7 @@ When writing low-level code you will need to understand the environment
 what local variables and other features are available to be used in your code snippet:
 
 1. In the Bookstore demo application open the generated file
-   `src\Bookstore.Service\obj\Rhetos\RhetosSource\Repositories\BookstoreRepositories.cs`.
+   `src\Bookstore.Service\obj\Rhetos\Source\Repositories\BookstoreRepositories.cs`.
 2. Find the `Save` method in `class Review_Repository`:
    * Note that it receives lists (IEnumerable) of items that will be inserted,
      updated and deleted, as parameters: `insertedNew`, `updatedNew` and `deletedIds`.

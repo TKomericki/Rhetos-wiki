@@ -112,20 +112,20 @@ When you build the Rhetos application with MBuild integration, it will read DSL 
 generate additional code.
 Most of the application's business features are implemented in the generated "repository" classes.
 You can find the generated source files the application's subfolder
-`obj\Rhetos\RhetosSource\Repositories\`.
+`obj\Rhetos\Source\Repositories\`.
 
 Now we will review the generated files and notice some classes and methods that we will use later in this tutorial article. In this example, we will look for features related to the [Entity Book](https://github.com/Rhetos/Bookstore/blob/master/src/Bookstore.Service/DslScripts/Book.rhe) from the Bookstore demo application. You can use any other entity from your application.
 
 Fore each entity, three classes are generated:
 
 1. **Simple "POCO" class**
-   * Find "class Book" in `obj\Rhetos\RhetosSource\Model\BookstoreModel.cs`.
+   * Find "class Book" in `obj\Rhetos\Source\Model\BookstoreModel.cs`.
    * Its namespace is Bookstore, so the full name of the class is Bookstore.Book.
    * This class contains simple properties of this entity, without any business features or data access logic. The base class adds an ID property.
    * Note that the Reference property Author is represented here as a "Guid? AuthorID". This class contains just raw data without references to other objects. It looks the same as the table columns in the database.
    * Also note that all properties in Rhetos are nullable.
 2. **Queryable class with navigation properties**
-   * Find "class Bookstore_Book" in `obj\Rhetos\RhetosSource\Model\BookstoreModel.cs`.
+   * Find "class Bookstore_Book" in `obj\Rhetos\Source\Model\BookstoreModel.cs`.
    * This class inherits the simple Book class and adds
      [navigation properties](https://docs.microsoft.com/en-us/ef/ef6/fundamentals/relationships) for use in **Entity Framework LINQ queries** (see `public virtual` properties that reference other entities).
    * This class is mapped to the database table or view by Entity Framework.
@@ -133,7 +133,7 @@ Fore each entity, three classes are generated:
    * The properties contains some wrapper code to handle some edge cases with EF that are not compatible with Rhetos features (deletes the references when detaching an object). We hope to remove it in future releases.
    * Note that the navigation properties are not created only for Reference properties. They can also include some other related Entities and other object types that are extensions or details to this entity.
 3. **Repository class with business features**
-   * Find "class Book_Repository" in `obj\Rhetos\RhetosSource\Repositories\BookstoreRepositories.cs`.
+   * Find "class Book_Repository" in `obj\Rhetos\Source\Repositories\BookstoreRepositories.cs`.
    * This class contains most of the business features and the data access logic.
    * Find the Query() method. It returns the Entity Framework query for this entity.
    * Find the Save(...) method and see its arguments. It handles inserting, updating and deleting of records.

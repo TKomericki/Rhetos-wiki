@@ -88,7 +88,7 @@ Technical notes:
   <https://localhost:5000/rest/Bookstore/BookGrid/>.
 * The Browse concept is internally represented as a single LINQ query in the generated application.
   You can find the generated LINQ query in the file
-  `src\Bookstore.Service\obj\Rhetos\RhetosSource\Repositories\BookstoreRepositories.cs`
+  `src\Bookstore.Service\obj\Rhetos\Source\Repositories\BookstoreRepositories.cs`
   by searching for "Extension_ForeignBook.Translator.Name".
 
 Because of its simplicity and extensibility, Browse is a preferred concept to

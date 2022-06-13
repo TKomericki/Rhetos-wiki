@@ -183,7 +183,7 @@ When building the application in Visual Studio or MSBuild,
 the following steps are executed automatically:
 
 1. `rhetos.exe build` command. It compiles DSL scripts (.rhe) and generates
-   additional C# code for the current application (obj\Rhetos\RhetosSource), and the database model.
+   additional C# code for the current application (obj\Rhetos\Source), and the database model.
 2. C# compiler compiles the generated and custom application source.
 3. `rhetos.exe dbupdate` command. It updates the database structure and data.
 
