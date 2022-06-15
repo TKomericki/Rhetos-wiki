@@ -174,16 +174,24 @@ EXEC Rhetos.DataMigrationApplyMultiple 'Demo', 'E', 'ID, B';
 
 How to write this script:
 
-1. Execute `EXEC Rhetos.HelpDataMigration 'Demo', 'E'` on your database to generate
+1. Prepare test data:
+   1. For this example, your application should contain `Module Demo { Entity E { ShortString A; } }`.
+      Build your application to update the database, so that the table Demo.E is created in the database.
+      Enter some test data into the table, directly in the database.
+   2. In DSL script, modify the property name from `A` to `B`, and update the database again.
+2. In SQL Server Management Studio, execute `EXEC Rhetos.HelpDataMigration 'Demo', 'E'` on your database to generate
    the overall script structure similar to the one above.
-2. You will need to manually write a new line with *DataMigrationUse* for column `A` or `B`,
+3. You will need to manually write a new line with *DataMigrationUse* for column `A` or `B`,
    depending on whether you executed *HelpDataMigration* before or after
    deploying the modified property name to the database.
-3. Also make sure that the *DataMigrationApplyMultiple* contains the column `B`, and not `A`,
+4. Also make sure that the *DataMigrationApplyMultiple* contains the column `B`, and not `A`,
    because this is the new value that needs to be applied to the original table.
-4. After the script header and footer are correct, write the `UPDATE` statement.
+5. After the script header and footer are correct, write the `UPDATE` statement.
 
 You can test this script in SSMS by adding `BEGIN TRAN` at the beginning and `SELECT * FROM _Demo.E; ROLLBACK;` at the end.
+
+When tested, the migration script should be added to DataMigration folder in your application,
+so that Rhetos can automatically deploy it.
 
 ### Moving a property from one entity to another
 
@@ -443,7 +451,7 @@ when there is no better workaround available.
 Custom downgrade data-migration scripts are supported since Rhetos v4.3.
 
 The data migration in Rhetos allows custom SQL scripts to be executed when "downgrading" database
-to an older version of the Rhetos applications.
+to an older version of the application.
 
 * Note that in production environment the downgrade is relatively rare event, but in development
   and test environments it can be a common occurrence, for example when switching between different
