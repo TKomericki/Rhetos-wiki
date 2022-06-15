@@ -8,9 +8,9 @@ For *detailed_info* on previous releases, see the [Release notes](https://github
 * Migrated from .NET Framework 4.7.2:
   * Rhetos 5.0 supports .NET 5 applications.
   * Rhetos 5.1 supports .NET 5 and .NET 6.
-* Rhetos framework can be used in any type of C# application,
-  from simple libraries to ASP.NET Core web applications.
-* Rhetos applications can run on Windows, Linux and macOS.
+* Rhetos framework can be used in any type of C# project,
+  from simple class libraries to ASP.NET Core web applications.
+* Rhetos apps can run on Windows, Linux and macOS.
 * Some features are no longer managed by Rhetos framework.
   Instead, a standard .NET toolset is used for
   [user authentication](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/?view=aspnetcore-5.0),

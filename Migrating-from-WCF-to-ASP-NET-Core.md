@@ -1,7 +1,7 @@
 # Migrating from WCF to ASP.NET Core
 
 Rhetos v5 is migrated to .NET 5, and it no longer supports WCF.
-New Rhetos applications should use APS.NET Core instead.
+New Rhetos apps should use APS.NET Core instead.
 
 When migrating existing Rhetos application to APS.NET Core, the configuration in web.config should also be migrated.
 How the migration is done depends on the web server which is used.

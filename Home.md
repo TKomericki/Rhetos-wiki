@@ -92,9 +92,9 @@ Support:
 
 Plugin packages for older versions of Rhetos or backward compatibility support:
 
-* [AspNetFormsAuth](https://github.com/Rhetos/AspNetFormsAuth), provides Forms Authentication to Rhetos applications.
+* [AspNetFormsAuth](https://github.com/Rhetos/AspNetFormsAuth), provides Forms Authentication to Rhetos apps.
   Since Rhetos v5, authentication is managed by ASP.NET Core, so Rhetos does not need to handle user authentication.
-* [I18NFormatter](https://github.com/Rhetos/I18NFormatter), enables localization of Rhetos applications
+* [I18NFormatter](https://github.com/Rhetos/I18NFormatter), enables localization of Rhetos apps
   using [GetText / PO](http://en.wikipedia.org/wiki/Gettext) standard.
   Since Rhetos v5, it is recommended to let ASP.NET Core manage the localization instead,
   see [an example](https://github.com/Rhetos/Rhetos.Samples.AspNet/#adding-localization) with OrchardCore localization library.

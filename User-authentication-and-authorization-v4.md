@@ -41,7 +41,7 @@ for more details on the topic.
 
 *Authorization* refers to a process of deciding which operations a user is allowed to perform in the system, and which will be denied.
 
-There are two subsystems available for the authorization of user access in the Rhetos applications.
+There are two subsystems available for the authorization of user access in the Rhetos apps.
 
 1. [Basic permissions (Claims)](Basic-permissions)
     * The access rights are typically defined by the roles that a user has (entered by the administrator).

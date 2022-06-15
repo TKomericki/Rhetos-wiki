@@ -136,7 +136,7 @@ with multiple build components and a more complex build process.
 
 You can use it as a *prototype* for a new Rhetos application.
 Aside from the project structure, please note the following key components that
-most Rhetos applications should contain:
+most Rhetos apps should contain:
 
 1. The build script `Build.ps1`, that does everything needed to produce the application binaries from the source:
    1. It checks for installed prerequisites (MSBuild, NuGet, database connection string, ...).

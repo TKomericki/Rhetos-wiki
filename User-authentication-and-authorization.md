@@ -22,7 +22,7 @@ Various Rhetos plugins are available for additional administration features:
 * [Impersonation](https://github.com/Rhetos/Impersonation) -
   It provides a safe way for specified users to log in as another user for debugging and support.
 * [AspNetFormsAuth](https://github.com/Rhetos/AspNetFormsAuth) -
-  A backward-compatibility plugin for forms authentication on Rhetos applications v4 and earlier.
+  A backward-compatibility plugin for forms authentication on Rhetos v4 and earlier.
 
 Rhetos components use [IUserInfo](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/IUserInfo.cs)
 interface to retrieve current user information.
@@ -36,7 +36,7 @@ interface to retrieve current user information.
 
 *Authorization* refers to a process of deciding which operations a user is allowed to perform in the system, and which will be denied.
 
-There are two subsystems available for the authorization of user access in the Rhetos applications.
+There are two subsystems available for the authorization of user access in the Rhetos apps.
 
 1. [Basic permissions (Claims)](Basic-permissions)
     * The access rights are typically defined by the roles that a user has (entered by the administrator).

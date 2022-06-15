@@ -24,7 +24,7 @@ Contents:
 
 ## Configure Rhetos web application
 
-To allow the existing Rhetos applications and packages to work with new version of the
+To allow the existing Rhetos apps and packages to work with new version of the
 dependencies, without upgrading the packages, edit the **Web.config** file:
 add (or replace) the following three `<dependentAssembly>` elements in `configuration/runtime/assemblyBinding`:
 

@@ -1,6 +1,6 @@
 # Developing filters and other read methods
 
-Most of the business rules in Rhetos applications are based on
+Most of the business rules in Rhetos apps are based on
 filters and other similar read methods.
 
 Developers write filters and queries to process the data.

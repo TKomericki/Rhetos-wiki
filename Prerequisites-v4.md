@@ -95,7 +95,7 @@ Visual Studio extension for Rhetos includes highlighting, autocomplete, error re
 1. Download the [RhetosNppSyntaxHighlight.xml](https://raw.githubusercontent.com/Rhetos/RhetosNPP/master/RhetosNppSyntaxHighlight.xml)
    file from <https://github.com/Rhetos/RhetosNPP>.
 2. Open "Notepad++" => Menu "Language" => "Define your language" => Click "Import..." => Select the downloaded XML file.
-3. Optionally, configure direct *build and deployment* of DSL scripts from Notepad++. This is only for the development environment, and only for older Rhetos applications that contain DeployPackages.exe.
+3. Optionally, configure direct *build and deployment* of DSL scripts from Notepad++. This is only for the development environment, and only for older Rhetos apps that contain DeployPackages.exe.
    1. Install the *NppExec* plugin (Plugins -> Plugin Manages ->...).
    2. F6 -> enter the path to "DeployPackages.exe" inside the Rhetos application, for example
       "C:\Projects\MyRhetosServer\bin\DeployPackages.exe", click "Save...", enter script name "DeployPackages".

@@ -1,4 +1,4 @@
-﻿Rhetos package is a plugin for Rhetos applications that extends features of Rhetos framework.
+﻿Rhetos package is a plugin for Rhetos apps that extends features of Rhetos framework.
 It is essentially a **NuGet** package that can contain:
 
 * DSL scripts

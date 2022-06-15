@@ -6,7 +6,7 @@ The best way to give feedback is to create issues or comment and vote on existin
 ## 1. Runtime performance
 
 There are many possibilities to improve the runtime performance at the framework level,
-that could provide benefits to both new and existing Rhetos applications:
+that could provide benefits to both new and existing Rhetos apps:
 data caching, read scalability, batching database writes and queries (validations),
 reducing row permissions to aggregate roots, and other.
 

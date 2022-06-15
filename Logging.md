@@ -10,7 +10,7 @@ and a **data log** for audit trail.
 * If you need the log entries to be (loosely) connected to the business objects in the application,
   or the ability to read the log inside the application,
   than the best choice is probably the **data log**.
-  It is often used in Rhetos applications for auditing features.
+  It is often used in Rhetos apps for auditing features.
 
 Contents:
 

@@ -10,7 +10,7 @@
 For example, an Action can call an external method `string CreateUniqueName()`,
 implemented in class `MyNamespace.MyClass`, in a separate DLL `MyAssembly.dll`.
 
-For older Rhetos applications built with DeployPackages, in the DSL script add the `ExternalReference` statement,
+For older Rhetos apps built with DeployPackages, in the DSL script add the `ExternalReference` statement,
 so that the generated object model references the DLL in which your class is implemented.
 
 ```C

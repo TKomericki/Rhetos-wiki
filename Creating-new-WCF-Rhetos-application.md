@@ -38,7 +38,7 @@ Contents:
 
 1. Install the **IntelliSense** support for **Rhetos DSL**,
    see [Installation](https://github.com/Rhetos/LanguageServices#installation) instructions.
-   Note that this extension is not required for developing and building Rhetos applications,
+   Note that this extension is not required for developing and building Rhetos apps,
    but it is very useful when using Visual Studio as an editor for DSL scripts.
 2. Before creating a new project, make sure that you will use the new **PackageReference** format
    in Visual Studio, instead of **packages.config**.:
@@ -288,7 +288,7 @@ is an example of a Rhetos application with multiple projects, including custom D
 extensions, basic unit tests and integration tests.
 
 You can use its **project structure, build process and utility scripts** as a *prototype*
-for a new Rhetos applications.
+for a new Rhetos apps.
 For more information, see [Readme.md](https://github.com/Rhetos/Bookstore/blob/master/Readme.md).
 
 ## Read next

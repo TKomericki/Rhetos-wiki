@@ -3,7 +3,7 @@
 Unit of work represents one or more operations grouped together so that they are
 either all executed successfully, or all canceled.
 
-A **unit of work** in Rhetos applications represents one **database transaction**,
+A **unit of work** in Rhetos apps represents one **database transaction**,
 and its lifetime matches one **scope** from dependency injection container.
 
 1. [Web applications](#web-applications)

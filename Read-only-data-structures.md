@@ -317,7 +317,7 @@ Module Bookstore
         ShortString Name;
     }
 
-    // For older Rhetos applications built with DeployPackages, add the required assembly references:
+    // For older Rhetos apps built with DeployPackages, add the required assembly references:
     ExternalReference 'Newtonsoft.Json.JsonConvert, Newtonsoft.Json';
     ExternalReference 'System.Net.Http.HttpClient, System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a';
 }
