@@ -1,5 +1,9 @@
 ## Existing applications should use the old behavior by default, new applications use the new behavior
 
+> NOTE:
+This article is written for **Rhetos v4 and earlier versions**.
+The pattern described here is not available on Rhetos v5 and later versions.
+
 Add an option in *Web.config* that allows developers to choose between old and new behavior.
 This option should be configured so that the new behavior is enable,
 but the C# code that checked this option should default to old behavior if this options

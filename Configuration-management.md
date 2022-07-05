@@ -1,7 +1,7 @@
 # Configuration management
 
-This article describes how the Rhetos application is configured in different stages of development
-and different project types.
+This article describes how to configure a Rhetos application,
+in different stages of development and different project types.
 
 Content:
 

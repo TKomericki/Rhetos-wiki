@@ -104,14 +104,10 @@ to have a role named "Anonymous", if this role exists in Common.Role.
 
 The following issues need to be considered for anonymous access:
 
-* Note that IIS does not support Anonymous and Windows authentication on the same web application.
-* To enable anonymous access make sure that *Web.config* does not contain `<deny users="?" />`.
-  If you don't need anonymous access, keep this line for improved security and performance.
 * Troubleshooting: If you have added Anonymous permissions, but still getting `HTTP Error 401.0 - Unauthorized`,
   review the stack trace in RhetosServer.log to make sure that your authentication plugin
   (IUserInfo implementation) handles unauthenticated users correctly.
-* Anonymous web methods should be avoided for business features,
-  and manually configured in web.config by `location / system.web / authorization / allow` elements.
+* Anonymous web methods should be avoided for business features.
   This is important to reduce security impact of any mistake in configuration
   or implementation of business application's permissions.
   If you need a public Web API to expose a subset of the application's business features or data,
@@ -119,6 +115,14 @@ The following issues need to be considered for anonymous access:
   This will allow for easier maintenance of backward compatible API and versioning
   with multiple actively supported versions,
   while making internal changes in your application's data structure and other features.
+
+IIS-specific issues:
+
+* Note that IIS does not support Anonymous and Windows authentication on the same web application.
+* To enable anonymous access make sure that *Web.config* does not contain `<deny users="?" />`.
+  If you don't need anonymous access, keep this line for improved security and performance.
+* Anonymous web methods should be manually configured in web.config by `location / system.web / authorization / allow` elements,
+  to minimize impact on security.
 
 ## Automatic user management
 
