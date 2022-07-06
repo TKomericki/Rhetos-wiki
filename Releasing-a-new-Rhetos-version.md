@@ -28,7 +28,8 @@ This article describes the release process for both Rhetos framework (<https://g
       For example "v1.2.0".
     * [ ] Push your repository to GitHub (set the option *Include Tags*).
     * [ ] [Private builds only] Publish the new NuGet package to your company's NuGet gallery (ask your system administrator for the location).
-    * [ ] Publish the Rhetos NuGet package(s) to the public [NuGet gallery](https://www.nuget.org/packages/manage/upload).
+    * [ ] Publish the NuGet package(s) to the public [NuGet gallery](https://www.nuget.org/packages/manage/upload).
+    * [ ] Publish the *.snupkg* symbols package(s) to the public [NuGet gallery](https://www.nuget.org/packages/manage/upload).
     * [ ] Create a release on GitHub: Open [tags on GitHub](https://github.com/Rhetos/Rhetos/tags)
       => At the tag for the newly released version click "Create release"
       => **Check** that the opened form displays the tag you have just selected.
