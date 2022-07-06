@@ -7,7 +7,7 @@ This article describes the release process for both Rhetos framework (<https://g
     * [ ] Check the last [release number](https://github.com/Rhetos/Rhetos/releases) and decide on the new version number.
       A new release usually just increases the minor version by 1 (the second number).
       * Note: The version number format must be compliant with [semantic versioning](https://semver.org/).
-    * [ ] List any other core packages that also need to be released along with this release.
+    * [ ] List any other plugin packages that also need to be released along with this release.
 2. Build:
     * [ ] Update *ChangeLog.md* file based on the commit history since the previous release.
     * [ ] Set the release version number in *Build.bat* file (probably it is already set), and the *Prerelease* to an empty value:
