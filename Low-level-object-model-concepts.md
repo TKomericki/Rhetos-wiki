@@ -390,25 +390,28 @@ Available since Rhetos v2.4.
 
 The AfterSave code snippet is executed *after* the given records are already saved to the database,
 *after* dependent data is updated (recomputed),
-*after* the validations passes,
+*after* the validations pass,
 but *before* the database transaction is committed.
 
 Since AfterSave is called after all the validations and related computations of this entity are executed,
 there is a higher chance that the request will be successful and committed to the database.
-
 Note that AfterSave is called **at the end of the Save method of the given entity**,
-but not at the end of the web request (i.e. database transaction).
+but not at the end of the web request (i.e. database transaction), and it is still possible
+that the current operation will be canceled and transaction rolled back.
 
-* For example, if saving one record (A) causes an automatic update of another record (B),
-  then the AfterSave code of record B will be executed *before* the validations and AfterSave code of record A.
-* Another example, if the Save method is called from an Action, it is still possible
-  for the transaction to be discarded by the code executed in the action after saving this entity.
+* For example, is multiple entity types are modified in a same web request, error in saving a second entity
+  will also undo all changes on the first one.
 
-For the reasons described above, AfterSave should not be used to send confirmation emails,
-or similar external actions that cannot be undone if the current request is canceled
+For the reasons described above, AfterSave should not be used to **directly send confirmation emails,
+or similar external actions that cannot be undone** in case the current request is canceled
 and the database transaction is rolled back.
-These kinds of features should always be implemented with a task queue and a separate process for
+These kinds of features should always be implemented with a task queue and
 background processing of the committed tasks.
+
+* For example, the code in AfterSave can insert a record in the SendMail table that represents a task queue,
+  but a separate background job should process this record only after the original transaction has been committed.
+  This way, if the original operation is canceled after the SendMail record is inserted,
+  the SendMail record will also be rolled back, and the confirmation mail will not be sent.
 
 ## Add features to repository class
 
