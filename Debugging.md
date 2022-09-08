@@ -52,6 +52,9 @@ See [Tips and Tricks](#tips-and-tricks) section below for more information on ho
 
 ## Debugging applications built with DeployPackages
 
+This section refers to **Rhetos v4 and earlier** versions.
+For newer versions see the section above.
+
 Rhetos DSL brings a new level of abstraction in the work of developers,
 which can result with additional complexity to debugging.
 Fortunately, Rhetos generates a common C# web service (source, DLL and PDB),
