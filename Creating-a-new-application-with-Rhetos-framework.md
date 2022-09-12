@@ -128,19 +128,10 @@ using Rhetos;
 ```
 
 ```cs
-void ConfigureRhetosHostBuilder(IServiceProvider serviceProvider, IRhetosHostBuilder rhetosHostBuilder)
-{
-    rhetosHostBuilder
+builder.Services.AddRhetosHost((serviceProvider, rhetosHostBuilder) => rhetosHostBuilder
         .ConfigureRhetosAppDefaults()
         .UseBuilderLogProviderFromHost(serviceProvider)
-        .ConfigureConfiguration(cfg => cfg.MapNetCoreConfiguration(builder.Configuration));
-}
-```
-
-And register Rhetos where other builder.Services are configured:
-
-```cs
-builder.Services.AddRhetosHost(ConfigureRhetosHostBuilder)
+        .ConfigureConfiguration(cfg => cfg.MapNetCoreConfiguration(builder.Configuration)))
     .AddAspNetCoreIdentityUser()
     .AddHostLogging();
 ```
