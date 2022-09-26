@@ -82,8 +82,7 @@ EXEC Rhetos.DataMigrationApplyMultiple 'Common', 'Principal', 'ID, Name';
 ### Rules for writing data-migration scripts
 
 1. Each script must have a unique tag at the beginning (GUID is recommended).
-   Based on that tag, Rhetos monitors which scripts are already executed.
-   After the deployment, the script's that should not be edited, otherwise the script might be executed again on the same database.
+   Based on that tag, Rhetos monitors which scripts have already been executed.
 2. The script may only read and write data from the migration tables; it should never directly access the original tables.
    The migration tables are created by `DataMigrationUse` procedure, executed at the beginning of the script.
    They have same name as the original tables, but are placed in the database schema with "_" prefix (underscore).
@@ -115,6 +114,12 @@ you might need to **manually adjust** the *DataMigrationUse* and *DataMigrationA
   Make sure to specify the correct [column type](Data-structure-properties).
 * You may remove *DataMigrationUse* for columns that are not needed in this script. Keep the ID column.
 * You may remove columns from *DataMigrationApplyMultiple* if not modifying the data in those columns. Keep the ID column.
+
+Data migration scripts should be written in such way that allows a script to be executed
+**multiple times** without negative consequences.
+For example, before inserting a record, it should check if the record already exists.
+This principle simplifies more advanced scenarios such as automatic downgrades and upgrades,
+or error recovery on dbupdate.
 
 ### Modifying an existing data-migration script
 
