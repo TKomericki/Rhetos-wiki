@@ -21,6 +21,8 @@ See [How to Contribute](How-to-Contribute) for more information.
 Tutorials:
 
 * [Creating a new application with Rhetos framework](Creating-a-new-application-with-Rhetos-framework)
+  * [Prerequisites](Prerequisites)
+  * [Recommended application setup](Recommended-application-setup)
 * How to create a data model:
   * [Data model and relationships](Data-model-and-relationships)
   * [Basic property types](Data-structure-properties)
