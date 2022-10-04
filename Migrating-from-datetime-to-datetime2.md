@@ -71,8 +71,7 @@ WHERE
     c.InfoType LIKE 'Rhetos.Dsl.DefaultConcepts.DateTimePropertyInfo%'
     AND c.CreateQuery LIKE 'ALTER TABLE % ADD % DATETIME %';
 
-SELECT
-    DateTimeColumn = c.CreateQuery,
+SELECT DISTINCT
     dc.ConceptInfoKey,
     dc.CreateQuery,
     dc.RemoveQuery,
