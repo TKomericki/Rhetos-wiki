@@ -16,9 +16,10 @@ Contents:
    4. [Use NLog to write application's system log into a file](#use-nlog-to-write-applications-system-log-into-a-file)
    5. [Adding localization](#adding-localization)
    6. [Improve Entity Framework performance](#improve-entity-framework-performance)
-4. [Publishing the application to a test environment or production](#publishing-the-application-to-a-test-environment-or-production)
-5. [A more complex project structure](#a-more-complex-project-structure)
-6. [Read next](#read-next)
+4. [Use environment-specific configuration file](#use-environment-specific-configuration-file)
+5. [Publishing the application to a test environment or production](#publishing-the-application-to-a-test-environment-or-production)
+6. [A more complex project structure](#a-more-complex-project-structure)
+7. [Read next](#read-next)
 
 ## Prerequisites
 
@@ -376,6 +377,21 @@ EF configuration settings:
     </entityFramework>
 </configuration>
 ```
+
+## Use environment-specific configuration file
+
+Environment-specific settings, such as database connection string,
+should not be written in appsettings.json nor committed to source repository.
+
+1. Add `local.settings.json` file to your project folder (beside appsettings.json).
+   Make sure that the file is not referenced in your project's .csproj file.
+   Delete any mention from .csproj, if needed.
+2. In Program.cs, immediately after the line `WebApplication.CreateBuilder`,
+   add line `builder.Configuration.AddJsonFile($"local.settings.json", optional: true, reloadOnChange: true);`
+3. Add `local.settings.json` line to the `.gitignore` in your source repository root folder.
+
+Now you can move database connection string, user permission overrides, and other local settings
+from `appsettings.json` to `local.settings.json`.
 
 ## Publishing the application to a test environment or production
 
