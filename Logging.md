@@ -34,11 +34,11 @@ In your Rhetos application you can:
 1. Define custom event types for your log: `var logger = context.LogProvider.GetLogger("my event type")`,
    and [write](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Logging.Interfaces/ILogger.cs)
    log entries: `logger.Write(...)`.
-2. Configure logging in `Web.config` to create rules on when and where to send those events.
-   Review the `nlog` section in your Rhetos application's *Web.config* file for some examples.
+2. Configure logging in `nlog.config` or `Web.config` to create rules on when and where to send those events.
+   Review the `nlog` section in your Rhetos application's config file for some examples.
 
 Here are explained some examples from the default configuration of the `<nlog>` section
-in Rhetos application's `Web.config` file.
+in Rhetos application's `nlog.config` or `Web.config` file.
 Uncomment any existing rule or add new rules as needed.
 
 | Web.config `<nlog>` rule | Description |

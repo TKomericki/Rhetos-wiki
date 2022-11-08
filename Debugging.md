@@ -138,15 +138,6 @@ Steps:
    This is helpful if you want to see the *parameter values* for the queries.
 5. Rhetos has a detailed [system logging](Logging#system-log) of all actions it performs.
    It is set up to log *errors only* by default, to avoid any performance penalty.
-   You can enable more detailed logging to see what is going on inside the application.
-   The following examples are often used in practice. To enable each rule,
-   uncomment the existing entry in the `Web.config` file:
-   * Client requests with short description:
-     Uncomment `"ProcessingEngine Request" ... writeTo="TraceLog"`,
-     the log entries will be written to Logs\RhetosServerTrace.log.
-   * Full data on requests and responses:
-     Uncomment `"ProcessingEngine Commands"` and `"ProcessingEngine CommandsResult"`,
-     the log entries will be written to Logs\RhetosServerCommandsTrace.xml.
-   * Full detailed logging:
-     Uncomment `name="*" minLevel="Trace"`,
-     the log entries will be written to Logs\RhetosServerTrace.log.
+   To see what is going on inside the application, you can enable more detailed logging
+   by adding an NLog entry in the `nlog.config` or `Web.config` file.
+   See the examples in [System log](Logging#system-log) section.
