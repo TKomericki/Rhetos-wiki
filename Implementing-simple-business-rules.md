@@ -120,6 +120,16 @@ Code examples for **DefaultValue** are available in DSL script [DefaultValueTest
 
 Code examples for **AutoCode**, **CreationTime** and **ModificationTimeOf** are available in DSL script [SimpleBusinessLogic.rhe](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/CommonConcepts.TestApp/DslScripts/SimpleBusinessLogic.rhe) script.
 
+In the following example, the book codes are generated automatically, using a 3-digit code format
+with the prefix "BOOK" (BOOK001, BOOK002, etc.), and the user cannot enter or change the codes. 
+
+```c
+Entity Book
+{
+    ShortString Code { AutoCode; DefaultValue 'item => "BOOK+++"'; DenyUserEdit; }
+}
+```
+
 ## Logging data changes and auditing
 
 * `Logging` - Creates a database trigger that monitors all inserts, updates and deletes, and writes them to `Common.Log` table.
