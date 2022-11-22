@@ -28,6 +28,7 @@ Review the following articles if needed:
 
 * Configuring Http.sys registry settings <https://stackoverflow.com/questions/16600113/request-url-too-long-20k-characters-iis-7/24282934#24282934>.
 * IISServerOptions for [In-process hosting with IIS and ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/in-process-hosting?view=aspnetcore-5.0)
+* [BadHttpRequestException: Request body too large.](https://github.com/dotnet/aspnetcore/issues/20369)
 
 ## Kestrel
 
