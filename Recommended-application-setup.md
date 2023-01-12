@@ -320,7 +320,7 @@ Add localization to your Rhetos app:
         .AddPortableObjectLocalization(options => options.ResourcesPath = "Localization")
         .AddMemoryCache();
 
-    // ... Add after UseRouting(), if applicable:
+    // ... Add after UseRouting() or UseHttpsRedirection(), if applicable:
     // For information on ordering the Localization Middleware in the middleware pipeline of Program.cs, see ASP.NET Core Middleware https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-6.0#middleware-order
     app.UseRequestLocalization(options =>
     {

@@ -144,6 +144,23 @@ Build configuration must be moved from *Web.config* to *rhetos-build.settings.js
 
 ### The "Resources" folder usage
 
+This legacy feature copies files from referenced projects and NuGet packages:
+All files located in the Resources folder are copied to the current application's RhetosAssets folder.
+This feature is not enabled by default.
+
+Migration to Rhetos v5:
+
+1. **Enable** copying "Resources" files from packages by setting `Rhetos:Build:BuildResourcesFolder`
+   option to `true` in `rhetos-build.settings.json` file.
+2. If your application directly contains Rhetos assets files in "Resources" folder,
+   place them in "Resources\Rhetos" folder instead,
+   to avoid conflicts with other usages of the Resources folder.
+   Alternatively, move the files to a referenced project's "Resources" folder.
+3. Note that "TextReplacements.xml" file no longer needs to be in the Resources folder.
+   Place it in the project's root folder.
+
+Migration to Rhetos v4:
+
 1. Rhetos will not generated this folder by default.
    * For existing applications and plugins to work, **enable** "Resources" folder
      in `rhetos-build.settings.json` file with `"BuildResourcesFolder": true`,
@@ -154,7 +171,8 @@ Build configuration must be moved from *Web.config* to *rhetos-build.settings.js
    * If the files must be in this location for the application to work,
      **create** a new NuGet package with these files in the Resources folder,
      and reference that package from this project.
-   * **Move** "TextReplacements.xml" from Resources to root project folder.
+3. Note that "TextReplacements.xml" file no longer needs to be in the Resources folder.
+   Place it in the project's root folder.
 
 ### Custom usage of AssemblyGenerator
 
