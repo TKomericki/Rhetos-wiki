@@ -82,11 +82,12 @@ and some *parameters* after the keyword. Statements can be nested in other state
 
 1. For this tutorial, create the following folder structure with 3 subfolders.
    It will allow us to add new components and test projects later.
+   "Bookstore" is the *solution* folder, "Bookstore.Service" is the *project* folder.
 
    ```text
-   * Bookstore
-       * src
-           * Bookstore.Service
+   Bookstore
+   └───src
+       └───Bookstore.Service
    ```
 
 2. Open console in **Bookstore.Service** folder, and execute the following commands to create
