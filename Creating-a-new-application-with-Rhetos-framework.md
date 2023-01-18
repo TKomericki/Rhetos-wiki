@@ -253,12 +253,11 @@ By default, Rhetos permissions will not allow anonymous users to read any data. 
 ```
 
 Run `dotnet run` and browse to `https://localhost:5000/Demo/ReadBooks`.
-You should receive a response value `0 books.` indicating there are 0 entries in the database.
 
-* Instead of `https://localhost:5000`, your application might have a different base URI.
-  See the base URI in the output text from `dotnet run` command.
-* For the rest of this tutorial, the examples will use the **port number 5000**.
-  Replace it with your application's port number if it is different.
+* Instead of `https://localhost:5000`, your application might have a **different base URI**.
+  Find the base URI in the output of the `dotnet run` command (**check the port number and http/https**).
+
+* If successful, you should receive a response value `0 books.` indicating there are 0 entries in the database.
 
 In `WriteBook` method, `unitOfWork.CommitAndClose()` commits the database transaction
 for the current unit of work (a web request).
