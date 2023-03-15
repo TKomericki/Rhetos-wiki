@@ -290,7 +290,7 @@ EXEC Rhetos.DataMigrationApplyMultiple 'Bookstore', 'Topic', 'ID, Code';
 
 ### Changing a property's type
 
-If a property's type is changed, deployment of the new version will to the following
+If a property's type is changed, deployment of the new version will do the following:
 
 * First, the old column will be removed from the table, automatically keeping the backup in the migration table.
 * New property will be created and the data will be restored from the migration table.
