@@ -64,6 +64,8 @@ so the entity names and similar features should be considered case sensitive (`D
 
 Single-line comments begin with a double slash (`//`).
 
+Multi-line block comments are delimited by `/*` and `*/` (since Rhetos v5.4).
+
 ## Flat vs. nested statements
 
 Rhetos reads the DSL scripts as a set of somewhat independent statements (with references between them).
