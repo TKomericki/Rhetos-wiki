@@ -94,7 +94,7 @@ and some *parameters* after the keyword. Statements can be nested in other state
    a new Web API application and add Rhetos:
 
    ```batch
-   dotnet new webapi
+   dotnet new webapi --framework net6.0
    dotnet add package Rhetos.Host
    dotnet add package Rhetos.Host.AspNet
    dotnet add package Rhetos.CommonConcepts
