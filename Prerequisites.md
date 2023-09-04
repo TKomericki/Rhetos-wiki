@@ -37,7 +37,7 @@ Tutorials in this wiki use the following development tools, as a recommended app
   Select the latest version based on the .NET version of your application,
   see "[Supported frameworks](https://www.linqpad.net/Download.aspx)".
 * [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms), the latest version.
-* To manage databases on a local machine for development and testing, install [SQL Server 2019](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) "Developer" edition.
+* To manage databases on a local machine for development and testing, install [SQL Server 2019 or newer](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) "Developer" edition.
 
 Verify command-prompt utilities after installation:
 
