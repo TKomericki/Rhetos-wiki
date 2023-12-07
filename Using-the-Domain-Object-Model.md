@@ -50,7 +50,7 @@ Contents:
 ## How to execute the examples
 
 The examples from this article can be executed with the [LINQPad](https://www.linqpad.net/)
-script `Rhetos Server DOM.linq`, already available in your application's folder,
+script `Rhetos DOM.linq`, already available in your application's folder,
 or create a "playground" console app in Visual Studio with ConsoleDump NuGet plugin.
 
 * **LINQPad** - Simple to setup, nicer output format. Free, but IntelliSense (autocomplete) requires buying a license.
@@ -61,7 +61,8 @@ or create a "playground" console app in Visual Studio with ConsoleDump NuGet plu
 1. Download and install [LINQPad](https://www.linqpad.net).
    Select the latest version based on the .NET version of your application,
    see "[Supported frameworks](https://www.linqpad.net/Download.aspx)".
-2. Open the LINQPad script `LinqPad\Rhetos Server DOM.linq` from your application's folder.
+2. Open the existing LINQPad script `Rhetos DOM.linq` from your application's binaries folder
+   (for example `Bookstore.Service\bin\Debug\net6.0\LinqPad\Rhetos DOM.linq`).
 3. Run it with F5. It should print a few tables and end with "Done.".
 
 Notes:
