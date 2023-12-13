@@ -161,8 +161,8 @@ Suppressing permissions is useful only in an early stage of the project, while p
 It allows developers to test the new features without need to manage users, roles and permissions.
 
 The basic permission checking can be turned off in a development environment by setting
-the following options in the application's **Web.config** file, or preferably a user-specific
-config file (for example, **ExternalAppSettings.config**, referenced from web.config).
+the following options in the application's configuration file, or preferably a user-specific
+local configuration file.
 
 1. **Rhetos:AppSecurity:AllClaimsForUsers** - *(recommended)* The value should contain a comma-separated
    list of users, formatted `username@servername`, that will automatically have all basic permissions.

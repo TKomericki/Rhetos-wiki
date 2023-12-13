@@ -41,7 +41,7 @@ Here are explained some examples from the default configuration of the `<nlog>` 
 in Rhetos application's `nlog.config` or `Web.config` file.
 Uncomment any existing rule or add new rules as needed.
 
-| Web.config `<nlog>` rule | Description |
+| `<nlog>` rule | Description |
 | --- | --- |
 | `<logger name="*" minLevel="Info" writeTo="MainLog" />` | Write errors and warnings to RhetosServer.log. Enabled by default. |
 | `<logger name="ProcessingEngine CommandsWithServerError" minLevel="Trace" writeTo="TraceCommandsXml" />` | On internal server error write a full server request description to RhetosServerCommandsTrace.xml. Enabled by default. |
@@ -54,7 +54,7 @@ but the system log does not contain a useful information,
 try the following options:
 
 * Increate the level of detail for the system log to maximum:
-  In `Web.config` *temporarily* uncomment the line with
+  In the configuration file *temporarily* uncomment the line with
   `<logger name="*" minLevel="Trace" writeTo="TraceLog" />`
   (this will reduce the application's performance),
   reproduce the issue in your application,

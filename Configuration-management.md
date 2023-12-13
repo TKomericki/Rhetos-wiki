@@ -44,10 +44,10 @@ Content:
      ```
 3. **Environment-specific configuration files** contain settings that are specific for a single
    developer/test/production environment.
-   They extends or overrides the base configuration (Web.config or rhetos-app.settings.json).
+   They extends or overrides the base configuration (Web.config, appsettings.json or rhetos-app.settings.json).
    These files should be optional and excluded from source repository.
    Environment-specific configuration files:
-   * *rhetos-app.local.settings.json* (since Rhetos v4.0), see configuration sources below for more details.
+   * *local.settings.json* or *rhetos-app.local.settings.json* (Rhetos v4 only), see configuration sources below for more details.
    * In Web.config file, the environment-specific configuration files can be explicitly referenced in
      different sections of the configuration. For example, `appSettings` element in the snippet above
      references *ExternalAppSettings.config* file.
