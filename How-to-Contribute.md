@@ -48,8 +48,8 @@ Contributions are done by [creating a fork]((https://help.github.com/articles/fo
 Before submitting a pull request:
 
 * Check if your code conforms to the [Rhetos coding standard](Rhetos-coding-standard).
-* Open command prompt and run `CleanBuildDeployTest.bat`, and check the the last output line
-  is `CleanBuildDeployTest.bat SUCCESSFULLY COMPLETED.`
+* Open command prompt and run `CleanBuildTest.bat`, and check the the last output line
+  is `CleanBuildTest.bat SUCCESSFULLY COMPLETED.`
   * This batch script runs a clean build and all unit tests.
   * Before running the script, edit `Source\Rhetos\RhetosPackages.config` to contain
     line `<package id="Rhetos.CommonConceptsTest" source="..\..\CommonConcepts\CommonConceptsTest" />`.
