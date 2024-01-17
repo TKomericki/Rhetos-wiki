@@ -32,7 +32,7 @@ See the NLog documentation for available options: <https://nlog-project.org/conf
 In your Rhetos application you can:
 
 1. Define custom event types for your log: `var logger = context.LogProvider.GetLogger("my event type")`,
-   and [write](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Logging.Interfaces/ILogger.cs)
+   and [write](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.Core.Integration/Logging/ILogger.cs)
    log entries: `logger.Write(...)`.
 2. Configure logging in `nlog.config` or `Web.config` to create rules on when and where to send those events.
    Review the `nlog` section in your Rhetos application's config file for some examples.

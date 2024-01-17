@@ -70,11 +70,11 @@ Default configuration sources for project with **DeployPackages**:
 
 Common build options classes:
 
-* [BuildOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/BuildOptions.cs)
-* [RhetosBuildEnvironment](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/RhetosBuildEnvironment.cs) - Specified by development environment setup. Considered hardcoded during build.
-* [IAssetsOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/IAssetsOptions.cs)
-* [CommonConceptsOptions](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/Plugins/Rhetos.Dom.DefaultConcepts.Interfaces/CommonConceptsOptions.cs)
-* [CommonConceptsDatabaseSettings](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/Plugins/Rhetos.Dom.DefaultConcepts.Interfaces/CommonConceptsDatabaseSettings.cs)
+* [BuildOptions](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.Core.Integration/Utilities/BuildOptions.cs)
+* [RhetosBuildEnvironment](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.Core.Integration/Utilities/RhetosBuildEnvironment.cs) - Specified by development environment setup. Considered hardcoded during build.
+* [IAssetsOptions](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.Core.Integration/Utilities/IAssetsOptions.cs)
+* [CommonConceptsOptions](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.CommonConcepts/Dom.DefaultConcepts.Interfaces/CommonConceptsOptions.cs)
+* [CommonConceptsDatabaseSettings](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.CommonConcepts/Dom.DefaultConcepts.Interfaces/CommonConceptsDatabaseSettings.cs)
 
 ### Database update configuration
 
@@ -98,7 +98,7 @@ Default configuration sources for application with **DeployPackages**:
 Common dbupdate options classes:
 
 * All classes from "Application run-time configuration" are available.
-* [DbUpdateOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/DbUpdateOptions.cs)
+* [DbUpdateOptions](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.Core/Utilities/DbUpdateOptions.cs)
 
 ### Application run-time configuration
 
@@ -118,11 +118,11 @@ Default configuration sources for application with **DeployPackages**:
 
 Common runtime options classes:
 
-* [RhetosAppOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/RhetosAppOptions.cs)
-* [DatabaseOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/DatabaseOptions.cs)
-* [AppSecurityOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/AppSecurityOptions.cs)
-* [IAssetsOptions](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/IAssetsOptions.cs)
-* [CommonConceptsRuntimeOptions](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/Plugins/Rhetos.Dom.DefaultConcepts.Interfaces/CommonConceptsRuntimeOptions.cs)
+* [RhetosAppOptions](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.Core/Utilities/RhetosAppOptions.cs)
+* [DatabaseOptions](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.Core/Utilities/DatabaseOptions.cs)
+* [AppSecurityOptions](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.Core/Utilities/AppSecurityOptions.cs)
+* [IAssetsOptions](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.Core.Integration/Utilities/IAssetsOptions.cs)
+* [CommonConceptsRuntimeOptions](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.CommonConcepts/Dom.DefaultConcepts.Interfaces/CommonConceptsRuntimeOptions.cs)
 * [RhetosAppEnvironment](https://github.com/Rhetos/Rhetos/blob/release-4/Source/Rhetos.Utilities/RhetosAppEnvironment.cs) (Rhetos v4)
 
 ## Reading configuration with custom options classes

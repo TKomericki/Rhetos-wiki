@@ -232,7 +232,7 @@ There is no other way of finding that out but to browse already generated code
 (e.g. ServerDom.Repositories.cs, or other "*Repositories.cs" files that are generated within the project folder),
 and Rhetos core source code itself.
 Best way of doing this is to find similar functionality in
-[CommonConcepts](https://github.com/Rhetos/Rhetos/tree/master/CommonConcepts) and work from there.
+[CommonConcepts](https://github.com/Rhetos/Rhetos/tree/master/src/Rhetos.CommonConcepts) and work from there.
 After a while you will get a hang of it and navigate through code generators and generated relatively easy.
 
 Now that we have created a new concept **DeactivateOnDelete**, we can use it in a DSL script, for example:

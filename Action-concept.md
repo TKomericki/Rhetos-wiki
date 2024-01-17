@@ -117,7 +117,7 @@ Solution:
    * See example of how to register a custom class directly in the Rhetos app:
      [ConfigureRhetosHostBuilder: ConfigureContainer](https://github.com/Rhetos/Bookstore/blob/5068c6cd8ba5b5c3eb0b596a2e6db991a47612ff/src/Bookstore.Service/Startup.cs#L146)
    * See example of how to register your plugin’s classes as a plugin module:
-     [AutofacModuleConfiguration.cs](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/Plugins/Rhetos.Dom.DefaultConcepts/AutofacModuleConfiguration.cs)
+     [AutofacModuleConfiguration.cs](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.CommonConcepts/Dom.DefaultConcepts/AutofacModuleConfiguration.cs)
    * Classes that depend on **user context** and **database connection** should be registered with `InstancePerLifetimeScope()`.
    * A singleton class should be registered to with `SingleInstance()`.
    * For other component registration options please refer to Autofac documentation:

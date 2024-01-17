@@ -144,6 +144,6 @@ Table of contents:
     - => EntityFramework will not automatically convert the data when loading a `bigint` column from database into an `int` property. Use CAST(.. AS INT) in the SQL query to match database column and C# property type.
 * Using your own method in LINQ query results with NotSupportedException: `LINQ to Entities does not recognize the method '...'`.
     - A) Use an alternative method that is supported in LINQ to EntityFramework (see the examples above).
-      See [Rhetos DatabaseExtensionFunctions](https://github.com/Rhetos/Rhetos/blob/master/CommonConcepts/Plugins/Rhetos.Dom.DefaultConcepts.Interfaces/DatabaseExtensionFunctions.cs) and [System.Data.Entity.DbFunctions](https://msdn.microsoft.com/en-us/library/system.data.entity.dbfunctions%28v=vs.113%29.aspx) for some available methods.
+      See [Rhetos DatabaseExtensionFunctions](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.MsSqlEf6/CommonConcepts/DatabaseExtensionFunctions.cs) and [System.Data.Entity.DbFunctions](https://msdn.microsoft.com/en-us/library/system.data.entity.dbfunctions%28v=vs.113%29.aspx) for some available methods.
     - B) Load the queried data before using the method. For example: `query.Select(item => MyFunction(item))` => `query.ToList().Select(item => MyFunction(item))`.
       Note than loading all items may degrade performance. Use `ToSimple()` or load a subset of records/properties if possible.

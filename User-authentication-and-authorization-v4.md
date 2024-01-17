@@ -32,7 +32,7 @@ The users will log in by typing a username and a password.
 ### Additional authentication options
 
 A custom authentication plugin may be added by implementing the
-[IUserInfo](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/IUserInfo.cs) interface
+[IUserInfo](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.Core.Integration/Utilities/IUserInfo.cs) interface
 and registering the new implementation as the Rhetos plugin.
 See [Implementing Rhetos authentication plugins](Implementing-Rhetos-authentication-plugins) article
 for more details on the topic.

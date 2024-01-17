@@ -24,7 +24,7 @@ Various Rhetos plugins are available for additional administration features:
 * [AspNetFormsAuth](https://github.com/Rhetos/AspNetFormsAuth) -
   A backward-compatibility plugin for forms authentication on Rhetos v4 and earlier.
 
-Rhetos components use [IUserInfo](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/IUserInfo.cs)
+Rhetos components use [IUserInfo](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.Core/Utilities/IUserInfo.cs)
 interface to retrieve current user information.
 
 * IUserInfo may be customized by registering a new implementation in Rhetos DI container.

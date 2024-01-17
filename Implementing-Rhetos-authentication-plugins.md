@@ -42,7 +42,7 @@ On the Rhetos homepage (<http://localhost/Rhetos>, or similar) at the end of the
 
 ## Providing the username
 
-Each Rhetos authentication plugin needs to provide the username to the rest of the system. This is achieved by implementing the [IUserInfo](https://github.com/Rhetos/Rhetos/blob/master/Source/Rhetos.Utilities/IUserInfo.cs) interface and registering the implementation plugin. IUserInfo contains the username getter; all other members are optional. A new IUserInfo instance is created for each web request.
+Each Rhetos authentication plugin needs to provide the username to the rest of the system. This is achieved by implementing the [IUserInfo](https://github.com/Rhetos/Rhetos/blob/master/src/Rhetos.Core/Utilities/IUserInfo.cs) interface and registering the implementation plugin. IUserInfo contains the username getter; all other members are optional. A new IUserInfo instance is created for each web request.
 
 For example, **Windows Authentication** user in Rhetos v4 is implemented by [WcfWindowsUserInfo](https://github.com/Rhetos/Rhetos/blob/release-4/Source/Rhetos.Security/WcfWindowsUserInfo.cs) class, where the username is returned by WCF library call `ServiceSecurityContext.Current.WindowsIdentity.Name`.
 

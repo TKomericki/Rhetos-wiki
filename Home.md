@@ -73,7 +73,7 @@ Support:
 
 ## Recommended plugin packages
 
-* [CommonConcepts](https://github.com/Rhetos/Rhetos/tree/master/CommonConcepts) contains standard concepts for building applications, such as entities, validations and computations.
+* [CommonConcepts](https://github.com/Rhetos/Rhetos/tree/master/src/Rhetos.CommonConcepts) contains standard concepts for building applications, such as entities, validations and computations.
 * [RestGenerator](https://github.com/Rhetos/RestGenerator) automatically generates RESTful JSON web API for all entities and other readable or writable data structures that are defined in a Rhetos application. Additionally allows executing actions and downloading reports.
 * [FloydExtensions](https://github.com/Rhetos/FloydExtensions), generates TypeScript model interfaces from DSL model and provides the structure metadata.
 * [LogArchive](https://github.com/Rhetos/LogArchive), provides simple archive storage for the Common.Log table to improve the application's performance.
