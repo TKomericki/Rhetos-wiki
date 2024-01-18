@@ -288,7 +288,7 @@ There are different kinds of filters that can be used here.
     ```C#
     // Generic property filter:
     var filter1 = new FilterCriteria("Title", "StartsWith", "B");
-    repository.Bookstore.Book.Query(filter1).Dump();
+    repository.Bookstore.Book.Query(filter1).ToList().Dump();
 
     // IEnumerable of generic filters:
     var filter2 = new FilterCriteria("Title", "Contains", "ABC");
