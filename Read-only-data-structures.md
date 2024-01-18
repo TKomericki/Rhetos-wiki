@@ -242,7 +242,7 @@ Task:
 > based on some basic information on the books.
 > The rating algorithm is the following:
 > If the title contains text "super", add 100 point.
-> If it contains "great", add 50 point. It the book is foreign, add 20%.
+> If it contains "great", add 50 point. If the book is foreign, add 20%.
 
 Solution:
 
@@ -292,7 +292,7 @@ but its data is not mapped to database (or Entity Framework).
 
 In the object model and in the web API, Computed is used in a same way as other data structures
 (Browse, SqlQueryable or Entity) for reading the data.
-For example, <https://localhost:5000/rest/Bookstore/BookRating/> will return the list of book ratings.
+For example, <https://localhost:5000/rest/Bookstore/ExpectedBookRating/> will return the list of book ratings.
 
 In the example above, the C# code snippet uses the generated object model
 to query the books from the database with `repository.Bookstore.Book.Query()`.
