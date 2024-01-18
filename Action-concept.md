@@ -1,5 +1,5 @@
 The `Action` concept is intended for implementing server commands that are available as web API methods.
-The action's code will be execution in a single transaction,
+The action's code will be executed in a single transaction,
 so that in case of an error the whole action will be canceled (all-or-nothing).
 
 Contents:
@@ -23,11 +23,11 @@ Tips:
 
 * Action is executed in a single transaction. This means that it is not possible to log an exception error in the database.
 * Row permission and other security claims are not checked inside the action.
-  * The user need to have permission to execute the action (has the *Execute* claim on the action),
+  * The user needs to have permission to execute the action (has the *Execute* claim on the action),
       but not for the resources that are used inside the action. The code inside the action has access to all data.
   * The user's permission can be explicitly checked in the action by using `Common.RowPermissionsReadItems`
       and `Common.RowPermissionsWriteItems` filters, or `IAuthorizationManager` for checking security claims.
-* Reference property in the action parameters will not be bound the the database by the ORM (the lazy-load is not supported).
+* Reference property in the action parameters will not be bound to the database by the ORM (the lazy-load is not supported).
   Also the whole entity cannot be sent as a reference property parameter.
 * Exceptions that are cached in the action must be rethrown.
 
@@ -54,9 +54,9 @@ Module Demo
 
 ## Execute an action
 
-1. The execute an action from a client application, see Actions in
+1. To execute an action from a client application, see Actions in
    [REST service specification](https://github.com/Rhetos/RestGenerator/blob/master/Readme.md#actions).
-2. The execute an action in C# code from the Rhetos application,
+2. To execute an action in C# code from the Rhetos application,
    see [Using the Domain Object Model](Using-the-Domain-Object-Model#execute-action)
 
 ## How to use another class from an Action, without dependency injection
