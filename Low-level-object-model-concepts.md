@@ -399,7 +399,7 @@ Note that AfterSave is called **at the end of the Save method of the given entit
 but not at the end of the web request (i.e. database transaction), and it is still possible
 that the current operation will be canceled and transaction rolled back.
 
-* For example, is multiple entity types are modified in a same web request, error in saving a second entity
+* For example, if multiple entity types are modified in a same web request, error in saving a second entity
   will also undo all changes on the first one.
 
 For the reasons described above, AfterSave should not be used to **directly send confirmation emails,
