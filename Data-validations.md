@@ -195,7 +195,7 @@ and simply reference it in the ItemFilter.
 Example task:
 
 > The disposal explanation should not contain uncertain word, such as "maybe".
-> Add an entity that will contains a list of uncertain words,
+> Add an entity that contains a list of uncertain words,
 > and deny entering explanations that contain those words.
 >
 > (see the Disposal entity in the previous example)
@@ -431,7 +431,7 @@ Example:
 
 ```c
 ItemFilter ExplanationTooLong 'item => item.Explanation.Length > 500';
-InvalidData ExplanationTooLong 'The {0} cannot be longer then {1} characters.'
+InvalidData ExplanationTooLong 'The {0} cannot be longer than {1} characters.'
 {
     MessageParametersConstant '"Explanation", 500';
 }
@@ -439,8 +439,8 @@ InvalidData ExplanationTooLong 'The {0} cannot be longer then {1} characters.'
 
 ### MessageFunction concept
 
-MessageParametersConstant allows **full control over validation's error message and metadata**.
-It is implemented as a lambda expression the returns the error message and metadata
+MessageFunction allows **full control over validation's error message and metadata**.
+It is implemented as a lambda expression that returns the error message and metadata
 for a given list of invalid record IDs.
 
 Example:
