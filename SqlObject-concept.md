@@ -35,14 +35,14 @@ Module Demo
 SqlObject contains an arbitrary feature name (`SomeSpecialUniqueIndex`), a creation script, and a removal script:
 
 * The **creation script** will be executed on deployment to create the object in the database.
-* The **removal script** will persisted in the database for later use.
+* The **removal script** is persisted in the database for later use.
   * It will be executed on deployment to remove this object when it no longer exists
     in the new version of the application.
   * The removal script is also executed if the object needs to be regenerated
     (if the creation script is modified, or any dependent object). In that case, the old removal
     script is executed to remove the old version of the object, then the new creation script
     to create it again.
-  * See below more info on removal scripts below.
+  * See more info on removal scripts below.
 * `SqlDependsOn` is required here to specify that the `SomeEntity.Name` column must be created in database
   *before* this object is created (see more info on dependencies below).
 
@@ -150,7 +150,7 @@ After fixing the `DROP INDEX` command in DSL script, Rhetos will still use the o
 of the removal script (with `DDDDROP`).
 The old version of the script is persisted in table Rhetos.AppliedConcept, column RemoveQuery.
 If the corrupted SQL object is deployed only to your own database, you can manually fix this script in this table.
-It the SQL object have already been deployed to other developers' databases or other environments,
+If the SQL object has already been deployed to other developers' databases or other environments,
 you should write a simple data-migration script to fix this on every environment.
 
 This data-migration script fixes the bug from the example above:
