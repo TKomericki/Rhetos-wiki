@@ -700,7 +700,7 @@ SQL query not-nullable optimization when filtering by a GUID:
 * Available since Rhetos v4.1.
 Applications with EntityFrameworkUseDatabaseNullSemantics option set to true (default) already had this optimization implemented by Entity Framework.
 
-EF query cash reuse when filtering by a list of GUIDs:
+EF query cache reuse when filtering by a list of GUIDs:
 
 * When using the *in/notin* operators and the value is of type `IList<Guid>` or `IList<Guid?>`, an expression like `item => value.Contains(item.ID)` is usually used in the LINQ query.
 The problem with this expression is that Entity Framework does not cache the generated SQL query, and generating it may take a few seconds for very complex LINQ queries.
