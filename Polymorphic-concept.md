@@ -194,11 +194,11 @@ Additional considerations on the polymorphic materialization:
 * The "materialized" table is an automatically generated Entity.
   Internally, its data is automatically maintained by generated concepts ComputedFrom and KeepSynchronized
   (see [Persisting the computed data](Persisting-the-computed-data)).
-* If where are no references or extensions to the polymorphic,
+* If there are no references or extensions to the polymorphic,
   but you still want to create the materialized table,
   you can manually create it by adding the `Materialized;` keyword in the polymorphic.
 * The materialized table contains only ID column by default,
-  by you can manually add additional polymorphic properties to this entity
+  but you can manually add additional polymorphic properties to this entity
   and map it to the source with ComputedFrom concept on each property.
 * When materializing a polymorphic, there is a *restriction* to its implementations:
   **Each implementation** of the polymorphic should have a **stable ID value**.
