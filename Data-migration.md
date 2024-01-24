@@ -37,7 +37,7 @@ the database structure only in rare cases in order to optimize standard Rhetos f
 Data-migration scripts are regular SQL scripts, with the code following specific rules as describes in this article.
 The scripts are placed in a DataMigration subfolder in the Rhetos package.
 When deploying the Rhetos package, the scripts will be executed in the alphabetical order
-(by folder name, than file name), skipping the scripts that were already executed in previous deployments.
+(by folder name, then file name), skipping the scripts that were already executed in previous deployments.
 
 The recommended naming conception:
 
@@ -130,7 +130,7 @@ or a production environment.
 * For example, if the old script inserted some incorrect data, then the new version of the script might
   leave the old incorrect data on databases where the old script has already been executed.
 
-As a rule of thumb, it best to **always add a new script that corrects the data, instead of modifying the existing one**.
+As a rule of thumb, it is best to **always add a new script that corrects the data, instead of modifying the existing one**.
 
 * This way, you can be sure that the result will be the same on all environments,
   whether the old script has been executed previously or not.
